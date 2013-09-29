@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SquareView">
+        <attr name="stateType" format="enum">
+            <enum name="EMPTY" value="0"/>
+            <enum name="PLAYER1" value="1"/>
+            <enum name="PLAYER2" value="2"/>
+            <enum name="LOCKED" value="3"/>            
+        </attr>
+        <attr name="fillColor" format="color"/>
+        <attr name="borderColor" format="color"/>
+    </declare-styleable>
+</resources>
