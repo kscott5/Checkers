@@ -1,120 +1,69 @@
 package karega.scott.checkers;
 
 
+import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.AttributeSet;
+import android.graphics.RectF;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
 public class BoardSquare extends View {	
-	private BoardSquareInfo boardSquareInfo;
-	Paint playerPaint;
-	Paint fillPaint;
-	Paint borderPaint;
+	private BoardSquareInfo squareInfo;
+	private Paint playerPaint;
+	private Paint activePlayerPaint;
+	private Paint fillPaint;
+	private Paint borderPaint;
+	private RectF container;
 	
+	public BoardSquare(Context context) {
+		super(context);
+
+		this.playerPaint = new Paint();
+		this.activePlayerPaint = new Paint();
+		this.fillPaint = new Paint();
+		this.borderPaint = new Paint();
+		
+		this.container = new RectF();
+		this.container.left = 0;
+		this.container.top = 0;
+		this.container.right = BoardSquareInfo.WIDTH;
+		this.container.bottom = BoardSquareInfo.HEIGHT;
+				
+		this.squareInfo = new BoardSquareInfo();
+	}
+
 	/**
-	 * State of the Square
+	 * Listener used when this view's {@link BoardSquareInfo} has changed
 	 * @author Administrator
 	 *
 	 */
-	public enum StateType {
-		EMPTY(0), 
-		PLAYER1(1), 
-		PLAYER2(2), 
-		LOCKED(3);
-		
-		public final int value;
-		private StateType(int value) { this.value = value; }
-		
-		public static StateType valueOf(int value) {
-			for(StateType type : StateType.values()) {
-				if(type.value == value)
-					return type;
-			}
-			
-			return StateType.EMPTY;
-		} // end valueOf			
-	};
-	
-	/**
-	 * Initialize the {@link karega.scott.checkers.BoardSquare}
-	 * @param context
-	 */
-	public BoardSquare(Context context)  {
-		super(context);
-		
-		initBoardSquareInfo();
-	} // end constructor
+	public class OnSquareInfoChangeListener implements OnChangeListener {
 
-	public BoardSquare(Context context, BoardSquareInfo info) {
-		super(context);
+		@Override
+		public void OnSquareInformationChange() {
+			updateView(true);
+		}
 		
-		this.boardSquareInfo = info;
 	}
-	/**
-	 * Initialize the {@link karega.scott.checkers.BoardSquare}
-	 * @param context
-	 * @param attrs
-	 */
-	public BoardSquare(Context context, AttributeSet attrs) {		
-		this(context);
-		
-		initBoardSquareInfo();
-		
-		if(attrs != null) {
-			// Initialize array
-			TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SquareView);
-			
-			try { // Get attributes
-				this.boardSquareInfo.stateType = StateType.valueOf(a.getInteger(
-					R.styleable.SquareView_stateType, StateType.EMPTY.value));
-								
-				this.setBorderColor(a.getColor(R.styleable.SquareView_borderColor, Color.BLACK));
-				this.setFillColor(a.getColor(R.styleable.SquareView_fillColor, Color.GRAY));
-			} finally {
-				a.recycle();
-			}
-		} // end if
-		
-	} // end constructor
-
-	/*
-	 * Initialize this board's square information
-	 */
-	public void initBoardSquareInfo() {
-		this.playerPaint = new Paint();
-		this.fillPaint = new Paint();
-		this.borderPaint = new Paint();
-		this.boardSquareInfo = new BoardSquareInfo();
-		this.boardSquareInfo.stateType = StateType.EMPTY;
-		this.boardSquareInfo.xAxis = 0;
-		this.boardSquareInfo.yAxis = 0;
-		this.boardSquareInfo.isDirty = true;
-		this.boardSquareInfo.fillColor = Color.GRAY;
-		this.boardSquareInfo.borderColor = Color.BLACK;
-	}
-
 
 	@Override
 	public void onDraw(Canvas canvas){
-		Log.v("SquareView.onDraw", this.boardSquareInfo.stateType.toString());
+		Log.v("SquareView.onDraw", this.squareInfo.getStateType().toString());
 		super.onDraw(canvas);
 		
-		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);	
+		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);
 		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, borderPaint);
 
-		switch(this.boardSquareInfo.stateType) {
+		switch(this.squareInfo.getStateType()) {
 			case PLAYER1:
 			case PLAYER2:
-				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, this.getWidth()/2, playerPaint);
+				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
+				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);				
 				break;
 				
 			case LOCKED:
@@ -123,62 +72,43 @@ public class BoardSquare extends View {
 				break;
 		}
 	} // end onDraw
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		Log.v("BoardSquare.onTouchEvent", this.boardSquareInfo.toString());
-		return super.onTouchEvent(event);
-	}
-	
+		
 	@Override
 	public boolean equals(Object value) {
 		if(value == null || !(value instanceof BoardSquare))
 			return false;
 		
 		BoardSquare view = (BoardSquare)value;
-		return this.getId() == view.getId() &&
-				this.getXAxis() == view.getXAxis() &&
-				this.getYAxis() == view.getYAxis() &&
-				this.getIsDirty() == view.getIsDirty() &&
-				this.getFillColor() == view.getFillColor() &&
-				this.getBorderColor() == view.getBorderColor() &&
-				this.getStateType() == view.getStateType();
+		return this.squareInfo.equals(view.getSquareInformation());
 	}
 	
-	public int getFillColor() { return this.boardSquareInfo.fillColor; }
-	public void setFillColor(int value) { 
-		this.boardSquareInfo.fillColor = value;
-		
-		this.fillPaint.setColor(value);
+	public BoardSquareInfo getSquareInformation() { return this.squareInfo; }
+	public void setSquareInformation(BoardSquareInfo value) { 
+		this.squareInfo = value;
+		this.updateView(true);
+		this.squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
+	}
+
+	/**
+	 * Updates the paint objects before attempting to redraw this view
+	 * @param refresh
+	 */
+	protected void updateView(boolean refresh) {
+		this.fillPaint.setColor(squareInfo.getFillColor());
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-	}
-	
-	public int getBorderColor() { return this.boardSquareInfo.borderColor;}
-	public void setBorderColor(int value) { 
-		this.boardSquareInfo.borderColor = value;
 
-		this.borderPaint.setColor(value);
+		this.borderPaint.setColor(squareInfo.getBorderColor());
 		this.borderPaint.setStyle(Paint.Style.STROKE);			
-	}
-	
-	public int getPlayerColor() { return this.boardSquareInfo.playerColor; }
-	public void setPlayerColor(int value) {  
-		this.boardSquareInfo.playerColor = value;
 
-		this.playerPaint.setColor(value);
+		this.playerPaint.setColor(squareInfo.getPlayerColor());
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
-	}
 
-	
-	public StateType getStateType() { return this.boardSquareInfo.stateType; }
-	public void setStateType(StateType value) { this.boardSquareInfo.stateType = value; }
-	
-	public int getXAxis() { return this.boardSquareInfo.xAxis; }
-	public void setXAxis(int value) { this.boardSquareInfo.xAxis = value; }
-	
-	public int getYAxis() { return this.boardSquareInfo.yAxis; }
-	public void setYAxis(int value) { this.boardSquareInfo.yAxis = value; }
-	
-	public boolean getIsDirty() { return this.boardSquareInfo.isDirty; }
-	public void setIsDirty(boolean value) { this.boardSquareInfo.isDirty = value; }
+		this.activePlayerPaint.setColor(squareInfo.getActivePlayerColor());
+		this.activePlayerPaint.setStrokeWidth(BoardSquareInfo.STROKE_WIDTH);
+		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
+		
+		if(refresh) {
+			this.invalidate();
+		}
+	}	
 }
