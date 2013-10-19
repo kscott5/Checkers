@@ -29,13 +29,12 @@ public class BoardGameEngine {
 	 * Create the data used on the checker board
 	 */
 	private Hashtable<Point, BoardSquareInfo> initializeBoardGameData() {
+		Log.v("GameBoardAdapter.initializeBoardGameData", "now...");
 		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>();
 		
 		int key = 0;
 		for(int row=0; row<ROWS; row++)  {
 			for(int col=0; col<COLUMNS; col++) {
-				Log.v("GameBoardAdapter.createNewData", String.format("position: %1s, row: %2s, col: %3s, (row+col)%%2 = %4s",key, row, col, (row+col)%2));
-				
 				BoardSquareInfo square = null;
 				Point point = new Point(col, row);				
 				
