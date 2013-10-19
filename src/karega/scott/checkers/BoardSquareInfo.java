@@ -96,29 +96,17 @@ public class BoardSquareInfo {
 	 * Swap current information with {@link BoardSquareInfo} who {@link BoardSquareStateType} is EMPTY
 	 * @param value
 	 */
-	public boolean swapInformation(BoardSquareInfo value) {
+	public boolean swap(BoardSquareInfo value) {
 		if(value.getStateType() == BoardSquareStateType.EMPTY)	{
-			boolean tmpIsKing = value.isKing;
-			int tmpFillColor = value.fillColor;
-			int tmpBorderColor = value.borderColor;
-			int tmpPlayerColor = value.playerColor;
-			int tmpActivePlayerColor = value.activePlayerColor;
-			
 			value.isKing = this.isKing;
 			value.fillColor = this.fillColor;
 			value.borderColor = this.borderColor;
 			value.playerColor = this.playerColor;
 			value.stateType = this.stateType;
+			value.activePlayerColor = this.playerColor;
 			value.invokeOnChangeListener();
 			
-			this.isKing = tmpIsKing;
-			this.fillColor = tmpFillColor;
-			this.borderColor = tmpBorderColor;
-			this.playerColor = tmpPlayerColor;
-			this.stateType = BoardSquareStateType.EMPTY;
-			this.activePlayerColor = tmpActivePlayerColor;
-			this.invokeOnChangeListener();
-			
+			makeEmpty();
 			return true;
 		}
 		
@@ -128,7 +116,7 @@ public class BoardSquareInfo {
 	/**
 	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
 	 */
-	public void makeInformationEmpty() {
+	public void makeEmpty() {
 		this.isKing = false;
 		this.fillColor = Color.DKGRAY;
 		this.borderColor = Color.BLACK;

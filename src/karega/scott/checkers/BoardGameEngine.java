@@ -197,15 +197,10 @@ public class BoardGameEngine {
 	 * 
 	 * @param square
 	 */
-	public void movePlayer(BoardSquare square) {
+	public boolean movePlayer(BoardSquare square) {
 		BoardSquareInfo info = square.getSquareInformation();
-				
-		if(info.getStateType() == BoardSquareStateType.EMPTY) {
 
-			if(this.currentPlayerStateType == BoardSquareStateType.PLAYER1) {
-				
-			} 
-		}
+		return movePlayer1ToTarget(info) || movePlayer2ToTarget(info);
 	} // end movePlayer	
 	
 	/**
@@ -213,10 +208,9 @@ public class BoardGameEngine {
 	 * @param target
 	 * @param colBackward
 	 * @param rowBackward
-	 * @param levelUp
 	 * @return
 	 */
-	protected boolean movePlayerToTarget(BoardSquareInfo target, boolean colBackward, boolean rowBackward, boolean levelUp) {
+	protected boolean movePlayerToTarget(BoardSquareInfo target, boolean colBackward, boolean rowBackward) {
 		int colIncrement = (colBackward)? -1: 1;
 		int rowIncrement = (rowBackward)? -1: 1;
 		
@@ -224,16 +218,29 @@ public class BoardGameEngine {
 		if(data.containsKey(point)) {
 			BoardSquareInfo pointInfo = this.data.get(point);
 			
-			if(this.activeSquareInfo.equals(pointInfo) && !levelUp) 
+			if(this.activeSquareInfo.equals(pointInfo)) 
 			{
-				this.activeSquareInfo.swapInformation(target);
+				this.activeSquareInfo.swap(target);
 				return true;
-			} else if(pointInfo.getStateType() != this.currentPlayerStateType &&
-				pointInfo.getStateType() != BoardSquareStateType.EMPTY && 
-				pointInfo.getStateType() != BoardSquareStateType.LOCKED &&
-				movePlayerToTarget(pointInfo, colBackward, rowBackward, true)) 
+			} else if((pointInfo.getStateType() != this.currentPlayerStateType &&
+				pointInfo.getStateType() == BoardSquareStateType.EMPTY &&
+				movePlayerToTarget(pointInfo, colBackward, rowBackward)) 
+				|| 
+				(pointInfo.getStateType() != this.currentPlayerStateType &&
+				pointInfo.getStateType() == BoardSquareStateType.EMPTY &&
+				movePlayerToTarget(pointInfo, !colBackward, !rowBackward)))
 			{
-				pointInfo.makeInformationEmpty();
+				pointInfo.makeEmpty();
+				return true;
+			} else if((pointInfo.getStateType() != this.currentPlayerStateType &&
+				pointInfo.getStateType() != BoardSquareStateType.EMPTY && 
+				movePlayerToTarget(pointInfo, colBackward, rowBackward)) 
+				||
+				(pointInfo.getStateType() != this.currentPlayerStateType &&
+				pointInfo.getStateType() != BoardSquareStateType.EMPTY && 
+				movePlayerToTarget(pointInfo, !colBackward, !rowBackward))) 
+			{
+				pointInfo.makeEmpty();
 				return true;
 			} // end if-else
 		} // end if
@@ -247,14 +254,23 @@ public class BoardGameEngine {
 	 * @return
 	 */
 	protected boolean movePlayer1ToTarget(BoardSquareInfo target) {
+		if(this.currentPlayerStateType != BoardSquareStateType.PLAYER1)
+			return false;
+		
 		if(target.getStateType() != BoardSquareStateType.EMPTY) 
 			return false;
 		
-		boolean moveBackwards = movePlayerToTarget(target,true,true,false);
-		boolean moveForwards = movePlayerToTarget(target,false,true,false);
+		boolean moveBackwards = movePlayerToTarget(target,true,true);
+		boolean moveForwards = movePlayerToTarget(target,false,true);
 		
-		return moveBackwards || moveForwards;
-	}
+		if(moveBackwards || moveForwards) {
+			this.activeSquareInfo = null;
+			this.currentPlayerStateType = BoardSquareStateType.PLAYER2;
+			return true;
+		}
+		
+		return false;
+	} // end movePlayer1ToTarget
 
 	/**
 	 * Move player2 to target location
@@ -262,12 +278,21 @@ public class BoardGameEngine {
 	 * @return
 	 */
 	protected boolean movePlayer2ToTarget(BoardSquareInfo target) {
+		if(this.currentPlayerStateType != BoardSquareStateType.PLAYER2)
+			return false;
+		
 		if(target.getStateType() != BoardSquareStateType.EMPTY) 
 			return false;
 		
-		boolean moveBackwards = movePlayerToTarget(target,true,false,false);
-		boolean moveForwards = movePlayerToTarget(target,false,false,false);
+		boolean moveBackwards = movePlayerToTarget(target,true,false);
+		boolean moveForwards = movePlayerToTarget(target,false,false);
 		
-		return moveBackwards || moveForwards;
-	}
+		if(moveBackwards || moveForwards) {
+			this.activeSquareInfo = null;
+			this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
+			return true;
+		}
+		
+		return false;
+	} // end movePlayer2ToTarget
 } // end BoardGameEngine
