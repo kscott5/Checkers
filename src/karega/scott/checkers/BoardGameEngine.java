@@ -7,7 +7,7 @@ import android.util.Log;
 
 /**
  * Gaming engine for Checkers
- * @author Administrator
+ * @author Karega Scott
  *
  */
 public class BoardGameEngine {
