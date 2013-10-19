@@ -5,6 +5,11 @@ import karega.scott.checkers.BoardSquareStateType;
 import android.graphics.Point;
 import android.util.Log;
 
+/**
+ * Gaming engine for Checkers
+ * @author Administrator
+ *
+ */
 public class BoardGameEngine {
 	private static final int ROWS = 8;
 	private static final int COLUMNS = 8;
