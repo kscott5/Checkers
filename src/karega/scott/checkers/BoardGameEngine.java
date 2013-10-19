@@ -2,7 +2,6 @@ package karega.scott.checkers;
 import java.util.Hashtable;
 
 import karega.scott.checkers.BoardSquareStateType;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 
@@ -13,82 +12,72 @@ public class BoardGameEngine {
 	private BoardSquareStateType currentPlayerStateType;
 	private BoardSquareInfo activeSquareInfo;
 	
-	private Hashtable<Point, BoardSquareInfo> data;
+	private Hashtable<Point, BoardSquareInfo> squares;
 	
 	public BoardGameEngine() {
 		this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
 		this.activeSquareInfo = null;		
-		this.data = initializeBoardGameData();
+		this.squares = initializeBoardGameData();
 	}
 	
 	/*
 	 * Create the data used on the checker board
 	 */
 	private Hashtable<Point, BoardSquareInfo> initializeBoardGameData() {
-		Hashtable<Point, BoardSquareInfo> list = new Hashtable<Point, BoardSquareInfo>();
+		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>();
 		
 		int key = 0;
 		for(int row=0; row<ROWS; row++)  {
 			for(int col=0; col<COLUMNS; col++) {
 				Log.v("GameBoardAdapter.createNewData", String.format("position: %1s, row: %2s, col: %3s, (row+col)%%2 = %4s",key, row, col, (row+col)%2));
 				
-				BoardSquareInfo value = new BoardSquareInfo();
-
-				Point point = new Point(col, row);
-				
-				value.setId(key);
-				value.setPoint(point);
-				value.setIsKing(false);
-				
-				value.setBorderColor(Color.BLACK);
+				BoardSquareInfo square = null;
+				Point point = new Point(col, row);				
 				
 				// Configure Locked square
-				if((row+col)%2 == 0) {
-					value.setFillColor(Color.GRAY);					
-					value.setStateType(BoardSquareStateType.LOCKED);
-				} 
-				
-				// Configure Player 1 square
-				else if((row+col)%2 != 0 && row < 3) {
-					value.setFillColor(Color.DKGRAY);
-					value.setStateType(BoardSquareStateType.PLAYER1);
-					value.setPlayerColor(Color.RED);
-					value.resetActivePlayerColor();
-				}
-
-				// Configure Empty square
-				else if((row+col)%2 != 0 && (row == 3 || row == 4)) {					
-					value.setFillColor(Color.DKGRAY);					
-					value.setStateType(BoardSquareStateType.EMPTY);
-				}					
-
-				// Configure Player 2 square
-				else if((row+col)%2 != 0 && row > 4) {
-					value.setFillColor(Color.DKGRAY);
-					value.setStateType(BoardSquareStateType.PLAYER2);
-					value.setPlayerColor(Color.BLUE);
-					value.resetActivePlayerColor();
+				if((row+col)%2 != 0 && row < 3) {
+					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER1);
+				} else if((row+col)%2 != 0 && (row == 3 || row == 4)) {					
+					square = new BoardSquareInfo(key, point, BoardSquareStateType.EMPTY);
+				} else if((row+col)%2 != 0 && row > 4) {
+					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER2);
+				} else { 
+					//if((row+col)%2 == 0) {
+					square = new BoardSquareInfo(key, point, BoardSquareStateType.LOCKED);					
 				}
 				
-				list.put(point, value);
+				square.reset();
+				initialSquares.put(point, square);
 				key++;
 			} // end for
 		} // end for
 		
-		return list;
+		return initialSquares;
 	} //end initializeBoardGameData
 
+	/**
+	 * Starts a new game
+	 */
+	public void newGame() {
+		this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
+		this.activeSquareInfo = null;		
+
+		for(BoardSquareInfo square : this.squares.values()) {
+			square.reset();
+		} // end for
+	} //end newGame
+	
 	// TODO: Implement custom collection and include these methods
 	public BoardSquareInfo getData(int id) {
-		for(BoardSquareInfo info : this.data.values()) {
-			if(info.getId() == id)
-				return info;
+		for(BoardSquareInfo square : this.squares.values()) {
+			if(square.getId() == id)
+				return square;
 		}
 		return null;
 	}
 	
 	public int getSize() {
-		return this.data.size();
+		return this.squares.size();
 	}
 	// end TODO: Implement custom collection and include above methods
 	
@@ -112,10 +101,10 @@ public class BoardGameEngine {
 			{
 				if(activeSquareInfo != null) {
 					// Reset previous selected chip
-					activeSquareInfo.resetActivePlayerColor();
+					activeSquareInfo.deactivatePlayer();
 				} //end if
 				
-				info.setActivePlayerColor();					
+				info.activatePlayer();					
 				activeSquareInfo = info;
 				return true;
 			} // end if (player movable)
@@ -178,8 +167,8 @@ public class BoardGameEngine {
 		int rowIncrement = (rowForward)? 1: -1;
 		
 		Point point = new Point(info.getPoint().x+colIncrement, info.getPoint().y+rowIncrement);
-		if(data.containsKey(point)) {
-			BoardSquareInfo pointInfo = this.data.get(point);
+		if(squares.containsKey(point)) {
+			BoardSquareInfo pointInfo = this.squares.get(point);
 			
 			if(pointInfo.getStateType() == BoardSquareStateType.EMPTY) { 		
 				return true;
@@ -215,8 +204,8 @@ public class BoardGameEngine {
 		int rowIncrement = (rowBackward)? -1: 1;
 		
 		Point point = new Point(target.getPoint().x+colIncrement, target.getPoint().y+rowIncrement);
-		if(data.containsKey(point)) {
-			BoardSquareInfo pointInfo = this.data.get(point);
+		if(squares.containsKey(point)) {
+			BoardSquareInfo pointInfo = this.squares.get(point);
 			
 			if(this.activeSquareInfo.equals(pointInfo)) 
 			{

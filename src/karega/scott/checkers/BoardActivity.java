@@ -90,7 +90,7 @@ public class BoardActivity extends Activity {
 			switch(view.getId())
 			{
 				case R.id.newGame:					
-					boardGame.invalidate();
+					boardEngine.newGame();
 					break;
 					
 				case R.id.exitGame:

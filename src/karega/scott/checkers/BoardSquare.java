@@ -5,6 +5,7 @@ import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +34,11 @@ public class BoardSquare extends View {
 		this.container.top = 0;
 		this.container.right = BoardSquareInfo.WIDTH;
 		this.container.bottom = BoardSquareInfo.HEIGHT;
-				
-		this.squareInfo = new BoardSquareInfo();
+		
+		// Use of double brace initialization found example on stackoverflow
+		// http://stackoverflow.com/questions/9108531/is-there-an-object-initializers-in-java
+		this.squareInfo = new BoardSquareInfo
+				(-1, new Point(){{ x=-1; y=-1;}}, BoardSquareStateType.EMPTY);
 	}
 
 	/**

@@ -12,21 +12,32 @@ public class BoardSquareInfo {
 	public static final int STROKE_WIDTH = 2;
 	public static final boolean USE_CENTER = false;
 
-	public interface OnChangeListener {
-		public void OnSquareInformationChange();
-	}
+	private final int id;
+	private final Point point;
+	private final BoardSquareStateType baseStateType;
 	
-	private OnChangeListener changeListener;
-	
-	private int id = 0;
-	private Point point = new Point();
 	private boolean isKing = false;
 	private BoardSquareStateType stateType = BoardSquareStateType.EMPTY;
 	private int fillColor = Color.GRAY;
 	private int borderColor = Color.BLACK;
 	private int playerColor = Color.TRANSPARENT;
 	private int activePlayerColor = Color.TRANSPARENT;
-
+	
+	public BoardSquareInfo(int id, Point point, BoardSquareStateType baseStateType) {
+		this.id = id;
+		this.point = point;
+		this.baseStateType = baseStateType;
+	}
+	/**
+	 * Listener used when {@link BoardSquareInfo} state changes
+	 * @author Administrator
+	 *
+	 */
+	public interface OnChangeListener {
+		public void OnSquareInformationChange();
+	}
+	
+	private OnChangeListener changeListener;
 	public void setOnChangeListener(OnChangeListener listener) {
 		if(listener != null) {
 			changeListener = listener;
@@ -39,18 +50,19 @@ public class BoardSquareInfo {
 		}
 	}
 	
-	public void resetActivePlayerColor() {
+	public void deactivatePlayer() {
 		this.activePlayerColor = this.playerColor;
 		invokeOnChangeListener();
 	}
 	
-	public void setActivePlayerColor() {
+	public void activatePlayer() {
 		this.activePlayerColor = Color.WHITE;
 		invokeOnChangeListener();
 	}
 	
 	public int getFillColor() { return this.fillColor; }
-	public void setFillColor(int value) { 
+	public void setFillColor(int value) {
+		
 		this.fillColor = value;
 		invokeOnChangeListener();
 	}
@@ -64,7 +76,7 @@ public class BoardSquareInfo {
 	public int getPlayerColor() { return this.playerColor; }
 	public void setPlayerColor(int value) {  
 		this.playerColor = value;
-		resetActivePlayerColor();
+		deactivatePlayer();
 		invokeOnChangeListener();
 	}
 
@@ -76,10 +88,9 @@ public class BoardSquareInfo {
 		invokeOnChangeListener();
 	}
 	
-	public Point getPoint() { return point; }
-	public void setPoint(Point value) {
-		this.point = value;
-	}	
+	public Point getPoint() { return point; }	
+	public int getId() { return this.id; }
+	public BoardSquareStateType getBaseSquareStateType() { return this.baseStateType; }
 	
 	public boolean getIsKing() { return this.isKing; }
 	public void setIsKing(boolean value) { 
@@ -87,10 +98,45 @@ public class BoardSquareInfo {
 		invokeOnChangeListener();
 	}
 
-	public int getId() { return this.id; }
-	public void setId(int value) {
-		this.id = value;
-	}
+	/**
+	 * Returns the {@link BoardSquareInfo} to its initial state
+	 */
+	public void reset() {
+		this.isKing = false;
+		this.borderColor = Color.BLACK;
+				
+		switch(this.baseStateType) {
+			case EMPTY:
+				this.fillColor = Color.DKGRAY;
+				this.playerColor = Color.TRANSPARENT;
+				this.activePlayerColor = Color.TRANSPARENT;
+				this.stateType = BoardSquareStateType.EMPTY;
+				break;
+				
+			case LOCKED:
+				this.fillColor = Color.GRAY;
+				this.playerColor = Color.TRANSPARENT;
+				this.activePlayerColor = Color.TRANSPARENT;
+				this.stateType = BoardSquareStateType.EMPTY;
+				break;
+				
+			case PLAYER1:
+				this.fillColor = Color.DKGRAY;
+				this.playerColor = Color.RED;
+				this.activePlayerColor = Color.RED;
+				this.stateType = BoardSquareStateType.PLAYER1;
+				break;
+			
+			case PLAYER2:
+				this.fillColor = Color.DKGRAY;
+				this.playerColor = Color.BLUE;
+				this.activePlayerColor = Color.BLUE;
+				this.stateType = BoardSquareStateType.PLAYER2;
+				break;
+		} //end switch
+		
+		invokeOnChangeListener();
+	} //end reset
 	
 	/**
 	 * Swap current information with {@link BoardSquareInfo} who {@link BoardSquareStateType} is EMPTY
@@ -130,14 +176,15 @@ public class BoardSquareInfo {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("BoardSquareInfo{");
-		builder.append(String.format("id=%s, ", id));
-		builder.append(String.format("Point=%s, ", point.toString()));
-		builder.append(String.format("isKing=%s, ", isKing));
-		builder.append(String.format("stateType=%s, ", stateType));
-		builder.append(String.format("fillColor=%s, ", fillColor));
-		builder.append(String.format("borderColor=%s", borderColor));
-		builder.append(String.format("playerColor=%s", playerColor));
-		builder.append(String.format("activePlayerColor=%s", activePlayerColor));
+		builder.append(String.format("id=%s, ", this.id));
+		builder.append(String.format("Point=%s, ", this.point.toString()));
+		builder.append(String.format("isKing=%s, ", this.isKing));
+		builder.append(String.format("stateType=%s, ", this.stateType));
+		builder.append(String.format("baseStateType=%s, ", this.baseStateType));
+		builder.append(String.format("fillColor=%s, ", this.fillColor));
+		builder.append(String.format("borderColor=%s", this.borderColor));
+		builder.append(String.format("playerColor=%s", this.playerColor));
+		builder.append(String.format("activePlayerColor=%s", this.activePlayerColor));
 		builder.append("}");
 		return "";
 	}
@@ -153,6 +200,7 @@ public class BoardSquareInfo {
 				this.point.y == info.point.y &&
 				this.isKing == info.isKing &&
 				this.stateType == info.stateType &&
+				this.baseStateType == info.baseStateType &&
 				this.playerColor == info.playerColor &&
 				this.activePlayerColor == info.activePlayerColor &&
 				this.fillColor == info.fillColor &&
