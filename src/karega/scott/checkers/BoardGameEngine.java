@@ -6,286 +6,166 @@ import android.graphics.Point;
 import android.util.Log;
 
 /**
- * Gaming engine for Checkers
+ * Base game engine
  * @author Karega Scott
  *
  */
-public class BoardGameEngine {
-	private static final int ROWS = 8;
-	private static final int COLUMNS = 8;
+public abstract class BoardGameEngine {
+	protected static final int ROWS = 8;
+	protected static final int COLUMNS = 8;
 	
-	private BoardSquareStateType currentPlayerStateType;
-	private BoardSquareInfo activeSquareInfo;
+	private BoardSquareStateType currentPlayer;
+	private BoardSquareInfo activeSquare;
+	private BoardGameEngineType engineType;
 	
 	private Hashtable<Point, BoardSquareInfo> squares;
 	
-	public BoardGameEngine() {
-		this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
-		this.activeSquareInfo = null;		
+	/**
+	 * Creates the specific game engine for play
+	 * @param type @BoardGameEngineType
+	 * @return @link BoardGameEngine engine for play
+	 */
+	public static BoardGameEngine instance(BoardGameEngineType type) {
+		BoardGameEngine engine = null;
+		
+		switch(type) {
+			case CHECKERS:
+				engine = new CheckersEngine();
+				break;
+			case CHESS:
+				break;
+		}
+		
+		return engine;
+	} // end instance
+	
+	/**
+	 * Constructor for {@link BoardGameEngine}
+	 */
+	protected BoardGameEngine(BoardGameEngineType engineType) {
+		this.currentPlayer = BoardSquareStateType.PLAYER1;
+		this.engineType = engineType;
+		this.activeSquare = null;		
 		this.squares = initializeBoardGameData();
 	}
 	
-	/*
-	 * Create the data used on the checker board
+	/**
+	 *  Create the data used on the checker board
+	 * @return @link java.util.hashtable representing the data used for game play  
 	 */
-	private Hashtable<Point, BoardSquareInfo> initializeBoardGameData() {
-		Log.v("GameBoardAdapter.initializeBoardGameData", "now...");
-		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>();
-		
-		int key = 0;
-		for(int row=0; row<ROWS; row++)  {
-			for(int col=0; col<COLUMNS; col++) {
-				BoardSquareInfo square = null;
-				Point point = new Point(col, row);				
-				
-				// Configure Locked square
-				if((row+col)%2 != 0 && row < 3) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER1);
-				} else if((row+col)%2 != 0 && (row == 3 || row == 4)) {					
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.EMPTY);
-				} else if((row+col)%2 != 0 && row > 4) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER2);
-				} else { 
-					//if((row+col)%2 == 0) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.LOCKED);					
-				}
-				
-				square.reset();
-				initialSquares.put(point, square);
-				key++;
-			} // end for
-		} // end for
-		
-		return initialSquares;
-	} //end initializeBoardGameData
+	protected abstract Hashtable<Point, BoardSquareInfo> initializeBoardGameData();
 
 	/**
-	 * Starts a new game
+	 * Initializes the player's square for game play
+	 * @param square the {@link BoardSquareInfo} to initialize for game play
+	 * @return True when initialize else False 
 	 */
-	public void newGame() {
-		this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
-		this.activeSquareInfo = null;		
+	public abstract boolean setPlayerSquare(BoardSquare square);
+	
+	/**
+	 * 
+	 * @param square
+	 * @return
+	 */
+	public abstract boolean movePlayer(BoardSquare square);		
+
+	/**
+	 * Gets the current game engine used for play
+	 * @return @link BoardGameEngineType
+	 */
+	public final BoardGameEngineType getType() { return this.engineType; }
+	
+	/**
+	 * Starts a new game for play
+	 */
+	public final void newGame() {
+		this.currentPlayer = BoardSquareStateType.PLAYER1;
+		this.activeSquare = null;		
 
 		for(BoardSquareInfo square : this.squares.values()) {
 			square.reset();
 		} // end for
 	} //end newGame
 	
-	// TODO: Implement custom collection and include these methods
-	public BoardSquareInfo getData(int id) {
+	/**
+	 * Gets the current player for the game engine
+	 * @return @BoardSquareStateType
+	 */
+	public final BoardSquareStateType getCurrentPlayer() { return this.currentPlayer; }
+	
+	/**
+	 * Switch the current player for the game engine
+	 */
+	public final void switchCurrentPlayer() {
+		this.currentPlayer = (this.currentPlayer == BoardSquareStateType.PLAYER1)?
+				BoardSquareStateType.PLAYER2: BoardSquareStateType.PLAYER1;
+		
+		this.activeSquare = null;
+	} //end switchCurrentPlayer
+	
+	/**
+	 * Gets the data for the identifier
+	 * @param id a numeric identifier for game board square
+	 * @return @link BoardSquareInfo represented by the id
+	 */
+	public final BoardSquareInfo getData(int id) {
 		for(BoardSquareInfo square : this.squares.values()) {
 			if(square.getId() == id)
 				return square;
 		}
 		return null;
-	}
+	} // end getData
 	
-	public int getSize() {
+	/**
+	 * Gets the data for the key
+	 * @param key Identifier 
+	 * @return The @link BoardSquareInfo if key found else null
+	 */
+	public final BoardSquareInfo getData(Point key) {
+		if(!this.containsKey(key)) return null;
+		
+		return this.squares.get(key);
+	} // end getData
+	
+	/**
+	 * Returns the number of key/value pairs in the board game @link java.util.hashtable
+	 * @return
+	 */
+	public final int getSize() {
 		return this.squares.size();
+	} // end getSize
+	
+	/**
+	 * Determines if the game contains the key
+	 * @param key Identifier to lookup in the game data
+	 * @return True if key found else False
+	 */
+	public final boolean containsKey(Point key) {
+		if(key.x < 0 || key.x >= COLUMNS) return false;
+		if(key.y < 0 || key.y >= ROWS) return false;
+		
+		return this.squares.containsKey(key);
+	} // end containsKey
+	
+	/**
+	 * Determine if the player has selected a square for play
+	 * @return True/False
+	 */
+	public final boolean isPlayerSquareActive() {
+		return activeSquare != null;
+	} // end isPlayerSquareActive
+	
+	/**
+	 * Gets the current player's ready for moving
+	 * @return the current players selected @BoardSquareInfo
+	 */
+	public final BoardSquareInfo getActiveSquare() { return this.activeSquare; }
+	
+	/**
+	 * Sets the current player's square for moving
+	 * @param value
+	 */
+	public final void setActiveSquare(BoardSquareInfo value) {
+		this.activeSquare = value;
 	}
-	// end TODO: Implement custom collection and include above methods
-	
-	public boolean isPlayerSquareActive() {
-		return activeSquareInfo != null;
-	}
-	
-	/**
-	 * Determines if square is for the current player
-	 * @param square
-	 * @return true or false
-	 */
-	public boolean setPlayerSquare(BoardSquare square) {
-		BoardSquareInfo info = square.getSquareInformation();
-		
-		// Must be current player
-		if(currentPlayerStateType == info.getStateType()) 
-		{		
-			// Is the information movable
-			if(player1Movable(info) || player2Movable(info) || playerKingMovable(info)) 
-			{
-				if(activeSquareInfo != null) {
-					// Reset previous selected chip
-					activeSquareInfo.deactivatePlayer();
-				} //end if
-				
-				info.activatePlayer();					
-				activeSquareInfo = info;
-				return true;
-			} // end if (player movable)
-		} // end if
-		
-		return false;
-	} // end setPlayerSquare
-	
-	/**
-	 * Determine if the current player1 has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean player1Movable(BoardSquareInfo info) {
-		if(currentPlayerStateType == BoardSquareStateType.PLAYER1 || info.getIsKing()) {
-			boolean movableForwards = isPlayerMovable(info,true,true,true);
-			boolean movableBackwards = isPlayerMovable(info,false,true,true);
-			
-			return movableForwards || movableBackwards;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Determine if the current player2 has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean player2Movable(BoardSquareInfo info) {
-		if(currentPlayerStateType == BoardSquareStateType.PLAYER2 || info.getIsKing()) {
-			boolean movableForwards = isPlayerMovable(info,true,false,true);
-			boolean movableBackwards = isPlayerMovable(info,false,false,true);
-		
-			return movableForwards || movableBackwards;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Determine if the current player's king has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean playerKingMovable(BoardSquareInfo info) {
-		return (player1Movable(info) || player2Movable(info));
-	}
-	
-	/**
-	 * Determine if the current player has an available square to move to
-	 * @param info
-	 * @param colForward
-	 * @param rowForward
-	 * @param levelUp
-	 * @return
-	 */
-	protected boolean isPlayerMovable(BoardSquareInfo info, boolean colForward, boolean rowForward, boolean levelUp) {
-		int colIncrement = (colForward)? 1: -1;
-		int rowIncrement = (rowForward)? 1: -1;
-		
-		Point point = new Point(info.getPoint().x+colIncrement, info.getPoint().y+rowIncrement);
-		if(squares.containsKey(point)) {
-			BoardSquareInfo pointInfo = this.squares.get(point);
-			
-			if(pointInfo.getStateType() == BoardSquareStateType.EMPTY) { 		
-				return true;
-			} else if(pointInfo.getStateType() != this.currentPlayerStateType &&
-					pointInfo.getStateType() != BoardSquareStateType.LOCKED && levelUp) {
-				if(isPlayerMovable(pointInfo, colForward, rowForward, false))
-					return true;
-			}
-		} // end if
-		
-		return false;
-	} // end isPlayerMovable
-	
-	/**
-	 * 
-	 * @param square
-	 */
-	public boolean movePlayer(BoardSquare square) {
-		BoardSquareInfo info = square.getSquareInformation();
-
-		return movePlayer1ToTarget(info) || movePlayer2ToTarget(info);
-	} // end movePlayer	
-	
-	/**
-	 * Using the target location, work backwards to update the game board
-	 * @param target
-	 * @param colBackward
-	 * @param rowBackward
-	 * @return
-	 */
-	protected boolean movePlayerToTarget(BoardSquareInfo target, boolean colBackward, boolean rowBackward) {
-		int colIncrement = (colBackward)? -1: 1;
-		int rowIncrement = (rowBackward)? -1: 1;
-		
-		Point point = new Point(target.getPoint().x+colIncrement, target.getPoint().y+rowIncrement);
-		if(squares.containsKey(point)) {
-			BoardSquareInfo pointInfo = this.squares.get(point);
-			
-			if(this.activeSquareInfo.equals(pointInfo)) 
-			{
-				this.activeSquareInfo.swap(target);
-				return true;
-			} else if((pointInfo.getStateType() != this.currentPlayerStateType &&
-				pointInfo.getStateType() == BoardSquareStateType.EMPTY &&
-				movePlayerToTarget(pointInfo, colBackward, rowBackward)) 
-				|| 
-				(pointInfo.getStateType() != this.currentPlayerStateType &&
-				pointInfo.getStateType() == BoardSquareStateType.EMPTY &&
-				movePlayerToTarget(pointInfo, !colBackward, !rowBackward)))
-			{
-				pointInfo.makeEmpty();
-				return true;
-			} else if((pointInfo.getStateType() != this.currentPlayerStateType &&
-				pointInfo.getStateType() != BoardSquareStateType.EMPTY && 
-				movePlayerToTarget(pointInfo, colBackward, rowBackward)) 
-				||
-				(pointInfo.getStateType() != this.currentPlayerStateType &&
-				pointInfo.getStateType() != BoardSquareStateType.EMPTY && 
-				movePlayerToTarget(pointInfo, !colBackward, !rowBackward))) 
-			{
-				pointInfo.makeEmpty();
-				return true;
-			} // end if-else
-		} // end if
-		
-		return false;
-	} // end movePlayerToTarget	
-	
-	/**
-	 * Move player1 to target location
-	 * @param target
-	 * @return
-	 */
-	protected boolean movePlayer1ToTarget(BoardSquareInfo target) {
-		if(this.currentPlayerStateType != BoardSquareStateType.PLAYER1)
-			return false;
-		
-		if(target.getStateType() != BoardSquareStateType.EMPTY) 
-			return false;
-		
-		boolean moveBackwards = movePlayerToTarget(target,true,true);
-		boolean moveForwards = movePlayerToTarget(target,false,true);
-		
-		if(moveBackwards || moveForwards) {
-			this.activeSquareInfo = null;
-			this.currentPlayerStateType = BoardSquareStateType.PLAYER2;
-			return true;
-		}
-		
-		return false;
-	} // end movePlayer1ToTarget
-
-	/**
-	 * Move player2 to target location
-	 * @param target
-	 * @return
-	 */
-	protected boolean movePlayer2ToTarget(BoardSquareInfo target) {
-		if(this.currentPlayerStateType != BoardSquareStateType.PLAYER2)
-			return false;
-		
-		if(target.getStateType() != BoardSquareStateType.EMPTY) 
-			return false;
-		
-		boolean moveBackwards = movePlayerToTarget(target,true,false);
-		boolean moveForwards = movePlayerToTarget(target,false,false);
-		
-		if(moveBackwards || moveForwards) {
-			this.activeSquareInfo = null;
-			this.currentPlayerStateType = BoardSquareStateType.PLAYER1;
-			return true;
-		}
-		
-		return false;
-	} // end movePlayer2ToTarget
 } // end BoardGameEngine

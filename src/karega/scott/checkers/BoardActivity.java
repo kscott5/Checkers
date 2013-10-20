@@ -17,6 +17,7 @@ import android.widget.GridView;
  */
 public class BoardActivity extends Activity {
 	private BoardGameEngine boardEngine;
+	
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
@@ -28,7 +29,7 @@ public class BoardActivity extends Activity {
 		setContentView(R.layout.activity_board);
 		this.setTitle(R.string.app_name);
 		
-		boardEngine = new BoardGameEngine();
+		boardEngine = BoardGameEngine.instance(BoardGameEngineType.CHECKERS);
 		
 		boardGame = (GridView) this.findViewById(R.id.boardGame);
 		boardGame.setOnItemClickListener(new BoardActivity.InternalItemClickListener(boardEngine));
@@ -64,7 +65,7 @@ public class BoardActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Log.v("BoardActivity.InternalItemClickListener.onItemClick",
-					((BoardSquare)view).getSquareInformation().getStateType().toString());
+					((BoardSquare)view).getInformation().getStateType().toString());
 						
 			BoardSquare square = (BoardSquare)view;
 			if(engine.isPlayerSquareActive()) {

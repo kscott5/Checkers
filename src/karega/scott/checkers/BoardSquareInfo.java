@@ -15,18 +15,23 @@ public class BoardSquareInfo {
 	private final int id;
 	private final Point point;
 	private final BoardSquareStateType baseStateType;
+	private final BoardSquarePieceType basePieceType;
 	
-	private boolean isKing = false;
+	private BoardSquarePieceType pieceType;
 	private BoardSquareStateType stateType = BoardSquareStateType.EMPTY;
 	private int fillColor = Color.GRAY;
 	private int borderColor = Color.BLACK;
 	private int playerColor = Color.TRANSPARENT;
 	private int activePlayerColor = Color.TRANSPARENT;
 	
-	public BoardSquareInfo(int id, Point point, BoardSquareStateType baseStateType) {
+	public BoardSquareInfo(int id, Point point, 
+			BoardSquareStateType baseStateType, 
+			BoardSquarePieceType basePieceType) {
 		this.id = id;
 		this.point = point;
 		this.baseStateType = baseStateType;
+		this.basePieceType = basePieceType;
+		this.pieceType = basePieceType;
 	}
 	/**
 	 * Listener used when {@link BoardSquareInfo} state changes
@@ -92,9 +97,9 @@ public class BoardSquareInfo {
 	public int getId() { return this.id; }
 	public BoardSquareStateType getBaseSquareStateType() { return this.baseStateType; }
 	
-	public boolean getIsKing() { return this.isKing; }
-	public void setIsKing(boolean value) { 
-		this.isKing = value;
+	public boolean getIsKing() { return this.pieceType == BoardSquarePieceType.KING; }
+	public void makeKing() { 
+		this.pieceType = BoardSquarePieceType.KING;
 		invokeOnChangeListener();
 	}
 
@@ -102,7 +107,7 @@ public class BoardSquareInfo {
 	 * Returns the {@link BoardSquareInfo} to its initial state
 	 */
 	public void reset() {
-		this.isKing = false;
+		this.pieceType = this.basePieceType;
 		this.borderColor = Color.BLACK;
 				
 		switch(this.baseStateType) {
@@ -124,14 +129,14 @@ public class BoardSquareInfo {
 				this.fillColor = Color.DKGRAY;
 				this.playerColor = Color.RED;
 				this.activePlayerColor = Color.RED;
-				this.stateType = BoardSquareStateType.PLAYER1;
+				this.stateType = BoardSquareStateType.PLAYER2;
 				break;
 			
 			case PLAYER2:
 				this.fillColor = Color.DKGRAY;
 				this.playerColor = Color.BLUE;
 				this.activePlayerColor = Color.BLUE;
-				this.stateType = BoardSquareStateType.PLAYER2;
+				this.stateType = BoardSquareStateType.PLAYER1;
 				break;
 		} //end switch
 		
@@ -144,7 +149,7 @@ public class BoardSquareInfo {
 	 */
 	public boolean swap(BoardSquareInfo value) {
 		if(value.getStateType() == BoardSquareStateType.EMPTY)	{
-			value.isKing = this.isKing;
+			value.pieceType = this.pieceType;
 			value.fillColor = this.fillColor;
 			value.borderColor = this.borderColor;
 			value.playerColor = this.playerColor;
@@ -163,7 +168,7 @@ public class BoardSquareInfo {
 	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
 	 */
 	public void makeEmpty() {
-		this.isKing = false;
+		this.pieceType = BoardSquarePieceType.NONE;
 		this.fillColor = Color.DKGRAY;
 		this.borderColor = Color.BLACK;
 		this.playerColor = Color.TRANSPARENT;
@@ -178,9 +183,9 @@ public class BoardSquareInfo {
 		builder.append("BoardSquareInfo{");
 		builder.append(String.format("id=%s, ", this.id));
 		builder.append(String.format("Point=%s, ", this.point.toString()));
-		builder.append(String.format("isKing=%s, ", this.isKing));
-		builder.append(String.format("stateType=%s, ", this.stateType));
-		builder.append(String.format("baseStateType=%s, ", this.baseStateType));
+		builder.append(String.format("=%s, ", this.pieceType));
+		builder.append(String.format("PieceType=%s, ", this.basePieceType));
+		builder.append(String.format("StateType=%s, ", this.baseStateType));
 		builder.append(String.format("fillColor=%s, ", this.fillColor));
 		builder.append(String.format("borderColor=%s", this.borderColor));
 		builder.append(String.format("playerColor=%s", this.playerColor));
@@ -198,9 +203,9 @@ public class BoardSquareInfo {
 		return (this.id == info.id && 
 				this.point.x == info.point.x &&
 				this.point.y == info.point.y &&
-				this.isKing == info.isKing &&
 				this.stateType == info.stateType &&
 				this.baseStateType == info.baseStateType &&
+				this.basePieceType == info.basePieceType &&
 				this.playerColor == info.playerColor &&
 				this.activePlayerColor == info.activePlayerColor &&
 				this.fillColor == info.fillColor &&

@@ -1,11 +1,9 @@
 package karega.scott.checkers;
 
-
 import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
@@ -13,106 +11,134 @@ import android.view.View;
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
-public class BoardSquare extends View {	
+public abstract class BoardSquare extends View {	
 	private BoardSquareInfo squareInfo;
-	private Paint playerPaint;
-	private Paint activePlayerPaint;
+	
 	private Paint fillPaint;
 	private Paint borderPaint;
-	private RectF container;
 	
-	public BoardSquare(Context context) {
+	private BoardGameEngineType engineType;
+	
+	protected BoardSquare(Context context, BoardGameEngineType engineType) {
 		super(context);
 
-		this.playerPaint = new Paint();
-		this.activePlayerPaint = new Paint();
 		this.fillPaint = new Paint();
 		this.borderPaint = new Paint();
 		
-		this.container = new RectF();
-		this.container.left = 0;
-		this.container.top = 0;
-		this.container.right = BoardSquareInfo.WIDTH;
-		this.container.bottom = BoardSquareInfo.HEIGHT;
-		
-		// Use of double brace initialization found example on stackoverflow
-		// http://stackoverflow.com/questions/9108531/is-there-an-object-initializers-in-java
-		this.squareInfo = new BoardSquareInfo
-				(-1, new Point(){{ x=-1; y=-1;}}, BoardSquareStateType.EMPTY);
+		this.engineType = engineType;
 	}
 
+	/**
+	 * Creates the @link BoardSquare for the specific @link BoardGameEngineType
+	 * @param context
+	 * @param engineType @link BoardGameEngineType 
+	 * @return @BoardSquare
+	 */
+	public static BoardSquare instance(Context context, BoardGameEngineType engineType) {
+		switch(engineType) {
+			case CHECKERS:
+				return new CheckerBoardSquare(context);
+			case CHESS:
+				return null;
+			default:
+				return null;
+		}
+	} // end instance
+	
 	/**
 	 * Listener used when this view's {@link BoardSquareInfo} has changed
 	 * @author Administrator
 	 *
 	 */
-	public class OnSquareInfoChangeListener implements OnChangeListener {
+	public final class OnSquareInfoChangeListener implements OnChangeListener {
 
 		@Override
 		public void OnSquareInformationChange() {
 			updateView(true);
-		}
-		
-	}
-
-	@Override
-	public void onDraw(Canvas canvas){
-		Log.v("SquareView.onDraw", this.squareInfo.getStateType().toString());
-		super.onDraw(canvas);
-		
-		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);
-		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, borderPaint);
-
-		switch(this.squareInfo.getStateType()) {
-			case PLAYER1:
-			case PLAYER2:
-				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
-				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);				
-				break;
-				
-			case LOCKED:
-			case EMPTY:
-			default:
-				break;
-		}
-	} // end onDraw
-		
-	@Override
-	public boolean equals(Object value) {
-		if(value == null || !(value instanceof BoardSquare))
-			return false;
-		
-		BoardSquare view = (BoardSquare)value;
-		return this.squareInfo.equals(view.getSquareInformation());
-	}
-	
-	public BoardSquareInfo getSquareInformation() { return this.squareInfo; }
-	public void setSquareInformation(BoardSquareInfo value) { 
-		this.squareInfo = value;
-		this.updateView(true);
-		this.squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
-	}
+		}		
+	} // end OnSquarInfoChangeListener
 
 	/**
-	 * Updates the paint objects before attempting to redraw this view
-	 * @param refresh
+	 * Updates the view's paint object for redraw
+	 * @param refresh Flag used to refresh @link BoardSquare @link BoardSquareInfo
 	 */
-	protected void updateView(boolean refresh) {
+	protected abstract void updateViewForRedraw();
+
+	/**
+	 * Updates the @link BoardSquare paint objects
+	 * @param refresh Flag to invalidate the @link BoardSquare
+	 */
+	public void updateView(boolean refresh) {
 		this.fillPaint.setColor(squareInfo.getFillColor());
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
 		this.borderPaint.setColor(squareInfo.getBorderColor());
 		this.borderPaint.setStyle(Paint.Style.STROKE);			
 
-		this.playerPaint.setColor(squareInfo.getPlayerColor());
-		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
-
-		this.activePlayerPaint.setColor(squareInfo.getActivePlayerColor());
-		this.activePlayerPaint.setStrokeWidth(BoardSquareInfo.STROKE_WIDTH);
-		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
+		updateViewForRedraw();
 		
 		if(refresh) {
 			this.invalidate();
 		}
-	}	
-}
+	} // end updateView
+	
+	/**
+	 * Draws this @link BoardSquare @link BoardSquarePieceType
+	 * @param canvas
+	 */
+	protected abstract void drawBoardSquarePiece(Canvas canvas);
+	
+	@Override
+	public final void onDraw(Canvas canvas){
+		Log.v("SquareView.onDraw", this.squareInfo.getStateType().toString());
+		super.onDraw(canvas);
+		
+		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);
+		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, borderPaint);
+
+		drawBoardSquarePiece(canvas);
+	} // end onDraw
+	
+	@Override
+	public boolean equals(Object value) {
+		if(value == null || !(value instanceof BoardSquare))
+			return false;
+		
+		BoardSquare view = (BoardSquare)value;
+		return this.squareInfo.equals(view.getInformation());
+	}
+	
+	/**
+	 * Gets the information for the @link BoardSquare
+	 * @return
+	 */
+	public final BoardSquareInfo getInformation() { return this.squareInfo; }
+
+	/**
+	 * Sets the information used for the @link BoardSquare
+	 * @param value
+	 */
+	public final void setInformation(BoardSquareInfo value) { 
+		this.squareInfo = value;
+		this.updateView(true);
+		this.squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
+	} // end setInformation
+
+	/**
+	 * Gets the paint object for filling the @link BoardSquare
+	 * @return 
+	 */
+	protected final Paint getFillPaint() { return this.fillPaint; }
+
+	/**
+	 * Gets the paint object for drawing the border around the @link BoardSquare
+	 * @return 
+	 */
+	protected final Paint getBorderPaint() { return this.borderPaint; }
+	
+	/**
+	 * Gets the @link BoardGameEngineType for the @link BoardSquare
+	 * @return 
+	 */
+	public final BoardGameEngineType getEngineType() { return this.engineType; }	
+} // end BoardSquare

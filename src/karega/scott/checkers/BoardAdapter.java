@@ -52,7 +52,7 @@ public class BoardAdapter extends BaseAdapter {
 		});
 		
 		BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
-		view.setSquareInformation(info);
+		view.setInformation(info);
 		view.setLayoutParams( new GridView.LayoutParams(BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT));
 		
 		return (View)view;
@@ -60,9 +60,9 @@ public class BoardAdapter extends BaseAdapter {
 
 	public BoardSquare getViewFromConvertView(View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof BoardSquare)) {
-			return new BoardSquare(this.context);
+			return BoardSquare.instance(this.context, this.engine.getType());			
 		}
-		
+
 		return (BoardSquare) convertView;	
 	}	
 } //end GameBoardAdapter
