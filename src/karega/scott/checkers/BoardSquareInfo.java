@@ -87,7 +87,7 @@ public class BoardSquareInfo {
 
 	public int getActivePlayerColor() { return this.activePlayerColor; }
 	
-	public BoardSquareStateType getStateType() { return this.stateType; }
+	public BoardSquareStateType getCurrentPlayer() { return this.stateType; }
 	public void setStateType(BoardSquareStateType value) {
 		this.stateType = value;
 		invokeOnChangeListener();
@@ -122,17 +122,17 @@ public class BoardSquareInfo {
 				this.fillColor = Color.GRAY;
 				this.playerColor = Color.TRANSPARENT;
 				this.activePlayerColor = Color.TRANSPARENT;
-				this.stateType = BoardSquareStateType.EMPTY;
+				this.stateType = BoardSquareStateType.LOCKED;
 				break;
 				
-			case PLAYER1:
+			case PLAYER2:
 				this.fillColor = Color.DKGRAY;
 				this.playerColor = Color.RED;
 				this.activePlayerColor = Color.RED;
 				this.stateType = BoardSquareStateType.PLAYER2;
 				break;
 			
-			case PLAYER2:
+			case PLAYER1:
 				this.fillColor = Color.DKGRAY;
 				this.playerColor = Color.BLUE;
 				this.activePlayerColor = Color.BLUE;
@@ -148,7 +148,7 @@ public class BoardSquareInfo {
 	 * @param value
 	 */
 	public boolean swap(BoardSquareInfo value) {
-		if(value.getStateType() == BoardSquareStateType.EMPTY)	{
+		if(value.getCurrentPlayer() == BoardSquareStateType.EMPTY)	{
 			value.pieceType = this.pieceType;
 			value.fillColor = this.fillColor;
 			value.borderColor = this.borderColor;

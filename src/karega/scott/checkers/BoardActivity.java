@@ -65,7 +65,7 @@ public class BoardActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Log.v("BoardActivity.InternalItemClickListener.onItemClick",
-					((BoardSquare)view).getInformation().getStateType().toString());
+					((BoardSquare)view).getInformation().getCurrentPlayer().toString());
 						
 			BoardSquare square = (BoardSquare)view;
 			if(engine.isPlayerSquareActive()) {

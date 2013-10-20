@@ -90,7 +90,7 @@ public abstract class BoardSquare extends View {
 	
 	@Override
 	public final void onDraw(Canvas canvas){
-		Log.v("SquareView.onDraw", this.squareInfo.getStateType().toString());
+		Log.v("SquareView.onDraw", this.squareInfo.getCurrentPlayer().toString());
 		super.onDraw(canvas);
 		
 		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);

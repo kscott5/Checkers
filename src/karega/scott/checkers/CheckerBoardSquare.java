@@ -28,7 +28,7 @@ public class CheckerBoardSquare extends BoardSquare {
 	@Override
 	public void drawBoardSquarePiece(Canvas canvas){
 
-		switch(this.getInformation().getStateType()) {
+		switch(this.getInformation().getCurrentPlayer()) {
 			case PLAYER1:
 			case PLAYER2:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
