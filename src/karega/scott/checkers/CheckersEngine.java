@@ -24,32 +24,33 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	protected Hashtable<Point, BoardSquareInfo> initializeBoardGameData() {
-		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>(64);
+		String metatData[][] = { 
+				{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},
+				{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},
+				{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},
+				{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},
+				{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},
+				{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},
+				{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},
+				{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"}};
+
+		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>();
 		
-		int key = 0;
-		for(int row=0; row<ROWS; row++)  {
-			for(int col=0; col<COLUMNS; col++) {
-				BoardSquareInfo square = null;
-				Point point = new Point(col, row);				
-				
-				// Configure Locked square
-				if((row+col)%2 != 0 && row < 3) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER2, BoardSquarePieceType.PAWN);
-				} else if((row+col)%2 != 0 && (row == 3 || row == 4)) {					
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.EMPTY, BoardSquarePieceType.NONE);
-				} else if((row+col)%2 != 0 && row > 4) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.PLAYER1, BoardSquarePieceType.PAWN);
-				} else { 
-					//if((row+col)%2 == 0) {
-					square = new BoardSquareInfo(key, point, BoardSquareStateType.LOCKED, BoardSquarePieceType.NONE);					
-				}
-				
-				square.reset();				
-				initialSquares.put(point, square);
-				key++;
-			} // end for
-		} // end for
-		
+		int col=0, row=0;
+		for(int key=0; key<(COLUMNS*ROWS); key++) {			
+			Point point = new Point(col, row);				
+			
+			BoardSquareInfo square = new BoardSquareInfo(key, point, 
+						BoardSquareStateType.valueOf(metatData[key][0]), 
+						BoardSquarePieceType.valueOf(metatData[key][1]));
+			
+			square.reset();				
+			initialSquares.put(point, square);
+			
+			row = (++col < COLUMNS)? 0: ++row;
+			col = (col == COLUMNS)? 0: col;			
+		}
+
 		return initialSquares;
 	} //end initializeBoardGameData
 
