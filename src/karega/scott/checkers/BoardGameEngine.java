@@ -1,8 +1,11 @@
 package karega.scott.checkers;
-import java.util.Hashtable;
 
-import karega.scott.checkers.BoardSquareStateType;
-import android.graphics.Point;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
@@ -11,50 +14,161 @@ import android.util.Log;
  *
  */
 public abstract class BoardGameEngine {
+	private static final String LOG_TAG = "BoardGameEngine";
+	
+	public static final int SQUARE_HEIGHT = 39;
+	public static final int SQUARE_WIDTH = 39;
+	
+	public static final int SQUARE_CHIP_START_ANGLE = 0;
+	public static final int SQUARE_CHIP_SWEEP_ANGLE = 360;
+	public static final int SQUARE_CHIP_STROKE_WIDTH = 2;
+	public static final boolean SQUARE_CHIP_USE_CENTER = false;
+
+	public static final int CHECKERS_ENGINE = 1001;
+	public static final int CHESS_ENGINE = 1002;
+	
+	public static final int PLAYER1 = 1101;
+	public static final int PLAYER2 = 1102;
+	
+	public static final int PLAYER1_STATE = 2001;
+	public static final int PLAYER2_STATE = 2002;
+	public static final int EMPTY_STATE = 2003;
+	public static final int LOCKED_STATE = 2004;
+	
+	public static final int EMPTY_CHIP = 3001;
+	public static final int PAWN_CHIP = 3002;
+	public static final int KING_CHIP = 3003;
+	
 	protected static final int ROWS = 8;
 	protected static final int COLUMNS = 8;
 	
-	private BoardSquareStateType currentPlayer;
-	private BoardSquareInfo activeSquare;
-	private BoardGameEngineType engineType;
+	private int id = -1;
+	private Context context = null;
+	protected BoardGameEngine(Context ctx, int id) {
+		this.context = ctx;
+		this.id = id;
+		this.newGame();
+	}
+			
+	/**
+	 * Loads the current player for the saved game
+	 * @return
+	 */
+	protected int loadCurrentState(boolean forNewGame) {
+		Log.d(LOG_TAG, "Load current state for " + ((forNewGame)? "a new game": "an existing game"));
+		SQLiteDatabase db = null;
+		Cursor cursor = null;
+		
+		int player = BoardGameEngine.PLAYER1_STATE;
+		
+		if(forNewGame)
+			return player;
+		
+		try {
+			db = BoardDatabaseOpenHelper.getReadableDB(this.context);
+			
+			StringBuilder query = new StringBuilder();
+			query.append("SELECT Player ");
+			query.append("FROM SavedGame WHERE Engine = ");			
+			query.append(this.getId());
+			
+			cursor = db.rawQuery(query.toString(), null);
+			if(cursor.moveToFirst())
+				player = cursor.getInt(0 /*Player*/);
+			
+		} catch(SQLiteException e) {
+			
+		} finally {
+			if(cursor != null)
+				cursor.close();
+			cursor = null;
+			
+			if(db != null) 
+				db.close();
+			db = null;
+		} // end try-catch-finally
+		
+		return player;
+	} // end loadCurrentPlayer
 	
-	private Hashtable<Point, BoardSquareInfo> squares;
+	/**
+	 * Loads the game data from database
+	 */
+	protected BoardSquareInfo[][] loadSquares(boolean forNewGame){
+		Log.d(LOG_TAG, "Load squares for " + ((forNewGame)? "a new game": "an existing game"));
+		
+		SQLiteDatabase db = null;
+		Cursor cursor = null;
+		
+		BoardSquareInfo[][] squares = new BoardSquareInfo[BoardGameEngine.ROWS][BoardGameEngine.COLUMNS];
+		
+		try {
+			
+			db = BoardDatabaseOpenHelper.getReadableDB(this.context);
+			
+			StringBuilder query = new StringBuilder();
+			query.append("SELECT Id, Row, Column, State, Chip ");
+			
+			if(forNewGame)
+				query.append("FROM GameEngineState WHERE Engine = ");
+			else
+				query.append("FROM SavedGameState WHERE Engine = ");
+			
+			query.append(this.getId());
+			query.append(" ORDER BY Id");
+			
+			cursor = db.rawQuery(query.toString(), null);
+			while(cursor.moveToNext()) {
+				BoardSquareInfo square = new BoardSquareInfo(
+						cursor.getInt(0 /*Id*/),
+						cursor.getInt(1 /*Row*/),
+						cursor.getInt(2 /*Column*/),
+						cursor.getInt(3 /*State*/),
+						cursor.getInt(4 /*Chip*/));
+				
+				squares[square.getRow()][square.getColumn()] = square;				
+			}
+			
+		} catch(SQLiteException e) {
+			Log.v("BoardGameEngine.loadSquares", e.getMessage());
+		} finally {
+			if(cursor != null)
+				cursor.close();
+			cursor = null;
+			
+			if(db != null) 
+				db.close();
+			db = null;
+		}	
+		
+		return squares;
+	}
 	
 	/**
 	 * Creates the specific game engine for play
-	 * @param type @BoardGameEngineType
+	 * @param engine Integer value
 	 * @return @link BoardGameEngine engine for play
 	 */
-	public static BoardGameEngine instance(BoardGameEngineType type) {
+	public static BoardGameEngine instance(Context context, int id) {
 		BoardGameEngine engine = null;
 		
-		switch(type) {
-			case CHECKERS:
-				engine = new CheckersEngine();
+		switch(id) {
+			case BoardGameEngine.CHECKERS_ENGINE:
+				Log.d(LOG_TAG, "Creating an instance for checkers engine");
+				engine = new CheckersEngine(context);
 				break;
-			case CHESS:
-				break;
+				
+			case BoardGameEngine.CHESS_ENGINE:
+			default:
+				Log.d(LOG_TAG, "This instance not support");
+				engine = null;
 		}
 		
 		return engine;
 	} // end instance
 	
-	/**
-	 * Constructor for {@link BoardGameEngine}
-	 */
-	protected BoardGameEngine(BoardGameEngineType engineType) {
-		this.currentPlayer = BoardSquareStateType.PLAYER1;
-		this.engineType = engineType;
-		this.activeSquare = null;		
-		this.squares = initializeBoardGameData();
-	}
+	public final int getId() { return this.id; }
 	
-	/**
-	 *  Create the data used on the checker board
-	 * @return @link java.util.hashtable representing the data used for game play  
-	 */
-	protected abstract Hashtable<Point, BoardSquareInfo> initializeBoardGameData();
-
 	/**
 	 * Initializes the player's square for game play
 	 * @param square the {@link BoardSquareInfo} to initialize for game play
@@ -67,105 +181,56 @@ public abstract class BoardGameEngine {
 	 * @param square
 	 * @return
 	 */
-	public abstract boolean movePlayer(BoardSquare square);		
+	public abstract boolean moveChip(BoardSquare square);		
 
 	/**
-	 * Gets the current game engine used for play
-	 * @return @link BoardGameEngineType
+	 * Loads a previously saved game
 	 */
-	public final BoardGameEngineType getType() { return this.engineType; }
-	
+	public abstract void loadGame();
+
 	/**
 	 * Starts a new game for play
 	 */
-	public final void newGame() {
-		this.currentPlayer = BoardSquareStateType.PLAYER1;
-		this.activeSquare = null;		
+	public abstract void newGame();
 
-		for(BoardSquareInfo square : this.squares.values()) {
-			square.reset();
-		} // end for
-	} //end newGame
-	
+	/**
+	 * Save the current game
+	 */
+	public abstract void saveGame();
+
 	/**
 	 * Gets the current player for the game engine
 	 * @return @BoardSquareStateType
 	 */
-	public final BoardSquareStateType getCurrentPlayer() { return this.currentPlayer; }
+	public abstract int getCurrentState();
 	
 	/**
-	 * Switch the current player for the game engine
+	 * Switch the current state (player) for the game engine
 	 */
-	public final void switchCurrentPlayer() {
-		this.currentPlayer = (this.currentPlayer == BoardSquareStateType.PLAYER1)?
-				BoardSquareStateType.PLAYER2: BoardSquareStateType.PLAYER1;
-		
-		this.activeSquare = null;
-	} //end switchCurrentPlayer
+	public abstract void switchState();
 	
 	/**
 	 * Gets the data for the identifier
 	 * @param id a numeric identifier for game board square
 	 * @return @link BoardSquareInfo represented by the id
 	 */
-	public final BoardSquareInfo getData(int id) {
-		for(BoardSquareInfo square : this.squares.values()) {
-			if(square.getId() == id)
-				return square;
-		}
-		return null;
-	} // end getData
-	
-	/**
-	 * Gets the data for the key
-	 * @param key Identifier 
-	 * @return The @link BoardSquareInfo if key found else null
-	 */
-	public final BoardSquareInfo getData(Point key) {
-		if(!this.containsKey(key)) return null;
-		
-		return this.squares.get(key);
-	} // end getData
+	public abstract BoardSquareInfo getData(int id);
 	
 	/**
 	 * Returns the number of key/value pairs in the board game @link java.util.hashtable
 	 * @return
 	 */
-	public final int getSize() {
-		return this.squares.size();
-	} // end getSize
-	
-	/**
-	 * Determines if the game contains the key
-	 * @param key Identifier to lookup in the game data
-	 * @return True if key found else False
-	 */
-	public final boolean containsKey(Point key) {
-		if(key.x < 0 || key.x >= COLUMNS) return false;
-		if(key.y < 0 || key.y >= ROWS) return false;
-		
-		return this.squares.containsKey(key);
-	} // end containsKey
-	
-	/**
-	 * Determine if the player has selected a square for play
-	 * @return True/False
-	 */
-	public final boolean isPlayerSquareActive() {
-		return activeSquare != null;
-	} // end isPlayerSquareActive
+	public abstract int getSize();
 	
 	/**
 	 * Gets the current player's ready for moving
 	 * @return the current players selected @BoardSquareInfo
 	 */
-	public final BoardSquareInfo getActiveSquare() { return this.activeSquare; }
+	public abstract BoardSquareInfo getActiveSquare();
 	
 	/**
 	 * Sets the current player's square for moving
 	 * @param value
 	 */
-	public final void setActiveSquare(BoardSquareInfo value) {
-		this.activeSquare = value;
-	}
+	public abstract void setActiveSquare(BoardSquareInfo value);	
 } // end BoardGameEngine

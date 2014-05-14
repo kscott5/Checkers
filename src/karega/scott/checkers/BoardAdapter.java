@@ -13,6 +13,8 @@ import android.widget.GridView;
  * Adapter used to provide data to the BoardActivity.boardGame
  */
 public class BoardAdapter extends BaseAdapter {
+	private static final String LOG_TAG = "BoardAdapter";
+	
 	private BoardGameEngine engine; 
 	private Context context;
 	
@@ -38,7 +40,7 @@ public class BoardAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {		
-		Log.v("GameBoardAdapter.getView", String.format("view position %s",position));
+		Log.d(LOG_TAG, String.format("Get view at position %s",position));
 		
 		BoardSquare view = getViewFromConvertView(convertView, parent);
 		view.setOnTouchListener(new OnTouchListener() {
@@ -53,14 +55,14 @@ public class BoardAdapter extends BaseAdapter {
 		
 		BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
 		view.setInformation(info);
-		view.setLayoutParams( new GridView.LayoutParams(BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT));
+		view.setLayoutParams( new GridView.LayoutParams(BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT));
 		
 		return (View)view;
 	}
 
 	public BoardSquare getViewFromConvertView(View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof BoardSquare)) {
-			return BoardSquare.instance(this.context, this.engine.getType());			
+			return BoardSquare.instance(this.context, this.engine.getId());			
 		}
 
 		return (BoardSquare) convertView;	

@@ -1,8 +1,9 @@
 package karega.scott.checkers;
 
-import java.util.Hashtable;
+import java.io.Console;
 
-import android.graphics.Point;
+import junit.framework.Assert;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -11,226 +12,89 @@ import android.util.Log;
  *
  */
 public class CheckersEngine extends BoardGameEngine {
-
-	/**
-	 * Constructor
-	 */
-	public CheckersEngine() {
-		super(BoardGameEngineType.CHECKERS);
+	private BoardSquareInfo[][] squares;
+	private BoardSquare activeSquare;
+	private int currentState;
+	
+	public CheckersEngine(Context context) {
+		super(context, BoardGameEngine.CHECKERS_ENGINE);
 	}
-
-	/* (non-Javadoc)
-	 * @see karega.scott.checkers.BoardGameEngine#initializeBoardGameData()
-	 */
-	@Override
-	protected Hashtable<Point, BoardSquareInfo> initializeBoardGameData() {
-		String metatData[][] = { 
-				{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},
-				{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},
-				{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},{"LOCKED","NONE"},{"PLAYER2","PAWN"},
-				{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},
-				{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},{"LOCKED","NONE"},{"EMPTY","NONE"},
-				{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},
-				{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},
-				{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"},{"PLAYER1","PAWN"},{"LOCKED","NONE"}};
-
-		Hashtable<Point, BoardSquareInfo> initialSquares = new Hashtable<Point, BoardSquareInfo>();
-		
-		int col=0, row=0;
-		for(int key=0; key<(COLUMNS*ROWS); key++) {			
-			Point point = new Point(col, row);				
-			
-			BoardSquareInfo square = new BoardSquareInfo(key, point, 
-						BoardSquareStateType.valueOf(metatData[key][0]), 
-						BoardSquarePieceType.valueOf(metatData[key][1]));
-			
-			square.reset();				
-			initialSquares.put(point, square);
-			
-			row = (++col < COLUMNS)? 0: ++row;
-			col = (col == COLUMNS)? 0: col;			
-		}
-
-		return initialSquares;
-	} //end initializeBoardGameData
-
-	/* (non-Javadoc)
-	 * @see karega.scott.checkers.BoardGameEngine#setPlayerSquare(karega.scott.checkers.BoardSquare)
-	 */
+	
 	@Override
 	public boolean setPlayerSquare(BoardSquare square) {
-		BoardSquareInfo info = square.getInformation();
-		if(this.getCurrentPlayer() == BoardSquareStateType.LOCKED ||
-		   this.getCurrentPlayer() == BoardSquareStateType.EMPTY)
-			return false;
-			
-		// Must be current player
-		if(this.getCurrentPlayer() == info.getCurrentPlayer()) 
-		{		
-			// Is the information movable
-			if(player1Movable(info) || player2Movable(info) || playerKingMovable(info)) 
-			{
-				if(this.getActiveSquare() != null) {
-					// Reset previous selected chip
-					this.getActiveSquare().deactivatePlayer();
-				} //end if
-				
-				info.activatePlayer();			
-				this.setActiveSquare(info);
-				
-				return true;
-			} // end if (player movable)
-		} // end if
-		
-		return false;
-	} // end setPlayerSquare
-	
-	/**
-	 * Determine if the current player2 has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean player2Movable(BoardSquareInfo info) {
-		if(this.getCurrentPlayer() == BoardSquareStateType.PLAYER2 || info.getIsKing()) {
-			boolean movableForwards = isPlayerMovable(info,true,true,true);
-			boolean movableBackwards = isPlayerMovable(info,false,true,true);
-			
-			return movableForwards || movableBackwards;
-		}
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	/**
-	 * Determine if the current player1 has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean player1Movable(BoardSquareInfo info) {
-		if(this.getCurrentPlayer() == BoardSquareStateType.PLAYER1 || info.getIsKing()) {
-			boolean movableForwards = isPlayerMovable(info,true,false,true);
-			boolean movableBackwards = isPlayerMovable(info,false,false,true);
-		
-			return movableForwards || movableBackwards;
-		}
-		
-		return false;
-	} // end player2Movable
-	
-	/**
-	 * Determine if the current player's king has an available square to move to
-	 * @param info
-	 * @return
-	 */
-	protected boolean playerKingMovable(BoardSquareInfo info) {
-		return (player1Movable(info) || player2Movable(info));
-	} // end playerKingMovable
-	
-	/**
-	 * Determine if the current player has an available square to move to
-	 * @param info
-	 * @param colForward
-	 * @param rowForward
-	 * @param levelUp
-	 * @return
-	 */
-	protected boolean isPlayerMovable(BoardSquareInfo info, boolean colForward, boolean rowForward, boolean levelUp) {
-		int colIncrement = (colForward)? 1: -1;
-		int rowIncrement = (rowForward)? 1: -1;
-		
-		Point point = new Point(info.getPoint().x+colIncrement, info.getPoint().y+rowIncrement);
-		if(this.containsKey(point)) {
-			BoardSquareInfo pointInfo = this.getData(point);
-			
-			if(pointInfo.getCurrentPlayer() == BoardSquareStateType.EMPTY) { 		
-				return true;
-			} else if(pointInfo.getCurrentPlayer() != this.getCurrentPlayer() &&
-					pointInfo.getCurrentPlayer() != BoardSquareStateType.LOCKED && levelUp) {
-				if(isPlayerMovable(pointInfo, colForward, rowForward, false))
-					return true;
-			}
-		} // end if
-		
-		return false;
-	} // end isPlayerMovable
-	
-	/**
-	 * Using the target point, work backwards and forwards to update the game board
-	 * until you reach the active square 
-	 * @param point
-	 * @return
-	 */
-	protected boolean updateBoardForMove(Point point) {		
-		Point movePtFwdRight = new Point(point.x+1, point.y+1);		
-		if(this.containsKey(movePtFwdRight)) {
-			BoardSquareInfo info = this.getData(movePtFwdRight);			
-			if(this.getActiveSquare().equals(info)) 
-				return true;
-			
-			if(this.getCurrentPlayer() != info.getCurrentPlayer() && 
-					updateBoardForMove(movePtFwdRight)) {
-				info.makeEmpty();
-				return true;
-			}
-		} // end if
-		
-		Point movePtFwdLeft = new Point(point.x-1, point.y+1);
-		if(this.containsKey(movePtFwdLeft)) {
-			BoardSquareInfo info = this.getData(movePtFwdLeft);			
-			if(this.getActiveSquare().equals(info)) 
-				return true;
-			
-			if(this.getCurrentPlayer() != info.getCurrentPlayer() && 
-					updateBoardForMove(movePtFwdLeft)) {
-				info.makeEmpty();
-				return true;
-			}
-		} // end if
-		
-		Point movePtBkwdRight = new Point(point.x+1, point.y-1);		
-		if(this.containsKey(movePtBkwdRight)) {
-			BoardSquareInfo info = this.getData(movePtBkwdRight);			
-			if(this.getActiveSquare().equals(info)) 
-				return true;
-			
-			if(this.getCurrentPlayer() != info.getCurrentPlayer() && 
-					updateBoardForMove(movePtBkwdRight)) {
-				info.makeEmpty();
-				return true;
-			}
-		} // end if
-		
-		Point movePtBkwdLeft = new Point(point.x-1, point.y-1);
-		if(this.containsKey(movePtBkwdLeft)) {
-			BoardSquareInfo info = this.getData(movePtBkwdLeft);			
-			if(this.getActiveSquare().equals(info)) 
-				return true;
-			
-			if(this.getCurrentPlayer() != info.getCurrentPlayer() && 
-					updateBoardForMove(movePtBkwdLeft)) {
-				info.makeEmpty();
-				return true;
-			}
-		} // end if
 
-		return false;
-	} // end movePlayerToTarget	
-
-	/* (non-Javadoc)
-	 * @see karega.scott.checkers.BoardGameEngine#movePlayer(karega.scott.checkers.BoardSquare)
-	 */
 	@Override
-	public boolean movePlayer(BoardSquare square) {
-		BoardSquareInfo target = square.getInformation();
-		if(target.getCurrentPlayer() != BoardSquareStateType.EMPTY) 
-			return false;
-		
-		if(updateBoardForMove(target.getPoint())) {
-			this.getActiveSquare().swap(target);
-			this.switchCurrentPlayer();
-			return true;
-		}
-		
+	public boolean moveChip(BoardSquare square) {
+		// TODO Auto-generated method stub
 		return false;
-	} // end movePlayer
+	}
+
+	@Override
+	public void loadGame() {
+		this.currentState = this.loadCurrentState(/*for new game*/ false);
+		this.activeSquare = null;
+		
+		this.squares = this.loadSquares(/*for new game */false);
+	}
+	
+	@Override
+	public void newGame() {
+		this.currentState = this.loadCurrentState(/*for new game*/ true);
+		this.activeSquare = null;		
+
+		this.squares = this.loadSquares(/*for new game */true);
+	} // end newGame
+
+	@Override
+	public void saveGame() {
+		
+	}
+	
+	@Override
+	public int getCurrentState() {
+		return this.currentState;
+	}
+
+	@Override
+	public void switchState() {
+		this.activeSquare = null;
+		
+		this.currentState = (this.currentState == BoardGameEngine.PLAYER2_STATE) ?
+				BoardGameEngine.PLAYER1_STATE : BoardGameEngine.PLAYER2_STATE;
+		
+		// TODO: Ensure no squares are highlighted
+	} //end switchState
+
+	@Override
+	public BoardSquareInfo getData(int id) {
+		int row = id/8;
+		int col = id%8;
+		
+		BoardSquareInfo info = squares[row][col];
+		
+		if(id != info.getId()) 
+			throw new Error("Checkers get data id, "+ id + ", not found");
+		
+		return info;
+	}
+
+	@Override
+	public int getSize() {
+		return BoardGameEngine.ROWS*BoardGameEngine.COLUMNS;
+	}
+
+	@Override
+	public BoardSquareInfo getActiveSquare() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setActiveSquare(BoardSquareInfo value) {
+		// TODO Auto-generated method stub
+		
+	}
 } // end CheckersEngine

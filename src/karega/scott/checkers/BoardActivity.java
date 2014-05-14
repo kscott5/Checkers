@@ -3,6 +3,7 @@ package karega.scott.checkers;
 import karega.scott.checkers.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.CursorLoader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,7 +30,7 @@ public class BoardActivity extends Activity {
 		setContentView(R.layout.activity_board);
 		this.setTitle(R.string.app_name);
 		
-		boardEngine = BoardGameEngine.instance(BoardGameEngineType.CHECKERS);
+		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE);
 		
 		boardGame = (GridView) this.findViewById(R.id.boardGame);
 		boardGame.setOnItemClickListener(new BoardActivity.InternalItemClickListener(boardEngine));
@@ -65,12 +66,12 @@ public class BoardActivity extends Activity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			Log.v("BoardActivity.InternalItemClickListener.onItemClick",
-					((BoardSquare)view).getInformation().getCurrentPlayer().toString());
+					"TODO: Logging");
 						
 			BoardSquare square = (BoardSquare)view;
-			if(engine.isPlayerSquareActive()) {
-				engine.movePlayer(square);
-			} // end if								
+//			if(engine.isPlayerSquareActive()) {
+//				engine.movePlayer(square);
+//			} // end if								
 		} // end onItemClick
 	} // end InternalItemClickListener
 	

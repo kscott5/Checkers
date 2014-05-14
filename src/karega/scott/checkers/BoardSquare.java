@@ -4,28 +4,29 @@ import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
 
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
-public abstract class BoardSquare extends View {	
+public abstract class BoardSquare extends View {
+	private static final String LOG_TAG = "BoardSquare";
+	
 	private BoardSquareInfo squareInfo;
 	
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
-	private BoardGameEngineType engineType;
+	private int engine;
 	
-	protected BoardSquare(Context context, BoardGameEngineType engineType) {
+	protected BoardSquare(Context context, int engine) {
 		super(context);
 
 		this.fillPaint = new Paint();
 		this.borderPaint = new Paint();
 		
-		this.engineType = engineType;
+		this.engine = engine;
 	}
 
 	/**
@@ -34,13 +35,13 @@ public abstract class BoardSquare extends View {
 	 * @param engineType @link BoardGameEngineType 
 	 * @return @BoardSquare
 	 */
-	public static BoardSquare instance(Context context, BoardGameEngineType engineType) {
-		switch(engineType) {
-			case CHECKERS:
+	public static BoardSquare instance(Context context, int engine) {		
+		switch(engine) {
+			case BoardGameEngine.CHECKERS_ENGINE:
+				Log.d(LOG_TAG, "Created instance of checker board square");
 				return new CheckerBoardSquare(context);
-			case CHESS:
-				return null;
 			default:
+				Log.d(LOG_TAG, "Could not create board square for this engine");
 				return null;
 		}
 	} // end instance
@@ -51,7 +52,6 @@ public abstract class BoardSquare extends View {
 	 *
 	 */
 	public final class OnSquareInfoChangeListener implements OnChangeListener {
-
 		@Override
 		public void OnSquareInformationChange() {
 			updateView(true);
@@ -69,6 +69,8 @@ public abstract class BoardSquare extends View {
 	 * @param refresh Flag to invalidate the @link BoardSquare
 	 */
 	public void updateView(boolean refresh) {
+		Log.d(LOG_TAG, "Updating view");
+		
 		this.fillPaint.setColor(squareInfo.getFillColor());
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
@@ -90,11 +92,10 @@ public abstract class BoardSquare extends View {
 	
 	@Override
 	public final void onDraw(Canvas canvas){
-		Log.v("SquareView.onDraw", this.squareInfo.getCurrentPlayer().toString());
 		super.onDraw(canvas);
 		
-		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, fillPaint);
-		canvas.drawRect(0, 0, BoardSquareInfo.WIDTH, BoardSquareInfo.HEIGHT, borderPaint);
+		canvas.drawRect(0, 0, BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT, fillPaint);
+		canvas.drawRect(0, 0, BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT, borderPaint);
 
 		drawBoardSquarePiece(canvas);
 	} // end onDraw
@@ -119,6 +120,8 @@ public abstract class BoardSquare extends View {
 	 * @param value
 	 */
 	public final void setInformation(BoardSquareInfo value) { 
+		Log.d(LOG_TAG, "Setting information");
+		
 		this.squareInfo = value;
 		this.updateView(true);
 		this.squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
@@ -140,5 +143,5 @@ public abstract class BoardSquare extends View {
 	 * Gets the @link BoardGameEngineType for the @link BoardSquare
 	 * @return 
 	 */
-	public final BoardGameEngineType getEngineType() { return this.engineType; }	
+	public final int getEngine() { return this.engine; }	
 } // end BoardSquare
