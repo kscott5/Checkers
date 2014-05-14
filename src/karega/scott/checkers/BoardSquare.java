@@ -71,6 +71,7 @@ public abstract class BoardSquare extends View {
 	public void updateView(boolean refresh) {
 		Log.d(LOG_TAG, "Updating view");
 		
+		// TODO: Do this once. Remove these values from BoardSquareInfo
 		this.fillPaint.setColor(squareInfo.getFillColor());
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 

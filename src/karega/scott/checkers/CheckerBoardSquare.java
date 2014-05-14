@@ -33,7 +33,7 @@ public class CheckerBoardSquare extends BoardSquare {
 			case BoardGameEngine.PLAYER1_STATE:
 			case BoardGameEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
-				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);				
+				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight		
 				break;
 				
 			case BoardGameEngine.LOCKED_STATE:

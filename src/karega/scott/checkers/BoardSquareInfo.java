@@ -24,8 +24,11 @@ public class BoardSquareInfo {
 		this.row = row;
 		this.column = column;
 		this.initialState = initialState;
+		this.state = initialState;
 		this.initialChip = initialChip;
 		this.chip = initialChip;
+
+		this.reset();
 	}
 	
 	public int getId() { return this.id; }
@@ -176,16 +179,16 @@ public class BoardSquareInfo {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
 		builder.append(String.format("id=%s, ", this.id));
-		builder.append(String.format("Row=%s, ", this.row));
-		builder.append(String.format("Column=%s, ", this.column));
-		builder.append(String.format("Initial Chip=%s, ", this.initialChip));
-		builder.append(String.format("Chip=%s, ", this.chip));
-		builder.append(String.format("Initial State=%s, ", this.initialState));
-		builder.append(String.format("State=%s, ", this.state));
-		builder.append(String.format("fillColor=%s, ", this.fillColor));
-		builder.append(String.format("borderColor=%s", this.borderColor));
-		builder.append(String.format("playerColor=%s", this.playerColor));
-		builder.append(String.format("activePlayerColor=%s", this.activePlayerColor));
+		builder.append(String.format("row=%s, ", this.row));
+		builder.append(String.format("column=%s, ", this.column));
+		builder.append(String.format("initial chip=%s, ", this.initialChip));
+		builder.append(String.format("chip=%s, ", this.chip));
+		builder.append(String.format("initial state=%s, ", this.initialState));
+		builder.append(String.format("state=%s, ", this.state));
+		builder.append(String.format("fill color=%s, ", this.fillColor));
+		builder.append(String.format("border color=%s, ", this.borderColor));
+		builder.append(String.format("player color=%s, ", this.playerColor));
+		builder.append(String.format("active player color=%s", this.activePlayerColor));
 		builder.append("}");
 		return builder.toString();
 	}
