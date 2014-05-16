@@ -3,7 +3,6 @@ package karega.scott.checkers;
 import karega.scott.checkers.R;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.CursorLoader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +16,8 @@ import android.widget.GridView;
  * The activity used to display the checker board.
  */
 public class BoardActivity extends Activity {
+	private static final String LOG_TAG = "BoardActivity";
+	
 	private BoardGameEngine boardEngine;
 	
 	// TODO: Do I really need these instance variables
@@ -26,14 +27,19 @@ public class BoardActivity extends Activity {
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(LOG_TAG, "On create called");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_board);
 		this.setTitle(R.string.app_name);
 		
+		
 		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE);
 		
-		boardGame = (GridView) this.findViewById(R.id.boardGame);
-		boardGame.setOnItemClickListener(new BoardActivity.InternalItemClickListener(boardEngine));
+		boardGame = (GridView) this.findViewById(R.id.boardGame);		
+		
+		// TODO: Do I need this if BoardAdapter BoardSquare listening to on touch
+		//boardGame.setOnItemClickListener(new BoardActivity.InternalItemClickListener(boardEngine));
 		boardGame.setAdapter(new BoardAdapter(boardGame.getContext(), 
 				boardEngine));		
 		
@@ -46,6 +52,8 @@ public class BoardActivity extends Activity {
 		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d(LOG_TAG, "On create options menu called");
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_board, menu);
 		return true;
@@ -57,6 +65,8 @@ public class BoardActivity extends Activity {
 	 *
 	 */
 	public class InternalItemClickListener implements OnItemClickListener {
+		private static final String LOG_TAG = "InternalItemClickListener";
+		
 		private BoardGameEngine engine;
 		
 		public InternalItemClickListener(BoardGameEngine engine) {
@@ -65,13 +75,12 @@ public class BoardActivity extends Activity {
 		
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Log.v("BoardActivity.InternalItemClickListener.onItemClick",
-					"TODO: Logging");
-						
-			BoardSquare square = (BoardSquare)view;
-//			if(engine.isPlayerSquareActive()) {
-//				engine.movePlayer(square);
-//			} // end if								
+			Log.d(LOG_TAG,"On item clicked");
+			
+			// TODO: Determine why this method fires after onTouch		
+			
+			//BoardSquare square = (BoardSquare)view;
+			//engine.moveSquare(square.getInformation());			
 		} // end onItemClick
 	} // end InternalItemClickListener
 	
@@ -81,6 +90,8 @@ public class BoardActivity extends Activity {
 	 *
 	 */
 	public class InternalClickListener implements OnClickListener {
+		private static final String LOG_TAG = "InternalClickListener";
+		
 		private BoardActivity activity;
 		
 		public InternalClickListener(BoardActivity activity) {
@@ -89,6 +100,7 @@ public class BoardActivity extends Activity {
 		
 		@Override
 		public void onClick(View view) {
+			Log.d(LOG_TAG, "On click");
 			switch(view.getId())
 			{
 				case R.id.newGame:					

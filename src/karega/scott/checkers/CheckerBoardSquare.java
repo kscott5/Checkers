@@ -3,7 +3,6 @@ package karega.scott.checkers;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.Log;
 
 /*
@@ -15,21 +14,20 @@ public class CheckerBoardSquare extends BoardSquare {
 	private Paint playerPaint;
 	private Paint activePlayerPaint;
 	
-	protected CheckerBoardSquare(Context context) {
-		super(context, BoardGameEngine.CHECKERS_ENGINE);
+	protected CheckerBoardSquare(Context context, BoardSquareInfo squareInfo) {
+		super(context, BoardGameEngine.CHECKERS_ENGINE, squareInfo);
 
 		this.playerPaint = new Paint();
 		this.activePlayerPaint = new Paint();
-		
-		this.setInformation(new BoardSquareInfo(-1, -1, -1, 
-				BoardGameEngine.EMPTY_STATE, BoardGameEngine.EMPTY_CHIP));
+
+		this.updateView(true);
 	}
 
 	@Override
 	public void drawBoardSquarePiece(Canvas canvas){
 		Log.d(LOG_TAG, "Drawing board square piece");
 		
-		switch(this.getInformation().getCurrentState()) {
+		switch(this.squareInfo.getState()) {
 			case BoardGameEngine.PLAYER1_STATE:
 			case BoardGameEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
@@ -47,10 +45,10 @@ public class CheckerBoardSquare extends BoardSquare {
 	protected void updateViewForRedraw() {
 		Log.d(LOG_TAG, "Updating view for redraw");
 		
-		this.playerPaint.setColor(this.getInformation().getPlayerColor());
+		this.playerPaint.setColor(this.squareInfo.getInactiveColor());
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
-		this.activePlayerPaint.setColor(this.getInformation().getActivePlayerColor());
+		this.activePlayerPaint.setColor(this.squareInfo.getActiveColor());
 		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
 	} // end updateBoardSquarePiece

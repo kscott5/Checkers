@@ -42,29 +42,33 @@ public class BoardAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {		
 		Log.d(LOG_TAG, String.format("Get view at position %s",position));
 		
-		BoardSquare view = getViewFromConvertView(convertView, parent);
+		BoardSquare view = getViewFromConvertView(position, convertView, parent);
 		view.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				engine.setPlayerSquare((BoardSquare)v);
+				Log.d(LOG_TAG,"On touch");
+				
+				// TODO: How do I prevent the on item click from firing too?
+				BoardSquare square = (BoardSquare)v;
+				engine.moveSquare(square.getInformation());
 				return false;
 			}
 			
 		});
 		
-		BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
-		view.setInformation(info);
-		view.setLayoutParams( new GridView.LayoutParams(BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT));
-		
 		return (View)view;
 	}
 
-	public BoardSquare getViewFromConvertView(View convertView, ViewGroup parent) {
+	public BoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof BoardSquare)) {
-			return BoardSquare.instance(this.context, this.engine.getId());			
+			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
+			
+			BoardSquare view = BoardSquare.instance(this.context, this.engine.getId(), info);
+			view.setLayoutParams( new GridView.LayoutParams(BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT));
+			return view;
 		}
-
+		
 		return (BoardSquare) convertView;	
 	}	
 } //end GameBoardAdapter

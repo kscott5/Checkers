@@ -13,20 +13,24 @@ import android.view.View;
 public abstract class BoardSquare extends View {
 	private static final String LOG_TAG = "BoardSquare";
 	
-	private BoardSquareInfo squareInfo;
+	protected BoardSquareInfo squareInfo;
 	
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
 	private int engine;
 	
-	protected BoardSquare(Context context, int engine) {
+	protected BoardSquare(Context context, int engine, BoardSquareInfo squareInfo) {
 		super(context);
 
 		this.fillPaint = new Paint();
 		this.borderPaint = new Paint();
 		
 		this.engine = engine;
+		
+		// TODO: Are parameters by references
+		squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
+		this.squareInfo = squareInfo;
 	}
 
 	/**
@@ -35,11 +39,11 @@ public abstract class BoardSquare extends View {
 	 * @param engineType @link BoardGameEngineType 
 	 * @return @BoardSquare
 	 */
-	public static BoardSquare instance(Context context, int engine) {		
+	public static BoardSquare instance(Context context, int engine, BoardSquareInfo info) {		
 		switch(engine) {
 			case BoardGameEngine.CHECKERS_ENGINE:
 				Log.d(LOG_TAG, "Created instance of checker board square");
-				return new CheckerBoardSquare(context);
+				return new CheckerBoardSquare(context, info);
 			default:
 				Log.d(LOG_TAG, "Could not create board square for this engine");
 				return null;
@@ -54,6 +58,8 @@ public abstract class BoardSquare extends View {
 	public final class OnSquareInfoChangeListener implements OnChangeListener {
 		@Override
 		public void OnSquareInformationChange() {
+			Log.d(LOG_TAG, "Square information changed for BoardSquare");
+			
 			updateView(true);
 		}		
 	} // end OnSquarInfoChangeListener
@@ -93,10 +99,12 @@ public abstract class BoardSquare extends View {
 	
 	@Override
 	public final void onDraw(Canvas canvas){
+		Log.d(LOG_TAG, "On draw");
+		
 		super.onDraw(canvas);
 		
-		canvas.drawRect(0, 0, BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT, fillPaint);
-		canvas.drawRect(0, 0, BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT, borderPaint);
+		canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), fillPaint);
+		canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), borderPaint);
 
 		drawBoardSquarePiece(canvas);
 	} // end onDraw
@@ -107,27 +115,13 @@ public abstract class BoardSquare extends View {
 			return false;
 		
 		BoardSquare view = (BoardSquare)value;
-		return this.squareInfo.equals(view.getInformation());
+		return this.squareInfo.equals(view.squareInfo);
+	}
+
+	public final BoardSquareInfo getInformation() {
+		return this.squareInfo;
 	}
 	
-	/**
-	 * Gets the information for the @link BoardSquare
-	 * @return
-	 */
-	public final BoardSquareInfo getInformation() { return this.squareInfo; }
-
-	/**
-	 * Sets the information used for the @link BoardSquare
-	 * @param value
-	 */
-	public final void setInformation(BoardSquareInfo value) { 
-		Log.d(LOG_TAG, "Setting information");
-		
-		this.squareInfo = value;
-		this.updateView(true);
-		this.squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
-	} // end setInformation
-
 	/**
 	 * Gets the paint object for filling the @link BoardSquare
 	 * @return 

@@ -1,9 +1,11 @@
 package karega.scott.checkers;
 
 import android.graphics.Color;
-import android.graphics.Point;
+import android.util.Log;
 
 public class BoardSquareInfo {
+	private static final String LOG_TAG = "BoardSquareInfo";
+	
 	private final int id;
 	private final int row;
 	private final int column;
@@ -16,8 +18,8 @@ public class BoardSquareInfo {
 	
 	private int fillColor = Color.GRAY;
 	private int borderColor = Color.BLACK;
-	private int playerColor = Color.TRANSPARENT;
-	private int activePlayerColor = Color.TRANSPARENT;
+	private int inactiveColor = Color.TRANSPARENT;
+	private int activeColor = Color.TRANSPARENT;
 	
 	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip) {
 		this.id = id;
@@ -57,19 +59,18 @@ public class BoardSquareInfo {
 		}
 	}
 	
-	public void deactivatePlayer() {
-		this.activePlayerColor = this.playerColor;
+	public void deactivate() {
+		this.activeColor = this.inactiveColor;
 		invokeOnChangeListener();
 	}
 	
-	public void activatePlayer() {
-		this.activePlayerColor = Color.WHITE;
+	public void activate() {
+		this.activeColor = Color.WHITE;
 		invokeOnChangeListener();
 	}
 	
 	public int getFillColor() { return this.fillColor; }
 	public void setFillColor(int value) {
-		
 		this.fillColor = value;
 		invokeOnChangeListener();
 	}
@@ -80,22 +81,22 @@ public class BoardSquareInfo {
 		invokeOnChangeListener();
 	}
 	
-	public int getPlayerColor() { return this.playerColor; }
-	public void setPlayerColor(int value) {  
-		this.playerColor = value;
-		deactivatePlayer();
+	public int getInactiveColor() { return this.inactiveColor; }
+	public void setInactiveColor(int value) {  
+		this.inactiveColor = value;
+		deactivate();
 		invokeOnChangeListener();
 	}
 
-	public int getActivePlayerColor() { return this.activePlayerColor; }
+	public int getActiveColor() { return this.activeColor; }
 	
-	public int getCurrentState() { return this.state; }
-	public void setCurrentState(int value) {
+	public int getState() { return this.state; }
+	public void setState(int value) {
 		this.state = value;
 		invokeOnChangeListener();
 	}
 	
-	public int getCurrentChip() { return this.chip; }
+	public int getChip() { return this.chip; }
 	
 	public boolean isKing() { return this.chip == BoardGameEngine.KING_CHIP; }
 	public void makeKing() { 
@@ -114,26 +115,26 @@ public class BoardSquareInfo {
 		switch(this.initialState) {
 			case BoardGameEngine.EMPTY_STATE:
 				this.fillColor = Color.DKGRAY;
-				this.playerColor = Color.TRANSPARENT;
-				this.activePlayerColor = Color.TRANSPARENT;
+				this.inactiveColor = Color.TRANSPARENT;
+				this.activeColor = Color.TRANSPARENT;
 				break;
 				
 			case BoardGameEngine.LOCKED_STATE:
 				this.fillColor = Color.GRAY;
-				this.playerColor = Color.TRANSPARENT;
-				this.activePlayerColor = Color.TRANSPARENT;
+				this.inactiveColor = Color.TRANSPARENT;
+				this.activeColor = Color.TRANSPARENT;
 				break;
 				
 			case BoardGameEngine.PLAYER2_STATE:
 				this.fillColor = Color.DKGRAY;
-				this.playerColor = Color.RED;
-				this.activePlayerColor = Color.RED;
+				this.inactiveColor = Color.RED;
+				this.activeColor = Color.RED;
 				break;
 			
 			case BoardGameEngine.PLAYER1_STATE:
 				this.fillColor = Color.DKGRAY;
-				this.playerColor = Color.BLUE;
-				this.activePlayerColor = Color.BLUE;
+				this.inactiveColor = Color.BLUE;
+				this.activeColor = Color.BLUE;
 				break;
 		} //end switch
 		
@@ -145,33 +146,40 @@ public class BoardSquareInfo {
 	 * @param value
 	 */
 	public boolean swap(BoardSquareInfo value) {
-		if(value.getCurrentState() == BoardGameEngine.EMPTY_STATE)	{
-			value.chip = this.chip;
-			value.fillColor = this.fillColor;
-			value.borderColor = this.borderColor;
-			value.playerColor = this.playerColor;
-			value.state = this.state;
-			value.activePlayerColor = this.playerColor;
-			value.invokeOnChangeListener();
-			
-			makeEmpty();
-			return true;
-		}
+		Log.d(LOG_TAG, "Swapping square information");
+
+		if(this.state == BoardGameEngine.LOCKED_STATE)
+			return false;
+
+		if(value.state != BoardGameEngine.EMPTY_STATE)
+			return false;
 		
-		return false;
+		value.chip = this.chip;
+		value.fillColor = this.fillColor;
+		value.borderColor = this.borderColor;
+		value.inactiveColor = this.inactiveColor;
+		value.state = this.state;
+		value.activeColor = this.inactiveColor;			
+		value.deactivate();
+		
+		this.makeEmpty();
+		return true;
 	} // end swapInformation
 	
 	/**
 	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
 	 */
 	public void makeEmpty() {
+		Log.d(LOG_TAG, "Making this square empty");
+		
 		this.chip = BoardGameEngine.EMPTY_CHIP;
 		this.state = BoardGameEngine.EMPTY_STATE;
 		this.fillColor = Color.DKGRAY;
 		this.borderColor = Color.BLACK;
-		this.playerColor = Color.TRANSPARENT;
-		this.activePlayerColor = Color.TRANSPARENT;
-		this.invokeOnChangeListener();		
+		this.inactiveColor = Color.TRANSPARENT;
+		this.activeColor = Color.TRANSPARENT;
+		
+		this.deactivate();	
 	}
 	
 	@Override
@@ -187,8 +195,8 @@ public class BoardSquareInfo {
 		builder.append(String.format("state=%s, ", this.state));
 		builder.append(String.format("fill color=%s, ", this.fillColor));
 		builder.append(String.format("border color=%s, ", this.borderColor));
-		builder.append(String.format("player color=%s, ", this.playerColor));
-		builder.append(String.format("active player color=%s", this.activePlayerColor));
+		builder.append(String.format("player color=%s, ", this.inactiveColor));
+		builder.append(String.format("active player color=%s", this.activeColor));
 		builder.append("}");
 		return builder.toString();
 	}
@@ -204,8 +212,8 @@ public class BoardSquareInfo {
 				this.column == info.column &&
 				this.state == info.state &&
 				this.chip == info.chip &&
-				this.playerColor == info.playerColor &&
-				this.activePlayerColor == info.activePlayerColor &&
+				this.inactiveColor == info.inactiveColor &&
+				this.activeColor == info.activeColor &&
 				this.fillColor == info.fillColor &&
 				this.borderColor == info.borderColor);
 	}

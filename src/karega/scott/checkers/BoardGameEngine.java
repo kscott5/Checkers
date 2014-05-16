@@ -5,19 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
  * Base game engine
  * @author Karega Scott
  *
+ * Player 2 is top-left = {0,0}
+ * Player 1 is bottom-right = {7,7}
  */
 public abstract class BoardGameEngine {
 	private static final String LOG_TAG = "BoardGameEngine";
 	
-	public static final int SQUARE_HEIGHT = 39;
-	public static final int SQUARE_WIDTH = 39;
+	public static final int SQUARE_HEIGHT = 30;
+	public static final int SQUARE_WIDTH = 30;
 	
 	public static final int SQUARE_CHIP_START_ANGLE = 0;
 	public static final int SQUARE_CHIP_SWEEP_ANGLE = 360;
@@ -170,18 +171,11 @@ public abstract class BoardGameEngine {
 	public final int getId() { return this.id; }
 	
 	/**
-	 * Initializes the player's square for game play
-	 * @param square the {@link BoardSquareInfo} to initialize for game play
-	 * @return True when initialize else False 
-	 */
-	public abstract boolean setPlayerSquare(BoardSquare square);
-	
-	/**
 	 * 
 	 * @param square
 	 * @return
 	 */
-	public abstract boolean moveChip(BoardSquare square);		
+	public abstract void moveSquare(BoardSquareInfo square);		
 
 	/**
 	 * Loads a previously saved game
@@ -199,15 +193,9 @@ public abstract class BoardGameEngine {
 	public abstract void saveGame();
 
 	/**
-	 * Gets the current player for the game engine
-	 * @return @BoardSquareStateType
-	 */
-	public abstract int getCurrentState();
-	
-	/**
 	 * Switch the current state (player) for the game engine
 	 */
-	public abstract void switchState();
+	public abstract void switchPlayer();
 	
 	/**
 	 * Gets the data for the identifier
@@ -220,17 +208,5 @@ public abstract class BoardGameEngine {
 	 * Returns the number of key/value pairs in the board game @link java.util.hashtable
 	 * @return
 	 */
-	public abstract int getSize();
-	
-	/**
-	 * Gets the current player's ready for moving
-	 * @return the current players selected @BoardSquareInfo
-	 */
-	public abstract BoardSquareInfo getActiveSquare();
-	
-	/**
-	 * Sets the current player's square for moving
-	 * @param value
-	 */
-	public abstract void setActiveSquare(BoardSquareInfo value);	
+	public abstract int getSize();	
 } // end BoardGameEngine
