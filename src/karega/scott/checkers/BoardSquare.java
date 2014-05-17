@@ -13,14 +13,14 @@ import android.view.View;
 public abstract class BoardSquare extends View {
 	private static final String LOG_TAG = "BoardSquare";
 	
-	protected BoardSquareInfo squareInfo;
+	protected BoardSquareInfo square;
 	
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
 	private int engine;
 	
-	protected BoardSquare(Context context, int engine, BoardSquareInfo squareInfo) {
+	protected BoardSquare(Context context, int engine, BoardSquareInfo square) {
 		super(context);
 
 		this.fillPaint = new Paint();
@@ -29,8 +29,8 @@ public abstract class BoardSquare extends View {
 		this.engine = engine;
 		
 		// TODO: Are parameters by references
-		squareInfo.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
-		this.squareInfo = squareInfo;
+		square.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
+		this.square = square;
 	}
 
 	/**
@@ -39,13 +39,11 @@ public abstract class BoardSquare extends View {
 	 * @param engineType @link BoardGameEngineType 
 	 * @return @BoardSquare
 	 */
-	public static BoardSquare instance(Context context, int engine, BoardSquareInfo info) {		
+	public static BoardSquare instance(Context context, int engine, BoardSquareInfo square) {		
 		switch(engine) {
 			case BoardGameEngine.CHECKERS_ENGINE:
-				Log.d(LOG_TAG, "Created instance of checker board square");
-				return new CheckerBoardSquare(context, info);
+				return new CheckerBoardSquare(context, square);
 			default:
-				Log.d(LOG_TAG, "Could not create board square for this engine");
 				return null;
 		}
 	} // end instance
@@ -75,13 +73,11 @@ public abstract class BoardSquare extends View {
 	 * @param refresh Flag to invalidate the @link BoardSquare
 	 */
 	public void updateView(boolean refresh) {
-		Log.d(LOG_TAG, "Updating view");
-		
 		// TODO: Do this once. Remove these values from BoardSquareInfo
-		this.fillPaint.setColor(squareInfo.getFillColor());
+		this.fillPaint.setColor(square.getFillColor());
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-		this.borderPaint.setColor(squareInfo.getBorderColor());
+		this.borderPaint.setColor(square.getBorderColor());
 		this.borderPaint.setStyle(Paint.Style.STROKE);			
 
 		updateViewForRedraw();
@@ -99,8 +95,6 @@ public abstract class BoardSquare extends View {
 	
 	@Override
 	public final void onDraw(Canvas canvas){
-		Log.d(LOG_TAG, "On draw");
-		
 		super.onDraw(canvas);
 		
 		canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), fillPaint);
@@ -115,11 +109,11 @@ public abstract class BoardSquare extends View {
 			return false;
 		
 		BoardSquare view = (BoardSquare)value;
-		return this.squareInfo.equals(view.squareInfo);
+		return this.square.equals(view.square);
 	}
 
 	public final BoardSquareInfo getInformation() {
-		return this.squareInfo;
+		return this.square;
 	}
 	
 	/**

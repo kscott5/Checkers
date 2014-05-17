@@ -19,29 +19,10 @@ public class CheckersEngine extends BoardGameEngine {
 	private BoardSquareInfo activeSquare;
 
 	private int activeState;
-
+    
 	public CheckersEngine(Context context) {
 		super(context, BoardGameEngine.CHECKERS_ENGINE);
 	}
-
-	@Override
-	public void moveSquare(BoardSquareInfo square) {
-		Log.d(LOG_TAG, "Move square");
-
-		// Starting information must be set
-		if (this.activeState == square.getState()) {
-			this.activateSquare(square);
-			return;
-		} // end if
-
-		// Try moving square
-		if (this.moveActiveSquare(this.activeSquare, square, BoardGameEngine.PLAYER1_STATE) || 
-			this.moveActiveSquare(this.activeSquare, square, BoardGameEngine.PLAYER2_STATE)) {
-			return;
-		} // end if
-
-		Log.d(LOG_TAG, "ERROR: Nothing was moved");
-	} // end moveSquare
 
 	@Override
 	public void loadGame() {
@@ -94,7 +75,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 	@Override
 	public BoardSquareInfo getData(int id) {
-		Log.d(LOG_TAG, String.format("Get data for id[%s]", id));
+		Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
 		try {
 			int row = id / 8;
 			int col = id % 8;
@@ -118,25 +99,48 @@ public class CheckersEngine extends BoardGameEngine {
 		return BoardGameEngine.ROWS * BoardGameEngine.COLUMNS;
 	} // end getSize
 
+	@Override
+	public void moveSquare(BoardSquareInfo target) {
+		Log.d(LOG_TAG, "Move square");
+
+		// Starting information must be set
+		if (this.activeState == target.getState()) {
+			if(this.activateSquare(target)) {
+				Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
+			}
+			return;
+		} // end if
+
+		if (this.moveActiveSquare(this.activeSquare, target, BoardGameEngine.PLAYER1_STATE)) {
+			return; 
+		}
+		
+		if(this.moveActiveSquare(this.activeSquare, target, BoardGameEngine.PLAYER2_STATE)) {
+			return;
+		}
+
+		Log.d(LOG_TAG, "Nothing was moved");
+	} // end moveSquare
+
 	/**
 	 * Tries to activate the current square
 	 * 
-	 * @param square
+	 * @param target is a square to activate
 	 * @return
 	 */
-	private boolean activateSquare(BoardSquareInfo square) {
+	private boolean activateSquare(BoardSquareInfo target) {
 		Log.d(LOG_TAG, "Activating square info");
 
 		boolean active = false;
-		if (this.activeState != square.getState())
+		if (this.activeState != target.getState())
 			return active;
 
-		if((active = square.equals(this.activeSquare)))
+		if((active = target.equals(this.activeSquare)))
 			return active;
 		
 		// Check if square is movable
-		if (this.isSquareMovable(square, BoardGameEngine.PLAYER1_STATE,	square.isKing()) || 
-			this.isSquareMovable(square, BoardGameEngine.PLAYER2_STATE,	square.isKing())) {
+		if (this.isSquareMovable(target, BoardGameEngine.PLAYER1_STATE,	target.isKing()) || 
+			this.isSquareMovable(target, BoardGameEngine.PLAYER2_STATE,	target.isKing())) {
 
 			if (this.activeSquare != null) {
 				this.activeSquare.deactivate();
@@ -144,9 +148,9 @@ public class CheckersEngine extends BoardGameEngine {
 						this.activeSquare));
 			}
 
-			this.activeSquare = square;
+			this.activeSquare = target;
 			this.activeSquare.activate();
-			Log.d(LOG_TAG, String.format("Activated square: %s", square));
+			Log.d(LOG_TAG, String.format("Activated square: %s", target));
 
 			active = true;
 		} // end if
@@ -155,135 +159,186 @@ public class CheckersEngine extends BoardGameEngine {
 	} // end activateSquare
 
 	/**
-	 * Determines if the selected square is movable for play
+	 * Determines if the selected square is movable
 	 * 
-	 * @param square
-	 * @return
+	 * @param target is square to check
+	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
+	 * @isKing flag used to determine if search is greater than 1 level
+	 *  
+	 * @return false is successful, otherwise false
 	 */
-	private boolean isSquareMovable(BoardSquareInfo square, int state,
-			boolean isKing) {
-		Log.d(LOG_TAG, "Is square movable (recursive)");
+	private boolean isSquareMovable(BoardSquareInfo target, int state, boolean isKing) {
+		Log.d(LOG_TAG, String.format("Is square movable (recursive) square: %s, state: %s, isKing: %s",target,state,isKing));
 
 		// No need to check in opposite direction
 		if (!isKing && state != this.activeState)
 			return false;
 
-		// See note at class level
-		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
-
-		BoardSquareInfo left = this.getData(square.getRow() + row,
-				square.getColumn() - 1);
-		if (left != null) {
-			if (left.getState() == BoardGameEngine.EMPTY_STATE)
-				return true;
-
-			// Continue checking at next level
-			if (isKing && left.getState() != this.activeState
-					&& isSquareMovable(left, state, isKing))
-				return true;
+		if(ensureSquareMovable(target, state, isKing, /*backwards*/ true)) {
+			return true;
 		}
 
-		BoardSquareInfo right = this.getData(square.getRow() + row,
-				square.getColumn() + 1);
-		if (right != null) {
-			if (right.getState() == BoardGameEngine.EMPTY_STATE)
-				return true;
-
-			// Continue checking at next level
-			if (isKing && right.getState() != this.activeState
-					&& isSquareMovable(right, state, isKing))
-				return true;
+		if(ensureSquareMovable(target, state, isKing, /*backwards*/ false)) {
+			return true;
 		}
 
 		return false;
 	} // end isSquareMoveable
 
 	/**
-	 * Tries to moving the active square to its target square
+	 * Ensures the square is movable
 	 * 
-	 * @param start
-	 * @param target
-	 * @param state
-	 * @return
+	 * @param target is square to check
+	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
+	 * @isKing flag used to determine if search is greater than 1 level
+	 * @backwards flag used to determine column search direction
+	 * 
+	 * @return false is successful, otherwise false
 	 */
-	private boolean moveActiveSquare(BoardSquareInfo start,
-			BoardSquareInfo target, int state) {
-		Log.d(LOG_TAG, "Trying to move square (recursive)");
+	private boolean ensureSquareMovable(BoardSquareInfo target, int state,	boolean isKing, boolean backwards) {
+		Log.d(LOG_TAG, "Ensure square movable");
+
+		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
+		
+		// See note at class level
+		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
+		int col = (backwards)? -1: +1;
+		
+		BoardSquareInfo square = this.getData(target.getRow() + row, target.getColumn() + col);		
+		if (square != null) {
+			Log.d(LOG_TAG, String.format("Square: %s", square));
+			
+			// Square available
+			if (square.getState() == BoardGameEngine.EMPTY_STATE) {
+				return true;
+			}
+			
+			// Opponent square
+			if(square.getState() != this.activeState) {
+				// We need to peek at square directly after opponent's square
+				boolean peekEmpty = this.isEmpty(square.getRow() + row, square.getColumn() + col);
+				if(peekEmpty) { 
+					return true;
+				}
+				
+				// Continue checking at next level
+				if(isKing && isSquareMovable(square, state, isKing)) {
+					return true;
+				}
+			} // end if
+		} // end if
+
+		return false;
+	} // end ensureSquareMovable
+
+	/**
+	 * Tries to moving the active square to the target square
+	 * 
+	 * @param start position of the selected square
+	 * @param target location for the selected square
+	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
+	 * 
+	 * @return false is successful, otherwise false
+	 */
+	private boolean moveActiveSquare(BoardSquareInfo start,	BoardSquareInfo target, int state) {
+		Log.d(LOG_TAG, String.format("Move active square (recursive) - start: %s, target: %s, state: %s",start,target,state));
 
 		if (start == null || target == null)
 			return false;
 
-		// No need to check in opposite direction
+		// No need to check the opposite direction
 		if (!this.activeSquare.isKing() && state != this.activeState)
 			return false;
 
-		// See note at class level
-		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
-
-		// Check left side
-		BoardSquareInfo left = this.getData(start.getRow() + row,
-				start.getColumn() - 1);
-		if (left == null)
-			return false;
-
-		// Found it
-		if (target.equals(left)) {
-			this.activeSquare.swap(target);
-			this.switchPlayer();
+		if(searchBoardForTarget(start, target, state, /*backwards*/ true)) {
 			return true;
-		} // end if
+		} 
 
-		// Remove opponent
-		if (left.getState() != this.activeState
-				&& left.getState() != BoardGameEngine.EMPTY_STATE
-				&& moveActiveSquare(left, target, state)) {
-			left.makeEmpty();
+		if(searchBoardForTarget(start, target, state, /*backwards*/ false)) {
 			return true;
-		} // end if
-
-		// Continue traversing
-		if (left.getState() == BoardGameEngine.EMPTY_STATE) {
-			// This is a peek forward
-			boolean peekNotEmpty = !this.isEmpty(left.getRow() + row, left.getColumn() - 1);
-			if ((peekNotEmpty || this.activeSquare.isKing()) &&
-				moveActiveSquare(left, target, state)) {
-					return true;
-			}
-		} // end if
-
-		// Check right side
-		BoardSquareInfo right = this.getData(start.getRow() + row,
-				start.getColumn() + 1);
-		if (right == null)
-			return false;
-
-		// Found it
-		if (target.equals(right)) {
-			this.activeSquare.swap(target);
-			this.switchPlayer();
-			return true;
-		} // end if
-
-		// Remove opponent
-		if (right.getState() != this.activeState
-				&& right.getState() != BoardGameEngine.EMPTY_STATE
-				&& moveActiveSquare(right, target, state)) {
-			right.makeEmpty();
-			return true;
-		} // end if
-
-		// Continue traversing
-		if (right.getState() == BoardGameEngine.EMPTY_STATE) {
-			// This is a peek forward
-			boolean peekNotEmpty = !this.isEmpty(right.getRow() + row, right.getColumn() + 1); 
-			if ((peekNotEmpty || this.activeSquare.isKing()) && moveActiveSquare(right, target, state)) {
-				return true;
-			}
-		} // end if
+		} 
 
 		return false;
-	} // end tryMovingSquare
+	} // end moveActiveSquare
 
+	/**
+	 * Search the board for the target
+	 * 
+	 * @param start position of the selected square
+	 * @param target location for the selected square
+	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
+	 * @backwards flag used to determine column search direction
+	 *  
+	 * @return false is successful, otherwise false
+	 */
+	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards) {
+		Log.d(LOG_TAG, "Search board for target");
+		
+		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
+		
+		// See note at class level
+		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
+		int col = (backwards)? -1: +1;
+		
+		// Check  side
+		BoardSquareInfo square = this.getData(start.getRow() + row, start.getColumn() + col);
+		if (square == null)
+			return false;
+
+		Log.d(LOG_TAG, String.format("Square: %s", square));
+		
+		// Found it
+		if (target.equals(square)) {
+			this.activeSquare.swap(target);
+			this.switchPlayer();
+			return true;
+		} // end if
+
+		// STOP, square states are the same
+		if(square.getState() == this.activeState)
+			return false;
+		
+		// Peek add next square. 
+		BoardSquareInfo peek = this.getData(square.getRow() + row, square.getColumn() + col);
+		if(peek == null) {
+			// OK, peek in the opposite direction
+			peek = this.getData(square.getRow() + row, square.getColumn() + (col*-1));
+			
+			// STOP, we can never find target on this path
+			if(peek == null)
+				return false;
+		}
+		
+		// We know now that we can't jump move to peek
+		// STOP, we can never find target on this path
+		if(peek.getState() == this.activeState)
+			return false;
+		
+		// King allow to move over two consecutive empty squares
+		if(this.activeSquare.isKing() 
+				&& peek.getState() == BoardGameEngine.EMPTY_STATE 
+				&& peek.getState() == square.getState()  
+				&& moveActiveSquare(square,target,state))
+			return true;
+		
+		// We know peek isn't an empty square
+		// STOP, never jump over two square with same state 
+		if(peek.getState() == square.getState())
+			return false;
+		
+		// Remove opponent
+		if (square.getState() != BoardGameEngine.EMPTY_STATE && moveActiveSquare(square, target, state)) {
+			square.makeEmpty();
+			return true;
+		}
+
+		// Continue moving
+		if(square.getState() == BoardGameEngine.EMPTY_STATE && moveActiveSquare(square,target,state))
+			return true;
+		
+		return false;
+	} // end searchBoardForTarget
+	
 	/**
 	 * Is the square empty at this coordinates on the board
 	 * 
@@ -295,19 +350,15 @@ public class CheckersEngine extends BoardGameEngine {
 		try {
 			BoardSquareInfo info = this.squares[row][col];
 			if (info.getState() == BoardGameEngine.EMPTY_STATE) {
-				Log.d(LOG_TAG,
-						String.format("Is empty for row[%s] col[%s]", row, col));
+				Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
 				return true;
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.e(LOG_TAG, String.format(
-					"Is empty array index out of bounds for row[%s] col[%s]",
-					row, col));
+			Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
 			return false;
 		}
 
-		Log.d(LOG_TAG,
-				String.format("Not is empty for row[%s] col[%s]", row, col));
+		Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
 		return false;
 	} // end isEmpty
 
@@ -331,9 +382,6 @@ public class CheckersEngine extends BoardGameEngine {
 
 			return data;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.e(LOG_TAG, String.format(
-					"Get data array index out of bounds for row[%s] col[%s]",
-					row, col));
 			return null;
 		}
 	} // end getData

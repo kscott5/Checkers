@@ -15,6 +15,7 @@ public class BoardSquareInfo {
 	
 	private int chip;
 	private int state;
+	private boolean isKing;
 	
 	private int fillColor = Color.GRAY;
 	private int borderColor = Color.BLACK;
@@ -29,7 +30,8 @@ public class BoardSquareInfo {
 		this.state = initialState;
 		this.initialChip = initialChip;
 		this.chip = initialChip;
-
+		this.isKing = false;
+		
 		this.reset();
 	}
 	
@@ -97,13 +99,8 @@ public class BoardSquareInfo {
 	}
 	
 	public int getChip() { return this.chip; }
+	public boolean isKing() { return this.isKing; }
 	
-	public boolean isKing() { return this.chip == BoardGameEngine.KING_CHIP; }
-	public void makeKing() { 
-		this.chip = BoardGameEngine.KING_CHIP;
-		invokeOnChangeListener();
-	}
-
 	/**
 	 * Returns the {@link BoardSquareInfo} to its initial state
 	 */
@@ -111,6 +108,7 @@ public class BoardSquareInfo {
 		this.chip = this.initialChip;
 		this.state = this.initialState;
 		this.borderColor = Color.BLACK;
+		this.isKing = false;
 		
 		switch(this.initialState) {
 			case BoardGameEngine.EMPTY_STATE:
@@ -142,24 +140,24 @@ public class BoardSquareInfo {
 	} //end reset
 	
 	/**
-	 * Swap current information with {@link BoardSquareInfo} who {@link BoardSquareStateType} is EMPTY
+	 * Swaps this square with an empty square
 	 * @param value
 	 */
 	public boolean swap(BoardSquareInfo value) {
 		Log.d(LOG_TAG, "Swapping square information");
 
-		if(this.state == BoardGameEngine.LOCKED_STATE)
+		if(value.state != BoardGameEngine.EMPTY_STATE) {
+			Log.d(LOG_TAG, "Swap requires an empty square");
 			return false;
-
-		if(value.state != BoardGameEngine.EMPTY_STATE)
-			return false;
+		}
 		
 		value.chip = this.chip;
 		value.fillColor = this.fillColor;
 		value.borderColor = this.borderColor;
 		value.inactiveColor = this.inactiveColor;
 		value.state = this.state;
-		value.activeColor = this.inactiveColor;			
+		value.activeColor = this.inactiveColor;
+		value.isKing = (this.isKing || value.row == BoardGameEngine.TOP_ROW || value.row == BoardGameEngine.BOTTOM_ROW);
 		value.deactivate();
 		
 		this.makeEmpty();
@@ -178,7 +176,7 @@ public class BoardSquareInfo {
 		this.borderColor = Color.BLACK;
 		this.inactiveColor = Color.TRANSPARENT;
 		this.activeColor = Color.TRANSPARENT;
-		
+		this.isKing = false;
 		this.deactivate();	
 	}
 	
@@ -193,6 +191,7 @@ public class BoardSquareInfo {
 		builder.append(String.format("chip=%s, ", this.chip));
 		builder.append(String.format("initial state=%s, ", this.initialState));
 		builder.append(String.format("state=%s, ", this.state));
+		builder.append(String.format("is king=%s, ", this.isKing));
 		builder.append(String.format("fill color=%s, ", this.fillColor));
 		builder.append(String.format("border color=%s, ", this.borderColor));
 		builder.append(String.format("player color=%s, ", this.inactiveColor));

@@ -16,6 +16,9 @@ import android.util.Log;
  */
 public abstract class BoardGameEngine {
 	private static final String LOG_TAG = "BoardGameEngine";
+
+	public static final int TOP_ROW = 0;
+	public static final int BOTTOM_ROW = 7;
 	
 	public static final int SQUARE_HEIGHT = 30;
 	public static final int SQUARE_WIDTH = 30;
@@ -38,7 +41,6 @@ public abstract class BoardGameEngine {
 	
 	public static final int EMPTY_CHIP = 3001;
 	public static final int PAWN_CHIP = 3002;
-	public static final int KING_CHIP = 3003;
 	
 	protected static final int ROWS = 8;
 	protected static final int COLUMNS = 8;

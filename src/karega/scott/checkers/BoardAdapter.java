@@ -39,9 +39,7 @@ public class BoardAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {		
-		Log.d(LOG_TAG, String.format("Get view at position %s",position));
-		
+	public View getView(int position, View convertView, ViewGroup parent) {				
 		BoardSquare view = getViewFromConvertView(position, convertView, parent);
 		view.setOnTouchListener(new OnTouchListener() {
 
