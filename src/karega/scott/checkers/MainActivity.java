@@ -15,9 +15,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        this.findViewById(R.id.startGame)
+        this.findViewById(R.id.startFriendPlay)
         .setOnClickListener(new MainActivity.InternalClickListener(this));
-        
+
+        this.findViewById(R.id.startComputerPlay)
+        .setOnClickListener(new MainActivity.InternalClickListener(this));
+
         this.findViewById(R.id.exitGame)
         .setOnClickListener(new MainActivity.InternalClickListener(this));
     }
@@ -29,8 +32,9 @@ public class MainActivity extends Activity {
         return true;
     }    
 
-    public void startBoardActivity() {
+    public void startBoardActivity(boolean vsComputer) {   	
     	Intent boardActivityIntent = new Intent(this, BoardActivity.class);
+    	boardActivityIntent.putExtra(BoardGameEngine.VS_COMPUTER, vsComputer);
     	this.startActivity(boardActivityIntent);
     }
 
@@ -49,8 +53,11 @@ public class MainActivity extends Activity {
     	@Override
     	public void onClick(View v) {
     		switch(v.getId()) {
-    			case R.id.startGame:
-    				startBoardActivity();
+    			case R.id.startFriendPlay:
+    				startBoardActivity(/*vs computer*/ false);
+    				break;
+    			case R.id.startComputerPlay:
+    				startBoardActivity(/*vs computer*/ true);
     				break;
     			case R.id.exitGame:
     				activity.finish();

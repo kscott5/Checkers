@@ -1,10 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
-    >
-
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/splashText"
@@ -14,15 +12,21 @@
         android:text="@string/splash_text_view" />
 
     <Button
-        android:id="@+id/startGame"
-        android:layout_width="wrap_content"
+        android:id="@+id/startFriendPlay"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/start_game" />
+        android:text="@string/start_friend_play" />
 
-     <Button
-         android:id="@+id/exitGame"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="@string/exit_game" />
-    
+    <Button
+        android:id="@+id/startComputerPlay"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start_computer_play" />
+
+    <Button
+        android:id="@+id/exitGame"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_game" />
+
 </LinearLayout>

@@ -3,6 +3,7 @@ package karega.scott.checkers;
 import karega.scott.checkers.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,20 +34,23 @@ public class BoardActivity extends Activity {
 		setContentView(R.layout.activity_board);
 		this.setTitle(R.string.app_name);
 		
+		Intent intent = this.getIntent();
+		boolean vsComputer = intent.getBooleanExtra(BoardGameEngine.VS_COMPUTER, true);
 		
-		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE);
+		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE, vsComputer);
 		
 		boardGame = (GridView) this.findViewById(R.id.boardGame);		
-		
-		// TODO: Do I need this if BoardAdapter BoardSquare listening to on touch
-		//boardGame.setOnItemClickListener(new BoardActivity.InternalItemClickListener(boardEngine));
-		boardGame.setAdapter(new BoardAdapter(boardGame.getContext(), 
-				boardEngine));		
+		boardGame.setAdapter(new BoardAdapter(boardGame.getContext(), boardEngine));		
+
+		// TODO: Get width of parent to resize buttons or configure .xml file
+		int width = boardGame.getWidth();
 		
 		exitGame = (Button) this.findViewById(R.id.exitGame);
+		exitGame.setWidth(width/2);
 		exitGame.setOnClickListener(new BoardActivity.InternalClickListener(this));
 		
 		newGame = (Button) this.findViewById(R.id.newGame);
+		newGame.setWidth(width/2);
 		newGame.setOnClickListener(new BoardActivity.InternalClickListener(this));
 	}	
 		
@@ -58,31 +62,6 @@ public class BoardActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_board, menu);
 		return true;
 	}
-	
-	/**
-	 * Internal listener used when an item is clicked in the GridView
-	 * @author Administrator
-	 *
-	 */
-	public class InternalItemClickListener implements OnItemClickListener {
-		private static final String LOG_TAG = "InternalItemClickListener";
-		
-		private BoardGameEngine engine;
-		
-		public InternalItemClickListener(BoardGameEngine engine) {
-			this.engine = engine;
-		}
-		
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Log.d(LOG_TAG,"On item clicked");
-			
-			// TODO: Determine why this method fires after onTouch		
-			
-			//BoardSquare square = (BoardSquare)view;
-			//engine.moveSquare(square.getInformation());			
-		} // end onItemClick
-	} // end InternalItemClickListener
 	
 	/**
 	 * Internal listener used when this activity child view is clicked

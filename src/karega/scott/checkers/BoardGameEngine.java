@@ -1,6 +1,8 @@
 package karega.scott.checkers;
 
 
+import java.util.Random;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +19,12 @@ import android.util.Log;
 public abstract class BoardGameEngine {
 	private static final String LOG_TAG = "BoardGameEngine";
 
+	public static final String VS_COMPUTER = "you vs computer";
+	
+	protected static final Random random = new Random();
+	
+	protected static final int NUM_OF_TRIES = 6;
+	
 	public static final int TOP_ROW = 0;
 	public static final int BOTTOM_ROW = 7;
 	protected static final int ROWS = 8;
@@ -46,9 +54,11 @@ public abstract class BoardGameEngine {
 		
 	protected final int id;
 	protected final Context context;
+	protected final boolean vsComputer;
 	
-	protected BoardGameEngine(Context ctx, int id) {
+	protected BoardGameEngine(Context ctx, int id, boolean vsComputer) {
 		this.context = ctx;
+		this.vsComputer = vsComputer;
 		this.id = id;
 		this.newGame();
 	}
@@ -152,13 +162,13 @@ public abstract class BoardGameEngine {
 	 * @param engine Integer value
 	 * @return @link BoardGameEngine engine for play
 	 */
-	public static BoardGameEngine instance(Context context, int id) {
+	public static BoardGameEngine instance(Context context, int id, boolean vsComputer) {
 		BoardGameEngine engine = null;
 		
 		switch(id) {
 			case BoardGameEngine.CHECKERS_ENGINE:
 				Log.d(LOG_TAG, "Creating an instance for checkers engine");
-				engine = new CheckersEngine(context);
+				engine = new CheckersEngine(context, vsComputer);
 				break;
 				
 			case BoardGameEngine.CHESS_ENGINE:
@@ -173,12 +183,17 @@ public abstract class BoardGameEngine {
 	public final int getId() { return this.id; }
 	
 	/**
-	 * 
+	 * Move the square for current player
 	 * @param square
 	 * @return
 	 */
 	public abstract void moveSquare(BoardSquareInfo square);		
 
+	/**
+	 * Move the square for the computer
+	 */
+	protected abstract void moveSquareForComputer();
+	
 	/**
 	 * Loads a previously saved game
 	 */

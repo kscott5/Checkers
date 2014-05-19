@@ -51,11 +51,12 @@ containing a value of this type.
         public static final int PLAYER2=0x7f040002;
         public static final int boardGame=0x7f040004;
         public static final int exitGame=0x7f040006;
-        public static final int menu_settings=0x7f04000a;
+        public static final int menu_settings=0x7f04000b;
         public static final int newGame=0x7f040005;
         public static final int splashText=0x7f040007;
-        public static final int squareView=0x7f040009;
-        public static final int startGame=0x7f040008;
+        public static final int squareView=0x7f04000a;
+        public static final int startComputerPlay=0x7f040009;
+        public static final int startFriendPlay=0x7f040008;
     }
     public static final class layout {
         public static final int activity_board=0x7f030000;
@@ -68,15 +69,16 @@ containing a value of this type.
         public static final int activity_test=0x7f070002;
     }
     public static final class string {
-        public static final int app_description=0x7f050008;
+        public static final int app_description=0x7f050009;
         public static final int app_name=0x7f050000;
-        public static final int exit_game=0x7f050005;
+        public static final int exit_game=0x7f050006;
         public static final int menu_settings=0x7f050001;
-        public static final int new_game=0x7f050004;
-        public static final int splash_text_view=0x7f050003;
-        public static final int start_game=0x7f050002;
-        public static final int title_activity_board=0x7f050006;
-        public static final int title_activity_test=0x7f050007;
+        public static final int new_game=0x7f050005;
+        public static final int splash_text_view=0x7f050004;
+        public static final int start_computer_play=0x7f050003;
+        public static final int start_friend_play=0x7f050002;
+        public static final int title_activity_board=0x7f050007;
+        public static final int title_activity_test=0x7f050008;
     }
     public static final class style {
         /** 

@@ -20,8 +20,8 @@ public class CheckersEngine extends BoardGameEngine {
 
 	private int activeState;
     
-	public CheckersEngine(Context context) {
-		super(context, CHECKERS_ENGINE);
+	public CheckersEngine(Context context, boolean vsComputer) {
+		super(context, CHECKERS_ENGINE, vsComputer);
 	}
 
 	@Override
@@ -66,10 +66,9 @@ public class CheckersEngine extends BoardGameEngine {
 		}
 
 		activeSquare = null;
-
 		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;
 
-		// TODO: Ensure no squares are highlighted
+		moveSquareForComputer();
 	} // end switchPlayer
 
 	@Override
@@ -104,6 +103,12 @@ public class CheckersEngine extends BoardGameEngine {
 
 		// Starting information must be set
 		if (activeState == target.state) {
+			
+			// Don't allow engine to re-select square
+			if(target.state == PLAYER2_STATE && vsComputer) {
+				return;
+			}
+			
 			if(activateSquare(target)) {
 				Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
 			}
@@ -121,6 +126,42 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, "Nothing was moved");
 	} // end moveSquare
 
+	@Override
+	protected void moveSquareForComputer() {
+		Log.d(LOG_TAG, "Moving square for computer");
+		
+		if(!vsComputer || activeState != PLAYER2_STATE) { 
+			return;
+		}
+		
+		int ubound = ROWS*COLUMNS;
+		int tries = 0;
+		
+		BoardSquareInfo square = null;
+		while(!activateSquare(square) && tries++ <= ubound*NUM_OF_TRIES) {
+			int id = random.nextInt(ubound);
+			square = getData(id);
+		} // end while
+		
+		if(activeSquare == null) {
+			Log.e(LOG_TAG, "No available square for the computer to move");
+			return;
+		} // end if
+	
+		tries = 0;
+		while(activeState == PLAYER2_STATE && tries++ <= ubound*NUM_OF_TRIES) {
+			int id = random.nextInt(ubound);
+			square = getData(id);
+			moveSquare(square);
+		} // end while
+		
+		if(activeSquare != null) {
+			Log.e(LOG_TAG, "No available square for the computer to move to");
+			return;
+		} // end if
+	
+	} // end moveSquareForComputer
+	
 	/**
 	 * Tries to activate the current square
 	 * 
@@ -131,6 +172,9 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, "Activating square info");
 
 		boolean active = false;
+		if(target == null)
+			return active;
+		
 		if (activeState != target.state)
 			return active;
 

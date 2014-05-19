@@ -20,19 +20,18 @@
         android:id="@+id/newGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/exitGame"
-        android:layout_alignBottom="@+id/exitGame"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="57dp"
+        android:layout_below="@+id/boardGame"
         android:text="@string/new_game" />
 
     <Button
         android:id="@+id/exitGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/boardGame"
-        android:layout_marginLeft="29dp"
-        android:layout_toRightOf="@+id/newGame"
         android:text="@string/exit_game" />
 
 </RelativeLayout>
