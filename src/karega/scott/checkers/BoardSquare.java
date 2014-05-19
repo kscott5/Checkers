@@ -74,10 +74,10 @@ public abstract class BoardSquare extends View {
 	 */
 	public void updateView(boolean refresh) {
 		// TODO: Do this once. Remove these values from BoardSquareInfo
-		this.fillPaint.setColor(square.getFillColor());
+		this.fillPaint.setColor(square.fillColor);
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-		this.borderPaint.setColor(square.getBorderColor());
+		this.borderPaint.setColor(square.borderColor);
 		this.borderPaint.setStyle(Paint.Style.STROKE);			
 
 		updateViewForRedraw();

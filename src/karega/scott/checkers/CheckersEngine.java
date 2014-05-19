@@ -21,31 +21,31 @@ public class CheckersEngine extends BoardGameEngine {
 	private int activeState;
     
 	public CheckersEngine(Context context) {
-		super(context, BoardGameEngine.CHECKERS_ENGINE);
+		super(context, CHECKERS_ENGINE);
 	}
 
 	@Override
 	public void loadGame() {
 		Log.d(LOG_TAG, "Loading an existing game");
 
-		this.activeState = this.loadCurrentState(/* for new game */false);
-		this.activeSquare = null;
+		activeState = loadCurrentState(/* for new game */false);
+		activeSquare = null;
 
-		this.squares = this.loadSquares(/* for new game */false);
+		squares = loadSquares(/* for new game */false);
 	} // end loadGame
 
 	@Override
 	public void newGame() {
 		Log.d(LOG_TAG, "Loading a new game");
 
-		this.activeState = BoardGameEngine.PLAYER1_STATE;
-		this.activeSquare = null;
+		activeState = PLAYER1_STATE;
+		activeSquare = null;
 
-		if (this.squares == null) {
-			this.squares = this.loadSquares(/* for new game */true);
+		if (squares == null) {
+			squares = loadSquares(/* for new game */true);
 		} else {
-			for (int i = 0; i < this.getSize(); i++) {
-				this.getData(i).reset();
+			for (int i = 0; i < getSize(); i++) {
+				getData(i).reset();
 			} // end for
 		} // end if
 	} // end newGame
@@ -61,14 +61,13 @@ public class CheckersEngine extends BoardGameEngine {
 	public void switchPlayer() {
 		Log.d(LOG_TAG, "Switching players");
 
-		if (this.activeSquare != null) {
-			this.activeSquare.deactivate();
+		if (activeSquare != null) {
+			activeSquare.deactivate();
 		}
 
-		this.activeSquare = null;
+		activeSquare = null;
 
-		this.activeState = (this.activeState == BoardGameEngine.PLAYER2_STATE) ? BoardGameEngine.PLAYER1_STATE
-				: BoardGameEngine.PLAYER2_STATE;
+		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;
 
 		// TODO: Ensure no squares are highlighted
 	} // end switchPlayer
@@ -82,7 +81,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 			BoardSquareInfo info = squares[row][col];
 
-			if (id != info.getId())
+			if (id != info.id)
 				throw new Error("Get data for id " + id + ", not found");
 
 			return info;
@@ -96,7 +95,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 	@Override
 	public int getSize() {
-		return BoardGameEngine.ROWS * BoardGameEngine.COLUMNS;
+		return ROWS * COLUMNS;
 	} // end getSize
 
 	@Override
@@ -104,18 +103,18 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, "Move square");
 
 		// Starting information must be set
-		if (this.activeState == target.getState()) {
-			if(this.activateSquare(target)) {
+		if (activeState == target.state) {
+			if(activateSquare(target)) {
 				Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
 			}
 			return;
 		} // end if
 
-		if (this.moveActiveSquare(this.activeSquare, target, BoardGameEngine.PLAYER1_STATE)) {
+		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE)) {
 			return; 
 		}
 		
-		if(this.moveActiveSquare(this.activeSquare, target, BoardGameEngine.PLAYER2_STATE)) {
+		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE)) {
 			return;
 		}
 
@@ -132,24 +131,24 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, "Activating square info");
 
 		boolean active = false;
-		if (this.activeState != target.getState())
+		if (activeState != target.state)
 			return active;
 
-		if((active = target.equals(this.activeSquare)))
+		if((active = target.equals(activeSquare)))
 			return active;
 		
 		// Check if square is movable
-		if (this.isSquareMovable(target, BoardGameEngine.PLAYER1_STATE,	target.isKing()) || 
-			this.isSquareMovable(target, BoardGameEngine.PLAYER2_STATE,	target.isKing())) {
+		if (isSquareMovable(target, PLAYER1_STATE,	target.isKing) || 
+			isSquareMovable(target, PLAYER2_STATE,	target.isKing)) {
 
-			if (this.activeSquare != null) {
-				this.activeSquare.deactivate();
+			if (activeSquare != null) {
+				activeSquare.deactivate();
 				Log.d(LOG_TAG, String.format("Deactivated square: %s",
-						this.activeSquare));
+						activeSquare));
 			}
 
-			this.activeSquare = target;
-			this.activeSquare.activate();
+			activeSquare = target;
+			activeSquare.activate();
 			Log.d(LOG_TAG, String.format("Activated square: %s", target));
 
 			active = true;
@@ -171,7 +170,7 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, String.format("Is square movable (recursive) square: %s, state: %s, isKing: %s",target,state,isKing));
 
 		// No need to check in opposite direction
-		if (!isKing && state != this.activeState)
+		if (!isKing && state != activeState)
 			return false;
 
 		if(ensureSquareMovable(target, state, isKing, /*backwards*/ true)) {
@@ -201,22 +200,22 @@ public class CheckersEngine extends BoardGameEngine {
 		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
 		
 		// See note at class level
-		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
+		int row = (state == PLAYER1_STATE) ? -1 : +1;
 		int col = (backwards)? -1: +1;
 		
-		BoardSquareInfo square = this.getData(target.getRow() + row, target.getColumn() + col);		
+		BoardSquareInfo square = getData(target.row + row, target.column + col);		
 		if (square != null) {
 			Log.d(LOG_TAG, String.format("Square: %s", square));
 			
 			// Square available
-			if (square.getState() == BoardGameEngine.EMPTY_STATE) {
+			if (square.state == EMPTY_STATE) {
 				return true;
 			}
 			
 			// Opponent square
-			if(square.getState() != this.activeState) {
+			if(square.state != activeState) {
 				// We need to peek at square directly after opponent's square
-				boolean peekEmpty = this.isEmpty(square.getRow() + row, square.getColumn() + col);
+				boolean peekEmpty = isEmpty(square.row + row, square.column + col);
 				if(peekEmpty) { 
 					return true;
 				}
@@ -247,7 +246,7 @@ public class CheckersEngine extends BoardGameEngine {
 			return false;
 
 		// No need to check the opposite direction
-		if (!this.activeSquare.isKing() && state != this.activeState)
+		if (!activeSquare.isKing && state != activeState)
 			return false;
 
 		if(searchBoardForTarget(start, target, state, /*backwards*/ true)) {
@@ -277,11 +276,11 @@ public class CheckersEngine extends BoardGameEngine {
 		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
 		
 		// See note at class level
-		int row = (state == BoardGameEngine.PLAYER1_STATE) ? -1 : +1;
+		int row = (state == PLAYER1_STATE) ? -1 : +1;
 		int col = (backwards)? -1: +1;
 		
 		// Check  side
-		BoardSquareInfo square = this.getData(start.getRow() + row, start.getColumn() + col);
+		BoardSquareInfo square = getData(start.row + row, start.column + col);
 		if (square == null)
 			return false;
 
@@ -289,53 +288,54 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		// Found it
 		if (target.equals(square)) {
-			this.activeSquare.swap(target);
-			this.switchPlayer();
+			activeSquare.swap(target);
+			switchPlayer();
 			return true;
 		} // end if
 
 		// STOP, square states are the same
-		if(square.getState() == this.activeState)
+		if(square.state == activeState)
 			return false;
 		
 		// Peek add next square. 
-		BoardSquareInfo peek = this.getData(square.getRow() + row, square.getColumn() + col);
+		BoardSquareInfo peek = getData(square.row + row, square.column + col);
 		if(peek == null) {
-			// OK, peek in the opposite direction
-			peek = this.getData(square.getRow() + row, square.getColumn() + (col*-1));
+			if(!activeSquare.isKing) return false;
 			
-			// STOP, we can never find target on this path
-			if(peek == null)
-				return false;
-		}
+			if(searchBoardForTarget(start, target, state, !backwards)) 
+				return true;
+			
+			return false;
+		} // end if
+		
 		
 		// We know now that we can't jump move to peek
 		// STOP, we can never find target on this path
-		if(peek.getState() == this.activeState)
+		if(peek.state == activeState)
 			return false;
 		
 		// King allow to move over two consecutive empty squares
-		if(this.activeSquare.isKing() 
-				&& peek.getState() == BoardGameEngine.EMPTY_STATE 
-				&& peek.getState() == square.getState()  
+ 		if(activeSquare.isKing 
+				&& peek.state == EMPTY_STATE 
+				&& peek.state == square.state  
 				&& moveActiveSquare(square,target,state))
 			return true;
 		
 		// We know peek isn't an empty square
 		// STOP, never jump over two square with same state 
-		if(peek.getState() == square.getState())
+		if(peek.state == square.state)
 			return false;
 		
 		// Remove opponent
-		if (square.getState() != BoardGameEngine.EMPTY_STATE && moveActiveSquare(square, target, state)) {
+		if (square.state != EMPTY_STATE && moveActiveSquare(square, target, state)) {
 			square.makeEmpty();
 			return true;
 		}
 
 		// Continue moving
-		if(square.getState() == BoardGameEngine.EMPTY_STATE && moveActiveSquare(square,target,state))
+		if(square.state == EMPTY_STATE && moveActiveSquare(square,target,state))
 			return true;
-		
+				
 		return false;
 	} // end searchBoardForTarget
 	
@@ -348,8 +348,8 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	private boolean isEmpty(int row, int col) {
 		try {
-			BoardSquareInfo info = this.squares[row][col];
-			if (info.getState() == BoardGameEngine.EMPTY_STATE) {
+			BoardSquareInfo info = squares[row][col];
+			if (info.state == EMPTY_STATE) {
 				Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
 				return true;
 			}
@@ -373,8 +373,8 @@ public class CheckersEngine extends BoardGameEngine {
 		Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
 
 		try {
-			BoardSquareInfo data = this.squares[row][col];
-			if (data.getState() == BoardGameEngine.LOCKED_STATE) {
+			BoardSquareInfo data = squares[row][col];
+			if (data.state == LOCKED_STATE) {
 				Log.e(LOG_TAG, String.format(
 						"Get data for row[%s] and col[%s] is locked", row, col));
 				return null;

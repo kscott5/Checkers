@@ -19,6 +19,8 @@ public abstract class BoardGameEngine {
 
 	public static final int TOP_ROW = 0;
 	public static final int BOTTOM_ROW = 7;
+	protected static final int ROWS = 8;
+	protected static final int COLUMNS = 8;
 	
 	public static final int SQUARE_HEIGHT = 30;
 	public static final int SQUARE_WIDTH = 30;
@@ -38,15 +40,13 @@ public abstract class BoardGameEngine {
 	public static final int PLAYER2_STATE = 2002;
 	public static final int EMPTY_STATE = 2003;
 	public static final int LOCKED_STATE = 2004;
-	
+
 	public static final int EMPTY_CHIP = 3001;
 	public static final int PAWN_CHIP = 3002;
+		
+	protected final int id;
+	protected final Context context;
 	
-	protected static final int ROWS = 8;
-	protected static final int COLUMNS = 8;
-	
-	private int id = -1;
-	private Context context = null;
 	protected BoardGameEngine(Context ctx, int id) {
 		this.context = ctx;
 		this.id = id;
@@ -129,7 +129,7 @@ public abstract class BoardGameEngine {
 						cursor.getInt(3 /*State*/),
 						cursor.getInt(4 /*Chip*/));
 				
-				squares[square.getRow()][square.getColumn()] = square;				
+				squares[square.row][square.column] = square;				
 			}
 			
 		} catch(SQLiteException e) {

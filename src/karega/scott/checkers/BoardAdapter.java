@@ -62,8 +62,11 @@ public class BoardAdapter extends BaseAdapter {
 		if(convertView == null || !(convertView instanceof BoardSquare)) {
 			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
 			
+			GridView grid = (GridView)parent;
+			int width= grid.getColumnWidth();
+			
 			BoardSquare view = BoardSquare.instance(this.context, this.engine.getId(), info);
-			view.setLayoutParams( new GridView.LayoutParams(BoardGameEngine.SQUARE_WIDTH, BoardGameEngine.SQUARE_HEIGHT));
+			view.setLayoutParams( new GridView.LayoutParams(width, width));
 			return view;
 		}
 		

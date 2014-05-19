@@ -6,21 +6,21 @@ import android.util.Log;
 public class BoardSquareInfo {
 	private static final String LOG_TAG = "BoardSquareInfo";
 	
-	private final int id;
-	private final int row;
-	private final int column;
+	public final int id;
+	public final int row;
+	public final int column;
 	
-	private final int initialChip;
-	private final int initialState;
+	public final int initialChip;
+	public final int initialState;
 	
-	private int chip;
-	private int state;
-	private boolean isKing;
+	public int chip;
+	public int state;
+	public boolean isKing;
 	
-	private int fillColor = Color.GRAY;
-	private int borderColor = Color.BLACK;
-	private int inactiveColor = Color.TRANSPARENT;
-	private int activeColor = Color.TRANSPARENT;
+	public int fillColor = Color.GRAY;
+	public int borderColor = Color.BLACK;
+	public int inactiveColor = Color.TRANSPARENT;
+	public int activeColor = Color.TRANSPARENT;
 	
 	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip) {
 		this.id = id;
@@ -34,10 +34,6 @@ public class BoardSquareInfo {
 		
 		this.reset();
 	}
-	
-	public int getId() { return this.id; }
-	public int getRow() { return this.row; }		
-	public int getColumn() { return this.column; }
 	
 	/**
 	 * Listener used when {@link BoardSquareInfo} state changes
@@ -70,36 +66,6 @@ public class BoardSquareInfo {
 		this.activeColor = Color.WHITE;
 		invokeOnChangeListener();
 	}
-	
-	public int getFillColor() { return this.fillColor; }
-	public void setFillColor(int value) {
-		this.fillColor = value;
-		invokeOnChangeListener();
-	}
-	
-	public int getBorderColor() { return this.borderColor;}
-	public void setBorderColor(int value) { 
-		this.borderColor = value;
-		invokeOnChangeListener();
-	}
-	
-	public int getInactiveColor() { return this.inactiveColor; }
-	public void setInactiveColor(int value) {  
-		this.inactiveColor = value;
-		deactivate();
-		invokeOnChangeListener();
-	}
-
-	public int getActiveColor() { return this.activeColor; }
-	
-	public int getState() { return this.state; }
-	public void setState(int value) {
-		this.state = value;
-		invokeOnChangeListener();
-	}
-	
-	public int getChip() { return this.chip; }
-	public boolean isKing() { return this.isKing; }
 	
 	/**
 	 * Returns the {@link BoardSquareInfo} to its initial state

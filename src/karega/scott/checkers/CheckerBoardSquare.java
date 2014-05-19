@@ -30,13 +30,13 @@ public class CheckerBoardSquare extends BoardSquare {
 
 	@Override
 	public void drawBoardSquarePiece(Canvas canvas){
-		switch(this.square.getState()) {
+		switch(this.square.state) {
 			case BoardGameEngine.PLAYER1_STATE:
 			case BoardGameEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
-				if(this.square.isKing()) {
+				if(this.square.isKing) {
 					canvas.drawText("K",this.getWidth()/2, this.getHeight()/2, kingPaint);
 				}
 				
@@ -51,10 +51,10 @@ public class CheckerBoardSquare extends BoardSquare {
 	
 	@Override
 	protected void updateViewForRedraw() {	
-		this.playerPaint.setColor(this.square.getInactiveColor());
+		this.playerPaint.setColor(this.square.inactiveColor);
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
-		this.activePlayerPaint.setColor(this.square.getActiveColor());
+		this.activePlayerPaint.setColor(this.square.activeColor);
 		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
 	} // end updateBoardSquarePiece
