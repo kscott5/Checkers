@@ -15,10 +15,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        this.findViewById(R.id.startFriendPlay)
+        this.findViewById(R.id.startPlayNPass)
         .setOnClickListener(new MainActivity.InternalClickListener(this));
 
-        this.findViewById(R.id.startComputerPlay)
+        this.findViewById(R.id.startPhonePlay)
         .setOnClickListener(new MainActivity.InternalClickListener(this));
 
         this.findViewById(R.id.exitGame)
@@ -32,9 +32,9 @@ public class MainActivity extends Activity {
         return true;
     }    
 
-    public void startBoardActivity(boolean vsComputer) {   	
+    public void startBoardActivity(boolean vsDevice) {   	
     	Intent boardActivityIntent = new Intent(this, BoardActivity.class);
-    	boardActivityIntent.putExtra(BoardGameEngine.VS_COMPUTER, vsComputer);
+    	boardActivityIntent.putExtra(BoardGameEngine.VS_DEVICE, vsDevice);
     	this.startActivity(boardActivityIntent);
     }
 
@@ -53,11 +53,11 @@ public class MainActivity extends Activity {
     	@Override
     	public void onClick(View v) {
     		switch(v.getId()) {
-    			case R.id.startFriendPlay:
-    				startBoardActivity(/*vs computer*/ false);
+    			case R.id.startPlayNPass:
+    				startBoardActivity(/*vs device */ false);
     				break;
-    			case R.id.startComputerPlay:
-    				startBoardActivity(/*vs computer*/ true);
+    			case R.id.startPhonePlay:
+    				startBoardActivity(/*vs device */ true);
     				break;
     			case R.id.exitGame:
     				activity.finish();

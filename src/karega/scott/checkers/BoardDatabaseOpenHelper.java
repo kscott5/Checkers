@@ -144,87 +144,87 @@ public class BoardDatabaseOpenHelper  extends SQLiteOpenHelper {
 		Log.d(LOG_TAG, "Inserting seed data");
 				
 		StringBuilder sql = new StringBuilder();
-		sql.append("INSERT INTO GameEngine (Id, Name) VALUES (1001, 'Checkers');\n");
+		sql.append("INSERT INTO GameEngine (Id, Name) VALUES (1, 'Checkers');\n");
 		
 		// Checkers Engine Row 1
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,0,0,0,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,1,0,1,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,2,0,2,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,3,0,3,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,4,0,4,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,5,0,5,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,6,0,6,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,7,0,7,2002,3002);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,0,0,0,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,1,0,1,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,2,0,2,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,3,0,3,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,4,0,4,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,5,0,5,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,6,0,6,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,7,0,7,2,2);\n");
 		
 		// Checkers Engine Row 2
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,8,1,0,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,9,1,1,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,10,1,2,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,11,1,3,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,12,1,4,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,13,1,5,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,14,1,6,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,15,1,7,2004,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,8,1,0,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,9,1,1,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,10,1,2,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,11,1,3,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,12,1,4,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,13,1,5,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,14,1,6,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,15,1,7,4,1);\n");
 		
 		// Checkers Engine Row 3
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,16,2,0,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,17,2,1,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,18,2,2,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,19,2,3,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,20,2,4,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,21,2,5,2002,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,22,2,6,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,23,2,7,2002,3002);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,16,2,0,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,17,2,1,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,18,2,2,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,19,2,3,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,20,2,4,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,21,2,5,2,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,22,2,6,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,23,2,7,2,2);\n");
 		
 		// Checkers Engine Row 4
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,24,3,0,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,25,3,1,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,26,3,2,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,27,3,3,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,28,3,4,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,29,3,5,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,30,3,6,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,31,3,7,2004,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,24,3,0,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,25,3,1,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,26,3,2,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,27,3,3,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,28,3,4,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,29,3,5,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,30,3,6,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,31,3,7,4,1);\n");
 	
 		// Checkers Engine Row 5 
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,32,4,0,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,33,4,1,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,34,4,2,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,35,4,3,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,36,4,4,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,37,4,5,2003,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,38,4,6,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,39,4,7,2003,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,32,4,0,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,33,4,1,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,34,4,2,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,35,4,3,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,36,4,4,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,37,4,5,3,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,38,4,6,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,39,4,7,3,1);\n");
 		
 		// Checkers Engine Row 6  
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,40,5,0,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,41,5,1,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,42,5,2,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,43,5,3,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,44,5,4,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,45,5,5,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,46,5,6,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,47,5,7,2004,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,40,5,0,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,41,5,1,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,42,5,2,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,43,5,3,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,44,5,4,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,45,5,5,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,46,5,6,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,47,5,7,4,1);\n");
 		
 		// Checkers Engine Row 7  
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,48,6,0,2004,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,49,6,1,2001,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,50,6,2,2004,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,51,6,3,2001,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,52,6,4,2004,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,53,6,5,2001,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,54,6,6,2004,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,55,6,7,2001,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,48,6,0,4,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,49,6,1,1,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,50,6,2,4,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,51,6,3,1,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,52,6,4,4,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,53,6,5,1,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,54,6,6,4,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,55,6,7,1,1);\n");
 		
 		// Checkers Engine Row 8  
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,56,7,0,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,57,7,1,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,58,7,2,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,59,7,3,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,60,7,4,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,61,7,5,2004,3001);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,62,7,6,2001,3002);\n");
-		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1001,63,7,7,2004,3001);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,56,7,0,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,57,7,1,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,58,7,2,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,59,7,3,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,60,7,4,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,61,7,5,4,1);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,62,7,6,1,2);\n");
+		sql.append("INSERT INTO GameEngineState (Engine,Id,Row,Column,State,Chip) VALUES (1,63,7,7,4,1);\n");
 		
 		String[] queries = sql.toString().split("\n");
 		for(int i=0; i<queries.length; i++) {

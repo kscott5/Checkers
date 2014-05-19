@@ -35,7 +35,7 @@ public class BoardActivity extends Activity {
 		this.setTitle(R.string.app_name);
 		
 		Intent intent = this.getIntent();
-		boolean vsComputer = intent.getBooleanExtra(BoardGameEngine.VS_COMPUTER, true);
+		boolean vsComputer = intent.getBooleanExtra(BoardGameEngine.VS_DEVICE, true);
 		
 		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE, vsComputer);
 		

@@ -8,94 +8,20 @@ import android.util.Log;
  * 
  * @author Administrator
  * 
- *         NOTE: Player 2 is top-left = {0,0} Player 1 is bottom-right = {7,7}
+ * NOTE: Player 2 is top-left = {0,0} Player 1 is bottom-right = {7,7}
  * 
  * @remarks Why didn't I use enumerated values? Is this android best practice?
+ * 
+ * http://developer.android.com/training/articles/memory.html
+ * Enums often require more than twice as much memory as static constants. 
+ * You should strictly avoid using enums on Android.
  */
 public class CheckersEngine extends BoardGameEngine {
 	private static final String LOG_TAG = "CheckersEngine";
 
-	private BoardSquareInfo[][] squares;
-	private BoardSquareInfo activeSquare;
-
-	private int activeState;
-    
-	public CheckersEngine(Context context, boolean vsComputer) {
-		super(context, CHECKERS_ENGINE, vsComputer);
+	public CheckersEngine(Context context, boolean vsDevice) {
+		super(context, CHECKERS_ENGINE, vsDevice);
 	}
-
-	@Override
-	public void loadGame() {
-		Log.d(LOG_TAG, "Loading an existing game");
-
-		activeState = loadCurrentState(/* for new game */false);
-		activeSquare = null;
-
-		squares = loadSquares(/* for new game */false);
-	} // end loadGame
-
-	@Override
-	public void newGame() {
-		Log.d(LOG_TAG, "Loading a new game");
-
-		activeState = PLAYER1_STATE;
-		activeSquare = null;
-
-		if (squares == null) {
-			squares = loadSquares(/* for new game */true);
-		} else {
-			for (int i = 0; i < getSize(); i++) {
-				getData(i).reset();
-			} // end for
-		} // end if
-	} // end newGame
-
-	@Override
-	public void saveGame() {
-		Log.d(LOG_TAG, "Saving game");
-
-		throw new Error("Save Game Not implemented");
-	}
-
-	@Override
-	public void switchPlayer() {
-		Log.d(LOG_TAG, "Switching players");
-
-		if (activeSquare != null) {
-			activeSquare.deactivate();
-		}
-
-		activeSquare = null;
-		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;
-
-		moveSquareForComputer();
-	} // end switchPlayer
-
-	@Override
-	public BoardSquareInfo getData(int id) {
-		Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
-		try {
-			int row = id / 8;
-			int col = id % 8;
-
-			BoardSquareInfo info = squares[row][col];
-
-			if (id != info.id)
-				throw new Error("Get data for id " + id + ", not found");
-
-			return info;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.e(LOG_TAG, String.format(
-					"Get data array index out of bounds for id[%s]", id));
-		}
-
-		return null;
-	} // end getData
-
-	@Override
-	public int getSize() {
-		return ROWS * COLUMNS;
-	} // end getSize
 
 	@Override
 	public void moveSquare(BoardSquareInfo target) {
@@ -105,7 +31,7 @@ public class CheckersEngine extends BoardGameEngine {
 		if (activeState == target.state) {
 			
 			// Don't allow engine to re-select square
-			if(target.state == PLAYER2_STATE && vsComputer) {
+			if(target.state == PLAYER2_STATE && vsDevice) {
 				return;
 			}
 			
@@ -116,10 +42,14 @@ public class CheckersEngine extends BoardGameEngine {
 		} // end if
 
 		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE)) {
+			Log.d(LOG_TAG, "Move square completed");
+			switchPlayer();
 			return; 
 		}
 		
 		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE)) {
+			Log.d(LOG_TAG, "Move square completed");
+			switchPlayer();
 			return;
 		}
 
@@ -129,11 +59,7 @@ public class CheckersEngine extends BoardGameEngine {
 	@Override
 	protected void moveSquareForComputer() {
 		Log.d(LOG_TAG, "Moving square for computer");
-		
-		if(!vsComputer || activeState != PLAYER2_STATE) { 
-			return;
-		}
-		
+				
 		int ubound = ROWS*COLUMNS;
 		int tries = 0;
 		
@@ -333,7 +259,6 @@ public class CheckersEngine extends BoardGameEngine {
 		// Found it
 		if (target.equals(square)) {
 			activeSquare.swap(target);
-			switchPlayer();
 			return true;
 		} // end if
 
@@ -351,7 +276,6 @@ public class CheckersEngine extends BoardGameEngine {
 			
 			return false;
 		} // end if
-		
 		
 		// We know now that we can't jump move to peek
 		// STOP, we can never find target on this path
@@ -381,52 +305,5 @@ public class CheckersEngine extends BoardGameEngine {
 			return true;
 				
 		return false;
-	} // end searchBoardForTarget
-	
-	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	private boolean isEmpty(int row, int col) {
-		try {
-			BoardSquareInfo info = squares[row][col];
-			if (info.state == EMPTY_STATE) {
-				Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
-				return true;
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
-			return false;
-		}
-
-		Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
-		return false;
-	} // end isEmpty
-
-	/**
-	 * Gets the square at these coordinates.
-	 * 
-	 * @param row
-	 * @param col
-	 * @return Square information or null for LOCKED_STATE
-	 */
-	private BoardSquareInfo getData(int row, int col) {
-		Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
-
-		try {
-			BoardSquareInfo data = squares[row][col];
-			if (data.state == LOCKED_STATE) {
-				Log.e(LOG_TAG, String.format(
-						"Get data for row[%s] and col[%s] is locked", row, col));
-				return null;
-			}
-
-			return data;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
-		}
-	} // end getData
+	} // end searchBoardForTarget	
 } // end CheckersEngine

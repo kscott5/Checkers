@@ -12,16 +12,16 @@
         android:text="@string/splash_text_view" />
 
     <Button
-        android:id="@+id/startFriendPlay"
+        android:id="@+id/startPlayNPass"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/start_friend_play" />
+        android:text="@string/start_play_n_pass" />
 
     <Button
-        android:id="@+id/startComputerPlay"
+        android:id="@+id/startPhonePlay"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/start_computer_play" />
+        android:text="@string/start_phone_play" />
 
     <Button
         android:id="@+id/exitGame"
