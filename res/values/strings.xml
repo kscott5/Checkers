@@ -9,5 +9,6 @@
     <string name="exit_game">Exit</string>
     <string name="title_activity_board">BoardActivity</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="app_description">Simple Tutorial for Android Development</string>
 
 </resources>
