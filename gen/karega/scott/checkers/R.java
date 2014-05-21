@@ -138,7 +138,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:borderColor
+          @attr name karega.scott.checkers:borderColor
         */
         public static final int SquareView_borderColor = 2;
         /**
@@ -153,7 +153,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:fillColor
+          @attr name karega.scott.checkers:fillColor
         */
         public static final int SquareView_fillColor = 1;
         /**
@@ -172,7 +172,7 @@ containing a value of this type.
 <tr><td><code>PLAYER2</code></td><td>2</td><td></td></tr>
 <tr><td><code>LOCKED</code></td><td>3</td><td></td></tr>
 </table>
-          @attr name android:stateType
+          @attr name karega.scott.checkers:stateType
         */
         public static final int SquareView_stateType = 0;
     };

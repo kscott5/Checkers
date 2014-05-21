@@ -16,8 +16,8 @@ public class CheckerBoardSquare extends BoardSquare {
 	private Paint activePlayerPaint;
 	private Paint kingPaint;
 	
-	protected CheckerBoardSquare(Context context, BoardSquareInfo square) {
-		super(context, BoardGameEngine.CHECKERS_ENGINE, square);
+	protected CheckerBoardSquare(Context context, BoardSquareInfo info) {
+		super(context, BoardGameEngine.CHECKERS_ENGINE, info);
 
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -25,18 +25,18 @@ public class CheckerBoardSquare extends BoardSquare {
 		this.playerPaint = new Paint();
 		this.activePlayerPaint = new Paint();
 
-		this.updateView(true);
+		this.invalidate();
 	}
 
 	@Override
 	public void drawBoardSquarePiece(Canvas canvas){
-		switch(this.square.state) {
+		switch(this.info.state) {
 			case BoardGameEngine.PLAYER1_STATE:
 			case BoardGameEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
-				if(this.square.isKing) {
+				if(this.info.isKing) {
 					canvas.drawText("K",this.getWidth()/2, this.getHeight()/2, kingPaint);
 				}
 				
@@ -51,10 +51,10 @@ public class CheckerBoardSquare extends BoardSquare {
 	
 	@Override
 	protected void updateViewForRedraw() {	
-		this.playerPaint.setColor(this.square.inactiveColor);
+		this.playerPaint.setColor(this.info.inactiveColor);
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
-		this.activePlayerPaint.setColor(this.square.activeColor);
+		this.activePlayerPaint.setColor(this.info.activeColor);
 		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
 	} // end updateBoardSquarePiece

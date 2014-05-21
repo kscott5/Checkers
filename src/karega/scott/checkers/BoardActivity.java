@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -87,6 +85,7 @@ public class BoardActivity extends Activity {
 					break;
 					
 				case R.id.exitGame:
+					boardEngine.exitGame();
 					activity.finish();
 					break;
 			} //end switch

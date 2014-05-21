@@ -44,13 +44,11 @@ public class BoardAdapter extends BaseAdapter {
 		view.setOnTouchListener(new OnTouchListener() {
 
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
+			public boolean onTouch(View view, MotionEvent event) {
 				Log.d(LOG_TAG,"On touch");
 				
-				// TODO: How do I prevent the on item click from firing too?
-				BoardSquare square = (BoardSquare)v;
-				engine.moveSquare(square.getInformation());
-				return false;
+				BoardSquare square = (BoardSquare)view;
+				return engine.handleOnTouch(square);
 			}
 			
 		});
@@ -61,13 +59,8 @@ public class BoardAdapter extends BaseAdapter {
 	public BoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof BoardSquare)) {
 			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
-			
-			GridView grid = (GridView)parent;
-			int width= grid.getColumnWidth();
-			
-			BoardSquare view = BoardSquare.instance(this.context, this.engine.getId(), info);
-			view.setLayoutParams( new GridView.LayoutParams(width, width));
-			return view;
+
+			return BoardSquare.instance(this.context, this.engine.getId(), parent, info);
 		}
 		
 		return (BoardSquare) convertView;	

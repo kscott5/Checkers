@@ -1,26 +1,32 @@
 package karega.scott.checkers;
 
 import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
 
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
+@SuppressLint("NewApi")
 public abstract class BoardSquare extends View {
 	private static final String LOG_TAG = "BoardSquare";
 	
-	protected BoardSquareInfo square;
+	protected BoardSquareInfo info;
 	
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
 	private int engine;
 	
-	protected BoardSquare(Context context, int engine, BoardSquareInfo square) {
+	protected BoardSquare(Context context, int engine, BoardSquareInfo info) {
 		super(context);
 
 		this.fillPaint = new Paint();
@@ -29,8 +35,8 @@ public abstract class BoardSquare extends View {
 		this.engine = engine;
 		
 		// TODO: Are parameters by references
-		square.setOnChangeListener( new BoardSquare.OnSquareInfoChangeListener());
-		this.square = square;
+		info.setOnChangeListener( new BoardSquare.OnBoardSquareChangeListener(this));
+		this.info = info;
 	}
 
 	/**
@@ -39,13 +45,25 @@ public abstract class BoardSquare extends View {
 	 * @param engineType @link BoardGameEngineType 
 	 * @return @BoardSquare
 	 */
-	public static BoardSquare instance(Context context, int engine, BoardSquareInfo square) {		
+	public static BoardSquare instance(Context context, int engine, ViewGroup parent, BoardSquareInfo square) {
+		if( !(parent instanceof GridView))
+			return null;
+		
+		GridView grid = (GridView)parent;
+		int width= grid.getColumnWidth(); // Added Lint.xml to resolve NewApi issue. Should remove
+
+		BoardSquare view = null;
 		switch(engine) {
 			case BoardGameEngine.CHECKERS_ENGINE:
-				return new CheckerBoardSquare(context, square);
+				view = new CheckerBoardSquare(context, square);
+				break;
+				
 			default:
 				return null;
 		}
+		
+		view.setLayoutParams( new GridView.LayoutParams(width, width));
+		return view;
 	} // end instance
 	
 	/**
@@ -53,12 +71,18 @@ public abstract class BoardSquare extends View {
 	 * @author Administrator
 	 *
 	 */
-	public final class OnSquareInfoChangeListener implements OnChangeListener {
+	public final class OnBoardSquareChangeListener implements OnChangeListener {
+		
+		private BoardSquare square;
+		public OnBoardSquareChangeListener(BoardSquare square) {
+			this.square = square;
+		}
+		
 		@Override
 		public void OnSquareInformationChange() {
 			Log.d(LOG_TAG, "Square information changed for BoardSquare");
-			
-			updateView(true);
+
+			BoardGameEngine.handleSquareChanged(square);
 		}		
 	} // end OnSquarInfoChangeListener
 
@@ -72,19 +96,17 @@ public abstract class BoardSquare extends View {
 	 * Updates the @link BoardSquare paint objects
 	 * @param refresh Flag to invalidate the @link BoardSquare
 	 */
-	public void updateView(boolean refresh) {
+	public void invalidate() {
 		// TODO: Do this once. Remove these values from BoardSquareInfo
-		this.fillPaint.setColor(square.fillColor);
+		this.fillPaint.setColor(info.fillColor);
 		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-		this.borderPaint.setColor(square.borderColor);
+		this.borderPaint.setColor(info.borderColor);
 		this.borderPaint.setStyle(Paint.Style.STROKE);			
 
 		updateViewForRedraw();
 		
-		if(refresh) {
-			this.invalidate();
-		}
+		super.invalidate();
 	} // end updateView
 	
 	/**
@@ -109,11 +131,11 @@ public abstract class BoardSquare extends View {
 			return false;
 		
 		BoardSquare view = (BoardSquare)value;
-		return this.square.equals(view.square);
+		return this.info.equals(view.info);
 	}
 
 	public final BoardSquareInfo getInformation() {
-		return this.square;
+		return this.info;
 	}
 	
 	/**

@@ -54,12 +54,16 @@ public class CheckersEngine extends BoardGameEngine {
 		}
 
 		Log.d(LOG_TAG, "Nothing was moved");
+		determineWinner();
 	} // end moveSquare
 
 	@Override
-	protected void moveSquareForComputer() {
-		Log.d(LOG_TAG, "Moving square for computer");
-				
+	protected void moveSquareForDevice() {
+		Log.d(LOG_TAG, "Moving square for device");
+		
+		if(!isDevice())
+			return;
+		
 		int ubound = ROWS*COLUMNS;
 		int tries = 0;
 		
@@ -70,23 +74,56 @@ public class CheckersEngine extends BoardGameEngine {
 		} // end while
 		
 		if(activeSquare == null) {
-			Log.e(LOG_TAG, "No available square for the computer to move");
+			determineWinner();
 			return;
 		} // end if
-	
+
+		pause(1);
+		
+		// 50/50 change 
+		if(!activeSquare.isKing && random.nextInt(1) == 1) {
+			BoardSquareInfo left = getData(activeSquare.row+1, activeSquare.column-1);
+			BoardSquareInfo right = getData(activeSquare.row+1, activeSquare.column+1);
+			
+			if(left != null && left.state == EMPTY_STATE && 
+			   right != null && right.state == EMPTY_STATE) {
+				
+				activeSquare.swap(((random.nextInt(1)==1)? right: left));
+				switchPlayer();
+				return;
+			} 
+			
+			if(left != null && left.state == EMPTY_STATE) {
+				activeSquare.swap(left);
+				switchPlayer();
+				return;
+			} 
+			
+			if(right != null && right.state == EMPTY_STATE) {
+				activeSquare.swap(right);
+				switchPlayer();
+				return;
+			} // end if
+			
+		} // end if
+		
 		tries = 0;
-		while(activeState == PLAYER2_STATE && tries++ <= ubound*NUM_OF_TRIES) {
+		while(isDevice() && tries++ <= ubound*NUM_OF_TRIES) {
 			int id = random.nextInt(ubound);
 			square = getData(id);
+			
+			if(square == null || square.state != EMPTY_STATE)
+				continue;
+			
 			moveSquare(square);
 		} // end while
 		
 		if(activeSquare != null) {
-			Log.e(LOG_TAG, "No available square for the computer to move to");
+			Log.e(LOG_TAG, "No available square for the device to move to");
+			determineWinner();
 			return;
 		} // end if
-	
-	} // end moveSquareForComputer
+	} // end moveSquareForDevice
 	
 	/**
 	 * Tries to activate the current square

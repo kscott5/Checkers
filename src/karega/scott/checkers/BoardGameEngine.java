@@ -1,13 +1,17 @@
 package karega.scott.checkers;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.locks.LockSupport;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -24,9 +28,10 @@ public abstract class BoardGameEngine {
 	public static final String VS_DEVICE = "you vs computer";
 	
 	protected static final Random random = new Random();
-	protected static final Date date = new Date();
 	
 	protected static final int NUM_OF_TRIES = 6;
+	
+	public static final int INVALIDATE_VIEW_MESSAGE_HANDLER = 1;
 	
 	public static final int TOP_ROW = 0;
 	public static final int BOTTOM_ROW = 7;
@@ -56,15 +61,46 @@ public abstract class BoardGameEngine {
 	public static final int PAWN_CHIP = 2;
 		
 	protected final int engineId;
-	protected final Context context;
 	protected final boolean vsDevice;
+	
+	private static Handler handler;	
+	
+	private Context context;
+	private Timer deviceTimer;
 	
 	private static SparseArray<BoardSquareInfo[][]> engineSquares = 
 			new SparseArray<BoardSquareInfo[][]>(2);
 
 	protected BoardSquareInfo activeSquare;
 	protected int activeState;
+	
+	protected BoardGameEngine(Context ctx, int id, boolean vsDevice) {		
+		this.context = ctx;
+		this.vsDevice = vsDevice;
+		this.engineId = id;
+		
+		if(this.vsDevice) {
+			initializeHandler();
 
+			DeviceTask task = new DeviceTask(this);
+			
+			this.deviceTimer = new Timer();
+			this.deviceTimer.schedule(task, 100, 1000);
+		}
+		
+		this.newGame();
+	} // end constructor
+
+	@Override
+	public void finalize() {
+		if(this.deviceTimer != null) {
+			deviceTimer.cancel();
+			deviceTimer = null;
+		}
+		
+		context = null;	
+	} // end finalize
+	
 	/**
 	 * Move the square for current player
 	 * @param square
@@ -73,18 +109,93 @@ public abstract class BoardGameEngine {
 	public abstract void moveSquare(BoardSquareInfo square);		
 
 	/**
-	 * Move the square for the computer
+	 * Move the square for the device
 	 */
-	protected abstract void moveSquareForComputer();
+	protected abstract void moveSquareForDevice();		
+
+	/**
+	 * Allows the device to take a turn
+	 */
+	public void deviceMove() {
+		if(isDevice()) {
+			moveSquareForDevice();
+		}
+	} // end deviceMoveSquare
 	
-	protected BoardGameEngine(Context ctx, int id, boolean vsDevice) {		
-		this.context = ctx;
-		this.vsDevice = vsDevice;
-		this.engineId = id;
+	private static void initializeHandler() {
+		if(handler == null) {
+			handler = new Handler(new BoardGameCallback());
+		}
+	} // end initializeHandler
+	
+	/**
+	 * Handler for executing messages on the main looper (Thread)
+	 * @return
+	 */
+	private static void handleMessage(int what, Object object) {
+		if(object == null)
+			return;
 		
-		this.newGame();
-	}
+		initializeHandler();
+		
+		Message msg = Message.obtain(handler, what, object);
+		msg.sendToTarget();
+	} // end handler
+	
+	/**
+	 * Handles the square changes by calling invalidating its view.
+	 * @param square
+	 */
+	public static void handleSquareChanged(BoardSquare square) {
+		// When there is no looper, changes are on 
+		// secondary thread used to active and move 
+		// square for this device play
+		if(Looper.myLooper() == null) {
+			handleMessage(BoardGameEngine.INVALIDATE_VIEW_MESSAGE_HANDLER, square);
+		} else {
+			square.invalidate();
+		}
+	} // end handleSquareChanged
+	
+	/**
+	 * Handles the player on touch by selecting and/or moving the active square 
+	 * @param square
+	 */
+	public boolean handleOnTouch(BoardSquare square) {
+		Log.d(LOG_TAG, "Handling on touch event");
+		
+		if(square == null)
+			return true;
+		
+		if(!isDevice()) { 
+			moveSquare(square.getInformation());
+		}
+		
+		return true;
+	} // end handleOnTouch
+	
+	protected void determineWinner() {
+		Log.d(LOG_TAG, "Determine winner now");
+		
+		int player1=0, player2=player1;
+		for(int id=0; id<ROWS*COLUMNS; id++) {
+			BoardSquareInfo square = getData(id);
 			
+			if(square.state == PLAYER1_STATE)
+				player1++;
+			
+			if(square.state == PLAYER2_STATE)
+				player2++;
+		}
+		
+		if(player1 > player2)
+			Log.d(LOG_TAG, "Player 1 wins");
+		else if(player2 > player1)
+			Log.d(LOG_TAG, "Player 2 wins");
+		else
+			Log.d(LOG_TAG, "Draw");
+	} // end determineWinner
+	
 	/**
 	 * Loads the current player for the saved game
 	 * @return
@@ -191,13 +302,13 @@ public abstract class BoardGameEngine {
 	 * @param engine Integer value
 	 * @return @link BoardGameEngine engine for play
 	 */
-	public static BoardGameEngine instance(Context context, int id, boolean vsComputer) {
+	public static BoardGameEngine instance(Context context, int id, boolean vsDevice) {
 		BoardGameEngine engine = null;
 		
 		switch(id) {
 			case BoardGameEngine.CHECKERS_ENGINE:
 				Log.d(LOG_TAG, "Creating an instance for checkers engine");
-				engine = new CheckersEngine(context, vsComputer);
+				engine = new CheckersEngine(context, vsDevice);
 				break;
 				
 			case BoardGameEngine.CHESS_ENGINE:
@@ -225,6 +336,15 @@ public abstract class BoardGameEngine {
 		loadSquares(/* for new game */false);
 	} // end loadGame
 
+	/**
+	 * Exit the game
+	 */
+	public void exitGame() {
+		if(deviceTimer != null) {
+			deviceTimer.cancel();
+		}
+	} // end exitGame
+	
 	/*
 	 * Loads a new game for play
 	 */
@@ -243,8 +363,32 @@ public abstract class BoardGameEngine {
 		Log.d(LOG_TAG, "Saving game");
 
 		throw new Error("Save Game Not implemented");
-	}
+	} // end saveGame
 
+	/**
+	 * Is player 1 moving square
+	 * @return
+	 */
+	public boolean isPlayer1() {
+		return (activeState == PLAYER1_STATE);
+	} // end ActiveState
+	
+	/**
+	 * Is player 2 moving square
+	 * @return
+	 */
+	private boolean isPlayer2() {
+		return (activeState == PLAYER2_STATE);
+	} // end ActiveState
+	
+	/**
+	 * Returns true if the device is move square
+	 * @return
+	 */
+	public boolean isDevice() {
+		return (isPlayer2() && vsDevice);
+	} // end isDevice
+	
 	/*
 	 * Allows the other player to take turn
 	 */
@@ -255,13 +399,12 @@ public abstract class BoardGameEngine {
 			activeSquare.deactivate();
 		}
 
-		activeSquare = null;
-		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;
-
-		if(vsDevice && activeState == PLAYER2_STATE) {
-			// TODO: Need a delay to allow view draw to catch-up
-			moveSquareForComputer();
+		if(isDevice()) {
+			pause(1);
 		}
+		
+		activeSquare = null;
+		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 	} // end switchPlayer
 
 	/**
@@ -347,5 +490,17 @@ public abstract class BoardGameEngine {
 	 */
 	protected int getSize() {
 		return ROWS * COLUMNS;
-	} // end getSize	
+	} // end getSize
+	
+	/**
+	 * Pauses the current thread
+	 * @param seconds
+	 */
+	protected void pause(int seconds) {
+		try {
+			Thread.sleep(seconds*1000);
+		} catch(Exception e) {
+			Log.e(LOG_TAG, String.format("Move square for device sleep error: %s", e.getMessage()));
+		}
+	} // end pause
 } // end BoardGameEngine
