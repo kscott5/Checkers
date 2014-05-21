@@ -280,7 +280,8 @@ public class CheckersEngine extends BoardGameEngine {
 	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards) {
 		Log.d(LOG_TAG, "Search board for target");
 		
-		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
+		// NOTE: Revisit code to ensure logic correct, especially if 
+		//       I continue to add checks for cases not handled
 		
 		// See note at class level
 		int row = (state == PLAYER1_STATE) ? -1 : +1;
@@ -295,6 +296,12 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		// Found it
 		if (target.equals(square)) {
+			// Check to ensure previous squares are not empty
+			if(!activeSquare.isKing && 
+					(isEmpty(square.row+(row*-1), square.column-1) || isEmpty(square.row+(row*-1), square.column+1))) {
+				return false;
+			}
+			
 			activeSquare.swap(target);
 			return true;
 		} // end if
