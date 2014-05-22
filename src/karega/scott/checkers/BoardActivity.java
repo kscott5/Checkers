@@ -17,12 +17,12 @@ import android.widget.GridView;
 public class BoardActivity extends Activity {
 	private static final String LOG_TAG = "BoardActivity";
 	
-	private BoardGameEngine boardEngine;
+	private BoardGameEngine gameEngine;
 	
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
-	private GridView boardGame;
+	private GridView gameBoard;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +35,14 @@ public class BoardActivity extends Activity {
 		Intent intent = this.getIntent();
 		boolean vsComputer = intent.getBooleanExtra(BoardGameEngine.VS_DEVICE, true);
 		
-		boardEngine = BoardGameEngine.instance(this.getBaseContext(), BoardGameEngine.CHECKERS_ENGINE, vsComputer);
+		gameEngine = new CheckersEngine(this.getBaseContext(), vsComputer);
+		gameEngine.newGame();
 		
-		boardGame = (GridView) this.findViewById(R.id.boardGame);		
-		boardGame.setAdapter(new BoardAdapter(boardGame.getContext(), boardEngine));		
+		gameBoard = (GridView) this.findViewById(R.id.boardGame);		
+		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext(), gameEngine));		
 
 		// TODO: Get width of parent to resize buttons or configure .xml file
-		int width = boardGame.getWidth();
+		int width = gameBoard.getWidth();
 		
 		exitGame = (Button) this.findViewById(R.id.exitGame);
 		exitGame.setWidth(width/2);
@@ -81,11 +82,11 @@ public class BoardActivity extends Activity {
 			switch(view.getId())
 			{
 				case R.id.newGame:					
-					boardEngine.newGame();
+					gameEngine.newGame();
 					break;
 					
 				case R.id.exitGame:
-					boardEngine.exitGame();
+					gameEngine.exitGame();
 					activity.finish();
 					break;
 			} //end switch

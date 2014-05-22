@@ -19,6 +19,7 @@ import android.util.SparseArray;
  * Base game engine
  * @author Karega Scott
  *
+ * 
  * Player 2 is top-left = {0,0}
  * Player 1 is bottom-right = {7,7}
  */
@@ -87,8 +88,6 @@ public abstract class BoardGameEngine {
 			this.deviceTimer = new Timer();
 			this.deviceTimer.schedule(task, 100, 1000);
 		}
-		
-		this.newGame();
 	} // end constructor
 
 	@Override
@@ -297,29 +296,6 @@ public abstract class BoardGameEngine {
 		} // end try-catch-finally
 	} // end loadSquares
 	
-	/**
-	 * Creates the specific game engine for play
-	 * @param engine Integer value
-	 * @return @link BoardGameEngine engine for play
-	 */
-	public static BoardGameEngine instance(Context context, int id, boolean vsDevice) {
-		BoardGameEngine engine = null;
-		
-		switch(id) {
-			case BoardGameEngine.CHECKERS_ENGINE:
-				Log.d(LOG_TAG, "Creating an instance for checkers engine");
-				engine = new CheckersEngine(context, vsDevice);
-				break;
-				
-			case BoardGameEngine.CHESS_ENGINE:
-			default:
-				Log.d(LOG_TAG, "This instance not support");
-				engine = null;
-		}
-		
-		return engine;
-	} // end instance
-
 	/*
 	 * Gets the Game Engine Identifier
 	 */
@@ -371,15 +347,15 @@ public abstract class BoardGameEngine {
 	 */
 	public boolean isPlayer1() {
 		return (activeState == PLAYER1_STATE);
-	} // end ActiveState
-	
+	} // end isPlayer1
+
 	/**
 	 * Is player 2 moving square
 	 * @return
 	 */
-	private boolean isPlayer2() {
+	public boolean isPlayer2() {
 		return (activeState == PLAYER2_STATE);
-	} // end ActiveState
+	} // end isPlayer2
 	
 	/**
 	 * Returns true if the device is move square
@@ -485,11 +461,17 @@ public abstract class BoardGameEngine {
 	} // end getData
 
 	/**
-	 * Returns the number of key/value pairs in the board game @link java.util.hashtable
+	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
 	protected int getSize() {
-		return ROWS * COLUMNS;
+		try {
+		BoardSquareInfo[][] squares = engineSquares.get(engineId);
+		
+		return squares.length*squares[0].length;
+		} catch(Exception e) {
+			return 0;
+		}
 	} // end getSize
 	
 	/**

@@ -29,12 +29,10 @@ public class CheckersEngine extends BoardGameEngine {
 
 		// Starting information must be set
 		if (activeState == target.state) {
-			
-			// Don't allow engine to re-select square
-			if(target.state == PLAYER2_STATE && vsDevice) {
+						
+			if(isDevice())
 				return;
-			}
-			
+
 			if(activateSquare(target)) {
 				Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
 			}
@@ -80,7 +78,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 		pause(1);
 		
-		// 50/50 change 
+		// 50/50 chance 
 		if(!activeSquare.isKing && random.nextInt(1) == 1) {
 			BoardSquareInfo left = getData(activeSquare.row+1, activeSquare.column-1);
 			BoardSquareInfo right = getData(activeSquare.row+1, activeSquare.column+1);
@@ -104,7 +102,6 @@ public class CheckersEngine extends BoardGameEngine {
 				switchPlayer();
 				return;
 			} // end if
-			
 		} // end if
 		
 		tries = 0;
@@ -247,7 +244,10 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean moveActiveSquare(BoardSquareInfo start,	BoardSquareInfo target, int state) {
-		Log.d(LOG_TAG, String.format("Move active square (recursive) - start: %s, target: %s, state: %s",start,target,state));
+		Log.d(LOG_TAG, "Move active square (recursive)");
+		Log.d(LOG_TAG, String.format("*****start: %s",start));
+		Log.d(LOG_TAG, String.format("*****target: %s",target));
+		Log.d(LOG_TAG, String.format("*****state: %s",state));
 
 		if (start == null || target == null)
 			return false;
@@ -279,6 +279,10 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards) {
 		Log.d(LOG_TAG, "Search board for target");
+		Log.d(LOG_TAG, String.format("*****start: %s",start));
+		Log.d(LOG_TAG, String.format("*****target: %s",target));
+		Log.d(LOG_TAG, String.format("*****state: %s",state));
+		Log.d(LOG_TAG, String.format("*****backwards: %s",backwards));
 		
 		// NOTE: Revisit code to ensure logic correct, especially if 
 		//       I continue to add checks for cases not handled
