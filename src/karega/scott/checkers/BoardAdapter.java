@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 
 /*
  * Adapter used to provide data to the BoardActivity.boardGame

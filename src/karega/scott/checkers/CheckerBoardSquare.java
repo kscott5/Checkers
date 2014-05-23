@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
 public class CheckerBoardSquare extends BoardSquare {	
-	private static final String LOG_TAG = "CheckerBoardSquare";
-	
 	private Paint playerPaint;
 	private Paint activePlayerPaint;
 	private Paint kingPaint;
