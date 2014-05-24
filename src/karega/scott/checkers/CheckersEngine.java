@@ -296,16 +296,10 @@ public class CheckersEngine extends BoardGameEngine {
 		if (square == null)
 			return false;
 
-		Log.d(LOG_TAG, String.format("Square: %s", square));
+		Log.d(LOG_TAG, String.format("*****square evaluated: %s", square));
 		
 		// Found it
-		if (target.equals(square)) {
-			// Check to ensure previous squares are not empty
-			if(!activeSquare.isKing && 
-					(isEmpty(square.row+(row*-1), square.column-1) || isEmpty(square.row+(row*-1), square.column+1))) {
-				return false;
-			}
-			
+		if (target.equals(square)) {			
 			activeSquare.swap(target);
 			return true;
 		} // end if

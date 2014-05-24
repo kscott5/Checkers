@@ -136,6 +136,9 @@ public class BoardSquareInfo {
 	public void makeEmpty() {
 		Log.d(LOG_TAG, "Making this square empty");
 		
+		if(this.initialState == BoardGameEngine.LOCKED_STATE) 
+			return;
+		
 		this.chip = BoardGameEngine.EMPTY_CHIP;
 		this.state = BoardGameEngine.EMPTY_STATE;
 		this.fillColor = Color.DKGRAY;

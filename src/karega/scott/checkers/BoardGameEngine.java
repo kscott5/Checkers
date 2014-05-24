@@ -275,7 +275,7 @@ public abstract class BoardGameEngine {
 						cursor.getInt(2 /*Column*/),
 						cursor.getInt(3 /*State*/),
 						cursor.getInt(4 /*Chip*/));
-				
+
 				squares[square.row][square.column] = square;				
 			}
 			
