@@ -78,6 +78,9 @@ public abstract class BoardGameEngine {
 		this.vsDevice = vsDevice;
 		this.engineId = id;
 		
+		this.activeSquare = null;
+		this.activeState = PLAYER1_STATE;
+		
 		if(this.vsDevice) {
 			initializeHandler();
 

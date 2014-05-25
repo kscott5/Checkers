@@ -5,23 +5,21 @@ import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
 public class PlayNPassTest extends CheckersBaseTest {
+	// TODO: What is the equivalent of FixtureSetup
 	
 	@Override
 	public void setUp() {
-		super.setUp();		
+		super.setUp();
 	}
-
+	
 	@Override
-	public void tearDown() {
-		super.tearDown();
+	public void tearDown() {		
 	}
 	
 	/**
 	 * Moves player 1 a single square from (5,0) to (4,1)
 	 */
-	public void test_moveSquareStep1_SingleMovePlayer1() {
-		Assert.assertTrue(engine.isPlayer1());
-		
+	public void test_moveSquareStep1_SingleMovePlayer1() {		
 		// Player1
 		BoardSquareInfo start = engine.getData(5,0);
 		engine.moveSquare(start);
@@ -50,8 +48,6 @@ public class PlayNPassTest extends CheckersBaseTest {
 	public void test_moveSquareStep2_SingleMovePlayer2() {
 		test_moveSquareStep1_SingleMovePlayer1();
 		
-		Assert.assertTrue(engine.isPlayer2());
-
 		// Player2
 		BoardSquareInfo start = engine.getData(2,7);
 		engine.moveSquare(start);
@@ -82,8 +78,6 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 */
 	public void test_moveSquareStep3_Player1Jumping() {
 		test_moveSquareStep2_SingleMovePlayer2();
-		
-		Assert.assertTrue(engine.isPlayer1());
 		
 		BoardSquareInfo start = engine.getData(5,2);
 		engine.moveSquare(start);
@@ -124,11 +118,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 1 removed at ((2,5)
 	 */
 	public void test_moveSquareStep4_Player2Jumping() {
-		// Preparing board for jump
 		test_moveSquareStep3_Player1Jumping();
-
-		Assert.assertTrue(engine.isPlayer2());
-		
 		// Performing jump
 		BoardSquareInfo start = engine.getData(1,6);
 		engine.moveSquare(start);
@@ -156,11 +146,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 moves from (3,4) to (4,3)
 	 */
 	public void test_moveSquareStep5_SingleMoveEach() {
-		// Prepare
 		test_moveSquareStep4_Player2Jumping();
-
-		Assert.assertTrue(engine.isPlayer1());
-		
 		// Perform
 		BoardSquareInfo start = engine.getData(6,1);
 		engine.moveSquare(start);
@@ -187,8 +173,6 @@ public class PlayNPassTest extends CheckersBaseTest {
 		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER1_STATE));
 
 		Assert.assertTrue(engine.isPlayer1());
-		
-		Assert.fail("Player 2 moves from (3,4) to (4,3) failed before");
 	}
 	
 	/*
@@ -196,11 +180,8 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 moves from (1,4) to (2,5)
 	 */
 	public void test_moveSquareStep6_SingleMoveEach() {
-		// Prepare
 		test_moveSquareStep5_SingleMoveEach();
 		
-		Assert.assertTrue(engine.isPlayer1());
-
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);
 		engine.moveSquare(start);
@@ -235,8 +216,6 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 */
 	public void test_moveSquareStep7_Player1Jumping() {
 		test_moveSquareStep6_SingleMoveEach();
-		
-		Assert.assertTrue(engine.isPlayer1());
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(5,2);

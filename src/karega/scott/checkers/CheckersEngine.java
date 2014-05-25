@@ -1,5 +1,7 @@
 package karega.scott.checkers;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -26,7 +28,7 @@ public class CheckersEngine extends BoardGameEngine {
 	@Override
 	public void moveSquare(BoardSquareInfo target) {
 		Log.d(LOG_TAG, "Move square");
-
+		
 		// Starting information must be set
 		if (activeState == target.state) {
 						
@@ -39,15 +41,18 @@ public class CheckersEngine extends BoardGameEngine {
 			return;
 		} // end if
 
-		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE)) {
+		// List of squares that should be modified between start and target squares
+		ArrayList<BoardSquareInfo> path = new ArrayList<BoardSquareInfo>();
+		
+		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE, path) 
+				&& validatePath(activeSquare, target, path)) {
 			Log.d(LOG_TAG, "Move square completed");
-			switchPlayer();
 			return; 
 		}
 		
-		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE)) {
+		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE, path)
+				&& validatePath(activeSquare, target, path)) {
 			Log.d(LOG_TAG, "Move square completed");
-			switchPlayer();
 			return;
 		}
 
@@ -240,10 +245,10 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @param start position of the selected square
 	 * @param target location for the selected square
 	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
-	 * 
+	 * @param path is the list of squares that should be modified between start and target squares
 	 * @return false is successful, otherwise false
 	 */
-	private boolean moveActiveSquare(BoardSquareInfo start,	BoardSquareInfo target, int state) {
+	private boolean moveActiveSquare(BoardSquareInfo start,	BoardSquareInfo target, int state, ArrayList<BoardSquareInfo> path) {
 		Log.d(LOG_TAG, "Move active square (recursive)");
 		Log.d(LOG_TAG, String.format("*****start: %s",start));
 		Log.d(LOG_TAG, String.format("*****target: %s",target));
@@ -256,11 +261,11 @@ public class CheckersEngine extends BoardGameEngine {
 		if (!activeSquare.isKing && state != activeState)
 			return false;
 
-		if(searchBoardForTarget(start, target, state, /*backwards*/ true)) {
+		if(searchBoardForTarget(start, target, state, /*backwards*/ true, path)) {
 			return true;
 		} 
 
-		if(searchBoardForTarget(start, target, state, /*backwards*/ false)) {
+		if(searchBoardForTarget(start, target, state, /*backwards*/ false, path)) {
 			return true;
 		} 
 
@@ -274,10 +279,11 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @param target location for the selected square
 	 * @param state is either PLAYER1_STATE or PLAYER2_STATE and used to determine row search direction
 	 * @backwards flag used to determine column search direction
+	 * @param path is the list of squares that should be modified between start and target squares
 	 *  
 	 * @return false is successful, otherwise false
 	 */
-	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards) {
+	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards, ArrayList<BoardSquareInfo> path) {
 		Log.d(LOG_TAG, "Search board for target");
 		Log.d(LOG_TAG, String.format("*****start: %s",start));
 		Log.d(LOG_TAG, String.format("*****target: %s",target));
@@ -293,14 +299,16 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		// Check  side
 		BoardSquareInfo square = getData(start.row + row, start.column + col);
-		if (square == null)
+		if (square == null) {
+			Log.d(LOG_TAG, "*****square evaluate to null");
 			return false;
+		}
 
 		Log.d(LOG_TAG, String.format("*****square evaluated: %s", square));
 		
 		// Found it
-		if (target.equals(square)) {			
-			activeSquare.swap(target);
+		if (target.equals(square)) {
+			Log.d(LOG_TAG, "*****target found");
 			return true;
 		} // end if
 
@@ -308,44 +316,100 @@ public class CheckersEngine extends BoardGameEngine {
 		if(square.state == activeState)
 			return false;
 		
-		// Peek add next square. 
+		// Peek at next square. 
 		BoardSquareInfo peek = getData(square.row + row, square.column + col);
 		if(peek == null) {
-			if(!activeSquare.isKing) return false;
-			
-			if(searchBoardForTarget(start, target, state, !backwards)) 
-				return true;
-			
+			Log.d(LOG_TAG, "*****peek is null");
+						
 			return false;
 		} // end if
 		
 		// We know now that we can't jump move to peek
 		// STOP, we can never find target on this path
-		if(peek.state == activeState)
+		if(peek.state == activeState) {
+			Log.d(LOG_TAG, "*****stop, we can never move pass a square with same state");
 			return false;
+		}
 		
 		// King allow to move over two consecutive empty squares
  		if(activeSquare.isKing 
 				&& peek.state == EMPTY_STATE 
 				&& peek.state == square.state  
-				&& moveActiveSquare(square,target,state))
+				&& moveActiveSquare(square,target,state,path)) {
+ 			Log.d(LOG_TAG, "*****king moved over two or more consecutive emtpy squares complete");
+ 			path.add(square);
 			return true;
+ 		}
 		
 		// We know peek isn't an empty square
 		// STOP, never jump over two square with same state 
-		if(peek.state == square.state)
+		if(peek.state == square.state) {
+			Log.d(LOG_TAG, "*****stop, never jump over two squares with same state");
 			return false;
+		}
 		
 		// Remove opponent
-		if (square.state != EMPTY_STATE && moveActiveSquare(square, target, state)) {
-			square.makeEmpty();
+		if (square.state != EMPTY_STATE && moveActiveSquare(square, target, state,path)) {
+			Log.d(LOG_TAG, String.format("*****removing opponent square: %s", square));
+			path.add(square);
 			return true;
 		}
 
 		// Continue moving
-		if(square.state == EMPTY_STATE && moveActiveSquare(square,target,state))
+		if(square.state == EMPTY_STATE && moveActiveSquare(square,target,state,path)) {
+			Log.d(LOG_TAG, "*****continue moving done");
+			path.add(square);
 			return true;
-				
+		}
+		
+		Log.d(LOG_TAG, "*****target not found on this path");
 		return false;
 	} // end searchBoardForTarget	
+
+	/**
+	 * Search the board for the target
+	 * 
+	 * @param start position of the selected square
+	 * @param target location for the selected square
+	 * @param path is the list of squares that should be modified between start and target squares
+	 *  
+	 * @return false is successful, otherwise false
+	 */
+	private boolean validatePath(BoardSquareInfo start, BoardSquareInfo target, ArrayList<BoardSquareInfo> path) {
+		Log.d(LOG_TAG, String.format("Validating path: [%s]",path));
+		
+		// Invalid if start and target row are separated 
+		// by 2 spaces and columns are the same
+		boolean valid = !(Math.abs(start.row-target.row) == 2 
+				&& start.column == target.column);
+		
+		// Invalid if start and target columns are separated 
+		// by 2 spaces and rows are the same
+		valid = valid && !(start.row == target.row
+				&& Math.abs(start.column-target.column) == 2);
+		
+		if(valid && path.size() > 1) {
+			BoardSquareInfo square = path.get(path.size()-2);
+			
+			// Invalid if start and target row are separated 
+			// by 2 spaces and columns are the same
+			valid = valid && !(Math.abs(square.row-target.row) == 2 
+					&& square.column == target.column);
+			
+			// Invalid if start and target columns are separated 
+			// by 2 spaces and rows are the same
+			valid = valid && !(square.row == target.row
+					&& Math.abs(square.column-target.column) == 2);
+		}
+		
+		if(valid) {
+			start.swap(target);
+			for(BoardSquareInfo square : path) {
+				square.makeEmpty();
+			}
+			switchPlayer();
+		}
+		
+		return valid;
+	}
 } // end CheckersEngine

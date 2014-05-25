@@ -12,13 +12,10 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 	// Class variables allow extended subclasses to build complex
 	// test case using the same engine and in some case existing
 	// test methods
-	protected static Context context;
-	protected static CheckersEngineWrapper engine;
+	protected Context context;
+	protected CheckersEngineWrapper engine;
 		
-	public class CheckersEngineWrapper extends CheckersEngine {
-		protected BoardSquareInfo activeSquare;
-		protected int activeState;
-		
+	public class CheckersEngineWrapper extends CheckersEngine {		
 		public CheckersEngineWrapper(Context context, boolean vsDevice) {
 			super(context, vsDevice);
 		}
@@ -36,32 +33,21 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 		@Override
 		protected void switchPlayer() {
 			super.switchPlayer();
-			this.activeSquare = super.activeSquare;
-			this.activeState = super.activeState;
 		}
 
 		@Override
 		public boolean handleOnTouch(BoardSquare square) {
-			boolean handled = super.handleOnTouch(square);
-			
-			this.activeSquare = super.activeSquare;
-			this.activeState = super.activeState;
-			
-			return handled;
+			return super.handleOnTouch(square);
 		}
 		
 		@Override
 		public void moveSquare(BoardSquareInfo target) {
 			super.moveSquare(target);
-			this.activeSquare = super.activeSquare;
-			this.activeState = super.activeState;
 		}
 
 		@Override
 		protected void moveSquareForDevice() {
 			super.moveSquareForDevice();
-			this.activeSquare = super.activeSquare;
-			this.activeState = super.activeState;
 		}
 		
 		@Override
@@ -72,8 +58,7 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 		@Override
 		protected boolean isEmpty(int row, int col) {
 			return super.isEmpty(row, col);
-		}
-		
+		}		
 	}
 	
 	public class CheckerBoardSquareMock extends CheckerBoardSquare {
@@ -89,22 +74,23 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 
 	/**
 	 * Prepares the board for simulated game play.
-	 * This method will set activeSquare to null,
-	 * activeState to EMPTY_STATE (no player) and
-	 * set all squares to EMPTY_STATE.
+	 * by set all squares to EMPTY_STATE and ensures
+	 * player1 is ready for play.
+	 * 
+	 * ASSUMES THE WAS ALREADY INITIALIZE BY CALLING
+	 * engine.newGame()
 	 */
-	public void clearGameBoard() {
-		engine.activeState = BoardGameEngine.EMPTY_STATE;
-		engine.activeSquare = null;
+	public void clearGameBoard() {		
+		if(!engine.isPlayer1())
+			engine.switchPlayer();
 		
-		for(int row=0;row<8;row++) {
-			for(int col=0;col<8;col++) {
-				BoardSquareInfo square=engine.getData(row,col);
-				if(square == null) continue;
-				square.makeEmpty();
-			}
+		for(int id=0;id<63;id++) {
+			BoardSquareInfo square=engine.getData(id);
+			if(square.state == BoardGameEngine.LOCKED_STATE 
+					|| square.state == BoardGameEngine.EMPTY_STATE) continue;
+			square.makeEmpty();
 		}
-	} // end resetGameBoard
+	} // end clearGameBoard
 	
 	/**
 	 * Asserts the total square count for each Board Game Square State

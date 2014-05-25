@@ -16,6 +16,7 @@ public class BoardSquareInfo {
 	public int chip;
 	public int state;
 	public boolean isKing;
+	public boolean isActive;
 	
 	public int fillColor = Color.GRAY;
 	public int borderColor = Color.BLACK;
@@ -31,6 +32,7 @@ public class BoardSquareInfo {
 		this.initialChip = initialChip;
 		this.chip = initialChip;
 		this.isKing = false;
+		this.isActive = false;
 		
 		this.reset();
 	}
@@ -58,11 +60,13 @@ public class BoardSquareInfo {
 	}
 	
 	public void deactivate() {
+		this.isActive = false;
 		this.activeColor = this.inactiveColor;
 		invokeOnChangeListener();
 	}
 	
 	public void activate() {
+		this.isActive = true;
 		this.activeColor = Color.WHITE;
 		invokeOnChangeListener();
 	}
@@ -75,6 +79,7 @@ public class BoardSquareInfo {
 		this.state = this.initialState;
 		this.borderColor = Color.BLACK;
 		this.isKing = false;
+        this.isActive = false;
 		
 		switch(this.initialState) {
 			case BoardGameEngine.EMPTY_STATE:
@@ -123,6 +128,7 @@ public class BoardSquareInfo {
 		value.inactiveColor = this.inactiveColor;
 		value.state = this.state;
 		value.activeColor = this.inactiveColor;
+		value.isActive = this.isActive;
 		value.isKing = (this.isKing || value.row == BoardGameEngine.TOP_ROW || value.row == BoardGameEngine.BOTTOM_ROW);
 		value.deactivate();
 		
@@ -146,6 +152,7 @@ public class BoardSquareInfo {
 		this.inactiveColor = Color.TRANSPARENT;
 		this.activeColor = Color.TRANSPARENT;
 		this.isKing = false;
+		this.isActive = false;
 		this.deactivate();	
 	}
 	
@@ -161,6 +168,7 @@ public class BoardSquareInfo {
 		builder.append(String.format("initial state=%s, ", this.initialState));
 		builder.append(String.format("state=%s, ", this.state));
 		builder.append(String.format("is king=%s, ", this.isKing));
+		builder.append(String.format("is active=%s, ", this.isActive));
 		builder.append(String.format("fill color=%s, ", this.fillColor));
 		builder.append(String.format("border color=%s, ", this.borderColor));
 		builder.append(String.format("player color=%s, ", this.inactiveColor));
@@ -180,6 +188,10 @@ public class BoardSquareInfo {
 				this.column == info.column &&
 				this.state == info.state &&
 				this.chip == info.chip &&
+				
+				this.isActive == info.isActive &&
+				this.isKing == info.isKing &&
+				
 				this.inactiveColor == info.inactiveColor &&
 				this.activeColor == info.activeColor &&
 				this.fillColor == info.fillColor &&

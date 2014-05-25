@@ -5,16 +5,6 @@ import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
 public class CheckersEngineTest extends CheckersBaseTest {
-	@Override
-	public void setUp() {
-		super.setUp();		
-	}
-
-	@Override
-	public void tearDown() {
-		super.tearDown();
-	}
-	
 	public void test_getId() {		
 		Assert.assertEquals(BoardGameEngine.CHECKERS_ENGINE, engine.getId());
 	}
@@ -204,9 +194,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		Assert.assertFalse(engine.isEmpty(square.row, square.column));
 	}
 	
-	public void test_handleOnTouch() {
-		Assert.assertNull(engine.activeSquare);
-		
+	public void test_handleOnTouch() {	
 		// Locked
 		CheckerBoardSquareMock square = new CheckerBoardSquareMock(context, engine.getData(0));
 		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.getInformation().state);
@@ -214,7 +202,8 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		boolean handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
 		
-		Assert.assertNull(engine.activeSquare);
+		BoardSquareInfo actual = engine.getData(0);
+		Assert.assertFalse(actual.isActive);
 		
 		// Player2
 		square = new CheckerBoardSquareMock(context, engine.getData(23));
@@ -222,8 +211,9 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
-				
-		Assert.assertNull(engine.activeSquare);
+
+		actual = engine.getData(23);
+		Assert.assertFalse(actual.isActive);
 				
 		// Empty
 		square = new CheckerBoardSquareMock(context, engine.getData(24));
@@ -231,8 +221,9 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
-				
-		Assert.assertNull(engine.activeSquare);		
+
+		actual = engine.getData(24);
+		Assert.assertFalse(actual.isActive);
 
 		// Player1
 		square = new CheckerBoardSquareMock(context, engine.getData(62));
@@ -240,8 +231,9 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
-				
-		Assert.assertNull(engine.activeSquare);		
+
+		actual = engine.getData(62);
+		Assert.assertFalse(actual.isActive);
 		
 		// Player1
 		square = new CheckerBoardSquareMock(context, engine.getData(40));
@@ -249,49 +241,51 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
-				
-		Assert.assertNotNull(engine.activeSquare);
-		Assert.assertTrue(engine.activeSquare.equals(square.getInformation()));
+
+		actual = engine.getData(40);
+		Assert.assertTrue(actual.isActive);
 	}
 	
-	public void test_moveSquare() {
-		Assert.assertNull(engine.activeSquare);
-		
+	public void test_moveSquare() {		
 		// Locked
 		BoardSquareInfo square = engine.getData(0);
 		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.state);
 		engine.moveSquare(square);
 		
-		Assert.assertNull(engine.activeSquare);
+		BoardSquareInfo actual = engine.getData(0);
+		Assert.assertFalse(actual.isActive);
 		
 		// Player2
 		square = engine.getData(23);
 		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.state);
 		engine.moveSquare(square);
 				
-		Assert.assertNull(engine.activeSquare);
+		actual = engine.getData(23);
+		Assert.assertFalse(actual.isActive);
 				
 		// Empty
 		square = engine.getData(24);
 		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.state);
 		engine.moveSquare(square);
 				
-		Assert.assertNull(engine.activeSquare);		
+		actual = engine.getData(24);
+		Assert.assertFalse(actual.isActive);		
 
 		// Player1
 		square = engine.getData(62);
 		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
 		engine.moveSquare(square);
-				
-		Assert.assertNull(engine.activeSquare);		
+			
+		actual = engine.getData(62);
+		Assert.assertFalse(actual.isActive);		
 		
 		// Player1
 		square = engine.getData(40);
 		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
 		engine.moveSquare(square);
 				
-		Assert.assertNotNull(engine.activeSquare);
-		Assert.assertTrue(engine.activeSquare.equals(square));
+		actual = engine.getData(40);
+		Assert.assertTrue(actual.isActive);
 	}	
 
 } // end CheckersEngineTestCase

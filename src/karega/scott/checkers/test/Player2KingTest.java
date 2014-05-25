@@ -5,15 +5,23 @@ import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
 public class Player2KingTest extends CheckersBaseTest {
+	// TODO: What is the equivalent of FixtureSetup
+	
 	@Override
 	public void setUp() {
-		engine = new CheckersEngineWrapper(super.getContext(), /*vsDevice*/ false);
+		if(engine == null) {
+			super.setUp();
+		}
+		
 		super.clearGameBoard();
 	}
 
+	@Override
+	public void tearDown() {
+	}
+	
 	public void test_move_from_7_0_to_0_7() {
-	    // Prepare
-		engine.activeState = BoardGameEngine.PLAYER2_STATE;
+		engine.switchPlayer();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);
@@ -37,8 +45,7 @@ public class Player2KingTest extends CheckersBaseTest {
 	}
 
 	public void test_move_from_0_7_to_7_0() {
-	    // Prepare
-		engine.activeState = BoardGameEngine.PLAYER2_STATE;
+		engine.switchPlayer();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(0,7);
@@ -62,8 +69,7 @@ public class Player2KingTest extends CheckersBaseTest {
 	}
 	
 	public void test_move_from_0_1_to_6_7() {
-	    // Prepare
-		engine.activeState = BoardGameEngine.PLAYER2_STATE;
+		engine.switchPlayer();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(0,1);
@@ -87,8 +93,7 @@ public class Player2KingTest extends CheckersBaseTest {
 	}
 
 	public void test_move_from_6_7_to_0_1() {
-	    // Prepare
-		engine.activeState = BoardGameEngine.PLAYER2_STATE;
+		engine.switchPlayer();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(6,7);
