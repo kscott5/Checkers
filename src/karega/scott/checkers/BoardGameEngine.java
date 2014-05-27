@@ -196,123 +196,11 @@ public abstract class BoardGameEngine {
 			Log.d(LOG_TAG, "Draw");
 	} // end determineWinner
 	
-	/**
-	 * Loads the current player for the saved game
-	 * @return
-	 */
-	protected void loadCurrentState(boolean forNewGame) {
-		Log.d(LOG_TAG, "Load current state for " + ((forNewGame)? "a new game": "an existing game"));
-		SQLiteDatabase db = null;
-		Cursor cursor = null;
-		
-		this.activeState = BoardGameEngine.PLAYER1_STATE;
-		
-		if(forNewGame)
-			return;
-		
-		try {
-			db = BoardDatabaseOpenHelper.getReadableDB(this.context);
-			
-			StringBuilder query = new StringBuilder();
-			query.append("SELECT Player ");
-			query.append("FROM SavedGame WHERE Engine = ");			
-			query.append(this.getId());
-			
-			cursor = db.rawQuery(query.toString(), null);
-			if(cursor.moveToFirst())
-				this.activeState = cursor.getInt(0 /*Player*/);
-			
-		} catch(SQLiteException e) {
-			
-		} finally {
-			if(cursor != null)
-				cursor.close();
-			cursor = null;
-			
-			if(db != null) 
-				db.close();
-			db = null;
-		} // end try-catch-finally		
-	} // end loadCurrentPlayer
-	
-	/**
-	 * Loads the game data from database
-	 */
-	protected void loadSquares(boolean forNewGame){
-		Log.d(LOG_TAG, "Load squares for " + ((forNewGame)? "a new game": "an existing game"));
-		
-		SQLiteDatabase db = null;
-		Cursor cursor = null;
-		
-		BoardSquareInfo[][] squares = engineSquares.get(this.engineId);
-		if(squares != null) {
-			for (int i = 0; i < getSize(); i++) {
-				getData(i).reset();
-			} // end for
-			
-			return;
-		}
-		
-		squares = new BoardSquareInfo[BoardGameEngine.ROWS][BoardGameEngine.COLUMNS];
-		
-		try {
-			
-			db = BoardDatabaseOpenHelper.getReadableDB(this.context);
-			
-			StringBuilder query = new StringBuilder();
-			query.append("SELECT Id, Row, Column, State, Chip ");
-			
-			if(forNewGame)
-				query.append("FROM GameEngineState WHERE Engine = ");
-			else
-				query.append("FROM SavedGameState WHERE Engine = ");
-			
-			query.append(this.getId());
-			query.append(" ORDER BY Id");
-			
-			cursor = db.rawQuery(query.toString(), null);
-			while(cursor.moveToNext()) {
-				BoardSquareInfo square = new BoardSquareInfo(
-						cursor.getInt(0 /*Id*/),
-						cursor.getInt(1 /*Row*/),
-						cursor.getInt(2 /*Column*/),
-						cursor.getInt(3 /*State*/),
-						cursor.getInt(4 /*Chip*/));
-
-				squares[square.row][square.column] = square;				
-			}
-			
-			engineSquares.put(engineId, squares);
-			
-		} catch(SQLiteException e) {
-			Log.v("BoardGameEngine.loadSquares", e.getMessage());
-		} finally {
-			if(cursor != null)
-				cursor.close();
-			cursor = null;
-			
-			if(db != null) 
-				db.close();
-			db = null;
-		} // end try-catch-finally
-	} // end loadSquares
-	
 	/*
 	 * Gets the Game Engine Identifier
 	 */
 	public final int getId() { return this.engineId; }
 	
-	/*
-	 * Loads the previous saved game
-	 */
-	public void loadGame() {
-		Log.d(LOG_TAG, "Loading an existing game");
-
-		activeSquare = null;
-		loadCurrentState(/* for new game */false);
-		loadSquares(/* for new game */false);
-	} // end loadGame
-
 	/**
 	 * Exit the game
 	 */
@@ -322,26 +210,35 @@ public abstract class BoardGameEngine {
 		}
 	} // end exitGame
 	
+	/**
+	 * @return true if engine has a board game, else false
+	 */
+	protected final boolean hasBoardGame() {
+		boolean noBoard = engineSquares.indexOfKey(engineId) < 0;
+		
+		if(noBoard) {
+			BoardSquareInfo[][] squares = new BoardSquareInfo[ROWS][COLUMNS];
+			engineSquares.put(engineId, squares);
+		}
+			
+		return !noBoard;
+	} // end hasBoardGame
+	
+	/**
+	 * @return array representing the board game
+	 */
+	protected final BoardSquareInfo[][] getBoardGame() {
+		return engineSquares.get(engineId);
+	}
+	
 	/*
 	 * Loads a new game for play
 	 */
 	public void newGame() {
-		Log.d(LOG_TAG, "Loading a new game");
-
 		activeSquare = null;
-		loadCurrentState(/* for new game */true);
-		loadSquares(/* for new game */true);
+		activeState = PLAYER1_STATE;
 	} // end newGame
-
-	/*
-	 * Saves the current state of the game to database
-	 */
-	public void saveGame() {
-		Log.d(LOG_TAG, "Saving game");
-
-		throw new Error("Save Game Not implemented");
-	} // end saveGame
-
+	
 	/**
 	 * Is player 1 moving square
 	 * @return

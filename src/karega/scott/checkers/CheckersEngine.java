@@ -26,6 +26,49 @@ public class CheckersEngine extends BoardGameEngine {
 	}
 
 	@Override
+	public void newGame() {
+		super.newGame();
+		
+		if(hasBoardGame()) {
+			BoardSquareInfo[][] squares = getBoardGame();
+			for(int row=0; row<ROWS; row++) {
+				for(int col=0; col<COLUMNS; col++) {
+					squares[row][col].reset();
+				}
+			} // end for
+		} else {
+			createBoardRow(0, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
+			createBoardRow(1, BoardGameEngine.PLAYER2_STATE, BoardGameEngine.LOCKED_STATE);
+			createBoardRow(2, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
+			
+			createBoardRow(3, BoardGameEngine.EMPTY_STATE, BoardGameEngine.LOCKED_STATE);
+			createBoardRow(4, BoardGameEngine.LOCKED_STATE, BoardGameEngine.EMPTY_STATE);
+	
+			createBoardRow(5, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
+			createBoardRow(6, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER1_STATE);
+			createBoardRow(7, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
+		}  // end if-else
+	} // end newGame
+	
+	/**
+	 * Creates a new row on the board
+	 * @param row is the row added to the board
+	 * @param start is the state the row begins with
+	 * @param end is the state the row ends with
+	 */
+	private void createBoardRow(int row, int startState, int endState) {
+		BoardSquareInfo[][] squares = getBoardGame();
+		
+		for(int col=0; col<COLUMNS; col++) {
+			int id = row*COLUMNS+col;
+			int state = (col%2 == 0)? startState: endState;
+			int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
+			
+			squares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
+		}
+	} // end createBoardRow
+	
+	@Override
 	public void moveSquare(BoardSquareInfo target) {
 		Log.d(LOG_TAG, "Move square");
 		

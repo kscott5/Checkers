@@ -62,16 +62,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		Assert.assertEquals(8, countSquares(BoardGameEngine.EMPTY_STATE));
 		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
 	}
-		
-	public void test_saveGame()  {
-		// TODO: What are we testing
-		try {
-			engine.saveGame();
-			Assert.fail();
-		} catch(Error e) {
-		}
-	}
-	
+			
 	public void test_exitGame() {
 		// TODO: What are we testing
 		engine.exitGame();
