@@ -2,7 +2,6 @@ package karega.scott.checkers;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.util.Log;
 
 /**
@@ -21,12 +20,14 @@ import android.util.Log;
 public class CheckersEngine extends BoardGameEngine {
 	private static final String LOG_TAG = "CheckersEngine";
 
-	public CheckersEngine(Context context, boolean vsDevice) {
-		super(context, CHECKERS_ENGINE, vsDevice);
+	public CheckersEngine(boolean vsDevice) {
+		super(CHECKERS_ENGINE, vsDevice);
 	}
 
 	@Override
 	public void newGame() {
+		Log.d(LOG_TAG, "New game");
+		
 		super.newGame();
 		
 		if(hasBoardGame()) {
@@ -57,6 +58,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @param end is the state the row ends with
 	 */
 	private void createBoardRow(int row, int startState, int endState) {
+		Log.d(LOG_TAG, String.format("Create board row %s with start state: %s and end state: %s",row,startState,endState));
 		BoardSquareInfo[][] squares = getBoardGame();
 		
 		for(int col=0; col<COLUMNS; col++) {

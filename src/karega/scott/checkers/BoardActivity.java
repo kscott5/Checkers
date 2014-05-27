@@ -35,7 +35,7 @@ public class BoardActivity extends Activity {
 		Intent intent = this.getIntent();
 		boolean vsComputer = intent.getBooleanExtra(BoardGameEngine.VS_DEVICE, true);
 		
-		gameEngine = new CheckersEngine(this.getBaseContext(), vsComputer);
+		gameEngine = new CheckersEngine(vsComputer);
 		gameEngine.newGame();
 		
 		gameBoard = (GridView) this.findViewById(R.id.boardGame);		

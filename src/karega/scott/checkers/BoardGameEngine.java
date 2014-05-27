@@ -3,10 +3,6 @@ package karega.scott.checkers;
 import java.util.Random;
 import java.util.Timer;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -64,7 +60,6 @@ public abstract class BoardGameEngine {
 	
 	private static Handler handler;	
 	
-	private Context context;
 	private Timer deviceTimer;
 	
 	private static SparseArray<BoardSquareInfo[][]> engineSquares = 
@@ -73,8 +68,7 @@ public abstract class BoardGameEngine {
 	protected BoardSquareInfo activeSquare;
 	protected int activeState;
 	
-	protected BoardGameEngine(Context ctx, int id, boolean vsDevice) {		
-		this.context = ctx;
+	protected BoardGameEngine(int id, boolean vsDevice) {		
 		this.vsDevice = vsDevice;
 		this.engineId = id;
 		
@@ -97,8 +91,6 @@ public abstract class BoardGameEngine {
 			deviceTimer.cancel();
 			deviceTimer = null;
 		}
-		
-		context = null;	
 	} // end finalize
 	
 	/**
@@ -214,6 +206,8 @@ public abstract class BoardGameEngine {
 	 * @return true if engine has a board game, else false
 	 */
 	protected final boolean hasBoardGame() {
+		Log.d(LOG_TAG, "Has board game");
+
 		boolean noBoard = engineSquares.indexOfKey(engineId) < 0;
 		
 		if(noBoard) {
@@ -228,6 +222,7 @@ public abstract class BoardGameEngine {
 	 * @return array representing the board game
 	 */
 	protected final BoardSquareInfo[][] getBoardGame() {
+		Log.d(LOG_TAG, "Get board game");
 		return engineSquares.get(engineId);
 	}
 	
@@ -235,6 +230,8 @@ public abstract class BoardGameEngine {
 	 * Loads a new game for play
 	 */
 	public void newGame() {
+		Log.d(LOG_TAG, "New game");
+
 		activeSquare = null;
 		activeState = PLAYER1_STATE;
 	} // end newGame

@@ -16,8 +16,8 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 	protected CheckersEngineWrapper engine;
 		
 	public class CheckersEngineWrapper extends CheckersEngine {		
-		public CheckersEngineWrapper(Context context, boolean vsDevice) {
-			super(context, vsDevice);
+		public CheckersEngineWrapper(boolean vsDevice) {
+			super(vsDevice);
 		}
 		
 		@Override
@@ -115,7 +115,7 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 	@Override
 	public void setUp() {
 		context = super.getContext();
-		engine = new CheckersEngineWrapper(context, /*vsDevice*/ false);
+		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
 		
 		engine.newGame();
 	}
