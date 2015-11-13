@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<BoardSquare
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:custom="http://schemas.android.com/apk/res/karega.scott.checkers"  
+	    android:id="@+id/squareView"
+	    custom:stateType="EMPTY" />
+    
+
+<!-- From: file:/C:/apps/android/games%20workspace/Checkers/app/src/main/res/layout/board_square.xml -->
