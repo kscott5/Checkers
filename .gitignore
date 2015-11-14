@@ -14,7 +14,7 @@ gen/
 
 # Gradle files
 .gradle/
-build/
+**/build/ # match any level subdirectory
 
 # Local configuration file (sdk path, etc)
 local.properties
