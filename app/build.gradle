@@ -8,6 +8,7 @@ android {
         applicationId "karega.scott.checkers"
         minSdkVersion 8
         targetSdkVersion 16
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
     buildTypes {
@@ -20,5 +21,4 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
-    testCompile ''
 }
