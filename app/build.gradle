@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+project.ext.set("emulatorName", "androidDevice4.2")
+
 android {
     compileSdkVersion 17
     buildToolsVersion "23.0.1"
@@ -8,6 +10,7 @@ android {
         applicationId "karega.scott.checkers"
         minSdkVersion 8
         targetSdkVersion 16
+        testApplicationId "karega.scott.checkers.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
@@ -17,8 +20,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    testOptions { // <-- You need this
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
+    testCompile 'junit:junit:4.12'
 }
