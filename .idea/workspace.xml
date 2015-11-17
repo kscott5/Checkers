@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="687224c1-1951-4ec2-93e4-f41402cf4375" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Checkers.iws" />
@@ -1953,7 +1952,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447777785107</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Git VCS integration">
+      <created>1447778116024</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1447778116024</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2033,7 +2038,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Change location of sudo statement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change location of sudo statement" />
+    <MESSAGE value="Git VCS integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Git VCS integration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
