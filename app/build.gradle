@@ -35,14 +35,3 @@ dependencies {
     compile 'com.android.support:support-v4:18.0.0'
     testCompile 'junit:junit:4.12'
 }
-
-task avd() {
-    String cmdScript = "createAVD.sh"
-    Boolean osIsWindows = System.getenv("OS").toLowerCase().startsWith("windows")
-
-    if(osIsWindows) {
-        cmdScript = "createAVD.cmd"
-    }
-
-    println cmdScript
-}
