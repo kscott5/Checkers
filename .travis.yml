@@ -17,6 +17,9 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-19
 
+before_install:
+ - chmod +x gradlew
+
 # Emulator Management: Create, Start and Wait
 before_script:
  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
