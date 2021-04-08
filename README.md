@@ -3,13 +3,13 @@ Checkers [![Build Status](https://travis-ci.org/kscott5/Checkers.svg?branch=mast
 
 First Mobile appl written using Android and Eclipse.
 
--Activity Management
--Device Resolution
--MultiThreading UI (process on different/seperate thread)
--Publishing to Google Play
--TravisCI integration
--Data binding
--Unit Testing
+-Activity Management (App Lifecycle)  
+-Device Resolution  
+-MultiThreading UI (process on different/seperate thread)  
+-Publishing to Google Play  
+-TravisCI integration  
+-Data binding  
+-Unit Testing  
 
 This app did not focus on a matrix 2D or mulitple dimension array for game board engine.
 
