@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 project.ext.set("emulatorName", "androidDevice4.2")
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "karega.scott.checkers"
