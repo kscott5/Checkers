@@ -25,7 +25,8 @@ before_install:
 # Emulator Management: Create, Start and Wait
 before_script:
  - echo yes | sdkmanager 'system-images;android-29;google_apis;x86_64'
- - echo no | android create avd --force -n test -t android-29 --abi 'x86_64'
+ - android create avd
+ - echo no | android create avd --force -n test -t android-29 --abi 'google_apis;x86_64'
  - emulator -avd test -no-skin -no-audio -no-window &
  - android-wait-for-emulator
  - adb shell input keyevent 82 &
