@@ -27,7 +27,7 @@ before_script:
  - echo yes | sdkmanager 'android-29' 'system-images;android-29;google_apis;x86_64' 'build-tools;30.0.2' 'tools' 'platform-tools'
  - sdkmanager
  - android create avd
- - echo no | android create avd --force -n test -t android-29 --abi 'system-images;android-29;google_apis;x86_64'
+ - echo no | android create avd --force --name test --target android-29 --tag google_apis  --abi x86_64
  - emulator -avd test -no-skin -no-audio -no-window &
  - android-wait-for-emulator
  - adb shell input keyevent 82 &
