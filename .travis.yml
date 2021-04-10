@@ -24,7 +24,7 @@ before_install:
 
 # Emulator Management: Create, Start and Wait
 before_script:
- - echo no | sdkmanager --install 'system-images;android-29;google_apis;x86_64'
+ - echo no | sdkmanager 'system-images;android-29;google_apis;x86_64'
  - echo no | android list targets
  - echo no | android create avd --force -n test -t android-29 --abi 'system-images;android-29;google_apis;x86_64'
  - emulator -avd test -no-skin -no-audio -no-window &
