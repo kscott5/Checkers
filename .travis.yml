@@ -16,8 +16,8 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - system-imgages;android-29;google_apis;x86_64
-    - system-images;android-29;default;x86_64
+    - 'system-imgages;android-29;google_apis;x86_64'
+    - 'system-images;android-29;default;x86_64'
 
 before_install:
  - chmod +x ./gradlew
