@@ -9,10 +9,10 @@ android:
 
     # The BuildTools version used by your project
     #- build-tools-19.1.0
-    - build-tools-30.0.2
+    #- 'build-tools;30.0.2'
 
     # The SDK version used to compile your project
-    - android-29
+    #- android-29
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
@@ -24,9 +24,10 @@ before_install:
 
 # Emulator Management: Create, Start and Wait
 before_script:
- - echo yes | sdkmanager 'system-images;android-29;google_apis;x86_64'
+ - echo yes | sdkmanager 'android-29' 'system-images;android-29;google_apis;x86_64' 'build-tools;30.0.2' 'tools' 'platform-tools'
+ - sdkmanager
  - android create avd
- - echo no | android create avd --force -n test -t android-29 --abi 'google_apis;x86_64'
+ - echo no | android create avd --force -n test -t android-29 --abi 'system-images;android-29;google_apis;x86_64'
  - emulator -avd test -no-skin -no-audio -no-window &
  - android-wait-for-emulator
  - adb shell input keyevent 82 &
