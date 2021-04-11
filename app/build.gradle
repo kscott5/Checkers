@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "karega.scott.checkers"
-        minSdkVersion 8
-        targetSdkVersion 16
+        minSdkVersion 26
+        targetSdkVersion 29
         testApplicationId "karega.scott.checkers.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
