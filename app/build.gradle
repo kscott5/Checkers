@@ -24,6 +24,13 @@ android {
         }
     }
 
+    // https://developer.android.com/training/testing/set-up-project
+    // Gradle automatically adds 'android.test.runner' as a dependency.
+    useLibrary 'android.test.runner'
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
     testOptions { // <-- You need this
         unitTests {
             returnDefaultValues = true
@@ -33,6 +40,7 @@ android {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'com.android.support:support-annotations:24.0.0'
     androidTestImplementation 'com.android.support.test:runner:0.5'
 }
