@@ -2,14 +2,19 @@ language: android
 sudo: false
 android:
   components:
-    # The SDK version used to compile your project
-    #- android-29
+    # Build tools available on travis-ci 04/12/2021
+    # - build-tools-30.0.0-preview
+    - build-tools-29.0.3
+
+    # The SDK version in use with checkers
+    - android-29
 
 before_install:
  - chmod +x ./gradlew
 
 # Emulator Management: Create, Start and Wait
 before_script:
- - echo yes | sdkmanager 'system-images;android-29;google_apis;x86_64' 'build-tools;30.0.2' 'tools' 'platform-tools'
+ # The checkers project use build-tools-30.0.2
+ - echo yes | sdkmanager 'build-tools;30.0.2' 'tools' 'platform-tools'
 
-script: ./gradlew clean build connectedDebugAndroidTest
+script: ./gradlew clean build 
