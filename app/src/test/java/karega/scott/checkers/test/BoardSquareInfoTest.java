@@ -14,7 +14,7 @@ public class BoardSquareInfoTest {
         bsi.isActive = true;
         bsi.activeColor = bsi.activeColor;
 
-        bsi.setOnChangeListener(new OnChangeListener() {
+        bsi.setOnChangeListener(new BoardSquareInfo.OnChangeListener() {
             @Override
             public void OnSquareInformationChange() {
                 // assert
@@ -36,7 +36,7 @@ public class BoardSquareInfoTest {
         bsi.isActive = false;
         bsi.activeColor = 0xff000000;
 
-        bsi.setOnChangeListener(new bsi.OnChangeListener() {
+        bsi.setOnChangeListener(new BoardSquareInfo.OnChangeListener() {
             @Override
             public void OnSquareInformationChange() {
                 // assert
