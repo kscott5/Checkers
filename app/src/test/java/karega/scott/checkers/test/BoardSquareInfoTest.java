@@ -12,7 +12,7 @@ public class BoardSquareInfoTest {
         // setup
 		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = true;
-        bsi.activeColor = BoardSquareInfo.activeColor;
+        bsi.activeColor = bsi.activeColor;
 
         bsi.setOnChangeListener(new OnChangeListener() {
             @Override
@@ -34,14 +34,14 @@ public class BoardSquareInfoTest {
 		// setup
 		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = false;
-        bsi.activeColor = BoardSquareInfo.BLACK;
+        bsi.activeColor = bsi.BLACK;
 
-        bsi.setOnChangeListener(new OnChangeListener() {
+        bsi.setOnChangeListener(new bsi.OnChangeListener() {
             @Override
             public void OnSquareInformationChange() {
                 // assert
                 Assert.assertTrue(bsi.isActive);        
-		        Assert.assertEquals(bsi.activeColor, bsi.WHITE;
+		        Assert.assertEquals(bsi.activeColor, bsi.WHITE);
             }
         });
 
