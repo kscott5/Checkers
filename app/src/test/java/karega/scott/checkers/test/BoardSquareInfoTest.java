@@ -10,7 +10,7 @@ import org.junit.Assert;
 public class BoardSquareInfoTest {    
     @Test public void deactivate() {
         // setup
-		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = true;
         bsi.activeColor = bsi.activeColor;
 
@@ -32,7 +32,7 @@ public class BoardSquareInfoTest {
 	
     @Test public void activate() {
 		// setup
-		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = false;
         bsi.activeColor = 0xff000000;
 
