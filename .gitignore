@@ -40,3 +40,4 @@ captures/
 
 *.log
 *.keystore
+*.bkup
