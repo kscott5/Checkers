@@ -55,7 +55,7 @@ public class BoardSquareInfoTest {
 	@Test public void reset() {
 	} 
 	
-	@Test public boolean swap() {
+	@Test public void swap() {
 	}
 
 	@Test public void makeEmpty() {
