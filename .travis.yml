@@ -14,7 +14,18 @@ before_install:
 
 # Emulator Management: Create, Start and Wait
 before_script:
- # The checkers project use build-tools-30.0.2
- - echo yes | sdkmanager 'build-tools;30.0.2' 'tools' 'platform-tools'
+# The checkers project use build-tools-30.0.2. Gradle 3.0.0+ will download any SDK in. However, license agreement applies. 
+- echo yes | sdkmanager 'tools' 'platform-tools'
 
+# Auto-download missing packages with Gradle
+#
+# When you run a build from the command line, or when using Android Studio 3.3 or later, 
+# Gradle can automatically download missing SDK packages that a project depends on, as long as 
+# the corresponding SDK license agreements have already been accepted using the SDK Manager.
+#
+# When you accept the license agreements using the SDK Manager, Android Studio creates a licenses 
+# directory inside the SDK home directory. This licenses directory is necessary for Gradle to 
+# auto-download missing packages. 
+#
+# https://bit.ly/2PZhGQr
 script: ./gradlew clean build 
