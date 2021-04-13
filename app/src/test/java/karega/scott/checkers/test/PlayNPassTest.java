@@ -48,7 +48,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Moves player 2 a single square from (2,7) to (3,6)
 	 */
 	@Test public void moveSquareStep2_SingleMovePlayer2() {
-		test_moveSquareStep1_SingleMovePlayer1();
+		moveSquareStep1_SingleMovePlayer1();
 		
 		// Player2
 		BoardSquareInfo start = engine.getData(2,7);
@@ -79,7 +79,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 removed at (3,4)
 	 */
 	@Test public void moveSquareStep3_Player1Jumping() {
-		test_moveSquareStep2_SingleMovePlayer2();
+		moveSquareStep2_SingleMovePlayer2();
 		
 		BoardSquareInfo start = engine.getData(5,2);
 		engine.moveSquare(start);
@@ -120,7 +120,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 1 removed at ((2,5)
 	 */
 	@Test public void moveSquareStep4_Player2Jumping() {
-		test_moveSquareStep3_Player1Jumping();
+		moveSquareStep3_Player1Jumping();
 		// Performing jump
 		BoardSquareInfo start = engine.getData(1,6);
 		engine.moveSquare(start);
@@ -148,7 +148,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 moves from (3,4) to (4,3)
 	 */
 	@Test public void moveSquareStep5_SingleMoveEach() {
-		test_moveSquareStep4_Player2Jumping();
+		moveSquareStep4_Player2Jumping();
 		// Perform
 		BoardSquareInfo start = engine.getData(6,1);
 		engine.moveSquare(start);
@@ -182,7 +182,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 moves from (1,4) to (2,5)
 	 */
 	@Test public void moveSquareStep6_SingleMoveEach() {
-		test_moveSquareStep5_SingleMoveEach();
+		moveSquareStep5_SingleMoveEach();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);
@@ -217,7 +217,7 @@ public class PlayNPassTest extends CheckersBaseTest {
 	 * Player 2 removed at (4,3) and (2,5)
 	 */
 	@Test public void moveSquareStep7_Player1Jumping() {
-		test_moveSquareStep6_SingleMoveEach();
+		moveSquareStep6_SingleMoveEach();
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(5,2);
