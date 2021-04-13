@@ -127,7 +127,7 @@ public abstract class CheckersBaseTest {
 	 * @see org.junit4.BeforeClass
 	 */
 	@BeforeClass
-	public void setUp() {
+	public static void setUp() {
 		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
 		
 		engine.newGame();
@@ -138,7 +138,7 @@ public abstract class CheckersBaseTest {
 	 * @see org.junit4.AfterClass
 	 */
 	@AfterClass
-	public void tearDown() {
+	public static void tearDown() {
 		engine.exitGame();
 	}
 } // end CheckersEngineBaseTestCase
