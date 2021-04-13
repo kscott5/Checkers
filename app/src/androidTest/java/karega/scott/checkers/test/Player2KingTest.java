@@ -1,8 +1,10 @@
 package karega.scott.checkers.test;
 
-import junit.framework.Assert;
 import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
+
+import org.junit.Test;
+import org.junit.Assert;
 
 public class Player2KingTest extends CheckersBaseTest {
 	// TODO: What is the equivalent of FixtureSetup
@@ -20,7 +22,7 @@ public class Player2KingTest extends CheckersBaseTest {
 	public void tearDown() {
 	}
 	
-	public void test_move_from_7_0_to_0_7() {
+	@Test public void move_from_7_0_to_0_7() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -44,7 +46,7 @@ public class Player2KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());
 	}
 
-	public void test_move_from_0_7_to_7_0() {
+	@Test public void move_from_0_7_to_7_0() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -68,7 +70,7 @@ public class Player2KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());
 	}
 	
-	public void test_move_from_0_1_to_6_7() {
+	@Test public void move_from_0_1_to_6_7() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -92,7 +94,7 @@ public class Player2KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());
 	}
 
-	public void test_move_from_6_7_to_0_1() {
+	@Test public void move_from_6_7_to_0_1() {
 		engine.switchPlayer();
 		
 		// Perform

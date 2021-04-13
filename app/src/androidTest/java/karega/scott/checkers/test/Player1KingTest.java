@@ -1,8 +1,10 @@
 package karega.scott.checkers.test;
 
-import junit.framework.Assert;
 import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
+
+import org.junit.Test;
+import org.junit.Assert;
 
 public class Player1KingTest extends CheckersBaseTest {
 	@Override
@@ -19,7 +21,7 @@ public class Player1KingTest extends CheckersBaseTest {
 		
 	}
 	
-	public void test_move_from_7_0_to_0_7() {
+	@Test public void move_from_7_0_to_0_7() {
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);
 		start.state = BoardGameEngine.PLAYER1_STATE;
@@ -41,7 +43,7 @@ public class Player1KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());
 	}
 
-	public void test_move_from_0_7_to_7_0() {
+	@Test public void move_from_0_7_to_7_0() {
 		// Perform
 		BoardSquareInfo start = engine.getData(0,7);
 		start.state = BoardGameEngine.PLAYER1_STATE;
@@ -63,7 +65,7 @@ public class Player1KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());
 	}
 
-	public void test_move_from_7_6_to_1_0() {
+	@Test public void move_from_7_6_to_1_0() {
 		// Perform
 		BoardSquareInfo start = engine.getData(7,6);
 		start.state = BoardGameEngine.PLAYER1_STATE;
@@ -85,7 +87,7 @@ public class Player1KingTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());
 	}
 
-	public void test_move_from_1_0_to_7_6() {
+	@Test public void move_from_1_0_to_7_6() {
 		// Perform
 		BoardSquareInfo start = engine.getData(1,0);
 		start.state = BoardGameEngine.PLAYER1_STATE;

@@ -1,8 +1,10 @@
 package karega.scott.checkers.test;
 
-import junit.framework.Assert;
 import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
+
+import org.junit.Test;
+import org.junit.Assert;
 
 public class Player2PawnTest extends CheckersBaseTest {
 	// TODO: What is the equivalent of FixtureSetup
@@ -17,7 +19,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 	public void tearDown() {
 	}
 	
-	public void test_move_from_3_4_to_4_3() {
+	@Test public void move_from_3_4_to_4_3() {
 	    engine.switchPlayer();
 		
 		// Perform
@@ -40,7 +42,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());
 	}
 
-	public void test_move_from_3_4_to_4_5() {
+	@Test public void move_from_3_4_to_4_5() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -63,7 +65,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());
 	}
 
-	public void test_no_move_from_3_4_to_2_3() {
+	@Test public void no_move_from_3_4_to_2_3() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -86,7 +88,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());
 	}
 
-	public void test_no_move_from_3_4_to_2_5() {
+	@Test public void no_move_from_3_4_to_2_5() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -109,7 +111,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());
 	}
 	
-	public void test_move_from_6_3_to_7_2_makes_king() {
+	@Test public void move_from_6_3_to_7_2_makes_king() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -133,7 +135,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());		
 	}
 
-	public void test_move_from_6_3_to_7_4_makes_king() {
+	@Test public void move_from_6_3_to_7_4_makes_king() {
 		engine.switchPlayer();
 		
 		// Perform
@@ -157,7 +159,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer1());		
 	}
 	
-	public void test_no_move_from_3_6_to_7_4() {
+	@Test public void no_move_from_3_6_to_7_4() {
 		engine.switchPlayer();
 		
 		// Prepare
@@ -194,7 +196,7 @@ public class Player2PawnTest extends CheckersBaseTest {
 		Assert.assertTrue(engine.isPlayer2());				
 	}
 
-	public void test_no_move_from_3_2_to_5_2() {
+	@Test public void no_move_from_3_2_to_5_2() {
 		// Prepare
 		BoardSquareInfo player2 = engine.getData(4,3);
 		player2.state = BoardGameEngine.PLAYER2_STATE;
