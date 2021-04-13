@@ -22,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(MockitoJUnitRunner.class)
-@SmallTest
 public abstract class CheckersBaseTest {
 	// Class variables allow extended subclasses to build complex
 	// test case using the same engine and in some case existing
