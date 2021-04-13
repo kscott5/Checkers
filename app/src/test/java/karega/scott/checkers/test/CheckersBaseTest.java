@@ -27,7 +27,7 @@ public abstract class CheckersBaseTest {
 	// test case using the same engine and in some case existing
 	// test methods
 	@Mock protected Context context;
-	protected CheckersEngineWrapper engine;
+	protected static CheckersEngineWrapper engine;
 		
 	public class CheckersEngineWrapper extends CheckersEngine {		
 		public CheckersEngineWrapper(boolean vsDevice) {
