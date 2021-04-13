@@ -6,12 +6,14 @@ import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.CheckerBoardSquare;
 import karega.scott.checkers.CheckersEngine;
 
-import androidx.test.core.app.ApplicationProvider;
+import org.junit.Test;
+import org.junit.Assert;
+
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import android.content.Context;
-
-
-import androidx.test.filters.SmallTest;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
@@ -19,13 +21,13 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 @SmallTest
 public abstract class CheckersBaseTest {
 	// Class variables allow extended subclasses to build complex
 	// test case using the same engine and in some case existing
 	// test methods
-	protected Context context;
+	@Mock protected Context context;
 	protected CheckersEngineWrapper engine;
 		
 	public class CheckersEngineWrapper extends CheckersEngine {		
@@ -127,7 +129,6 @@ public abstract class CheckersBaseTest {
 	 */
 	@BeforeClass
 	public void setUp() {
-		context = ApplicationProvider.getApplicationContext();
 		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
 		
 		engine.newGame();
