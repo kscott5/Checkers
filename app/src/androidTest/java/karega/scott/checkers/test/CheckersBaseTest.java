@@ -5,10 +5,23 @@ import karega.scott.checkers.BoardSquare;
 import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.CheckerBoardSquare;
 import karega.scott.checkers.CheckersEngine;
-import android.content.Context;
-import android.test.AndroidTestCase;
 
-public abstract class CheckersBaseTest extends AndroidTestCase {
+import androidx.test.core.app.ApplicationProvider;
+import android.content.Context;
+
+
+import androidx.test.filters.SmallTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
+@SmallTest
+public abstract class CheckersBaseTest {
 	// Class variables allow extended subclasses to build complex
 	// test case using the same engine and in some case existing
 	// test methods
@@ -110,17 +123,21 @@ public abstract class CheckersBaseTest extends AndroidTestCase {
 
 	/*
 	 * Always starts a new game
-	 * @see android.test.AndroidTestCase#setUp()
+	 * @see org.junit4.BeforeClass
 	 */
-	@Override
+	@BeforeClass
 	public void setUp() {
-		context = super.getContext();
+		context = ApplicationProvider.getApplicationContext();
 		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
 		
 		engine.newGame();
 	}
 	
-	@Override
+	/*
+	 * Always end the game
+	 * @see org.junit4.AfterClass
+	 */
+	@AfterClass
 	public void tearDown() {
 		engine.exitGame();
 	}
