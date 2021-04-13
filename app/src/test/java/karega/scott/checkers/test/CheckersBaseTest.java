@@ -29,7 +29,11 @@ public abstract class CheckersBaseTest {
 	@Mock protected Context context;
 	protected static CheckersEngineWrapper engine;
 		
-	public class CheckersEngineWrapper extends CheckersEngine {		
+	public class CheckersEngineWrapper extends CheckersEngine {
+		public static CheckersEngine getEngine(boolean vsDevice) {
+			return new CheckersEngine(vsDevice);
+		}
+
 		public CheckersEngineWrapper(boolean vsDevice) {
 			super(vsDevice);
 		}
@@ -126,9 +130,9 @@ public abstract class CheckersBaseTest {
 	 * Always starts a new game
 	 * @see org.junit4.BeforeClass
 	 */
-	@BeforeClass
+	@Before
 	public static void setUp() {
-		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
+		engine = CheckersEngineWrapper.getEngine(/*vsDevice*/ false);
 		
 		engine.newGame();
 	}
@@ -137,7 +141,7 @@ public abstract class CheckersBaseTest {
 	 * Always end the game
 	 * @see org.junit4.AfterClass
 	 */
-	@AfterClass
+	@After
 	public static void tearDown() {
 		engine.exitGame();
 	}
