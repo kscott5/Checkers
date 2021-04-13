@@ -9,10 +9,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import android.content.Context;
 
-@RunWith(MockitoJUnitRunner)
+@RunWith(MockitoJUnitRunner.class)
 public class CheckersEngineTest  {
         @Mock Context context;
-        
+
         @Test public void simple() {
           Assert.assertNotNull(context);
         }
