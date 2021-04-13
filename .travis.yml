@@ -14,6 +14,7 @@ before_install:
 
 # Emulator Management: Create, Start and Wait
 before_script:
+- sudo apt list --installed
 # The checkers project use build-tools-30.0.2. Gradle 3.0.0+ will download any SDK in. However, license agreement applies. 
 - echo yes | sdkmanager 'tools' 'platform-tools'
 
