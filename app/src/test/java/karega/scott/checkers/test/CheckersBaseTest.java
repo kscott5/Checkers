@@ -30,8 +30,8 @@ public abstract class CheckersBaseTest {
 	protected static CheckersEngineWrapper engine;
 		
 	public class CheckersEngineWrapper extends CheckersEngine {
-		public static CheckersEngine getEngine(boolean vsDevice) {
-			return new CheckersEngine(vsDevice);
+		public static CheckersEngineWrapper getEngine(boolean vsDevice) {
+			return new CheckersEngineWrapper(vsDevice);
 		}
 
 		public CheckersEngineWrapper(boolean vsDevice) {
