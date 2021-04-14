@@ -2,8 +2,6 @@ package karega.scott.checkers;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
 /**
  * Game engine for checkers
  * 
@@ -38,15 +36,15 @@ public class CheckersEngine extends BoardGameEngine {
 			BoardSquareInfo info = squares[row][col];
 			
 			if (info.state == EMPTY_STATE) {
-				Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
+				//Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
 				return true;
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
+			//Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
 			return false;
 		}
 
-		Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
+		//Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
 		return false;
 	} // end isEmpty
 
@@ -59,14 +57,14 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public BoardSquareInfo getData(int row, int col) {
-		Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
+		//Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
 
 		try {
 			BoardSquareInfo[][] squares = this.engineSquares;
 			BoardSquareInfo data = squares[row][col];
 			
 			if (data.state == LOCKED_STATE) {
-				Log.e(LOG_TAG, String.format(
+				//Log.e(LOG_TAG, String.format(
 						"Get data for row[%s] and col[%s] is locked", row, col));
 				return null;
 			}
@@ -97,7 +95,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 			return info;
 		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.e(LOG_TAG, String.format(
+			//Log.e(LOG_TAG, String.format(
 					"Get data array index out of bounds for id[%s]", id));
 		}
 
@@ -121,7 +119,7 @@ public class CheckersEngine extends BoardGameEngine {
 	
 	@Override
 	public void newGame() {
-		Log.d(LOG_TAG, "New game");
+		//Log.d(LOG_TAG, "New game");
 		
 		super.newGame();
 		
@@ -153,7 +151,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @param end is the state the row ends with
 	 */
 	private void createBoardRow(int row, int startState, int endState) {
-		Log.d(LOG_TAG, String.format("Create board row %s with start state: %s and end state: %s",row,startState,endState));
+		//Log.d(LOG_TAG, String.format("Create board row %s with start state: %s and end state: %s",row,startState,endState));
 		BoardSquareInfo[][] squares = getBoardGame();
 		
 		for(int col=0; col<COLUMNS; col++) {
@@ -167,7 +165,7 @@ public class CheckersEngine extends BoardGameEngine {
 	
 	@Override
 	public void moveSquare(BoardSquareInfo target) {
-		Log.d(LOG_TAG, "Move square");
+		//Log.d(LOG_TAG, "Move square");
 		
 		// Starting information must be set
 		if (activeState == target.state) {
@@ -176,7 +174,7 @@ public class CheckersEngine extends BoardGameEngine {
 				return;
 
 			if(activateSquare(target)) {
-				Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
+				//Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
 			}
 			return;
 		} // end if
@@ -186,23 +184,23 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE, path) 
 				&& validatePath(activeSquare, target, path)) {
-			Log.d(LOG_TAG, "Move square completed");
+			//Log.d(LOG_TAG, "Move square completed");
 			return; 
 		}
 		
 		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE, path)
 				&& validatePath(activeSquare, target, path)) {
-			Log.d(LOG_TAG, "Move square completed");
+			//Log.d(LOG_TAG, "Move square completed");
 			return;
 		}
 
-		Log.d(LOG_TAG, "Nothing was moved");
+		//Log.d(LOG_TAG, "Nothing was moved");
 		determineWinner();
 	} // end moveSquare
 
 	@Override
 	protected void moveSquareForDevice() {
-		Log.d(LOG_TAG, "Moving square for device");
+		//Log.d(LOG_TAG, "Moving square for device");
 		
 		if(!isDevice())
 			return;
@@ -261,7 +259,7 @@ public class CheckersEngine extends BoardGameEngine {
 		} // end while
 		
 		if(activeSquare != null) {
-			Log.e(LOG_TAG, "No available square for the device to move to");
+			//Log.e(LOG_TAG, "No available square for the device to move to");
 			determineWinner();
 			return;
 		} // end if
@@ -274,7 +272,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return
 	 */
 	private boolean activateSquare(BoardSquareInfo target) {
-		Log.d(LOG_TAG, "Activating square info");
+		//Log.d(LOG_TAG, "Activating square info");
 
 		boolean active = false;
 		if(target == null)
@@ -292,13 +290,13 @@ public class CheckersEngine extends BoardGameEngine {
 
 			if (activeSquare != null) {
 				activeSquare.deactivate();
-				Log.d(LOG_TAG, String.format("Deactivated square: %s",
+				//Log.d(LOG_TAG, String.format("Deactivated square: %s",
 						activeSquare));
 			}
 
 			activeSquare = target;
 			activeSquare.activate();
-			Log.d(LOG_TAG, String.format("Activated square: %s", target));
+			//Log.d(LOG_TAG, String.format("Activated square: %s", target));
 
 			active = true;
 		} // end if
@@ -316,7 +314,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean isSquareMovable(BoardSquareInfo target, int state, boolean isKing) {
-		Log.d(LOG_TAG, String.format("Is square movable (recursive) square: %s, state: %s, isKing: %s",target,state,isKing));
+		//Log.d(LOG_TAG, String.format("Is square movable (recursive) square: %s, state: %s, isKing: %s",target,state,isKing));
 
 		// No need to check in opposite direction
 		if (!isKing && state != activeState)
@@ -344,7 +342,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean ensureSquareMovable(BoardSquareInfo target, int state,	boolean isKing, boolean backwards) {
-		Log.d(LOG_TAG, "Ensure square movable");
+		//Log.d(LOG_TAG, "Ensure square movable");
 
 		// NOTE: THIS METHOD HELPS REDUCE DUPLICATE CODE
 		
@@ -354,7 +352,7 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		BoardSquareInfo square = getData(target.row + row, target.column + col);		
 		if (square != null) {
-			Log.d(LOG_TAG, String.format("Square: %s", square));
+			//Log.d(LOG_TAG, String.format("Square: %s", square));
 			
 			// Square available
 			if (square.state == EMPTY_STATE) {
@@ -389,10 +387,10 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean moveActiveSquare(BoardSquareInfo start,	BoardSquareInfo target, int state, ArrayList<BoardSquareInfo> path) {
-		Log.d(LOG_TAG, "Move active square (recursive)");
-		Log.d(LOG_TAG, String.format("*****start: %s",start));
-		Log.d(LOG_TAG, String.format("*****target: %s",target));
-		Log.d(LOG_TAG, String.format("*****state: %s",state));
+		//Log.d(LOG_TAG, "Move active square (recursive)");
+		//Log.d(LOG_TAG, String.format("*****start: %s",start));
+		//Log.d(LOG_TAG, String.format("*****target: %s",target));
+		//Log.d(LOG_TAG, String.format("*****state: %s",state));
 
 		if (start == null || target == null)
 			return false;
@@ -424,11 +422,11 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean searchBoardForTarget(BoardSquareInfo start, BoardSquareInfo target, int state, boolean backwards, ArrayList<BoardSquareInfo> path) {
-		Log.d(LOG_TAG, "Search board for target");
-		Log.d(LOG_TAG, String.format("*****start: %s",start));
-		Log.d(LOG_TAG, String.format("*****target: %s",target));
-		Log.d(LOG_TAG, String.format("*****state: %s",state));
-		Log.d(LOG_TAG, String.format("*****backwards: %s",backwards));
+		//Log.d(LOG_TAG, "Search board for target");
+		//Log.d(LOG_TAG, String.format("*****start: %s",start));
+		//Log.d(LOG_TAG, String.format("*****target: %s",target));
+		//Log.d(LOG_TAG, String.format("*****state: %s",state));
+		//Log.d(LOG_TAG, String.format("*****backwards: %s",backwards));
 		
 		// NOTE: Revisit code to ensure logic correct, especially if 
 		//       I continue to add checks for cases not handled
@@ -440,15 +438,15 @@ public class CheckersEngine extends BoardGameEngine {
 		// Check  side
 		BoardSquareInfo square = getData(start.row + row, start.column + col);
 		if (square == null) {
-			Log.d(LOG_TAG, "*****square evaluate to null");
+			//Log.d(LOG_TAG, "*****square evaluate to null");
 			return false;
 		}
 
-		Log.d(LOG_TAG, String.format("*****square evaluated: %s", square));
+		//Log.d(LOG_TAG, String.format("*****square evaluated: %s", square));
 		
 		// Found it
 		if (target.equals(square)) {
-			Log.d(LOG_TAG, "*****target found");
+			//Log.d(LOG_TAG, "*****target found");
 			return true;
 		} // end if
 
@@ -459,7 +457,7 @@ public class CheckersEngine extends BoardGameEngine {
 		// Peek at next square. 
 		BoardSquareInfo peek = getData(square.row + row, square.column + col);
 		if(peek == null) {
-			Log.d(LOG_TAG, "*****peek is null");
+			//Log.d(LOG_TAG, "*****peek is null");
 						
 			return false;
 		} // end if
@@ -467,7 +465,7 @@ public class CheckersEngine extends BoardGameEngine {
 		// We know now that we can't jump move to peek
 		// STOP, we can never find target on this path
 		if(peek.state == activeState) {
-			Log.d(LOG_TAG, "*****stop, we can never move pass a square with same state");
+			//Log.d(LOG_TAG, "*****stop, we can never move pass a square with same state");
 			return false;
 		}
 		
@@ -476,7 +474,7 @@ public class CheckersEngine extends BoardGameEngine {
 				&& peek.state == EMPTY_STATE 
 				&& peek.state == square.state  
 				&& moveActiveSquare(square,target,state,path)) {
- 			Log.d(LOG_TAG, "*****king moved over two or more consecutive emtpy squares complete");
+ 			//Log.d(LOG_TAG, "*****king moved over two or more consecutive emtpy squares complete");
  			path.add(square);
 			return true;
  		}
@@ -484,25 +482,25 @@ public class CheckersEngine extends BoardGameEngine {
 		// We know peek isn't an empty square
 		// STOP, never jump over two square with same state 
 		if(peek.state == square.state) {
-			Log.d(LOG_TAG, "*****stop, never jump over two squares with same state");
+			//Log.d(LOG_TAG, "*****stop, never jump over two squares with same state");
 			return false;
 		}
 		
 		// Remove opponent
 		if (square.state != EMPTY_STATE && moveActiveSquare(square, target, state,path)) {
-			Log.d(LOG_TAG, String.format("*****removing opponent square: %s", square));
+			//Log.d(LOG_TAG, String.format("*****removing opponent square: %s", square));
 			path.add(square);
 			return true;
 		}
 
 		// Continue moving
 		if(square.state == EMPTY_STATE && moveActiveSquare(square,target,state,path)) {
-			Log.d(LOG_TAG, "*****continue moving done");
+			//Log.d(LOG_TAG, "*****continue moving done");
 			path.add(square);
 			return true;
 		}
 		
-		Log.d(LOG_TAG, "*****target not found on this path");
+		//Log.d(LOG_TAG, "*****target not found on this path");
 		return false;
 	} // end searchBoardForTarget	
 
@@ -516,7 +514,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean validatePath(BoardSquareInfo start, BoardSquareInfo target, ArrayList<BoardSquareInfo> path) {
-		Log.d(LOG_TAG, String.format("Validating path: [%s]",path));
+		//Log.d(LOG_TAG, String.format("Validating path: [%s]",path));
 		
 		// Invalid if start and target row are separated 
 		// by 2 spaces and columns are the same
