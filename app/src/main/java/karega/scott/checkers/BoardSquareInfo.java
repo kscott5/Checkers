@@ -74,7 +74,7 @@ public class BoardSquareInfo {
 	public void reset() {
 		this.chip = this.initialChip;
 		this.state = this.initialState;
-		this.borderColor = Color.BLACK;
+		this.borderColor = -16777216; // android.graphics.Color.BLACK
 		this.isKing = false;
         this.isActive = false;
 		
@@ -145,7 +145,7 @@ public class BoardSquareInfo {
 		this.chip = BoardGameEngine.EMPTY_CHIP;
 		this.state = BoardGameEngine.EMPTY_STATE;
 		this.fillColor = -12303292; // android.graphics.Color.DKGRAY
-		this.borderColor = Color.BLACK;
+		this.borderColor = -16777216; // android.graphics.Color.BLACK
 		this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
 		this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 		this.isKing = false;
