@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class PlayNPassTest {
+public class PlayNPassTest extends CheckersEngineTest {
 	CheckersEngine engine;
 	
 	@Before public void beforeTest() {

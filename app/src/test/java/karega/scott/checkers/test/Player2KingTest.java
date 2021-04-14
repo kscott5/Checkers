@@ -1,16 +1,15 @@
 package karega.scott.checkers.test;
 
-import karega.scott.checkers.BoardGameEngine;
+import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
 import org.junit.Test;
 import org.junit.Assert;
 
-public class Player2KingTest extends CheckersBaseTest {
+public class Player2KingTest extends CheckersEngineTest {
 	@Before public void beforeTest() {
 		engine = new CheckersEngine(/*vsDevice*/ false);
 		engine.newGame();
-		engine.clearGameBoard();
 	}
 	
 	@After public void afterTest() {
@@ -22,8 +21,8 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);
-		start.state = BoardGameEngine.PLAYER2_STATE;
-		start.chip = BoardGameEngine.PAWN_CHIP;
+		start.state = engine.PLAYER2_STATE;
+		start.chip = engine.PAWN_CHIP;
 		start.isKing = true;
 		engine.moveSquare(start);
 		
@@ -32,10 +31,10 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(7,0);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(0,7);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		Assert.assertTrue(actual.isKing);
 
 		Assert.assertTrue(engine.isPlayer1());
@@ -46,8 +45,8 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(0,7);
-		start.state = BoardGameEngine.PLAYER2_STATE;
-		start.chip = BoardGameEngine.PAWN_CHIP;
+		start.state = engine.PLAYER2_STATE;
+		start.chip = engine.PAWN_CHIP;
 		start.isKing = true;
 		engine.moveSquare(start);
 		
@@ -56,10 +55,10 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(0,7);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(7,0);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		Assert.assertTrue(actual.isKing);
 
 		Assert.assertTrue(engine.isPlayer1());
@@ -70,8 +69,8 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(0,1);
-		start.state = BoardGameEngine.PLAYER2_STATE;
-		start.chip = BoardGameEngine.PAWN_CHIP;
+		start.state = engine.PLAYER2_STATE;
+		start.chip = engine.PAWN_CHIP;
 		start.isKing = true;
 		engine.moveSquare(start);
 		
@@ -80,10 +79,10 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(0,1);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(6,7);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		Assert.assertTrue(actual.isKing);
 
 		Assert.assertTrue(engine.isPlayer1());
@@ -94,8 +93,8 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Perform
 		BoardSquareInfo start = engine.getData(6,7);
-		start.state = BoardGameEngine.PLAYER2_STATE;
-		start.chip = BoardGameEngine.PAWN_CHIP;
+		start.state = engine.PLAYER2_STATE;
+		start.chip = engine.PAWN_CHIP;
 		start.isKing = true;
 		engine.moveSquare(start);
 		
@@ -104,10 +103,10 @@ public class Player2KingTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(6,7);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(0,1);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		Assert.assertTrue(actual.isKing);
 
 		Assert.assertTrue(engine.isPlayer1());
