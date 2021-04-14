@@ -7,21 +7,16 @@ import org.junit.Test;
 import org.junit.Assert;
 
 public class Player2KingTest extends CheckersBaseTest {
-	// TODO: What is the equivalent of FixtureSetup
+	@Before public void beforeTest() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+		engine.clearGameBoard();
+	}
 	
-	@Override
-	public void setUp() {
-		if(engine == null) {
-			super.setUp();
-		}
-		
-		super.clearGameBoard();
+	@After public void afterTest() {
+		engine.exitGame();
 	}
 
-	@Override
-	public void tearDown() {
-	}
-	
 	@Test public void move_from_7_0_to_0_7() {
 		engine.switchPlayer();
 		

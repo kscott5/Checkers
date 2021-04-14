@@ -1,21 +1,23 @@
 package karega.scott.checkers.test;
 
-import karega.scott.checkers.BoardGameEngine;
+import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
 import org.junit.Test;
 import org.junit.Assert;
 
+import org.junit.Before;
+import org.junit.After;
+
 public class PlayNPassTest extends CheckersBaseTest {
-	// TODO: What is the equivalent of FixtureSetup
-	
-	@Override
-	public void setUp() {
-		super.setUp();
+	@Before public void beforeTest() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+		engine.clearGameBoard();
 	}
 	
-	@Override
-	public void tearDown() {		
+	@After public void afterTest() {
+		engine.exitGame();
 	}
 	
 	/**
@@ -31,17 +33,17 @@ public class PlayNPassTest extends CheckersBaseTest {
 		engine.moveSquare(target);
 
 		BoardSquareInfo actual = engine.getData(start.id);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(target.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 
 		Assert.assertTrue(engine.isPlayer2());
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(12, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(8, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
@@ -59,17 +61,17 @@ public class PlayNPassTest extends CheckersBaseTest {
 		engine.moveSquare(target);
 
 		BoardSquareInfo actual = engine.getData(start.id);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(target.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 
 		Assert.assertTrue(engine.isPlayer1());
 
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(12, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(8, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}	
 
 	/*
@@ -102,17 +104,17 @@ public class PlayNPassTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(2,5);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 		
 		actual = engine.getData(3,4);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer2());
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(9, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(9, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
@@ -130,17 +132,17 @@ public class PlayNPassTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(3,4);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		
 		actual = engine.getData(2,5);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer1());
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
@@ -164,15 +166,15 @@ public class PlayNPassTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(5,2);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 		
 		actual = engine.getData(4,3);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 
 		Assert.assertTrue(engine.isPlayer1());
 	}
@@ -199,15 +201,15 @@ public class PlayNPassTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(6,1);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 		
 		actual = engine.getData(2,5);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 
 		Assert.assertTrue(engine.isPlayer1());
 	}
@@ -228,19 +230,19 @@ public class PlayNPassTest extends CheckersBaseTest {
 		
 		// Test
 		BoardSquareInfo actual = engine.getData(1,6);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, actual.state);
+		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 		
 		actual = engine.getData(4,3);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		actual = engine.getData(2,5);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, actual.state);
+		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer2());
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(9, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
+		Assert.assertEquals(9, countSquares(engine.PLAYER2_STATE));
+		Assert.assertEquals(12, countSquares(engine.EMPTY_STATE));
+		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 	}
 } // end PlayNPassTest

@@ -1,7 +1,6 @@
 package karega.scott.checkers.test;
 
 import karega.scott.checkers.CheckersEngine;
-
 import karega.scott.checkers.BoardSquareInfo;
 
 import org.junit.Test;
@@ -10,9 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class CheckersEngineTest {
-	CheckersEngine engine;
-
+public class CheckersEngineTest extends CheckersBaseTest {
 	@Before public void beforeTest() {
 		engine = new CheckersEngine(/*vsDevice*/ false);
 		engine.newGame();
@@ -200,59 +197,7 @@ public class CheckersEngineTest {
 		
 		Assert.assertFalse(engine.isEmpty(square.row, square.column));
 	}
-	
-	@Test public void handleOnTouch() {	
-		// Locked
-		CheckerBoardSquareMock square = new CheckerBoardSquareMock(context, engine.getData(0));
-		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.getInformation().state);
-		
-		boolean handled = engine.handleOnTouch(square);
-		Assert.assertTrue(handled);
-		
-		BoardSquareInfo actual = engine.getData(0);
-		Assert.assertFalse(actual.isActive);
-		
-		// Player2
-		square = new CheckerBoardSquareMock(context, engine.getData(23));
-		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.getInformation().state);
-		
-		handled = engine.handleOnTouch(square);
-		Assert.assertTrue(handled);
 
-		actual = engine.getData(23);
-		Assert.assertFalse(actual.isActive);
-				
-		// Empty
-		square = new CheckerBoardSquareMock(context, engine.getData(24));
-		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.getInformation().state);
-		
-		handled = engine.handleOnTouch(square);
-		Assert.assertTrue(handled);
-
-		actual = engine.getData(24);
-		Assert.assertFalse(actual.isActive);
-
-		// Player1
-		square = new CheckerBoardSquareMock(context, engine.getData(62));
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.getInformation().state);
-		
-		handled = engine.handleOnTouch(square);
-		Assert.assertTrue(handled);
-
-		actual = engine.getData(62);
-		Assert.assertFalse(actual.isActive);
-		
-		// Player1
-		square = new CheckerBoardSquareMock(context, engine.getData(40));
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.getInformation().state);
-		
-		handled = engine.handleOnTouch(square);
-		Assert.assertTrue(handled);
-
-		actual = engine.getData(40);
-		Assert.assertTrue(actual.isActive);
-	}
-	
 	@Test public void moveSquare() {		
 		// Locked
 		BoardSquareInfo square = engine.getData(0);
