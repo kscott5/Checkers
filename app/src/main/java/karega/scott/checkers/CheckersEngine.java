@@ -65,7 +65,7 @@ public class CheckersEngine extends BoardGameEngine {
 			
 			if (data.state == LOCKED_STATE) {
 				//Log.e(LOG_TAG, String.format(
-						"Get data for row[%s] and col[%s] is locked", row, col));
+				//		"Get data for row[%s] and col[%s] is locked", row, col));
 				return null;
 			}
 
@@ -96,7 +96,7 @@ public class CheckersEngine extends BoardGameEngine {
 			return info;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			//Log.e(LOG_TAG, String.format(
-					"Get data array index out of bounds for id[%s]", id));
+			//		"Get data array index out of bounds for id[%s]", id));
 		}
 
 		return null;
@@ -291,7 +291,7 @@ public class CheckersEngine extends BoardGameEngine {
 			if (activeSquare != null) {
 				activeSquare.deactivate();
 				//Log.d(LOG_TAG, String.format("Deactivated square: %s",
-						activeSquare));
+				//		activeSquare));
 			}
 
 			activeSquare = target;
