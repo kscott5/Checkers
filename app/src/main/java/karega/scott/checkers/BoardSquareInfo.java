@@ -1,7 +1,6 @@
 package karega.scott.checkers;
 
 import android.graphics.Color;
-import android.util.Log;
 
 public class BoardSquareInfo {
 	private static final String LOG_TAG = "BoardSquareInfo";
@@ -115,10 +114,10 @@ public class BoardSquareInfo {
 	 * @param value
 	 */
 	public boolean swap(BoardSquareInfo value) {
-		Log.d(LOG_TAG, "Swapping square information");
+		//Log.d(LOG_TAG, "Swapping square information");
 
 		if(value.state != BoardGameEngine.EMPTY_STATE) {
-			Log.d(LOG_TAG, "Swap requires an empty square");
+			//Log.d(LOG_TAG, "Swap requires an empty square");
 			return false;
 		}
 		
@@ -140,7 +139,7 @@ public class BoardSquareInfo {
 	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
 	 */
 	public void makeEmpty() {
-		Log.d(LOG_TAG, "Making this square empty");
+		//Log.d(LOG_TAG, "Making this square empty");
 		
 		if(this.initialState == BoardGameEngine.LOCKED_STATE) 
 			return;
