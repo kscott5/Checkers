@@ -82,7 +82,7 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public BoardSquareInfo getData(int id) {
-		Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
+		//Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
 		try {
 			int row = id / 8;
 			int col = id % 8;
