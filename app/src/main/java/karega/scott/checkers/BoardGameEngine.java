@@ -205,7 +205,7 @@ public abstract class BoardGameEngine {
 	/**
 	 * @return true if engine has a board game, else false
 	 */
-	protected final boolean hasBoardGame() {
+	public final boolean hasBoardGame() {
 		Log.d(LOG_TAG, "Has board game");
 
 		boolean noBoard = engineSquares.indexOfKey(engineId) < 0;
@@ -221,7 +221,7 @@ public abstract class BoardGameEngine {
 	/**
 	 * @return array representing the board game
 	 */
-	protected final BoardSquareInfo[][] getBoardGame() {
+	public final BoardSquareInfo[][] getBoardGame() {
 		Log.d(LOG_TAG, "Get board game");
 		return engineSquares.get(engineId);
 	}
@@ -263,7 +263,7 @@ public abstract class BoardGameEngine {
 	/*
 	 * Allows the other player to take turn
 	 */
-	protected void switchPlayer() {
+	public void switchPlayer() {
 		Log.d(LOG_TAG, "Switching players");
 
 		if (activeSquare != null) {
@@ -285,7 +285,7 @@ public abstract class BoardGameEngine {
 	 * @param col
 	 * @return
 	 */
-	protected boolean isEmpty(int row, int col) {
+	public boolean isEmpty(int row, int col) {
 		try {
 			BoardSquareInfo[][] squares = engineSquares.get(this.engineId);
 			BoardSquareInfo info = squares[row][col];
@@ -310,7 +310,7 @@ public abstract class BoardGameEngine {
 	 * @param col
 	 * @return Square information or null for LOCKED_STATE
 	 */
-	protected BoardSquareInfo getData(int row, int col) {
+	public BoardSquareInfo getData(int row, int col) {
 		Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
 
 		try {
@@ -334,7 +334,7 @@ public abstract class BoardGameEngine {
 	 * @param id a numeric identifier for game board square
 	 * @return @link BoardSquareInfo represented by the id
 	 */
-	protected BoardSquareInfo getData(int id) {
+	public BoardSquareInfo getData(int id) {
 		Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
 		try {
 			int row = id / 8;
@@ -359,7 +359,7 @@ public abstract class BoardGameEngine {
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
-	protected int getSize() {
+	public int getSize() {
 		try {
 		BoardSquareInfo[][] squares = engineSquares.get(engineId);
 		
