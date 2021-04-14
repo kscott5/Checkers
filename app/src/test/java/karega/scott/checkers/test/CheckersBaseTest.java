@@ -138,7 +138,7 @@ public abstract class CheckersBaseTest {
 	 * @see org.junit4.After
 	 */
 	@After
-	public static void tearDown() {
+	public void tearDown() {
 		engine.exitGame();
 	}
 } // end CheckersBaseTest
