@@ -230,14 +230,6 @@ public abstract class BoardGameEngine {
 		}
 	} // end exitGame
 	
-	/**
-	 * @return array representing the board game
-	 */
-	public final BoardSquareInfo[][] getBoardGame() {
-		Log.d(LOG_TAG, "Get board game");
-		return engineSquares;
-	}
-	
 	/*
 	 * Loads a new game for play
 	 */
