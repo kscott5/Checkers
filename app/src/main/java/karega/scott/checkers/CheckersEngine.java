@@ -123,8 +123,8 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		super.newGame();
 		
-		for(int row=0; row<CHECKER_ENGINE_ROWS; row++) {
-			for(int col=0; col<CHECKER_ENGINE_COLUMNS; col++) {
+		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
+			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				this.engineSquares[row][col].reset();
 			}
 		} // end for		
