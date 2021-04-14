@@ -15,10 +15,10 @@ public class BoardSquareInfo {
 	public boolean isKing;
 	public boolean isActive;
 	
-	public int fillColor = -7829368;    // android.graphics.Color.GRAY;
-	public int borderColor = -16777216; // android.graphics.Color.BLACK;
-	public int inactiveColor = 0;       // android.graphics.Color.TRANSPARENT;
-	public int activeColor = 0;         // android.graphics.Color.TRANSPARENT;
+	public int fillColor = -7829368;    // android.graphics.Color.GRAY
+	public int borderColor = -16777216; // android.graphics.Color.BLACK
+	public int inactiveColor = 0;       // android.graphics.0; // android.graphics.Color.TRANSPARENT
+	public int activeColor = 0;         // android.graphics.0; // android.graphics.Color.TRANSPARENT
 	
 	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip) {
 		this.id = id;
@@ -64,7 +64,7 @@ public class BoardSquareInfo {
 	
 	public void activate() {
 		this.isActive = true;
-		this.activeColor = Color.WHITE;
+		this.activeColor = -1; // android.graphics.Color.WHITE
 		invokeOnChangeListener();
 	}
 	
@@ -80,27 +80,27 @@ public class BoardSquareInfo {
 		
 		switch(this.initialState) {
 			case BoardGameEngine.EMPTY_STATE:
-				this.fillColor = Color.DKGRAY;
-				this.inactiveColor = Color.TRANSPARENT;
-				this.activeColor = Color.TRANSPARENT;
+				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
+				this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
+				this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 				break;
 				
 			case BoardGameEngine.LOCKED_STATE:
-				this.fillColor = Color.GRAY;
-				this.inactiveColor = Color.TRANSPARENT;
-				this.activeColor = Color.TRANSPARENT;
+				this.fillColor = -7829368; // android.graphics.Color.GRAY
+				this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
+				this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 				break;
 				
 			case BoardGameEngine.PLAYER2_STATE:
-				this.fillColor = Color.DKGRAY;
-				this.inactiveColor = Color.RED;
-				this.activeColor = Color.RED;
+				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
+				this.inactiveColor = -65536; // android.graphics.Color.RED
+				this.activeColor = -65536; // android.graphics.Color.RED
 				break;
 			
 			case BoardGameEngine.PLAYER1_STATE:
-				this.fillColor = Color.DKGRAY;
-				this.inactiveColor = Color.BLUE;
-				this.activeColor = Color.BLUE;
+				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
+				this.inactiveColor = -16776961; // android.graphics.Color.BLUE
+				this.activeColor = -16776961; // android.graphics.Color.BLUE
 				break;
 		} //end switch
 		
@@ -144,10 +144,10 @@ public class BoardSquareInfo {
 		
 		this.chip = BoardGameEngine.EMPTY_CHIP;
 		this.state = BoardGameEngine.EMPTY_STATE;
-		this.fillColor = Color.DKGRAY;
+		this.fillColor = -12303292; // android.graphics.Color.DKGRAY
 		this.borderColor = Color.BLACK;
-		this.inactiveColor = Color.TRANSPARENT;
-		this.activeColor = Color.TRANSPARENT;
+		this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
+		this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 		this.isKing = false;
 		this.isActive = false;
 		this.deactivate();	
