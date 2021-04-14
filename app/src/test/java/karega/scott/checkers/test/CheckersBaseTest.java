@@ -15,8 +15,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import android.content.Context;
 
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,13 +27,9 @@ public abstract class CheckersBaseTest {
 	// test case using the same engine and in some case existing
 	// test methods
 	@Mock protected Context context;
-	protected static CheckersEngineWrapper engine;
+	      protected CheckersEngineWrapper engine;
 		
 	public class CheckersEngineWrapper extends CheckersEngine {
-		public static CheckersEngineWrapper getEngine(boolean vsDevice) {
-			return new CheckersEngineWrapper(vsDevice);
-		}
-
 		public CheckersEngineWrapper(boolean vsDevice) {
 			super(vsDevice);
 		}
@@ -128,21 +124,21 @@ public abstract class CheckersBaseTest {
 
 	/*
 	 * Always starts a new game
-	 * @see org.junit4.BeforeClass
+	 * @see org.junit4.Before
 	 */
-	@BeforeClass
-	public static void setUp() {
-		engine = CheckersEngineWrapper.getEngine(/*vsDevice*/ false);
+	@Before
+	public void setUp() {
+		engine = new CheckersEngineWrapper(/*vsDevice*/ false);
 		
 		engine.newGame();
 	}
 	
 	/*
 	 * Always end the game
-	 * @see org.junit4.AfterClass
+	 * @see org.junit4.After
 	 */
-	@AfterClass
+	@After
 	public static void tearDown() {
 		engine.exitGame();
 	}
-} // end CheckersEngineBaseTestCase
+} // end CheckersBaseTest
