@@ -1,14 +1,28 @@
 package karega.scott.checkers.test;
 
-import karega.scott.checkers.BoardGameEngine;
+import karega.scott.checkers.CheckersEngine;;
+
 import karega.scott.checkers.BoardSquareInfo;
 
 import org.junit.Test;
 import org.junit.Assert;
 
-public class CheckersEngineTest extends CheckersBaseTest {
+import org.junit.Before
+import org.junit.After;
+
+public class CheckersEngineTest {
+	CheckersEngine engine;
+
+	@Before public void beforeTest() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+	}
+	@After public void afterTest() {
+		engine.exitGame();
+	}
+	
 	@Test public void getId() {		
-		Assert.assertEquals(BoardGameEngine.CHECKERS_ENGINE, engine.getId());
+		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
 	}
 	
 	@Test public void isPlayer1(){
@@ -45,24 +59,24 @@ public class CheckersEngineTest extends CheckersBaseTest {
 	}
 	
 	@Test public void newGame() {		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(8, countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER1_STATE));
 		
 		clearGameBoard();
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(0, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(32, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(0, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(0, countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(32, countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(0, countSquares(CheckersEngine.PLAYER1_STATE));
 		
 		engine.newGame();		
 		
-		Assert.assertEquals(32, countSquares(BoardGameEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(BoardGameEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(BoardGameEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(8, countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER1_STATE));
 	}
 			
 	@Test public void exitGame() {
@@ -73,32 +87,32 @@ public class CheckersEngineTest extends CheckersBaseTest {
 	@Test public void getDataById() {
 		BoardSquareInfo square = engine.getData(0);
 		Assert.assertEquals(0, square.id);
-		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.EMPTY_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(0, square.row);
 		Assert.assertEquals(0, square.column);
 		
 		square = engine.getData(17);
 		Assert.assertEquals(17, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(2, square.row);
 		Assert.assertEquals(1, square.column);
 		
 		square = engine.getData(33);
 		Assert.assertEquals(33, square.id);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.EMPTY_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(4, square.row);
 		Assert.assertEquals(1, square.column);
 		
 		square = engine.getData(62);
 		Assert.assertEquals(62, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(7, square.row);
 		Assert.assertEquals(6, square.column);
@@ -116,24 +130,24 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		square = engine.getData(2,1);
 		Assert.assertEquals(17, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(2, square.row);
 		Assert.assertEquals(1, square.column);
 		
 		square = engine.getData(4,1);
 		Assert.assertEquals(33, square.id);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.EMPTY_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(4, square.row);
 		Assert.assertEquals(1, square.column);
 		
 		square = engine.getData(7,6);
 		Assert.assertEquals(62, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(7, square.row);
 		Assert.assertEquals(6, square.column);
@@ -148,8 +162,8 @@ public class CheckersEngineTest extends CheckersBaseTest {
 	@Test public void isEmpty() {
 		BoardSquareInfo square = engine.getData(0);
 		Assert.assertEquals(0, square.id);
-		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.EMPTY_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(0, square.row);
 		Assert.assertEquals(0, square.column);
@@ -158,8 +172,8 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		square = engine.getData(17);
 		Assert.assertEquals(17, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(2, square.row);
 		Assert.assertEquals(1, square.column);
@@ -168,8 +182,8 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		square = engine.getData(33);
 		Assert.assertEquals(33, square.id);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.EMPTY_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(4, square.row);
 		Assert.assertEquals(1, square.column);
@@ -178,8 +192,8 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		square = engine.getData(62);
 		Assert.assertEquals(62, square.id);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
-		Assert.assertEquals(BoardGameEngine.PAWN_CHIP, square.chip);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PAWN_CHIP, square.chip);
 		Assert.assertFalse(square.isKing);
 		Assert.assertEquals(7, square.row);
 		Assert.assertEquals(6, square.column);
@@ -190,7 +204,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 	@Test public void handleOnTouch() {	
 		// Locked
 		CheckerBoardSquareMock square = new CheckerBoardSquareMock(context, engine.getData(0));
-		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.getInformation().state);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.getInformation().state);
 		
 		boolean handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
@@ -200,7 +214,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		// Player2
 		square = new CheckerBoardSquareMock(context, engine.getData(23));
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.getInformation().state);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.getInformation().state);
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
@@ -210,7 +224,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 				
 		// Empty
 		square = new CheckerBoardSquareMock(context, engine.getData(24));
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.getInformation().state);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.getInformation().state);
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
@@ -220,7 +234,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 
 		// Player1
 		square = new CheckerBoardSquareMock(context, engine.getData(62));
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.getInformation().state);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.getInformation().state);
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
@@ -230,7 +244,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		// Player1
 		square = new CheckerBoardSquareMock(context, engine.getData(40));
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.getInformation().state);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.getInformation().state);
 		
 		handled = engine.handleOnTouch(square);
 		Assert.assertTrue(handled);
@@ -242,7 +256,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 	@Test public void moveSquare() {		
 		// Locked
 		BoardSquareInfo square = engine.getData(0);
-		Assert.assertEquals(BoardGameEngine.LOCKED_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
 		engine.moveSquare(square);
 		
 		BoardSquareInfo actual = engine.getData(0);
@@ -250,7 +264,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		// Player2
 		square = engine.getData(23);
-		Assert.assertEquals(BoardGameEngine.PLAYER2_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
 		engine.moveSquare(square);
 				
 		actual = engine.getData(23);
@@ -258,7 +272,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 				
 		// Empty
 		square = engine.getData(24);
-		Assert.assertEquals(BoardGameEngine.EMPTY_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
 		engine.moveSquare(square);
 				
 		actual = engine.getData(24);
@@ -266,7 +280,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 
 		// Player1
 		square = engine.getData(62);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
 		engine.moveSquare(square);
 			
 		actual = engine.getData(62);
@@ -274,7 +288,7 @@ public class CheckersEngineTest extends CheckersBaseTest {
 		
 		// Player1
 		square = engine.getData(40);
-		Assert.assertEquals(BoardGameEngine.PLAYER1_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
 		engine.moveSquare(square);
 				
 		actual = engine.getData(40);
