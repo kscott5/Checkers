@@ -9,11 +9,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class Player1KingTest extends CheckersBaseTest {
+public class Player1KingTest {
+	CheckersEngine engine;
+	
 	@Before public void beforeTest() {
 		engine = new CheckersEngine(/*vsDevice*/ false);
 		engine.newGame();
-		engine.clearGameBoard();
 	}
 	
 	@After public void afterTest() {
