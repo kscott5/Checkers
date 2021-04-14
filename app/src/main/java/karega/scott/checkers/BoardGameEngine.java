@@ -231,15 +231,6 @@ public abstract class BoardGameEngine {
 	} // end exitGame
 	
 	/**
-	 * @return true if engine has a board game, else false
-	 */
-	public final boolean hasBoardGame() {
-		Log.d(LOG_TAG, "Has board game");
-
-		return engineId < 0 && engineSquares != null;
-	} // end hasBoardGame
-	
-	/**
 	 * @return array representing the board game
 	 */
 	public final BoardSquareInfo[][] getBoardGame() {
