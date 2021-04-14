@@ -10,17 +10,6 @@ import org.junit.Before;
 import org.junit.After;
 
 public class PlayNPassTest extends CheckersEngineTest {
-	CheckersEngine engine;
-	
-	@Before public void beforeTest() {
-		engine = new CheckersEngine(/*vsDevice*/ false);
-		engine.newGame();
-	}
-	
-	@After public void afterTest() {
-		engine.exitGame();
-	}
-	
 	/**
 	 * Moves player 1 a single square from (5,0) to (4,1)
 	 */

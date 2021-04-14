@@ -6,21 +6,7 @@ import karega.scott.checkers.BoardSquareInfo;
 import org.junit.Test;
 import org.junit.Assert;
 
-import org.junit.Before;
-import org.junit.After;
-
 public class Player1KingTest extends CheckersEngineTest {
-	CheckersEngine engine;
-	
-	@Before public void beforeTest() {
-		engine = new CheckersEngine(/*vsDevice*/ false);
-		engine.newGame();
-	}
-	
-	@After public void afterTest() {
-		engine.exitGame();
-	}
-
 	@Test public void move_from_7_0_to_0_7() {
 		// Perform
 		BoardSquareInfo start = engine.getData(7,0);

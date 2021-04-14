@@ -6,21 +6,7 @@ import karega.scott.checkers.BoardSquareInfo;
 import org.junit.Test;
 import org.junit.Assert;
 
-import org.junit.Before;
-import org.junit.After;
-
 public class Player2PawnTest extends CheckersEngineTest {
-	CheckersEngine engine;
-	
-	@Before public void beforeTest() {
-		engine = new CheckersEngine(/*vsDevice*/ false);
-		engine.newGame();
-	}
-	
-	@After public void afterTest() {
-		engine.exitGame();
-	}
-	
 	@Test public void move_from_3_4_to_4_3() {
 	    engine.switchPlayer();
 		
