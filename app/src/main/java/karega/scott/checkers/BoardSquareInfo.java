@@ -1,7 +1,5 @@
 package karega.scott.checkers;
 
-import android.graphics.Color;
-
 public class BoardSquareInfo {
 	private static final String LOG_TAG = "BoardSquareInfo";
 	
@@ -17,10 +15,10 @@ public class BoardSquareInfo {
 	public boolean isKing;
 	public boolean isActive;
 	
-	public int fillColor = Color.GRAY;
-	public int borderColor = Color.BLACK;
-	public int inactiveColor = Color.TRANSPARENT;
-	public int activeColor = Color.TRANSPARENT;
+	public int fillColor = -7829368;    // android.graphics.Color.GRAY;
+	public int borderColor = -16777216; // android.graphics.Color.BLACK;
+	public int inactiveColor = 0;       // android.graphics.Color.TRANSPARENT;
+	public int activeColor = 0;         // android.graphics.Color.TRANSPARENT;
 	
 	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip) {
 		this.id = id;
