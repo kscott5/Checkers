@@ -17,9 +17,14 @@ import java.util.ArrayList;
  */
 public class CheckersEngine extends BoardGameEngine {
 	private static final String LOG_TAG = "CheckersEngine";
-	
+
+	private final int CHECKERS_ENGINE_ROWS = 8;
+	private final int CHECKERS_ENGINE_COLUMNS = 8;
+
 	public CheckersEngine(boolean vsDevice) {
 		super(CHECKERS_ENGINE, vsDevice);
+
+		this.initialEngineSquares();
 	}
 
 	/**
@@ -32,8 +37,7 @@ public class CheckersEngine extends BoardGameEngine {
 	@Override
 	public boolean isEmpty(int row, int col) {
 		try {
-			BoardSquareInfo[][] squares = this.engineSquares;
-			BoardSquareInfo info = squares[row][col];
+			BoardSquareInfo info = this.engineSquares[row][col];
 			
 			if (info.state == EMPTY_STATE) {
 				//Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
@@ -60,8 +64,7 @@ public class CheckersEngine extends BoardGameEngine {
 		//Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
 
 		try {
-			BoardSquareInfo[][] squares = this.engineSquares;
-			BoardSquareInfo data = squares[row][col];
+			BoardSquareInfo data = this.engineSquares[row][col];
 			
 			if (data.state == LOCKED_STATE) {
 				//Log.e(LOG_TAG, String.format(
@@ -87,8 +90,7 @@ public class CheckersEngine extends BoardGameEngine {
 			int row = id / 8;
 			int col = id % 8;
 
-			BoardSquareInfo[][] squares = this.engineSquares;
-			BoardSquareInfo info = squares[row][col];
+			BoardSquareInfo info = this.engineSquares[row][col];
 
 			if (id != info.id)
 				throw new Error("Get data for id " + id + ", not found");
@@ -109,9 +111,7 @@ public class CheckersEngine extends BoardGameEngine {
 	@Override
 	public int getSize() {
 		try {
-		BoardSquareInfo[][] squares = this.engineSquares;
-		
-		return squares.length*squares[0].length;
+			return this.engineSquares.length*this.engineSquares[0].length;
 		} catch(Exception e) {
 			return 0;
 		}
@@ -123,27 +123,28 @@ public class CheckersEngine extends BoardGameEngine {
 		
 		super.newGame();
 		
-		if(hasBoardGame()) {
-			BoardSquareInfo[][] squares = getBoardGame();
-			for(int row=0; row<ROWS; row++) {
-				for(int col=0; col<COLUMNS; col++) {
-					squares[row][col].reset();
-				}
-			} // end for
-		} else {
-			createBoardRow(0, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
-			createBoardRow(1, BoardGameEngine.PLAYER2_STATE, BoardGameEngine.LOCKED_STATE);
-			createBoardRow(2, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
-			
-			createBoardRow(3, BoardGameEngine.EMPTY_STATE, BoardGameEngine.LOCKED_STATE);
-			createBoardRow(4, BoardGameEngine.LOCKED_STATE, BoardGameEngine.EMPTY_STATE);
-	
-			createBoardRow(5, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
-			createBoardRow(6, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER1_STATE);
-			createBoardRow(7, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
-		}  // end if-else
+		for(int row=0; row<CHECKER_ENGINE_ROWS; row++) {
+			for(int col=0; col<CHECKER_ENGINE_COLUMNS; col++) {
+				this.engineSquares[row][col].reset();
+			}
+		} // end for		
 	} // end newGame
 	
+	public void initialEngineSquares() {
+		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
+
+		createBoardRow(0, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
+		createBoardRow(1, BoardGameEngine.PLAYER2_STATE, BoardGameEngine.LOCKED_STATE);
+		createBoardRow(2, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER2_STATE);
+		
+		createBoardRow(3, BoardGameEngine.EMPTY_STATE, BoardGameEngine.LOCKED_STATE);
+		createBoardRow(4, BoardGameEngine.LOCKED_STATE, BoardGameEngine.EMPTY_STATE);
+
+		createBoardRow(5, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
+		createBoardRow(6, BoardGameEngine.LOCKED_STATE, BoardGameEngine.PLAYER1_STATE);
+		createBoardRow(7, BoardGameEngine.PLAYER1_STATE, BoardGameEngine.LOCKED_STATE);
+	}
+
 	/**
 	 * Creates a new row on the board
 	 * @param row is the row added to the board
@@ -152,14 +153,13 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	private void createBoardRow(int row, int startState, int endState) {
 		//Log.d(LOG_TAG, String.format("Create board row %s with start state: %s and end state: %s",row,startState,endState));
-		BoardSquareInfo[][] squares = getBoardGame();
 		
-		for(int col=0; col<COLUMNS; col++) {
-			int id = row*COLUMNS+col;
+		for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+			int id = row*CHECKERS_ENGINE_COLUMNS+col;
 			int state = (col%2 == 0)? startState: endState;
 			int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
 			
-			squares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
+			this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
 		}
 	} // end createBoardRow
 	
