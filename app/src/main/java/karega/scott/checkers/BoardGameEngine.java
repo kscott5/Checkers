@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.util.SparseArray;
 
 /**
  * Base game engine
@@ -62,9 +61,7 @@ public abstract class BoardGameEngine {
 	
 	private Timer deviceTimer;
 	
-	private static SparseArray<BoardSquareInfo[][]> engineSquares = 
-			new SparseArray<BoardSquareInfo[][]>(2);
-
+	protected BoardSquareInfo[][] engineSquares;
 	protected BoardSquareInfo activeSquare;
 	protected int activeState;
 	
@@ -105,6 +102,37 @@ public abstract class BoardGameEngine {
 	 */
 	protected abstract void moveSquareForDevice();		
 
+	/**
+	 * Is the square empty at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public abstract boolean isEmpty(int row, int col);
+
+	/**
+	 * Gets the square at these coordinates.
+	 * 
+	 * @param row
+	 * @param col
+	 * @return Square information or null for LOCKED_STATE
+	 */
+	public abstract BoardSquareInfo getData(int row, int col);
+
+	/**
+	 * Gets the data for the identifier
+	 * @param id a numeric identifier for game board square
+	 * @return @link BoardSquareInfo represented by the id
+	 */
+	public abstract BoardSquareInfo getData(int id);
+
+	/**
+	 * Returns the size of the game engine board. Must call newGame() to load board first.
+	 * @return
+	 */
+	public abstract int getSize();
+	
 	/**
 	 * Allows the device to take a turn
 	 */
@@ -208,14 +236,7 @@ public abstract class BoardGameEngine {
 	public final boolean hasBoardGame() {
 		Log.d(LOG_TAG, "Has board game");
 
-		boolean noBoard = engineSquares.indexOfKey(engineId) < 0;
-		
-		if(noBoard) {
-			BoardSquareInfo[][] squares = new BoardSquareInfo[ROWS][COLUMNS];
-			engineSquares.put(engineId, squares);
-		}
-			
-		return !noBoard;
+		return engineId < 0 && engineSquares != null;
 	} // end hasBoardGame
 	
 	/**
@@ -223,7 +244,7 @@ public abstract class BoardGameEngine {
 	 */
 	public final BoardSquareInfo[][] getBoardGame() {
 		Log.d(LOG_TAG, "Get board game");
-		return engineSquares.get(engineId);
+		return engineSquares;
 	}
 	
 	/*
@@ -278,97 +299,6 @@ public abstract class BoardGameEngine {
 		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 	} // end switchPlayer
 
-	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public boolean isEmpty(int row, int col) {
-		try {
-			BoardSquareInfo[][] squares = engineSquares.get(this.engineId);
-			BoardSquareInfo info = squares[row][col];
-			
-			if (info.state == EMPTY_STATE) {
-				Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
-				return true;
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
-			return false;
-		}
-
-		Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
-		return false;
-	} // end isEmpty
-
-	/**
-	 * Gets the square at these coordinates.
-	 * 
-	 * @param row
-	 * @param col
-	 * @return Square information or null for LOCKED_STATE
-	 */
-	public BoardSquareInfo getData(int row, int col) {
-		Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
-
-		try {
-			BoardSquareInfo[][] squares = engineSquares.get(this.engineId);
-			BoardSquareInfo data = squares[row][col];
-			
-			if (data.state == LOCKED_STATE) {
-				Log.e(LOG_TAG, String.format(
-						"Get data for row[%s] and col[%s] is locked", row, col));
-				return null;
-			}
-
-			return data;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
-		}
-	} // end getData
-
-	/**
-	 * Gets the data for the identifier
-	 * @param id a numeric identifier for game board square
-	 * @return @link BoardSquareInfo represented by the id
-	 */
-	public BoardSquareInfo getData(int id) {
-		Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
-		try {
-			int row = id / 8;
-			int col = id % 8;
-
-			BoardSquareInfo[][] squares = engineSquares.get(this.engineId);
-			BoardSquareInfo info = squares[row][col];
-
-			if (id != info.id)
-				throw new Error("Get data for id " + id + ", not found");
-
-			return info;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			Log.e(LOG_TAG, String.format(
-					"Get data array index out of bounds for id[%s]", id));
-		}
-
-		return null;
-	} // end getData
-
-	/**
-	 * Returns the size of the game engine board. Must call newGame() to load board first.
-	 * @return
-	 */
-	public int getSize() {
-		try {
-		BoardSquareInfo[][] squares = engineSquares.get(engineId);
-		
-		return squares.length*squares[0].length;
-		} catch(Exception e) {
-			return 0;
-		}
-	} // end getSize
-	
 	/**
 	 * Pauses the current thread
 	 * @param seconds
