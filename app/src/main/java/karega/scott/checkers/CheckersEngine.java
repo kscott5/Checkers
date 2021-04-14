@@ -34,7 +34,7 @@ public class CheckersEngine extends BoardGameEngine {
 	@Override
 	public boolean isEmpty(int row, int col) {
 		try {
-			BoardSquareInfo[][] squares = this.engineSquares
+			BoardSquareInfo[][] squares = this.engineSquares;
 			BoardSquareInfo info = squares[row][col];
 			
 			if (info.state == EMPTY_STATE) {
