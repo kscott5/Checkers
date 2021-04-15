@@ -20,7 +20,7 @@ before_script:
    - pwd
    - ls -la
    - whereis emulator
-   - find /usr-type d -name 'emulator' -print
+   - find /usr -name 'emulator' -print
    - echo no  | avdmanager create avd --force -n test --tag default --abi x86_64 --package 'system-images;android-24;default;x86_64'
    #- emulator -avd test -no-skin -no-audio -no-window &
    #- android-wait-for-emulator
