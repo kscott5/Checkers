@@ -1,0 +1,2229 @@
+travis_fold:start:worker_info[0K[33;1mWorker information[0m
+hostname: d88f9d65-12de-44d3-89f2-a2ceed231ef6@1.worker-org-bcccd4c45-jzhxw.gce-production-3
+version: 6.2.22 https://github.com/travis-ci/worker/tree/858cb91994a513269f2fe9782c15fc113e966231
+instance: travis-job-8f141339-9fce-4d6c-b6ca-8b5e11c02772 travis-ci-cookiecat-trusty-1517245773-8984d32 (via amqp)
+startup: 6.209383916s
+travis_fold:end:worker_info[0Ktravis_time:start:036933a8[0Ktravis_time:end:036933a8:start=1618438625151266058,finish=1618438625294244763,duration=142978705,event=no_world_writable_dirs[0Ktravis_time:start:0ed7f749[0Ktravis_time:end:0ed7f749:start=1618438625297393023,finish=1618438625305153273,duration=7760250,event=agent[0Ktravis_time:start:0b8e4b84[0Ktravis_time:end:0b8e4b84:start=1618438625307824464,finish=1618438625310364122,duration=2539658,event=check_unsupported[0Ktravis_time:start:0e44b950[0Ktravis_fold:start:system_info[0K[33;1mBuild system information[0m
+Build language: android
+Build dist: xenial
+Build id: 767086404
+Job id: 767086405
+Runtime kernel version: 4.4.0-111-generic
+travis-build version: 091d532a
+[34m[1mBuild image provisioning date and time[0m
+Mon Jan 29 17:32:24 UTC 2018
+[34m[1mOperating System Details[0m
+Distributor ID:	Ubuntu
+Description:	Ubuntu 14.04.5 LTS
+Release:	14.04
+Codename:	trusty
+[34m[1mCookbooks Version[0m
+7c2c6a6 https://github.com/travis-ci/travis-cookbooks/tree/7c2c6a6
+[34m[1mgit version[0m
+git version 2.16.1
+[34m[1mbash version[0m
+GNU bash, version 4.3.11(1)-release (x86_64-pc-linux-gnu)
+[34m[1mgcc version[0m
+gcc (Ubuntu 4.8.4-2ubuntu1~14.04.3) 4.8.4
+Copyright (C) 2013 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+[34m[1mdocker version[0m
+Client:
+ Version:      17.09.0-ce
+ API version:  1.32
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:42:38 2017
+ OS/Arch:      linux/amd64
+
+Server:
+ Version:      17.09.0-ce
+ API version:  1.32 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:41:20 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+[34m[1mclang version[0m
+clang version 5.0.0 (tags/RELEASE_500/final)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-5.0.0/bin
+[34m[1mjq version[0m
+jq-1.5
+[34m[1mbats version[0m
+Bats 0.4.0
+[34m[1mshellcheck version[0m
+0.4.6
+[34m[1mshfmt version[0m
+v2.0.0
+[34m[1mccache version[0m
+ccache version 3.1.9
+
+Copyright (C) 2002-2007 Andrew Tridgell
+Copyright (C) 2009-2011 Joel Rosdahl
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3 of the License, or (at your option) any later
+version.
+[34m[1mcmake version[0m
+cmake version 3.9.2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+[34m[1mheroku version[0m
+heroku-cli/6.15.18-fdf2097 (linux-x64) node-v9.4.0
+[34m[1mimagemagick version[0m
+Version: ImageMagick 6.7.7-10 2017-07-31 Q16 http://www.imagemagick.org
+[34m[1mmd5deep version[0m
+4.2
+[34m[1mmercurial version[0m
+Mercurial Distributed SCM (version 4.2.2)
+(see https://mercurial-scm.org for more information)
+
+Copyright (C) 2005-2017 Matt Mackall and others
+This is free software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+[34m[1mmysql version[0m
+mysql  Ver 14.14 Distrib 5.5.59, for debian-linux-gnu (x86_64) using readline 6.3
+[34m[1mopenssl version[0m
+OpenSSL 1.0.1f 6 Jan 2014
+[34m[1mpacker version[0m
+Packer v1.0.2
+
+Your version of Packer is out of date! The latest version
+is 1.1.3. You can update by downloading from www.packer.io
+[34m[1mpostgresql client version[0m
+psql (PostgreSQL) 9.3.20
+[34m[1mragel version[0m
+Ragel State Machine Compiler version 6.8 Feb 2013
+Copyright (c) 2001-2009 by Adrian Thurston
+[34m[1msubversion version[0m
+svn, version 1.8.8 (r1568071)
+   compiled Aug 10 2017, 17:20:39 on x86_64-pc-linux-gnu
+
+Copyright (C) 2013 The Apache Software Foundation.
+This software consists of contributions made by many people;
+see the NOTICE file for more information.
+Subversion is open source software, see http://subversion.apache.org/
+
+The following repository access (RA) modules are available:
+
+* ra_svn : Module for accessing a repository using the svn network protocol.
+  - with Cyrus SASL authentication
+  - handles 'svn' scheme
+* ra_local : Module for accessing a repository on local disk.
+  - handles 'file' scheme
+* ra_serf : Module for accessing a repository via WebDAV protocol using serf.
+  - using serf 1.3.3
+  - handles 'http' scheme
+  - handles 'https' scheme
+
+[34m[1msudo version[0m
+Sudo version 1.8.9p5
+Configure options: --prefix=/usr -v --with-all-insults --with-pam --with-fqdn --with-logging=syslog --with-logfac=authpriv --with-env-editor --with-editor=/usr/bin/editor --with-timeout=15 --with-password-timeout=0 --with-passprompt=[sudo] password for %p:  --without-lecture --with-tty-tickets --disable-root-mailer --enable-admin-flag --with-sendmail=/usr/sbin/sendmail --with-timedir=/var/lib/sudo --mandir=/usr/share/man --libexecdir=/usr/lib/sudo --with-sssd --with-sssd-lib=/usr/lib/x86_64-linux-gnu --with-selinux
+Sudoers policy plugin version 1.8.9p5
+Sudoers file grammar version 43
+
+Sudoers path: /etc/sudoers
+Authentication methods: 'pam'
+Syslog facility if syslog is being used for logging: authpriv
+Syslog priority to use when user authenticates successfully: notice
+Syslog priority to use when user authenticates unsuccessfully: alert
+Send mail if the user is not in sudoers
+Use a separate timestamp for each user/tty combo
+Lecture user the first time they run sudo
+Root may run sudo
+Allow some information gathering to give useful error messages
+Require fully-qualified hostnames in the sudoers file
+Visudo will honor the EDITOR environment variable
+Set the LOGNAME and USER environment variables
+Length at which to wrap log file lines (0 for no wrap): 80
+Authentication timestamp timeout: 15.0 minutes
+Password prompt timeout: 0.0 minutes
+Number of tries to enter a password: 3
+Umask to use or 0777 to use user's: 022
+Path to mail program: /usr/sbin/sendmail
+Flags for mail program: -t
+Address to send mail to: root
+Subject line for mail messages: *** SECURITY information for %h ***
+Incorrect password message: Sorry, try again.
+Path to authentication timestamp dir: /var/lib/sudo
+Default password prompt: [sudo] password for %p: 
+Default user to run commands as: root
+Value to override user's $PATH with: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+Path to the editor for use by visudo: /usr/bin/editor
+When to require a password for 'list' pseudocommand: any
+When to require a password for 'verify' pseudocommand: all
+File descriptors >= 3 will be closed before executing a command
+Environment variables to check for sanity:
+	TZ
+	TERM
+	LINGUAS
+	LC_*
+	LANGUAGE
+	LANG
+	COLORTERM
+Environment variables to remove:
+	RUBYOPT
+	RUBYLIB
+	PYTHONUSERBASE
+	PYTHONINSPECT
+	PYTHONPATH
+	PYTHONHOME
+	TMPPREFIX
+	ZDOTDIR
+	READNULLCMD
+	NULLCMD
+	FPATH
+	PERL5DB
+	PERL5OPT
+	PERL5LIB
+	PERLLIB
+	PERLIO_DEBUG 
+	JAVA_TOOL_OPTIONS
+	SHELLOPTS
+	GLOBIGNORE
+	PS4
+	BASH_ENV
+	ENV
+	TERMCAP
+	TERMPATH
+	TERMINFO_DIRS
+	TERMINFO
+	_RLD*
+	LD_*
+	PATH_LOCALE
+	NLSPATH
+	HOSTALIASES
+	RES_OPTIONS
+	LOCALDOMAIN
+	CDPATH
+	IFS
+Environment variables to preserve:
+	JAVA_HOME
+	TRAVIS
+	CI
+	DEBIAN_FRONTEND
+	XAUTHORIZATION
+	XAUTHORITY
+	PS2
+	PS1
+	PATH
+	LS_COLORS
+	KRB5CCNAME
+	HOSTNAME
+	HOME
+	DISPLAY
+	COLORS
+Locale to use while parsing sudoers: C
+Directory in which to store input/output logs: /var/log/sudo-io
+File in which to store the input/output log: %{seq}
+Add an entry to the utmp/utmpx file when allocating a pty
+PAM service name to use
+PAM service name to use for login shells
+Create a new PAM session for the command to run in
+Maximum I/O log sequence number: 0
+
+Local IP address and netmask pairs:
+	10.240.0.3/255.255.255.255
+	172.17.0.1/255.255.0.0
+
+Sudoers I/O plugin version 1.8.9p5
+[34m[1mgzip version[0m
+gzip 1.6
+Copyright (C) 2007, 2010, 2011 Free Software Foundation, Inc.
+Copyright (C) 1993 Jean-loup Gailly.
+This is free software.  You may redistribute copies of it under the terms of
+the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Jean-loup Gailly.
+[34m[1mzip version[0m
+Copyright (c) 1990-2008 Info-ZIP - Type 'zip "-L"' for software license.
+This is Zip 3.0 (July 5th 2008), by Info-ZIP.
+Currently maintained by E. Gordon.  Please send bug reports to
+the authors using the web page at www.info-zip.org; see README for details.
+
+Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,
+as of above date; see http://www.info-zip.org/ for other sites.
+
+Compiled with gcc 4.8.2 for Unix (Linux ELF) on Oct 21 2013.
+
+Zip special compilation options:
+	USE_EF_UT_TIME       (store Universal Time)
+	BZIP2_SUPPORT        (bzip2 library version 1.0.6, 6-Sept-2010)
+	    bzip2 code and library copyright (c) Julian R Seward
+	    (See the bzip2 license for terms of use)
+	SYMLINK_SUPPORT      (symbolic links supported)
+	LARGE_FILE_SUPPORT   (can read and write large files on file system)
+	ZIP64_SUPPORT        (use Zip64 to store large files in archives)
+	UNICODE_SUPPORT      (store and read UTF-8 Unicode paths)
+	STORE_UNIX_UIDs_GIDs (store UID/GID sizes/values using new extra field)
+	UIDGID_NOT_16BIT     (old Unix 16-bit UID/GID extra field not used)
+	[encryption, version 2.91 of 05 Jan 2007] (modified for Zip 3)
+
+Encryption notice:
+	The encryption code of this program is not copyrighted and is
+	put in the public domain.  It was originally written in Europe
+	and, to the best of our knowledge, can be freely distributed
+	in both source and object forms from any country, including
+	the USA under License Exception TSU of the U.S. Export
+	Administration Regulations (section 740.13(e)) of 6 June 2002.
+
+Zip environment options:
+             ZIP:  [none]
+          ZIPOPT:  [none]
+[34m[1mvim version[0m
+VIM - Vi IMproved 7.4 (2013 Aug 10, compiled Nov 24 2016 16:43:18)
+Included patches: 1-52
+Extra patches: 8.0.0056
+Modified by pkg-vim-maintainers@lists.alioth.debian.org
+Compiled by buildd@
+Huge version without GUI.  Features included (+) or not (-):
++acl             +farsi           +mouse_netterm   +syntax
++arabic          +file_in_path    +mouse_sgr       +tag_binary
++autocmd         +find_in_path    -mouse_sysmouse  +tag_old_static
+-balloon_eval    +float           +mouse_urxvt     -tag_any_white
+-browse          +folding         +mouse_xterm     -tcl
+++builtin_terms  -footer          +multi_byte      +terminfo
++byte_offset     +fork()          +multi_lang      +termresponse
++cindent         +gettext         -mzscheme        +textobjects
+-clientserver    -hangul_input    +netbeans_intg   +title
+-clipboard       +iconv           +path_extra      -toolbar
++cmdline_compl   +insert_expand   -perl            +user_commands
++cmdline_hist    +jumplist        +persistent_undo +vertsplit
++cmdline_info    +keymap          +postscript      +virtualedit
++comments        +langmap         +printer         +visual
++conceal         +libcall         +profile         +visualextra
++cryptv          +linebreak       +python          +viminfo
++cscope          +lispindent      -python3         +vreplace
++cursorbind      +listcmds        +quickfix        +wildignore
++cursorshape     +localmap        +reltime         +wildmenu
++dialog_con      -lua             +rightleft       +windows
++diff            +menu            -ruby            +writebackup
++digraphs        +mksession       +scrollbind      -X11
+-dnd             +modify_fname    +signs           -xfontset
+-ebcdic          +mouse           +smartindent     -xim
++emacs_tags      -mouseshape      -sniff           -xsmp
++eval            +mouse_dec       +startuptime     -xterm_clipboard
++ex_extra        +mouse_gpm       +statusline      -xterm_save
++extra_search    -mouse_jsbterm   -sun_workshop    -xpm
+   system vimrc file: "$VIM/vimrc"
+     user vimrc file: "$HOME/.vimrc"
+ 2nd user vimrc file: "~/.vim/vimrc"
+      user exrc file: "$HOME/.exrc"
+  fall-back for $VIM: "/usr/share/vim"
+Compilation: gcc -c -I. -Iproto -DHAVE_CONFIG_H     -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1      
+Linking: gcc   -Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,--as-needed -o vim        -lm -ltinfo -lnsl  -lselinux  -lacl -lattr -lgpm -ldl    -L/usr/lib/python2.7/config-x86_64-linux-gnu -lpython2.7 -lpthread -ldl -lutil -lm -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions      
+[34m[1miptables version[0m
+iptables v1.4.21
+[34m[1mcurl version[0m
+curl 7.35.0 (x86_64-pc-linux-gnu) libcurl/7.35.0 OpenSSL/1.0.1f zlib/1.2.8 libidn/1.28 librtmp/2.3
+[34m[1mwget version[0m
+GNU Wget 1.15 built on linux-gnu.
+[34m[1mrsync version[0m
+rsync  version 3.1.0  protocol version 31
+[34m[1mgimme version[0m
+v1.2.0
+[34m[1mnvm version[0m
+0.33.6
+[34m[1mrvm version[0m
+rvm 1.29.3 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+[34m[1mdefault ruby version[0m
+ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-linux]
+[34m[1mAndroid SDK Tools Version[0m
+25.2.3
+[34m[1mList of Android SDK components that can be specified in .travis.yml[0m
+addon-google_apis-google-10
+addon-google_apis-google-11
+addon-google_apis-google-12
+addon-google_apis-google-13
+addon-google_apis-google-14
+addon-google_apis-google-15
+addon-google_apis-google-16
+addon-google_apis-google-17
+addon-google_apis-google-18
+addon-google_apis-google-19
+addon-google_apis-google-21
+addon-google_apis-google-22
+addon-google_apis-google-23
+addon-google_apis-google-24
+addon-google_apis-google-3
+addon-google_apis-google-4
+addon-google_apis-google-5
+addon-google_apis-google-6
+addon-google_apis-google-7
+addon-google_apis-google-8
+addon-google_apis-google-9
+addon-google_gdk-google-19
+addon-google_tv_addon-google-12
+addon-google_tv_addon-google-13
+android-10
+android-11
+android-12
+android-13
+android-14
+android-15
+android-16
+android-17
+android-18
+android-19
+android-2
+android-20
+android-21
+android-22
+android-23
+android-24
+android-25
+android-26
+android-27
+android-3
+android-4
+android-5
+android-6
+android-7
+android-8
+android-9
+build-tools-17.0.0
+build-tools-18.0.1
+build-tools-18.1.0
+build-tools-18.1.1
+build-tools-19.0.0
+build-tools-19.0.1
+build-tools-19.0.2
+build-tools-19.0.3
+build-tools-19.1.0
+build-tools-20.0.0
+build-tools-21.0.0
+build-tools-21.0.1
+build-tools-21.0.2
+build-tools-21.1.0
+build-tools-21.1.1
+build-tools-21.1.2
+build-tools-22.0.0
+build-tools-22.0.1
+build-tools-23.0.0
+build-tools-23.0.1
+build-tools-23.0.2
+build-tools-23.0.3
+build-tools-24.0.0
+build-tools-24.0.1
+build-tools-24.0.2
+build-tools-24.0.3
+build-tools-25.0.0
+build-tools-25.0.1
+build-tools-25.0.2
+build-tools-25.0.3
+build-tools-26.0.0
+build-tools-26.0.1
+build-tools-26.0.2
+build-tools-26.0.3
+build-tools-27.0.0
+build-tools-27.0.1
+build-tools-27.0.2
+build-tools-27.0.3
+doc-24
+extra-android-m2repository
+extra-google-admob_ads_sdk
+extra-google-analytics_sdk_v2
+extra-google-auto
+extra-google-gcm
+extra-google-google_play_services
+extra-google-google_play_services_froyo
+extra-google-instantapps
+extra-google-m2repository
+extra-google-market_apk_expansion
+extra-google-market_licensing
+extra-google-simulators
+extra-google-webdriver
+platform-tools
+source-14
+source-15
+source-16
+source-17
+source-18
+source-19
+source-20
+source-21
+source-22
+source-23
+source-24
+source-25
+source-26
+source-27
+sys-img-arm64-v8a-android-24
+sys-img-arm64-v8a-google_apis-24
+sys-img-arm64-v8a-google_apis-25
+sys-img-armeabi-v7a-android-10
+sys-img-armeabi-v7a-android-14
+sys-img-armeabi-v7a-android-15
+sys-img-armeabi-v7a-android-16
+sys-img-armeabi-v7a-android-17
+sys-img-armeabi-v7a-android-18
+sys-img-armeabi-v7a-android-19
+sys-img-armeabi-v7a-android-21
+sys-img-armeabi-v7a-android-22
+sys-img-armeabi-v7a-android-24
+sys-img-armeabi-v7a-android-tv-21
+sys-img-armeabi-v7a-android-tv-22
+sys-img-armeabi-v7a-android-tv-23
+sys-img-armeabi-v7a-android-wear-23
+sys-img-armeabi-v7a-android-wear-25
+sys-img-armeabi-v7a-google_apis-10
+sys-img-armeabi-v7a-google_apis-15
+sys-img-armeabi-v7a-google_apis-17
+sys-img-armeabi-v7a-google_apis-18
+sys-img-armeabi-v7a-google_apis-19
+sys-img-armeabi-v7a-google_apis-21
+sys-img-armeabi-v7a-google_apis-22
+sys-img-armeabi-v7a-google_apis-23
+sys-img-armeabi-v7a-google_apis-24
+sys-img-armeabi-v7a-google_apis-25
+sys-img-mips-android-15
+sys-img-mips-android-16
+sys-img-mips-android-17
+sys-img-x86_64-android-21
+sys-img-x86_64-android-22
+sys-img-x86_64-android-23
+sys-img-x86_64-android-24
+sys-img-x86_64-google_apis-21
+sys-img-x86_64-google_apis-22
+sys-img-x86_64-google_apis-23
+sys-img-x86_64-google_apis-24
+sys-img-x86_64-google_apis-25
+sys-img-x86_64-google_apis-26
+sys-img-x86-android-10
+sys-img-x86-android-15
+sys-img-x86-android-16
+sys-img-x86-android-17
+sys-img-x86-android-18
+sys-img-x86-android-19
+sys-img-x86-android-21
+sys-img-x86-android-22
+sys-img-x86-android-23
+sys-img-x86-android-24
+sys-img-x86-android-tv-21
+sys-img-x86-android-tv-22
+sys-img-x86-android-tv-23
+sys-img-x86-android-tv-24
+sys-img-x86-android-tv-25
+sys-img-x86-android-tv-26
+sys-img-x86-android-tv-27
+sys-img-x86-android-wear-23
+sys-img-x86-android-wear-25
+sys-img-x86-android-wear-26
+sys-img-x86-google_apis-10
+sys-img-x86-google_apis-15
+sys-img-x86-google_apis-16
+sys-img-x86-google_apis-17
+sys-img-x86-google_apis-18
+sys-img-x86-google_apis-19
+sys-img-x86-google_apis-21
+sys-img-x86-google_apis-22
+sys-img-x86-google_apis-23
+sys-img-x86-google_apis-24
+sys-img-x86-google_apis-25
+sys-img-x86-google_apis-26
+sys-img-x86-google_apis-27
+sys-img-x86-google_apis_playstore-24
+sys-img-x86-google_apis_playstore-25
+sys-img-x86-google_apis_playstore-26
+sys-img-x86-google_apis_playstore-27
+tools
+[34m[1mwhich android && echo -e "\033[33;1mSee http://docs.travis-ci.com/user/languages/android/#How-to-install-Android-SDK-components\033[0m"[0m
+/usr/local/android-sdk/tools/android
+[33;1mSee http://docs.travis-ci.com/user/languages/android/#How-to-install-Android-SDK-components[0m
+travis_fold:end:system_info[0K
+travis_time:end:0e44b950:start=1618438625313231772,finish=1618438625320838356,duration=7606584,event=show_system_info[0Ktravis_time:start:2926563c[0Ktravis_time:end:2926563c:start=1618438625323460795,finish=1618438625340718644,duration=17257849,event=rm_riak_source[0Ktravis_time:start:1904b960[0Ktravis_time:end:1904b960:start=1618438625343963362,finish=1618438625352342688,duration=8379326,event=fix_rwky_redis[0Ktravis_time:start:2ac6209e[0Ktravis_time:end:2ac6209e:start=1618438625355578435,finish=1618438625903550495,duration=547972060,event=wait_for_network[0Ktravis_time:start:2a105cb4[0Ktravis_time:end:2a105cb4:start=1618438625906635779,finish=1618438626531709486,duration=625073707,event=update_apt_keys[0Ktravis_time:start:0a4d4c08[0Ktravis_time:end:0a4d4c08:start=1618438626534755228,finish=1618438627404667879,duration=869912651,event=fix_hhvm_source[0Ktravis_time:start:15c5c772[0Ktravis_time:end:15c5c772:start=1618438627407848873,finish=1618438627410366492,duration=2517619,event=update_mongo_arch[0Ktravis_time:start:1a51c411[0Ktravis_time:end:1a51c411:start=1618438627413145483,finish=1618438627446788395,duration=33642912,event=fix_sudo_enabled_trusty[0Ktravis_time:start:09ca4280[0Ktravis_time:end:09ca4280:start=1618438627449665304,finish=1618438627451918862,duration=2253558,event=update_glibc[0Ktravis_time:start:085f578c[0Ktravis_time:end:085f578c:start=1618438627454715909,finish=1618438627462320666,duration=7604757,event=clean_up_path[0Ktravis_time:start:1602fee8[0Ktravis_time:end:1602fee8:start=1618438627465076879,finish=1618438627473309429,duration=8232550,event=fix_resolv_conf[0Ktravis_time:start:33dbd093[0Ktravis_time:end:33dbd093:start=1618438627476112993,finish=1618438627484669554,duration=8556561,event=fix_etc_hosts[0Ktravis_time:start:1da48000[0Ktravis_time:end:1da48000:start=1618438627487548598,finish=1618438627495812344,duration=8263746,event=fix_mvn_settings_xml[0Ktravis_time:start:10ef602c[0Ktravis_time:end:10ef602c:start=1618438627498707724,finish=1618438627507506466,duration=8798742,event=no_ipv6_localhost[0Ktravis_time:start:008668fc[0Ktravis_time:end:008668fc:start=1618438627510326807,finish=1618438627512389802,duration=2062995,event=fix_etc_mavenrc[0Ktravis_time:start:0bf8b6e4[0Ktravis_time:end:0bf8b6e4:start=1618438627515707313,finish=1618438627518524135,duration=2816822,event=fix_wwdr_certificate[0Ktravis_time:start:059184f8[0Ktravis_time:end:059184f8:start=1618438627521334549,finish=1618438627544721954,duration=23387405,event=put_localhost_first[0Ktravis_time:start:06405e24[0Ktravis_time:end:06405e24:start=1618438627547630117,finish=1618438627550519384,duration=2889267,event=home_paths[0Ktravis_time:start:0cc67780[0Ktravis_time:end:0cc67780:start=1618438627553308642,finish=1618438627564879292,duration=11570650,event=disable_initramfs[0Ktravis_time:start:1dbccbbe[0Ktravis_time:end:1dbccbbe:start=1618438627567717106,finish=1618438627831892750,duration=264175644,event=disable_ssh_roaming[0Ktravis_time:start:023fdb61[0Ktravis_time:end:023fdb61:start=1618438627835130706,finish=1618438627837415209,duration=2284503,event=debug_tools[0Ktravis_time:start:1ddd3b7e[0Ktravis_time:end:1ddd3b7e:start=1618438627840493604,finish=1618438627843597995,duration=3104391,event=uninstall_oclint[0Ktravis_time:start:020e0315[0Ktravis_time:end:020e0315:start=1618438627846673985,finish=1618438627849681464,duration=3007479,event=rvm_use[0Ktravis_time:start:36d1630d[0Ktravis_time:end:36d1630d:start=1618438627852789774,finish=1618438627860788221,duration=7998447,event=rm_etc_boto_cfg[0Ktravis_time:start:02dc0c00[0Ktravis_time:end:02dc0c00:start=1618438627863755761,finish=1618438627865893913,duration=2138152,event=rm_oraclejdk8_symlink[0Ktravis_time:start:028f5cd4[0Ktravis_time:end:028f5cd4:start=1618438627868817539,finish=1618438627916684579,duration=47867040,event=enable_i386[0Ktravis_time:start:03547824[0Ktravis_time:end:03547824:start=1618438627919663513,finish=1618438627923275501,duration=3611988,event=update_rubygems[0Ktravis_time:start:04f64d44[0Ktravis_time:end:04f64d44:start=1618438627926119076,finish=1618438627936323944,duration=10204868,event=ensure_path_components[0Ktravis_time:start:070cd38a[0Ktravis_time:end:070cd38a:start=1618438627939198500,finish=1618438627941230974,duration=2032474,event=redefine_curl[0Ktravis_time:start:043ea2c0[0Ktravis_time:end:043ea2c0:start=1618438627944006040,finish=1618438627946035046,duration=2029006,event=nonblock_pipe[0Ktravis_time:start:27c86a27[0Ktravis_time:end:27c86a27:start=1618438627948887843,finish=1618438633981540127,duration=6032652284,event=apt_get_update[0Ktravis_time:start:0baf182d[0Ktravis_time:end:0baf182d:start=1618438633985044562,finish=1618438633987371511,duration=2326949,event=deprecate_xcode_64[0Ktravis_time:start:0a6175cc[0Ktravis_time:end:0a6175cc:start=1618438633990327734,finish=1618438637957780067,duration=3967452333,event=update_heroku[0Ktravis_time:start:0abd3414[0Ktravis_time:end:0abd3414:start=1618438637961222580,finish=1618438637963531126,duration=2308546,event=shell_session_update[0Ktravis_time:start:162367b4[0Ktravis_fold:start:docker_mtu_and_registry_mirrors[0Kdocker stop/waiting
+docker start/running, process 3025
+travis_fold:end:docker_mtu_and_registry_mirrors[0Ktravis_time:end:162367b4:start=1618438637966579398,finish=1618438639212111441,duration=1245532043,event=set_docker_mtu_and_registry_mirrors[0Ktravis_time:start:070db362[0Ktravis_fold:start:resolvconf[0Kresolvconf stop/waiting
+resolvconf start/running
+travis_fold:end:resolvconf[0Ktravis_time:end:070db362:start=1618438639215111334,finish=1618438639280638677,duration=65527343,event=resolvconf[0Ktravis_time:start:0a075302[0Ktravis_time:end:0a075302:start=1618438639283715151,finish=1618438639365465312,duration=81750161,event=maven_central_mirror[0Ktravis_time:start:331d9c8a[0Ktravis_time:end:331d9c8a:start=1618438639368433602,finish=1618438639429924147,duration=61490545,event=maven_https[0Ktravis_time:start:00b046a2[0Ktravis_time:end:00b046a2:start=1618438639433008368,finish=1618438639435014839,duration=2006471,event=fix_ps4[0Ktravis_time:start:203c6ca0[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:182d0e21[0K$ git clone --depth=50 --branch=master https://github.com/kscott5/Checkers.git kscott5/Checkers
+Cloning into 'kscott5/Checkers'...
+remote: Enumerating objects: 580, done.[K
+remote: Counting objects:   0% (1/580)[Kremote: Counting objects:   1% (6/580)[Kremote: Counting objects:   2% (12/580)[Kremote: Counting objects:   3% (18/580)[Kremote: Counting objects:   4% (24/580)[Kremote: Counting objects:   5% (29/580)[Kremote: Counting objects:   6% (35/580)[Kremote: Counting objects:   7% (41/580)[Kremote: Counting objects:   8% (47/580)[Kremote: Counting objects:   9% (53/580)[Kremote: Counting objects:  10% (58/580)[Kremote: Counting objects:  11% (64/580)[Kremote: Counting objects:  12% (70/580)[Kremote: Counting objects:  13% (76/580)[Kremote: Counting objects:  14% (82/580)[Kremote: Counting objects:  15% (87/580)[Kremote: Counting objects:  16% (93/580)[Kremote: Counting objects:  17% (99/580)[Kremote: Counting objects:  18% (105/580)[Kremote: Counting objects:  19% (111/580)[Kremote: Counting objects:  20% (116/580)[Kremote: Counting objects:  21% (122/580)[Kremote: Counting objects:  22% (128/580)[Kremote: Counting objects:  23% (134/580)[Kremote: Counting objects:  24% (140/580)[Kremote: Counting objects:  25% (145/580)[Kremote: Counting objects:  26% (151/580)[Kremote: Counting objects:  27% (157/580)[Kremote: Counting objects:  28% (163/580)[Kremote: Counting objects:  29% (169/580)[Kremote: Counting objects:  30% (174/580)[Kremote: Counting objects:  31% (180/580)[Kremote: Counting objects:  32% (186/580)[Kremote: Counting objects:  33% (192/580)[Kremote: Counting objects:  34% (198/580)[Kremote: Counting objects:  35% (203/580)[Kremote: Counting objects:  36% (209/580)[Kremote: Counting objects:  37% (215/580)[Kremote: Counting objects:  38% (221/580)[Kremote: Counting objects:  39% (227/580)[Kremote: Counting objects:  40% (232/580)[Kremote: Counting objects:  41% (238/580)[Kremote: Counting objects:  42% (244/580)[Kremote: Counting objects:  43% (250/580)[Kremote: Counting objects:  44% (256/580)[Kremote: Counting objects:  45% (261/580)[Kremote: Counting objects:  46% (267/580)[Kremote: Counting objects:  47% (273/580)[Kremote: Counting objects:  48% (279/580)[Kremote: Counting objects:  49% (285/580)[Kremote: Counting objects:  50% (290/580)[Kremote: Counting objects:  51% (296/580)[Kremote: Counting objects:  52% (302/580)[Kremote: Counting objects:  53% (308/580)[Kremote: Counting objects:  54% (314/580)[Kremote: Counting objects:  55% (319/580)[Kremote: Counting objects:  56% (325/580)[Kremote: Counting objects:  57% (331/580)[Kremote: Counting objects:  58% (337/580)[Kremote: Counting objects:  59% (343/580)[Kremote: Counting objects:  60% (348/580)[Kremote: Counting objects:  61% (354/580)[Kremote: Counting objects:  62% (360/580)[Kremote: Counting objects:  63% (366/580)[Kremote: Counting objects:  64% (372/580)[Kremote: Counting objects:  65% (377/580)[Kremote: Counting objects:  66% (383/580)[Kremote: Counting objects:  67% (389/580)[Kremote: Counting objects:  68% (395/580)[Kremote: Counting objects:  69% (401/580)[Kremote: Counting objects:  70% (406/580)[Kremote: Counting objects:  71% (412/580)[Kremote: Counting objects:  72% (418/580)[Kremote: Counting objects:  73% (424/580)[Kremote: Counting objects:  74% (430/580)[Kremote: Counting objects:  75% (435/580)[Kremote: Counting objects:  76% (441/580)[Kremote: Counting objects:  77% (447/580)[Kremote: Counting objects:  78% (453/580)[Kremote: Counting objects:  79% (459/580)[Kremote: Counting objects:  80% (464/580)[Kremote: Counting objects:  81% (470/580)[Kremote: Counting objects:  82% (476/580)[Kremote: Counting objects:  83% (482/580)[Kremote: Counting objects:  84% (488/580)[Kremote: Counting objects:  85% (493/580)[Kremote: Counting objects:  86% (499/580)[Kremote: Counting objects:  87% (505/580)[Kremote: Counting objects:  88% (511/580)[Kremote: Counting objects:  89% (517/580)[Kremote: Counting objects:  90% (522/580)[Kremote: Counting objects:  91% (528/580)[Kremote: Counting objects:  92% (534/580)[Kremote: Counting objects:  93% (540/580)[Kremote: Counting objects:  94% (546/580)[Kremote: Counting objects:  95% (551/580)[Kremote: Counting objects:  96% (557/580)[Kremote: Counting objects:  97% (563/580)[Kremote: Counting objects:  98% (569/580)[Kremote: Counting objects:  99% (575/580)[Kremote: Counting objects: 100% (580/580)[Kremote: Counting objects: 100% (580/580), done.[K
+remote: Compressing objects:   0% (1/256)[Kremote: Compressing objects:   1% (3/256)[Kremote: Compressing objects:   2% (6/256)[Kremote: Compressing objects:   3% (8/256)[Kremote: Compressing objects:   4% (11/256)[Kremote: Compressing objects:   5% (13/256)[Kremote: Compressing objects:   6% (16/256)[Kremote: Compressing objects:   7% (18/256)[Kremote: Compressing objects:   8% (21/256)[Kremote: Compressing objects:   9% (24/256)[Kremote: Compressing objects:  10% (26/256)[Kremote: Compressing objects:  11% (29/256)[Kremote: Compressing objects:  12% (31/256)[Kremote: Compressing objects:  13% (34/256)[Kremote: Compressing objects:  14% (36/256)[Kremote: Compressing objects:  15% (39/256)[Kremote: Compressing objects:  16% (41/256)[Kremote: Compressing objects:  17% (44/256)[Kremote: Compressing objects:  18% (47/256)[Kremote: Compressing objects:  19% (49/256)[Kremote: Compressing objects:  20% (52/256)[Kremote: Compressing objects:  21% (54/256)[Kremote: Compressing objects:  22% (57/256)[Kremote: Compressing objects:  23% (59/256)[Kremote: Compressing objects:  24% (62/256)[Kremote: Compressing objects:  25% (64/256)[Kremote: Compressing objects:  26% (67/256)[Kremote: Compressing objects:  27% (70/256)[Kremote: Compressing objects:  28% (72/256)[Kremote: Compressing objects:  29% (75/256)[Kremote: Compressing objects:  30% (77/256)[Kremote: Compressing objects:  31% (80/256)[Kremote: Compressing objects:  32% (82/256)[Kremote: Compressing objects:  33% (85/256)[Kremote: Compressing objects:  34% (88/256)[Kremote: Compressing objects:  35% (90/256)[Kremote: Compressing objects:  36% (93/256)[Kremote: Compressing objects:  37% (95/256)[Kremote: Compressing objects:  38% (98/256)[Kremote: Compressing objects:  39% (100/256)[Kremote: Compressing objects:  40% (103/256)[Kremote: Compressing objects:  41% (105/256)[Kremote: Compressing objects:  42% (108/256)[Kremote: Compressing objects:  43% (111/256)[Kremote: Compressing objects:  44% (113/256)[Kremote: Compressing objects:  45% (116/256)[Kremote: Compressing objects:  46% (118/256)[Kremote: Compressing objects:  47% (121/256)[Kremote: Compressing objects:  48% (123/256)[Kremote: Compressing objects:  49% (126/256)[Kremote: Compressing objects:  50% (128/256)[Kremote: Compressing objects:  51% (131/256)[Kremote: Compressing objects:  52% (134/256)[Kremote: Compressing objects:  53% (136/256)[Kremote: Compressing objects:  54% (139/256)[Kremote: Compressing objects:  55% (141/256)[Kremote: Compressing objects:  56% (144/256)[Kremote: Compressing objects:  57% (146/256)[Kremote: Compressing objects:  58% (149/256)[Kremote: Compressing objects:  59% (152/256)[Kremote: Compressing objects:  60% (154/256)[Kremote: Compressing objects:  61% (157/256)[Kremote: Compressing objects:  62% (159/256)[Kremote: Compressing objects:  63% (162/256)[Kremote: Compressing objects:  64% (164/256)[Kremote: Compressing objects:  65% (167/256)[Kremote: Compressing objects:  66% (169/256)[Kremote: Compressing objects:  67% (172/256)[Kremote: Compressing objects:  68% (175/256)[Kremote: Compressing objects:  69% (177/256)[Kremote: Compressing objects:  70% (180/256)[Kremote: Compressing objects:  71% (182/256)[Kremote: Compressing objects:  72% (185/256)[Kremote: Compressing objects:  73% (187/256)[Kremote: Compressing objects:  74% (190/256)[Kremote: Compressing objects:  75% (192/256)[Kremote: Compressing objects:  76% (195/256)[Kremote: Compressing objects:  77% (198/256)[Kremote: Compressing objects:  78% (200/256)[Kremote: Compressing objects:  79% (203/256)[Kremote: Compressing objects:  80% (205/256)[Kremote: Compressing objects:  81% (208/256)[Kremote: Compressing objects:  82% (210/256)[Kremote: Compressing objects:  83% (213/256)[Kremote: Compressing objects:  84% (216/256)[Kremote: Compressing objects:  85% (218/256)[Kremote: Compressing objects:  86% (221/256)[Kremote: Compressing objects:  87% (223/256)[Kremote: Compressing objects:  88% (226/256)[Kremote: Compressing objects:  89% (228/256)[Kremote: Compressing objects:  90% (231/256)[Kremote: Compressing objects:  91% (233/256)[Kremote: Compressing objects:  92% (236/256)[Kremote: Compressing objects:  93% (239/256)[Kremote: Compressing objects:  94% (241/256)[Kremote: Compressing objects:  95% (244/256)[Kremote: Compressing objects:  96% (246/256)[Kremote: Compressing objects:  97% (249/256)[Kremote: Compressing objects:  98% (251/256)[Kremote: Compressing objects:  99% (254/256)[Kremote: Compressing objects: 100% (256/256)[Kremote: Compressing objects: 100% (256/256), done.[K
+Receiving objects:   0% (1/580)   Receiving objects:   1% (6/580)   Receiving objects:   2% (12/580)   Receiving objects:   3% (18/580)   Receiving objects:   4% (24/580)   Receiving objects:   5% (29/580)   Receiving objects:   6% (35/580)   Receiving objects:   7% (41/580)   Receiving objects:   8% (47/580)   Receiving objects:   9% (53/580)   Receiving objects:  10% (58/580)   Receiving objects:  11% (64/580)   Receiving objects:  12% (70/580)   Receiving objects:  13% (76/580)   Receiving objects:  14% (82/580)   Receiving objects:  15% (87/580)   Receiving objects:  16% (93/580)   Receiving objects:  17% (99/580)   Receiving objects:  18% (105/580)   Receiving objects:  19% (111/580)   Receiving objects:  20% (116/580)   Receiving objects:  21% (122/580)   Receiving objects:  22% (128/580)   Receiving objects:  23% (134/580)   Receiving objects:  24% (140/580)   Receiving objects:  25% (145/580)   Receiving objects:  26% (151/580)   Receiving objects:  27% (157/580)   Receiving objects:  28% (163/580)   Receiving objects:  29% (169/580)   Receiving objects:  30% (174/580)   Receiving objects:  31% (180/580)   Receiving objects:  32% (186/580)   Receiving objects:  33% (192/580)   Receiving objects:  34% (198/580)   Receiving objects:  35% (203/580)   Receiving objects:  36% (209/580)   remote: Total 580 (delta 227), reused 465 (delta 132), pack-reused 0[K
+Receiving objects:  37% (215/580)   Receiving objects:  38% (221/580)   Receiving objects:  39% (227/580)   Receiving objects:  40% (232/580)   Receiving objects:  41% (238/580)   Receiving objects:  42% (244/580)   Receiving objects:  43% (250/580)   Receiving objects:  44% (256/580)   Receiving objects:  45% (261/580)   Receiving objects:  46% (267/580)   Receiving objects:  47% (273/580)   Receiving objects:  48% (279/580)   Receiving objects:  49% (285/580)   Receiving objects:  50% (290/580)   Receiving objects:  51% (296/580)   Receiving objects:  52% (302/580)   Receiving objects:  53% (308/580)   Receiving objects:  54% (314/580)   Receiving objects:  55% (319/580)   Receiving objects:  56% (325/580)   Receiving objects:  57% (331/580)   Receiving objects:  58% (337/580)   Receiving objects:  59% (343/580)   Receiving objects:  60% (348/580)   Receiving objects:  61% (354/580)   Receiving objects:  62% (360/580)   Receiving objects:  63% (366/580)   Receiving objects:  64% (372/580)   Receiving objects:  65% (377/580)   Receiving objects:  66% (383/580)   Receiving objects:  67% (389/580)   Receiving objects:  68% (395/580)   Receiving objects:  69% (401/580)   Receiving objects:  70% (406/580)   Receiving objects:  71% (412/580)   Receiving objects:  72% (418/580)   Receiving objects:  73% (424/580)   Receiving objects:  74% (430/580)   Receiving objects:  75% (435/580)   Receiving objects:  76% (441/580)   Receiving objects:  77% (447/580)   Receiving objects:  78% (453/580)   Receiving objects:  79% (459/580)   Receiving objects:  80% (464/580)   Receiving objects:  81% (470/580)   Receiving objects:  82% (476/580)   Receiving objects:  83% (482/580)   Receiving objects:  84% (488/580)   Receiving objects:  85% (493/580)   Receiving objects:  86% (499/580)   Receiving objects:  87% (505/580)   Receiving objects:  88% (511/580)   Receiving objects:  89% (517/580)   Receiving objects:  90% (522/580)   Receiving objects:  91% (528/580)   Receiving objects:  92% (534/580)   Receiving objects:  93% (540/580)   Receiving objects:  94% (546/580)   Receiving objects:  95% (551/580)   Receiving objects:  96% (557/580)   Receiving objects:  97% (563/580)   Receiving objects:  98% (569/580)   Receiving objects:  99% (575/580)   Receiving objects: 100% (580/580)   Receiving objects: 100% (580/580), 214.65 KiB | 3.02 MiB/s, done.
+Resolving deltas:   0% (0/227)   Resolving deltas:   2% (6/227)   Resolving deltas:   3% (7/227)   Resolving deltas:  21% (49/227)   Resolving deltas:  25% (57/227)   Resolving deltas:  27% (62/227)   Resolving deltas:  28% (64/227)   Resolving deltas:  29% (66/227)   Resolving deltas:  39% (90/227)   Resolving deltas:  51% (118/227)   Resolving deltas:  52% (119/227)   Resolving deltas:  54% (123/227)   Resolving deltas:  57% (130/227)   Resolving deltas:  63% (145/227)   Resolving deltas:  64% (146/227)   Resolving deltas:  65% (148/227)   Resolving deltas:  70% (159/227)   Resolving deltas:  80% (183/227)   Resolving deltas:  85% (195/227)   Resolving deltas:  86% (196/227)   Resolving deltas:  89% (204/227)   Resolving deltas:  90% (206/227)   Resolving deltas:  91% (208/227)   Resolving deltas:  92% (209/227)   Resolving deltas:  94% (215/227)   Resolving deltas:  95% (217/227)   Resolving deltas:  96% (218/227)   Resolving deltas: 100% (227/227)   Resolving deltas: 100% (227/227), done.
+travis_time:end:182d0e21:start=1618438639440747919,finish=1618438640087955831,duration=647207912,event=checkout[0K$ cd kscott5/Checkers
+$ git checkout -qf b883ea129d90db9319e6e29206050e9a7326376a
+travis_fold:end:git.checkout[0K
+travis_time:end:182d0e21:start=1618438639440747919,finish=1618438640097543239,duration=656795320,event=checkout[0Ktravis_time:start:1b74b908[0Ktravis_time:end:1b74b908:start=1618438640101009596,finish=1618438640108044118,duration=7034522,event=env[0K$ export TERM=dumb
+travis_fold:start:android.install[0KInstalling Android dependencies
+travis_time:start:18830b4d[0K$ android-update-sdk --components=build-tools-29.0.3
+Installing build-tools-29.0.3
+spawn android update sdk --no-ui --all --filter build-tools-29.0.3
+Refresh Sources:
+  Fetching https://dl.google.com/android/repository/addons_list-2.xml
+  Validate XML
+  Parse XML
+  Fetched Add-ons List successfully
+  Refresh Sources
+  Fetching URL: https://dl.google.com/android/repository/repository-11.xml
+  Validate XML: https://dl.google.com/android/repository/repository-11.xml
+  Parse XML:    https://dl.google.com/android/repository/repository-11.xml
+  Fetching URL: https://dl.google.com/android/repository/addon.xml
+  Validate XML: https://dl.google.com/android/repository/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/glass/addon.xml
+  Validate XML: https://dl.google.com/android/repository/glass/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/glass/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/extras/intel/addon.xml
+  Validate XML: https://dl.google.com/android/repository/extras/intel/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/extras/intel/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+-------------------------------
+License id: android-sdk-license-e6a904e8
+Used by: 
+ - Android SDK Build-tools, revision 29.0.3
+-------------------------------
+
+Terms and Conditions
+
+This is the Android Software Development Kit License Agreement
+
+1. Introduction
+
+1.1 The Android Software Development Kit (referred to in the License Agreement as the "SDK" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+
+1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+
+1.3 A "compatible implementation" means any Android device that (i) complies with the Android Compatibility Definition document, which can be found at the Android compatibility website (http://source.android.com/compatibility) and which may be updated from time to time; and (ii) successfully passes the Android Compatibility Test Suite (CTS).
+
+1.4 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+
+
+2. Accepting the License Agreement
+
+2.1 In order to use the SDK, you must first agree to the License Agreement. You may not use the SDK if you do not accept the License Agreement.
+
+2.2 By clicking to accept, you hereby agree to the terms of the License Agreement.
+
+2.3 You may not use the SDK and may not accept the License Agreement if you are a person barred from receiving the SDK under the laws of the United States or other countries, including the country in which you are resident or from which you use the SDK.
+
+2.4 If you are agreeing to be bound by the License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the SDK on behalf of your employer or other entity.
+
+
+3. SDK License from Google
+
+3.1 Subject to the terms of the License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable, non-exclusive, and non-sublicensable license to use the SDK solely to develop applications for compatible implementations of Android.
+
+3.2 You may not use this SDK to develop applications for other platforms (including non-compatible implementations of Android) or to develop another SDK. You are of course free to develop applications for other platforms, including non-compatible implementations of Android, provided that this SDK is not used for that purpose.
+
+3.3 You agree that Google or third parties own all legal right, title and interest in and to the SDK, including any Intellectual Property Rights that subsist in the SDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+
+3.4 You may not use the SDK for any purpose not expressly permitted by the License Agreement.  Except to the extent required by applicable third party licenses, you may not copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the SDK or any part of the SDK.
+
+3.5 Use, reproduction and distribution of components of the SDK licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement.
+
+3.6 You agree that the form and nature of the SDK that Google provides may change without prior notice to you and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. You agree that Google may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+
+3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+
+3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+
+
+4. Use of the SDK by You
+
+4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the SDK, including any intellectual property rights that subsist in those applications.
+
+4.2 You agree to use the SDK and write applications only for purposes that are permitted by (a) the License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+
+4.3 You agree that if you use the SDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+
+4.4 You agree that you will not engage in any activity with the SDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google or any mobile communications carrier.
+
+4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+
+4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+
+5. Your Developer Credentials
+
+5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+
+6. Privacy and Information
+
+6.1 In order to continually innovate and improve the SDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the SDK are being used and how they are being used. Before any of this information is collected, the SDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+
+6.2 The data collected is examined in the aggregate to improve the SDK and is maintained in accordance with Google's Privacy Policy.
+
+
+7. Third Party Applications
+
+7.1 If you use the SDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+
+7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+
+7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, the License Agreement does not affect your legal relationship with these third parties.
+
+
+8. Using Android APIs
+
+8.1 Google Data APIs
+
+8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+
+8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so. If you use the Android Recognition Service API, documented at the following URL: https://developer.android.com/reference/android/speech/RecognitionService, as updated from time to time, you acknowledge that the use of the API is subject to the Data Processing Addendum for Products where Google is a Data Processor, which is located at the following URL: https://privacy.google.com/businesses/gdprprocessorterms/, as updated from time to time. By clicking to accept, you hereby agree to the terms of the Data Processing Addendum for Products where Google is a Data Processor.
+
+
+9. Terminating the License Agreement
+
+9.1 The License Agreement will continue to apply until terminated by either you or Google as set out below.
+
+9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the SDK and any relevant developer credentials.
+
+9.3 Google may at any time, terminate the License Agreement with you if:
+(A) you have breached any provision of the License Agreement; or
+(B) Google is required to do so by law; or
+(C) the partner with whom Google offered certain parts of SDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the SDK to you; or
+(D) Google decides to no longer provide the SDK or certain parts of the SDK to users in the country in which you are resident or from which you use the service, or the provision of the SDK or certain SDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+
+9.4 When the License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst the License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+
+
+10. DISCLAIMER OF WARRANTIES
+
+10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE SDK IS AT YOUR SOLE RISK AND THAT THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+
+10.2 YOUR USE OF THE SDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+
+10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+
+11. LIMITATION OF LIABILITY
+
+11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+
+
+12. Indemnification
+
+12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the SDK, (b) any application you develop on the SDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with the License Agreement.
+
+
+13. Changes to the License Agreement
+
+13.1 Google may make changes to the License Agreement as it distributes new versions of the SDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the SDK is made available.
+
+
+14. General Legal Terms
+
+14.1 The License Agreement constitutes the whole legal agreement between you and Google and governs your use of the SDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the SDK.
+
+14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+
+14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+
+14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+
+14.5 EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+
+14.6 The rights granted in the License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under the License Agreement without the prior written approval of the other party.
+
+14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+
+
+January 16, 2019
+Do you accept the license 'android-sdk-license-e6a904e8' [y/n]: y
+
+Installing Archives:
+  Preparing to install archives
+  Downloading Android SDK Build-tools, revision 29.0.3
+     (47%, 12494 KiB/s, 2 seconds left)     (74%, 12950 KiB/s, 1 seconds left)     (85%, 11277 KiB/s, 0 seconds left)  Installing Android SDK Build-tools, revision 29.0.3
+  Unzipping Android SDK Build-tools, revision 29.0.3 (1%)  Unzipping Android SDK Build-tools, revision 29.0.3 (2%)  Unzipping Android SDK Build-tools, revision 29.0.3 (3%)  Unzipping Android SDK Build-tools, revision 29.0.3 (4%)  Unzipping Android SDK Build-tools, revision 29.0.3 (5%)  Unzipping Android SDK Build-tools, revision 29.0.3 (6%)  Unzipping Android SDK Build-tools, revision 29.0.3 (7%)  Unzipping Android SDK Build-tools, revision 29.0.3 (8%)  Unzipping Android SDK Build-tools, revision 29.0.3 (9%)  Unzipping Android SDK Build-tools, revision 29.0.3 (10%)  Unzipping Android SDK Build-tools, revision 29.0.3 (11%)  Unzipping Android SDK Build-tools, revision 29.0.3 (12%)  Unzipping Android SDK Build-tools, revision 29.0.3 (13%)  Unzipping Android SDK Build-tools, revision 29.0.3 (14%)  Unzipping Android SDK Build-tools, revision 29.0.3 (15%)  Unzipping Android SDK Build-tools, revision 29.0.3 (16%)  Unzipping Android SDK Build-tools, revision 29.0.3 (17%)  Unzipping Android SDK Build-tools, revision 29.0.3 (18%)  Unzipping Android SDK Build-tools, revision 29.0.3 (21%)  Unzipping Android SDK Build-tools, revision 29.0.3 (22%)  Unzipping Android SDK Build-tools, revision 29.0.3 (24%)  Unzipping Android SDK Build-tools, revision 29.0.3 (26%)  Unzipping Android SDK Build-tools, revision 29.0.3 (27%)  Unzipping Android SDK Build-tools, revision 29.0.3 (33%)  Unzipping Android SDK Build-tools, revision 29.0.3 (36%)  Unzipping Android SDK Build-tools, revision 29.0.3 (37%)  Unzipping Android SDK Build-tools, revision 29.0.3 (59%)  Unzipping Android SDK Build-tools, revision 29.0.3 (61%)  Unzipping Android SDK Build-tools, revision 29.0.3 (62%)  Unzipping Android SDK Build-tools, revision 29.0.3 (65%)  Unzipping Android SDK Build-tools, revision 29.0.3 (79%)  Unzipping Android SDK Build-tools, revision 29.0.3 (80%)  Unzipping Android SDK Build-tools, revision 29.0.3 (99%)    Installed Android SDK Build-tools, revision 29.0.3
+  Done. 1 package installed.
+travis_time:end:18830b4d:start=1618438640113328350,finish=1618438651874616318,duration=11761287968,event=[0Ktravis_time:start:10238299[0K$ android-update-sdk --components=android-29
+Installing android-29
+spawn android update sdk --no-ui --all --filter android-29
+Refresh Sources:
+  Fetching https://dl.google.com/android/repository/addons_list-2.xml
+  Validate XML
+  Parse XML
+  Fetched Add-ons List successfully
+  Refresh Sources
+  Fetching URL: https://dl.google.com/android/repository/repository-11.xml
+  Validate XML: https://dl.google.com/android/repository/repository-11.xml
+  Parse XML:    https://dl.google.com/android/repository/repository-11.xml
+  Fetching URL: https://dl.google.com/android/repository/addon.xml
+  Validate XML: https://dl.google.com/android/repository/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/glass/addon.xml
+  Validate XML: https://dl.google.com/android/repository/glass/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/glass/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/extras/intel/addon.xml
+  Validate XML: https://dl.google.com/android/repository/extras/intel/addon.xml
+  Parse XML:    https://dl.google.com/android/repository/extras/intel/addon.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android-wear/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/android-tv/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/google_apis/sys-img.xml
+  Fetching URL: https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+  Validate XML: https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+  Parse XML:    https://dl.google.com/android/repository/sys-img/google_apis_playstore/sys-img.xml
+-------------------------------
+License id: android-sdk-license-e6a904e8
+Used by: 
+ - SDK Platform Android 10, API 29, revision 4
+-------------------------------
+
+Terms and Conditions
+
+This is the Android Software Development Kit License Agreement
+
+1. Introduction
+
+1.1 The Android Software Development Kit (referred to in the License Agreement as the "SDK" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+
+1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+
+1.3 A "compatible implementation" means any Android device that (i) complies with the Android Compatibility Definition document, which can be found at the Android compatibility website (http://source.android.com/compatibility) and which may be updated from time to time; and (ii) successfully passes the Android Compatibility Test Suite (CTS).
+
+1.4 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+
+
+2. Accepting the License Agreement
+
+2.1 In order to use the SDK, you must first agree to the License Agreement. You may not use the SDK if you do not accept the License Agreement.
+
+2.2 By clicking to accept, you hereby agree to the terms of the License Agreement.
+
+2.3 You may not use the SDK and may not accept the License Agreement if you are a person barred from receiving the SDK under the laws of the United States or other countries, including the country in which you are resident or from which you use the SDK.
+
+2.4 If you are agreeing to be bound by the License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the SDK on behalf of your employer or other entity.
+
+
+3. SDK License from Google
+
+3.1 Subject to the terms of the License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable, non-exclusive, and non-sublicensable license to use the SDK solely to develop applications for compatible implementations of Android.
+
+3.2 You may not use this SDK to develop applications for other platforms (including non-compatible implementations of Android) or to develop another SDK. You are of course free to develop applications for other platforms, including non-compatible implementations of Android, provided that this SDK is not used for that purpose.
+
+3.3 You agree that Google or third parties own all legal right, title and interest in and to the SDK, including any Intellectual Property Rights that subsist in the SDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+
+3.4 You may not use the SDK for any purpose not expressly permitted by the License Agreement.  Except to the extent required by applicable third party licenses, you may not copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the SDK or any part of the SDK.
+
+3.5 Use, reproduction and distribution of components of the SDK licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement.
+
+3.6 You agree that the form and nature of the SDK that Google provides may change without prior notice to you and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. You agree that Google may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+
+3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+
+3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+
+
+4. Use of the SDK by You
+
+4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the SDK, including any intellectual property rights that subsist in those applications.
+
+4.2 You agree to use the SDK and write applications only for purposes that are permitted by (a) the License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+
+4.3 You agree that if you use the SDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+
+4.4 You agree that you will not engage in any activity with the SDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google or any mobile communications carrier.
+
+4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+
+4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+
+5. Your Developer Credentials
+
+5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+
+6. Privacy and Information
+
+6.1 In order to continually innovate and improve the SDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the SDK are being used and how they are being used. Before any of this information is collected, the SDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+
+6.2 The data collected is examined in the aggregate to improve the SDK and is maintained in accordance with Google's Privacy Policy.
+
+
+7. Third Party Applications
+
+7.1 If you use the SDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+
+7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+
+7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, the License Agreement does not affect your legal relationship with these third parties.
+
+
+8. Using Android APIs
+
+8.1 Google Data APIs
+
+8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+
+8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so. If you use the Android Recognition Service API, documented at the following URL: https://developer.android.com/reference/android/speech/RecognitionService, as updated from time to time, you acknowledge that the use of the API is subject to the Data Processing Addendum for Products where Google is a Data Processor, which is located at the following URL: https://privacy.google.com/businesses/gdprprocessorterms/, as updated from time to time. By clicking to accept, you hereby agree to the terms of the Data Processing Addendum for Products where Google is a Data Processor.
+
+
+9. Terminating the License Agreement
+
+9.1 The License Agreement will continue to apply until terminated by either you or Google as set out below.
+
+9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the SDK and any relevant developer credentials.
+
+9.3 Google may at any time, terminate the License Agreement with you if:
+(A) you have breached any provision of the License Agreement; or
+(B) Google is required to do so by law; or
+(C) the partner with whom Google offered certain parts of SDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the SDK to you; or
+(D) Google decides to no longer provide the SDK or certain parts of the SDK to users in the country in which you are resident or from which you use the service, or the provision of the SDK or certain SDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+
+9.4 When the License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst the License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+
+
+10. DISCLAIMER OF WARRANTIES
+
+10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE SDK IS AT YOUR SOLE RISK AND THAT THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+
+10.2 YOUR USE OF THE SDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+
+10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+
+11. LIMITATION OF LIABILITY
+
+11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+
+
+12. Indemnification
+
+12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the SDK, (b) any application you develop on the SDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with the License Agreement.
+
+
+13. Changes to the License Agreement
+
+13.1 Google may make changes to the License Agreement as it distributes new versions of the SDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the SDK is made available.
+
+
+14. General Legal Terms
+
+14.1 The License Agreement constitutes the whole legal agreement between you and Google and governs your use of the SDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the SDK.
+
+14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+
+14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+
+14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+
+14.5 EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+
+14.6 The rights granted in the License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under the License Agreement without the prior written approval of the other party.
+
+14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+
+
+January 16, 2019
+Do you accept the license 'android-sdk-license-e6a904e8' [y/n]: y
+
+Installing Archives:
+  Preparing to install archives
+  Downloading SDK Platform Android 10, API 29, revision 4
+     (29%, 10853 KiB/s, 4 seconds left)     (45%, 9361 KiB/s, 4 seconds left)     (66%, 10826 KiB/s, 2 seconds left)     (83%, 10446 KiB/s, 1 seconds left)     (93%, 9590 KiB/s, 0 seconds left)     (96%, 8570 KiB/s, 0 seconds left)  Installing SDK Platform Android 10, API 29, revision 4
+  Unzipping SDK Platform Android 10, API 29, revision 4 (24%)  Unzipping SDK Platform Android 10, API 29, revision 4 (25%)  Unzipping SDK Platform Android 10, API 29, revision 4 (36%)  Unzipping SDK Platform Android 10, API 29, revision 4 (37%)  Unzipping SDK Platform Android 10, API 29, revision 4 (38%)  Unzipping SDK Platform Android 10, API 29, revision 4 (39%)  Unzipping SDK Platform Android 10, API 29, revision 4 (41%)  Unzipping SDK Platform Android 10, API 29, revision 4 (42%)  Unzipping SDK Platform Android 10, API 29, revision 4 (43%)  Unzipping SDK Platform Android 10, API 29, revision 4 (44%)  Unzipping SDK Platform Android 10, API 29, revision 4 (45%)  Unzipping SDK Platform Android 10, API 29, revision 4 (46%)  Unzipping SDK Platform Android 10, API 29, revision 4 (47%)  Unzipping SDK Platform Android 10, API 29, revision 4 (59%)  Unzipping SDK Platform Android 10, API 29, revision 4 (60%)  Unzipping SDK Platform Android 10, API 29, revision 4 (61%)  Unzipping SDK Platform Android 10, API 29, revision 4 (62%)  Unzipping SDK Platform Android 10, API 29, revision 4 (63%)  Unzipping SDK Platform Android 10, API 29, revision 4 (64%)  Unzipping SDK Platform Android 10, API 29, revision 4 (65%)  Unzipping SDK Platform Android 10, API 29, revision 4 (66%)  Unzipping SDK Platform Android 10, API 29, revision 4 (67%)  Unzipping SDK Platform Android 10, API 29, revision 4 (68%)  Unzipping SDK Platform Android 10, API 29, revision 4 (69%)  Unzipping SDK Platform Android 10, API 29, revision 4 (70%)  Unzipping SDK Platform Android 10, API 29, revision 4 (71%)  Unzipping SDK Platform Android 10, API 29, revision 4 (72%)  Unzipping SDK Platform Android 10, API 29, revision 4 (73%)  Unzipping SDK Platform Android 10, API 29, revision 4 (74%)  Unzipping SDK Platform Android 10, API 29, revision 4 (75%)  Unzipping SDK Platform Android 10, API 29, revision 4 (76%)  Unzipping SDK Platform Android 10, API 29, revision 4 (77%)  Unzipping SDK Platform Android 10, API 29, revision 4 (78%)  Unzipping SDK Platform Android 10, API 29, revision 4 (79%)  Unzipping SDK Platform Android 10, API 29, revision 4 (82%)  Unzipping SDK Platform Android 10, API 29, revision 4 (83%)  Unzipping SDK Platform Android 10, API 29, revision 4 (84%)  Unzipping SDK Platform Android 10, API 29, revision 4 (85%)  Unzipping SDK Platform Android 10, API 29, revision 4 (86%)  Unzipping SDK Platform Android 10, API 29, revision 4 (87%)  Unzipping SDK Platform Android 10, API 29, revision 4 (88%)  Unzipping SDK Platform Android 10, API 29, revision 4 (89%)  Unzipping SDK Platform Android 10, API 29, revision 4 (90%)  Unzipping SDK Platform Android 10, API 29, revision 4 (91%)  Unzipping SDK Platform Android 10, API 29, revision 4 (92%)  Unzipping SDK Platform Android 10, API 29, revision 4 (93%)  Unzipping SDK Platform Android 10, API 29, revision 4 (94%)  Unzipping SDK Platform Android 10, API 29, revision 4 (95%)    Installed SDK Platform Android 10, API 29, revision 4
+  Done. 1 package installed.
+travis_time:end:10238299:start=1618438651880159236,finish=1618438665285186162,duration=13405026926,event=[0Ktravis_fold:end:android.install[0K$ export PATH=/usr/local/android-sdk/tools/bin:$PATH
+$ java -Xmx32m -version
+java version "1.8.0_161"
+Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
+$ javac -J-Xmx32m -version
+javac 1.8.0_161
+travis_fold:start:before_install[0Ktravis_time:start:07a742c6[0K$ chmod +x ./gradlew
+travis_time:end:07a742c6:start=1618438665557571904,finish=1618438665563083721,duration=5511817,event=before_install[0Ktravis_fold:end:before_install[0Ktravis_fold:start:before_script.1[0Ktravis_time:start:0cdd6836[0K$ sudo apt list --installed
+Listing... 0%Listing... 0%Listing... 2%Listing... Done
+[32maccountsservice[0m/now 0.6.35-0ubuntu7.3 amd64 [installed,local]
+[32macpid[0m/now 1:2.0.21-1ubuntu2 amd64 [installed,local]
+[32madduser[0m/now 3.113+nmu3ubuntu3 all [installed,local]
+[32mapparmor[0m/trusty-security,now 2.10.95-0ubuntu2.6~14.04.1 amd64 [installed]
+[32mapport[0m/trusty-security,trusty-security,now 2.14.1-0ubuntu3.27 all [installed]
+[32mapport-symptoms[0m/now 0.20 all [installed,local]
+[32mapt[0m/trusty,now 1.2.10 amd64 [installed]
+[32mapt-transport-https[0m/trusty,now 1.2.10 amd64 [installed]
+[32mapt-utils[0m/trusty,now 1.2.10 amd64 [installed]
+[32mapt-xapian-index[0m/now 0.45ubuntu4 all [installed,local]
+[32maptitude[0m/now 0.6.8.2-1ubuntu4 amd64 [installed,local]
+[32maptitude-common[0m/now 0.6.8.2-1ubuntu4 all [installed,local]
+[32mat[0m/now 3.1.14-1ubuntu1 amd64 [installed,local]
+[32maufs-tools[0m/now 1:3.2+20130722-1.1 amd64 [installed,local]
+[32mautoconf[0m/now 2.69-6 all [installed,local]
+[32mautomake[0m/now 1:1.14.1-2ubuntu1 all [installed,local]
+[32mautotools-dev[0m/now 20130810.1 all [installed,local]
+[32mbase-files[0m/now 7.2ubuntu5.5 amd64 [installed,local]
+[32mbase-passwd[0m/now 3.5.33 amd64 [installed,local]
+[32mbash[0m/trusty-security,now 4.3-7ubuntu1.7 amd64 [installed]
+[32mbash-completion[0m/now 1:2.1-4ubuntu0.2 all [installed,local]
+[32mbc[0m/now 1.06.95-8ubuntu1 amd64 [installed,local]
+[32mbind9-host[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mbinfmt-support[0m/now 2.1.4-1 amd64 [installed,local]
+[32mbinutils[0m/trusty-security,now 2.24-5ubuntu14.2 amd64 [installed,automatic]
+[32mbinutils-doc[0m/trusty-security,trusty-security,now 2.24-5ubuntu14.2 all [installed]
+[32mbison[0m/now 2:3.0.2.dfsg-2 amd64 [installed,local]
+[32mbsdmainutils[0m/now 9.0.5ubuntu1 amd64 [installed,local]
+[32mbsdutils[0m/now 1:2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mbtrfs-tools[0m/now 3.12-1ubuntu0.2 amd64 [installed,local]
+[32mbuild-essential[0m/now 11.6ubuntu6 amd64 [installed,local]
+[32mbusybox-initramfs[0m/now 1:1.21.0-1ubuntu1 amd64 [installed,local]
+[32mbusybox-static[0m/now 1:1.21.0-1ubuntu1 amd64 [installed,local]
+[32mbyobu[0m/now 5.77-0ubuntu1.2 all [installed,local]
+[32mbzip2[0m/now 1.0.6-5 amd64 [installed,local]
+[32mbzr[0m/trusty-security,trusty-security,now 2.6.0+bzr6593-1ubuntu1.6 all [installed]
+[32mca-certificates[0m/trusty-security,trusty-security,now 20170717~14.04.1 all [installed]
+[32mca-certificates-java[0m/now 20130815ubuntu1 all [installed,local]
+[32mccache[0m/now 3.1.9-1 amd64 [installed,local]
+[32mcgroup-lite[0m/now 1.9 all [installed,local]
+[32mcloud-guest-utils[0m/now 0.27-0ubuntu9.2 all [installed,local]
+[32mcloud-init[0m/now 0.7.5-0ubuntu1.22 all [installed,local]
+[32mcomerr-dev[0m/now 2.1-1.42.9-3ubuntu1.3 amd64 [installed,local]
+[32mcommand-not-found[0m/now 0.3ubuntu12 all [installed,local]
+[32mcommand-not-found-data[0m/now 0.3ubuntu12 amd64 [installed,local]
+[32mconsole-setup[0m/now 1.70ubuntu8 all [installed,local]
+[32mcoreutils[0m/now 8.21-1ubuntu5.4 amd64 [installed,local]
+[32mcpio[0m/trusty-security,now 2.11+dfsg-1ubuntu1.2 amd64 [installed]
+[32mcpp[0m/now 4:4.8.2-1ubuntu6 amd64 [installed,local]
+[32mcpp-4.8[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mcrda[0m/now 1.1.2-1ubuntu2 amd64 [installed,local]
+[32mcron[0m/now 3.0pl1-124ubuntu2 amd64 [installed,local]
+[32mcryptsetup[0m/now 2:1.6.1-1ubuntu1 amd64 [installed,local]
+[32mcryptsetup-bin[0m/now 2:1.6.1-1ubuntu1 amd64 [installed,local]
+[32mcurl[0m/trusty-security,now 7.35.0-1ubuntu2.13 amd64 [installed]
+[32mdash[0m/now 0.5.7-4ubuntu1 amd64 [installed,local]
+[32mdbus[0m/now 1.6.18-0ubuntu4.5 amd64 [installed,local]
+[32mdconf-gsettings-backend[0m/now 0.20.0-1 amd64 [installed,local]
+[32mdconf-service[0m/now 0.20.0-1 amd64 [installed,local]
+[32mdebconf[0m/now 1.5.51ubuntu2 all [installed,local]
+[32mdebconf-i18n[0m/now 1.5.51ubuntu2 all [installed,local]
+[32mdebconf-utils[0m/now 1.5.51ubuntu2 all [installed,local]
+[32mdebianutils[0m/now 4.4 amd64 [installed,local]
+[32mdh-python[0m/now 1.20140128-1ubuntu8.2 all [installed,local]
+[32mdiffutils[0m/now 1:3.3-1 amd64 [installed,local]
+[32mdmidecode[0m/now 2.12-2 amd64 [installed,local]
+[32mdmsetup[0m/now 2:1.02.77-6ubuntu2 amd64 [installed,local]
+[32mdnsutils[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mdocker-ce[0m/trusty,trusty,now 17.09.0~ce-0~ubuntu amd64 [installed,upgradable to: 18.01.0~ce-0~ubuntu]
+[32mdosemu[0m/now 1.4.0.7+20130105+b028d3f-1 amd64 [installed,local]
+[32mdosfstools[0m/trusty-security,now 3.0.26-1ubuntu0.1 amd64 [installed]
+[32mdpkg[0m/now 1.17.5ubuntu5.7 amd64 [installed,local]
+[32mdpkg-dev[0m/now 1.17.5ubuntu5.7 all [installed,local]
+[32me2fslibs[0m/now 1.42.9-3ubuntu1.3 amd64 [installed,local]
+[32me2fsprogs[0m/now 1.42.9-3ubuntu1.3 amd64 [installed,local]
+[32meatmydata[0m/now 26-2 amd64 [installed,local]
+[32med[0m/now 1.9-2 amd64 [installed,local]
+[32meject[0m/trusty-security,now 2.1.5+deb1+cvs20081104-13.1ubuntu0.14.04.1 amd64 [installed]
+[32memacs[0m/now 45.0ubuntu1 all [installed,local]
+[32memacs23-bin-common[0m/now 23.4+1-4.1ubuntu1 amd64 [installed,local]
+[32memacs23-common[0m/now 23.4+1-4.1ubuntu1 all [installed,local]
+[32memacs23-common-non-dfsg[0m/now 23.4+1-1 all [installed,local]
+[32memacs23-nox[0m/now 23.4+1-4.1ubuntu1 amd64 [installed,local]
+[32memacs24[0m/trusty-security,now 24.3+1-2ubuntu1.1 amd64 [installed,automatic]
+[32memacs24-bin-common[0m/trusty-security,now 24.3+1-2ubuntu1.1 amd64 [installed,automatic]
+[32memacs24-common[0m/trusty-security,trusty-security,now 24.3+1-2ubuntu1.1 all [installed,automatic]
+[32memacs24-common-non-dfsg[0m/now 24.3+1-1 all [installed,local]
+[32memacsen-common[0m/now 2.0.7 all [installed,local]
+[32methtool[0m/now 1:3.13-1 amd64 [installed,local]
+[32mexpect[0m/now 5.45-5ubuntu1 amd64 [installed,local]
+[32mfile[0m/trusty-security,now 1:5.14-2ubuntu3.3 amd64 [installed]
+[32mfindutils[0m/now 4.4.2-7 amd64 [installed,local]
+[32mflex[0m/now 2.5.35-10.1ubuntu2 amd64 [installed,local]
+[32mfontconfig[0m/trusty-security,now 2.11.0-0ubuntu4.2 amd64 [installed,automatic]
+[32mfontconfig-config[0m/trusty-security,trusty-security,now 2.11.0-0ubuntu4.2 all [installed,automatic]
+[32mfonts-dejavu-core[0m/now 2.34-1ubuntu1 all [installed,local]
+[32mfonts-dejavu-extra[0m/now 2.34-1ubuntu1 all [installed,local]
+[32mfonts-ubuntu-font-family-console[0m/now 0.80-0ubuntu6 all [installed,local]
+[32mfriendly-recovery[0m/now 0.2.25 all [installed,local]
+[32mftp[0m/now 0.17-28 amd64 [installed,local]
+[32mfuse[0m/trusty-security,now 2.9.2-4ubuntu4.14.04.1 amd64 [installed]
+[32mg++[0m/now 4:4.8.2-1ubuntu6 amd64 [installed,local]
+[32mg++-4.8[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mgawk[0m/now 1:4.0.1+dfsg-2.1ubuntu2 amd64 [installed,local]
+[32mgcc[0m/now 4:4.8.2-1ubuntu6 amd64 [installed,local]
+[32mgcc-4.8[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mgcc-4.8-base[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed]
+[32mgcc-4.9-base[0m/now 4.9.3-0ubuntu4 amd64 [installed,local]
+[32mgce-compute-image-packages[0m/now 20171025+dfsg1-0ubuntu1~14.04.0 all [installed,local]
+[32mgconf-service[0m/now 3.2.6-0ubuntu2 amd64 [installed,local]
+[32mgconf-service-backend[0m/now 3.2.6-0ubuntu2 amd64 [installed,local]
+[32mgconf2-common[0m/now 3.2.6-0ubuntu2 all [installed,local]
+[32mgdisk[0m/now 0.8.8-1ubuntu0.1 amd64 [installed,local]
+[32mgeoip-database[0m/now 20140313-1 all [installed,local]
+[32mgettext[0m/now 0.18.3.1-1ubuntu3 amd64 [installed,local]
+[32mgettext-base[0m/now 0.18.3.1-1ubuntu3 amd64 [installed,local]
+[32mgir1.2-freedesktop[0m/now 1.40.0-1ubuntu0.2 amd64 [installed,local]
+[32mgir1.2-gdkpixbuf-2.0[0m/trusty-security,now 2.30.7-0ubuntu1.8 amd64 [installed,automatic]
+[32mgir1.2-glib-2.0[0m/now 1.40.0-1ubuntu0.2 amd64 [installed,local]
+[32mgir1.2-rsvg-2.0[0m/now 2.40.2-1 amd64 [installed,local]
+[32mgit[0m/trusty,now 1:2.16.1-0ppa1~ubuntu14.04.1 amd64 [installed]
+[32mgit-core[0m/trusty,trusty,now 1:2.14.2-1~ppa0~ubuntu14.04.1 all [installed]
+[32mgit-lfs[0m/trusty,now 2.3.4 amd64 [installed]
+[32mgit-man[0m/trusty,trusty,now 1:2.16.1-0ppa1~ubuntu14.04.1 all [installed,automatic]
+[32mgnupg[0m/trusty-security,now 1.4.16-1ubuntu2.4 amd64 [installed]
+[32mgnupg-agent[0m/trusty-security,now 2.0.22-3ubuntu1.3 amd64 [installed,automatic]
+[32mgnupg2[0m/trusty-security,now 2.0.22-3ubuntu1.3 amd64 [installed]
+[32mgoogle-cloud-sdk[0m/now 176.0.0-0ubuntu1~14.04.0 all [installed,local]
+[32mgoogle-compute-engine-oslogin[0m/now 20171025+dfsg1-0ubuntu1~14.04.0 amd64 [installed,local]
+[32mgpgv[0m/trusty-security,now 1.4.16-1ubuntu2.4 amd64 [installed]
+[32mgrep[0m/now 2.16-1 amd64 [installed,local]
+[32mgroff-base[0m/now 1.22.2-5 amd64 [installed,local]
+[32mgrub-common[0m/now 2.02~beta2-9ubuntu1.14 amd64 [installed,local]
+[32mgrub-gfxpayload-lists[0m/now 0.6 amd64 [installed,local]
+[32mgrub-pc[0m/now 2.02~beta2-9ubuntu1.14 amd64 [installed,local]
+[32mgrub-pc-bin[0m/now 2.02~beta2-9ubuntu1.14 amd64 [installed,local]
+[32mgrub2-common[0m/now 2.02~beta2-9ubuntu1.14 amd64 [installed,local]
+[32mgsfonts[0m/now 1:8.11+urwcyr1.0.7~pre44-4.2ubuntu1 all [installed,local]
+[32mgsfonts-x11[0m/now 0.22 all [installed,local]
+[32mgzip[0m/now 1.6-3ubuntu1 amd64 [installed,local]
+[32mhaveged[0m/now 1.7c-1 amd64 [installed,local]
+[32mhdparm[0m/now 9.43-1ubuntu3 amd64 [installed,local]
+[32mhicolor-icon-theme[0m/now 0.13-1 all [installed,local]
+[32mhostname[0m/now 3.15ubuntu1 amd64 [installed,local]
+[32micedtea-7-plugin[0m/trusty-security,now 1.5.3-0ubuntu0.14.04.1 amd64 [installed]
+[32micedtea-netx[0m/trusty-security,now 1.5.3-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32micedtea-netx-common[0m/trusty-security,trusty-security,now 1.5.3-0ubuntu0.14.04.1 all [installed,automatic]
+[32micu-devtools[0m/trusty-security,now 52.1-3ubuntu0.7 amd64 [installed,automatic]
+[32mifupdown[0m/now 0.7.47.2ubuntu4.4 amd64 [installed,local]
+[32mimagemagick[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed]
+[32mimagemagick-common[0m/trusty-security,trusty-security,now 8:6.7.7.10-6ubuntu3.9 all [installed,automatic]
+[32minfo[0m/now 5.2.0.dfsg.1-2 amd64 [installed,local]
+[32minit-system-helpers[0m/now 1.14ubuntu1 all [installed,local]
+[32minitramfs-tools[0m/now 0.103ubuntu4.10 all [installed,local]
+[32minitramfs-tools-bin[0m/now 0.103ubuntu4.10 amd64 [installed,local]
+[32minitscripts[0m/now 2.88dsf-41ubuntu6.3 amd64 [installed,local]
+[32minsserv[0m/now 1.14.0-5ubuntu2 amd64 [installed,local]
+[32minstall-info[0m/now 5.2.0.dfsg.1-2 amd64 [installed,local]
+[32miproute2[0m/now 3.12.0-2ubuntu1.2 amd64 [installed,local]
+[32miptables[0m/now 1.4.21-1ubuntu1 amd64 [installed,local]
+[32miputils-ping[0m/now 3:20121221-4ubuntu1.1 amd64 [installed,local]
+[32miputils-tracepath[0m/now 3:20121221-4ubuntu1.1 amd64 [installed,local]
+[32mirqbalance[0m/now 1.0.6-2ubuntu0.14.04.4 amd64 [installed,local]
+[32misc-dhcp-client[0m/now 4.2.4-7ubuntu12.10 amd64 [installed,local]
+[32misc-dhcp-common[0m/now 4.2.4-7ubuntu12.10 amd64 [installed,local]
+[32miso-codes[0m/now 3.52-1 all [installed,local]
+[32mjava-common[0m/now 0.51 all [installed,local]
+[32mkbd[0m/now 1.15.5-1ubuntu1 amd64 [installed,local]
+[32mkeyboard-configuration[0m/now 1.70ubuntu8 all [installed,local]
+[32mklibc-utils[0m/now 2.0.3-0ubuntu1.14.04.3 amd64 [installed,local]
+[32mkmod[0m/now 15-0ubuntu6 amd64 [installed,local]
+[32mkrb5-locales[0m/now 1.12+dfsg-2ubuntu5.3 all [installed,local]
+[32mkrb5-multidev[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlandscape-client[0m/now 14.12-0ubuntu6.14.04 amd64 [installed,local]
+[32mlandscape-common[0m/now 14.12-0ubuntu6.14.04 amd64 [installed,local]
+[32mlanguage-pack-en[0m/now 1:14.04+20160720 all [installed,local]
+[32mlanguage-pack-en-base[0m/now 1:14.04+20160720 all [installed,local]
+[32mlanguage-pack-pt[0m/now 1:14.04+20160720 all [installed,local]
+[32mlanguage-pack-pt-base[0m/now 1:14.04+20160720 all [installed,local]
+[32mlanguage-selector-common[0m/now 0.129.3 all [installed,local]
+[32mlaptop-detect[0m/now 0.13.7ubuntu2 amd64 [installed,local]
+[32mlemon[0m/trusty-security,now 3.8.2-1ubuntu2.1 amd64 [installed]
+[32mless[0m/now 458-2 amd64 [installed,local]
+[32mlib32gcc1[0m/now 1:4.9.3-0ubuntu4 amd64 [installed,local]
+[32mlib32stdc++6[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed]
+[32mlib32z1[0m/now 1:1.2.8.dfsg-1ubuntu1 amd64 [installed,local]
+[32mlibaccountsservice0[0m/now 0.6.35-0ubuntu7.3 amd64 [installed,local]
+[32mlibacl1[0m/now 2.2.52-1 amd64 [installed,local]
+[32mlibapparmor-perl[0m/trusty-security,now 2.10.95-0ubuntu2.6~14.04.1 amd64 [installed]
+[32mlibapparmor1[0m/trusty-security,now 2.10.95-0ubuntu2.6~14.04.1 amd64 [installed]
+[32mlibapr1[0m/now 1.5.0-1 amd64 [installed,local]
+[32mlibaprutil1[0m/now 1.5.3-1 amd64 [installed,local]
+[32mlibapt-inst1.5[0m/trusty-security,now 1.0.1ubuntu2.17 amd64 [installed]
+[32mlibapt-inst2.0[0m/now 1.2.10 amd64 [installed,upgradable to: 1.2.10]
+[32mlibapt-pkg4.12[0m/trusty-security,now 1.0.1ubuntu2.17 amd64 [installed]
+[32mlibapt-pkg5.0[0m/now 1.2.10 amd64 [installed,upgradable to: 1.2.10]
+[32mlibarchive-extract-perl[0m/now 0.70-1 all [installed,local]
+[32mlibasan0[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibasn1-8-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibasound2[0m/now 1.0.27.2-3ubuntu7 amd64 [installed,local]
+[32mlibasound2-data[0m/now 1.0.27.2-3ubuntu7 all [installed,local]
+[32mlibasprintf0c2[0m/now 0.18.3.1-1ubuntu3 amd64 [installed,local]
+[32mlibassuan0[0m/now 2.1.1-1ubuntu1 amd64 [installed,local]
+[32mlibasyncns0[0m/now 0.8-4ubuntu2 amd64 [installed,local]
+[32mlibatk-bridge2.0-0[0m/now 2.10.2-2ubuntu1 amd64 [installed,local]
+[32mlibatk-wrapper-java[0m/now 0.30.4-4 all [installed,local]
+[32mlibatk-wrapper-java-jni[0m/now 0.30.4-4 amd64 [installed,local]
+[32mlibatk1.0-0[0m/now 2.10.0-2ubuntu2 amd64 [installed,local]
+[32mlibatk1.0-data[0m/now 2.10.0-2ubuntu2 all [installed,local]
+[32mlibatomic1[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibatspi2.0-0[0m/now 2.10.2.is.2.10.1-0ubuntu1 amd64 [installed,local]
+[32mlibattr1[0m/now 1:2.4.47-1ubuntu1 amd64 [installed,local]
+[32mlibaudio2[0m/now 1.9.4-1 amd64 [installed,local]
+[32mlibaudit-common[0m/now 1:2.3.2-2ubuntu1 all [installed,local]
+[32mlibaudit1[0m/now 1:2.3.2-2ubuntu1 amd64 [installed,local]
+[32mlibavahi-client3[0m/now 0.6.31-4ubuntu1.1 amd64 [installed,local]
+[32mlibavahi-common-data[0m/now 0.6.31-4ubuntu1.1 amd64 [installed,local]
+[32mlibavahi-common3[0m/now 0.6.31-4ubuntu1.1 amd64 [installed,local]
+[32mlibbind9-90[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mlibbison-dev[0m/now 2:3.0.2.dfsg-2 amd64 [installed,local]
+[32mlibblkid1[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mlibboost-iostreams1.54.0[0m/now 1.54.0-4ubuntu3.1 amd64 [installed,local]
+[32mlibbsd0[0m/now 0.6.0-2ubuntu1 amd64 [installed,local]
+[32mlibbz2-1.0[0m/now 1.0.6-5 amd64 [installed,local]
+[32mlibbz2-dev[0m/now 1.0.6-5 amd64 [installed,local]
+[32mlibc-bin[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed]
+[32mlibc-client2007e[0m/now 8:2007f~dfsg-2 amd64 [installed,local]
+[32mlibc-client2007e-dev[0m/now 8:2007f~dfsg-2 amd64 [installed,local]
+[32mlibc-dev-bin[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed,automatic]
+[32mlibc6[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed]
+[32mlibc6-dev[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed,automatic]
+[32mlibc6-i386[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed,automatic]
+[32mlibcaca0[0m/now 0.99.beta18-1ubuntu5 amd64 [installed,local]
+[32mlibcairo-gobject2[0m/now 1.13.0~20140204-0ubuntu1.1 amd64 [installed,local]
+[32mlibcairo-script-interpreter2[0m/now 1.13.0~20140204-0ubuntu1.1 amd64 [installed,local]
+[32mlibcairo2[0m/now 1.13.0~20140204-0ubuntu1.1 amd64 [installed,local]
+[32mlibcairo2-dev[0m/now 1.13.0~20140204-0ubuntu1.1 amd64 [installed,local]
+[32mlibcap-ng0[0m/now 0.7.3-1ubuntu2 amd64 [installed,local]
+[32mlibcap2[0m/now 1:2.24-0ubuntu2 amd64 [installed,local]
+[32mlibcap2-bin[0m/now 1:2.24-0ubuntu2 amd64 [installed,local]
+[32mlibcdt5[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibcgmanager0[0m/now 0.24-0ubuntu7.5 amd64 [installed,local]
+[32mlibcgraph6[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibck-connector0[0m/now 0.4.5-3.1ubuntu2 amd64 [installed,local]
+[32mlibclass-accessor-perl[0m/now 0.34-1 all [installed,local]
+[32mlibcloog-isl4[0m/now 0.18.2-1 amd64 [installed,local]
+[32mlibcolord1[0m/now 1.0.6-1 amd64 [installed,local]
+[32mlibcomerr2[0m/now 1.42.9-3ubuntu1.3 amd64 [installed,local]
+[32mlibcroco3[0m/now 0.6.8-2ubuntu1 amd64 [installed,local]
+[32mlibcryptsetup4[0m/now 2:1.6.1-1ubuntu1 amd64 [installed,local]
+[32mlibcups2[0m/now 1.7.2-0ubuntu1.8 amd64 [installed,local]
+[32mlibcurl3[0m/trusty-security,now 7.35.0-1ubuntu2.13 amd64 [installed]
+[32mlibcurl3-gnutls[0m/trusty-security,now 7.35.0-1ubuntu2.13 amd64 [installed]
+[32mlibcurl4-gnutls-dev[0m/trusty-security,now 7.35.0-1ubuntu2.13 amd64 [installed]
+[32mlibcwidget3[0m/now 0.5.16-3.5ubuntu1 amd64 [installed,local]
+[32mlibdatrie1[0m/now 0.2.8-1 amd64 [installed,local]
+[32mlibdb5.3[0m/trusty-security,now 5.3.28-3ubuntu3.1 amd64 [installed]
+[32mlibdbd-mysql-perl[0m/trusty-security,now 4.025-1ubuntu0.1 amd64 [installed,automatic]
+[32mlibdbi-perl[0m/now 1.630-1 amd64 [installed,local]
+[32mlibdbus-1-3[0m/now 1.6.18-0ubuntu4.5 amd64 [installed,local]
+[32mlibdbus-glib-1-2[0m/now 0.100.2-1 amd64 [installed,local]
+[32mlibdconf1[0m/now 0.20.0-1 amd64 [installed,local]
+[32mlibdebconfclient0[0m/now 0.187ubuntu1 amd64 [installed,local]
+[32mlibdevmapper-event1.02.1[0m/now 2:1.02.77-6ubuntu2 amd64 [installed,local]
+[32mlibdevmapper1.02.1[0m/now 2:1.02.77-6ubuntu2 amd64 [installed,local]
+[32mlibdjvulibre-dev[0m/now 3.5.25.4-3 amd64 [installed,local]
+[32mlibdjvulibre-text[0m/now 3.5.25.4-3 all [installed,local]
+[32mlibdjvulibre21[0m/now 3.5.25.4-3 amd64 [installed,local]
+[32mlibdns100[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mlibdpkg-perl[0m/now 1.17.5ubuntu5.7 all [installed,local]
+[32mlibdrm-amdgpu1[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mlibdrm-dev[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mlibdrm-intel1[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mlibdrm-nouveau2[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mlibdrm-radeon1[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mlibdrm2[0m/trusty-security,now 2.4.67-1ubuntu0.14.04.2 amd64 [installed]
+[32mlibdumbnet1[0m/now 1.12-4build1 amd64 [installed,local]
+[32mlibedit2[0m/now 3.1-20130712-2 amd64 [installed,local]
+[32mlibelf1[0m/trusty-security,now 0.158-0ubuntu5.2 amd64 [installed]
+[32mlibelfg0[0m/now 0.8.13-5 amd64 [installed,local]
+[32mlibept1.4.12[0m/now 1.0.12 amd64 [installed,local]
+[32mliberror-perl[0m/now 0.17-1.1 all [installed,local]
+[32mlibestr0[0m/now 0.1.9-0ubuntu2 amd64 [installed,local]
+[32mlibevent-2.0-5[0m/trusty-security,now 2.0.21-stable-1ubuntu1.14.04.2 amd64 [installed]
+[32mlibexif-dev[0m/now 0.6.21-1ubuntu1 amd64 [installed,local]
+[32mlibexif12[0m/now 0.6.21-1ubuntu1 amd64 [installed,local]
+[32mlibexpat1[0m/trusty-security,now 2.1.0-4ubuntu1.4 amd64 [installed]
+[32mlibexpat1-dev[0m/trusty-security,now 2.1.0-4ubuntu1.4 amd64 [installed]
+[32mlibffi-dev[0m/trusty-security,now 3.1~rc1+r3.0.13-12ubuntu0.2 amd64 [installed]
+[32mlibffi6[0m/trusty-security,now 3.1~rc1+r3.0.13-12ubuntu0.2 amd64 [installed]
+[32mlibfftw3-double3[0m/now 3.3.3-7ubuntu3 amd64 [installed,local]
+[32mlibfl-dev[0m/now 2.5.35-10.1ubuntu2 amd64 [installed,local]
+[32mlibflac8[0m/trusty-security,now 1.3.0-2ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mlibfontconfig1[0m/trusty-security,now 2.11.0-0ubuntu4.2 amd64 [installed,automatic]
+[32mlibfontconfig1-dev[0m/trusty-security,now 2.11.0-0ubuntu4.2 amd64 [installed,automatic]
+[32mlibfontenc1[0m/now 1:1.1.2-1 amd64 [installed,local]
+[32mlibfreetype6[0m/trusty-security,now 2.5.2-1ubuntu2.8 amd64 [installed,automatic]
+[32mlibfreetype6-dev[0m/trusty-security,now 2.5.2-1ubuntu2.8 amd64 [installed]
+[32mlibfribidi0[0m/now 0.19.6-1 amd64 [installed,local]
+[32mlibfuse2[0m/trusty-security,now 2.9.2-4ubuntu4.14.04.1 amd64 [installed]
+[32mlibgc1c2[0m/trusty-security,now 1:7.2d-5ubuntu2.1 amd64 [installed]
+[32mlibgcc-4.8-dev[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibgcc1[0m/now 1:4.9.3-0ubuntu4 amd64 [installed,local]
+[32mlibgck-1-0[0m/now 3.10.1-1 amd64 [installed,local]
+[32mlibgconf-2-4[0m/now 3.2.6-0ubuntu2 amd64 [installed,local]
+[32mlibgcr-3-common[0m/now 3.10.1-1 all [installed,local]
+[32mlibgcr-base-3-1[0m/now 3.10.1-1 amd64 [installed,local]
+[32mlibgcrypt11[0m/trusty-security,now 1.5.3-2ubuntu4.5 amd64 [installed]
+[32mlibgcrypt11-dev[0m/trusty-security,now 1.5.3-2ubuntu4.5 amd64 [installed,automatic]
+[32mlibgd3[0m/trusty-security,now 2.1.0-3ubuntu0.8 amd64 [installed,automatic]
+[32mlibgdbm-dev[0m/now 1.8.3-12build1 amd64 [installed,local]
+[32mlibgdbm3[0m/now 1.8.3-12build1 amd64 [installed,local]
+[32mlibgdk-pixbuf2.0-0[0m/trusty-security,now 2.30.7-0ubuntu1.8 amd64 [installed,automatic]
+[32mlibgdk-pixbuf2.0-common[0m/trusty-security,trusty-security,now 2.30.7-0ubuntu1.8 all [installed,automatic]
+[32mlibgdk-pixbuf2.0-dev[0m/trusty-security,now 2.30.7-0ubuntu1.8 amd64 [installed,automatic]
+[32mlibgeoip1[0m/now 1.6.0-1 amd64 [installed,local]
+[32mlibgif4[0m/now 4.1.6-11 amd64 [installed,local]
+[32mlibgirepository-1.0-1[0m/now 1.40.0-1ubuntu0.2 amd64 [installed,local]
+[32mlibgl1-mesa-dev[0m/now 10.1.3-0ubuntu0.6 amd64 [installed,local]
+[32mlibgl1-mesa-glx[0m/now 10.1.3-0ubuntu0.6 amd64 [installed,local]
+[32mlibglapi-mesa[0m/now 10.1.3-0ubuntu0.6 amd64 [installed,local]
+[32mlibglib2.0-0[0m/now 2.40.2-0ubuntu1 amd64 [installed,local]
+[32mlibglib2.0-bin[0m/now 2.40.2-0ubuntu1 amd64 [installed,local]
+[32mlibglib2.0-data[0m/now 2.40.2-0ubuntu1 all [installed,local]
+[32mlibglib2.0-dev[0m/now 2.40.2-0ubuntu1 amd64 [installed,local]
+[32mlibglu1-mesa[0m/now 9.0.0-2 amd64 [installed,local]
+[32mlibglu1-mesa-dev[0m/now 9.0.0-2 amd64 [installed,local]
+[32mlibgmp-dev[0m/now 2:5.1.3+dfsg-1ubuntu1 amd64 [installed,local]
+[32mlibgmp10[0m/now 2:5.1.3+dfsg-1ubuntu1 amd64 [installed,local]
+[32mlibgmp3-dev[0m/now 2:5.1.3+dfsg-1ubuntu1 amd64 [installed,local]
+[32mlibgmpxx4ldbl[0m/now 2:5.1.3+dfsg-1ubuntu1 amd64 [installed,local]
+[32mlibgnutls-dev[0m/trusty-security,now 2.12.23-12ubuntu2.8 amd64 [installed,automatic]
+[32mlibgnutls-openssl27[0m/trusty-security,now 2.12.23-12ubuntu2.8 amd64 [installed]
+[32mlibgnutls26[0m/trusty-security,now 2.12.23-12ubuntu2.8 amd64 [installed]
+[32mlibgnutlsxx27[0m/trusty-security,now 2.12.23-12ubuntu2.8 amd64 [installed,automatic]
+[32mlibgomp1[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibgpg-error-dev[0m/now 1.12-0.2ubuntu1 amd64 [installed,local]
+[32mlibgpg-error0[0m/now 1.12-0.2ubuntu1 amd64 [installed,local]
+[32mlibgpm2[0m/now 1.20.4-6.1 amd64 [installed,local]
+[32mlibgraphite2-3[0m/trusty-security,now 1.3.10-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mlibgraphviz-dev[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibgssapi-krb5-2[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibgssapi3-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibgssrpc4[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibgstreamer-plugins-base1.0-0[0m/trusty-security,now 1.2.4-1~ubuntu2.1 amd64 [installed,automatic]
+[32mlibgstreamer1.0-0[0m/trusty-security,now 1.2.4-0ubuntu1.1 amd64 [installed,automatic]
+[32mlibgtk-3-0[0m/now 3.10.8-0ubuntu1.6 amd64 [installed,local]
+[32mlibgtk-3-common[0m/now 3.10.8-0ubuntu1.6 all [installed,local]
+[32mlibgtk2.0-0[0m/trusty-security,now 2.24.23-0ubuntu1.4 amd64 [installed,automatic]
+[32mlibgtk2.0-common[0m/trusty-security,trusty-security,now 2.24.23-0ubuntu1.4 all [installed,automatic]
+[32mlibgvc6[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibgvc6-plugins-gtk[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibgvpr2[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibharfbuzz0b[0m/trusty-security,now 0.9.27-1ubuntu1.1 amd64 [installed,automatic]
+[32mlibhavege1[0m/now 1.7c-1 amd64 [installed,local]
+[32mlibhcrypto4-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibheimbase1-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibheimntlm0-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibhx509-5-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibice-dev[0m/now 2:1.0.8-2 amd64 [installed,local]
+[32mlibice6[0m/now 2:1.0.8-2 amd64 [installed,local]
+[32mlibicu-dev[0m/trusty-security,now 52.1-3ubuntu0.7 amd64 [installed]
+[32mlibicu52[0m/trusty-security,now 52.1-3ubuntu0.7 amd64 [installed]
+[32mlibidn11[0m/trusty-security,now 1.28-1ubuntu2.2 amd64 [installed]
+[32mlibidn11-dev[0m/trusty-security,now 1.28-1ubuntu2.2 amd64 [installed,automatic]
+[32mlibilmbase-dev[0m/now 1.0.1-6ubuntu1 amd64 [installed,local]
+[32mlibilmbase6[0m/now 1.0.1-6ubuntu1 amd64 [installed,local]
+[32mlibio-string-perl[0m/now 1.08-3 all [installed,local]
+[32mlibisc95[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mlibisccc90[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mlibisccfg90[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mlibisl10[0m/now 0.12.2-1 amd64 [installed,local]
+[32mlibitm1[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibjasper-dev[0m/trusty-security,now 1.900.1-14ubuntu3.4 amd64 [installed,automatic]
+[32mlibjasper1[0m/trusty-security,now 1.900.1-14ubuntu3.4 amd64 [installed,automatic]
+[32mlibjbig-dev[0m/trusty-security,now 2.0-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibjbig0[0m/trusty-security,now 2.0-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibjpeg-turbo8[0m/now 1.3.0-0ubuntu2 amd64 [installed,local]
+[32mlibjpeg-turbo8-dev[0m/now 1.3.0-0ubuntu2 amd64 [installed,local]
+[32mlibjpeg8[0m/now 8c-2ubuntu8 amd64 [installed,local]
+[32mlibjpeg8-dev[0m/now 8c-2ubuntu8 amd64 [installed,local]
+[32mlibjs-jquery[0m/now 1.7.2+dfsg-2ubuntu1 all [installed,local]
+[32mlibjson-c2[0m/trusty-security,now 0.11-3ubuntu1.2 amd64 [installed]
+[32mlibjson0[0m/trusty-security,now 0.11-3ubuntu1.2 amd64 [installed]
+[32mlibk5crypto3[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkadm5clnt-mit9[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkadm5srv-mit9[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkdb5-7[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkeyutils1[0m/now 1.5.6-1 amd64 [installed,local]
+[32mlibklibc[0m/now 2.0.3-0ubuntu1.14.04.3 amd64 [installed,local]
+[32mlibkmod2[0m/now 15-0ubuntu6 amd64 [installed,local]
+[32mlibkrb5-26-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibkrb5-3[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkrb5-dev[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibkrb5support0[0m/now 1.12+dfsg-2ubuntu5.3 amd64 [installed,local]
+[32mlibksba8[0m/trusty-security,now 1.3.0-3ubuntu0.14.04.2 amd64 [installed,automatic]
+[32mliblcms2-2[0m/trusty-security,now 2.5-0ubuntu4.1 amd64 [installed,automatic]
+[32mliblcms2-dev[0m/trusty-security,now 2.5-0ubuntu4.1 amd64 [installed,automatic]
+[32mlibldap-2.4-2[0m/trusty-security,now 2.4.31-1+nmu2ubuntu8.4 amd64 [installed]
+[32mlibldap2-dev[0m/trusty-security,now 2.4.31-1+nmu2ubuntu8.4 amd64 [installed,automatic]
+[32mlibllvm3.4[0m/now 1:3.4-1ubuntu3 amd64 [installed,local]
+[32mliblocale-gettext-perl[0m/now 1.05-7build3 amd64 [installed,local]
+[32mliblockfile-bin[0m/now 1.09-6ubuntu1 amd64 [installed,local]
+[32mliblockfile1[0m/now 1.09-6ubuntu1 amd64 [installed,local]
+[32mliblog-message-simple-perl[0m/now 0.10-1 all [installed,local]
+[32mliblqr-1-0[0m/now 0.4.1-2ubuntu1 amd64 [installed,local]
+[32mliblqr-1-0-dev[0m/now 0.4.1-2ubuntu1 amd64 [installed,local]
+[32mlibltdl-dev[0m/now 2.4.2-1.7ubuntu1 amd64 [installed,local]
+[32mlibltdl7[0m/now 2.4.2-1.7ubuntu1 amd64 [installed,local]
+[32mliblwres90[0m/trusty-security,now 1:9.9.5.dfsg-3ubuntu0.17 amd64 [installed]
+[32mliblzma-dev[0m/now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed,local]
+[32mliblzma5[0m/now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed,local]
+[32mliblzo2-2[0m/trusty-security,now 2.06-1.2ubuntu1.1 amd64 [installed,automatic]
+[32mlibm17n-0[0m/now 1.6.4-2ubuntu1 amd64 [installed,local]
+[32mlibmagic1[0m/trusty-security,now 1:5.14-2ubuntu3.3 amd64 [installed]
+[32mlibmagickcore-dev[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed,automatic]
+[32mlibmagickcore5[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed,automatic]
+[32mlibmagickcore5-extra[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed,automatic]
+[32mlibmagickwand-dev[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed]
+[32mlibmagickwand5[0m/trusty-security,now 8:6.7.7.10-6ubuntu3.9 amd64 [installed,automatic]
+[32mlibmcrypt-dev[0m/now 2.5.8-3.1ubuntu1 amd64 [installed,local]
+[32mlibmcrypt4[0m/now 2.5.8-3.1ubuntu1 amd64 [installed,local]
+[32mlibmhash-dev[0m/now 0.9.9.9-4 amd64 [installed,local]
+[32mlibmhash2[0m/now 0.9.9.9-4 amd64 [installed,local]
+[32mlibmodule-pluggable-perl[0m/now 5.1-1 all [installed,local]
+[32mlibmount1[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mlibmpc3[0m/now 1.0.1-1ubuntu1 amd64 [installed,local]
+[32mlibmpdec2[0m/now 2.4.0-6 amd64 [installed,local]
+[32mlibmpfr4[0m/now 3.1.2-1 amd64 [installed,local]
+[32mlibmysqlclient-dev[0m/trusty-security,now 5.5.59-0ubuntu0.14.04.1 amd64 [installed]
+[32mlibmysqlclient18[0m/trusty-security,now 5.5.59-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mlibncurses5[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibncurses5-dev[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibncursesw5[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibncursesw5-dev[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibnewt0.52[0m/now 0.52.15-2ubuntu5 amd64 [installed,local]
+[32mlibnfnetlink0[0m/now 1.0.1-2 amd64 [installed,local]
+[32mlibnih-dbus1[0m/now 1.0.3-4ubuntu25 amd64 [installed,local]
+[32mlibnih1[0m/now 1.0.3-4ubuntu25 amd64 [installed,local]
+[32mlibnl-3-200[0m/trusty-security,now 3.2.21-1ubuntu4.1 amd64 [installed,automatic]
+[32mlibnl-genl-3-200[0m/trusty-security,now 3.2.21-1ubuntu4.1 amd64 [installed,automatic]
+[32mlibnspr4[0m/trusty-security,now 2:4.13.1-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mlibnss3[0m/trusty-security,now 2:3.28.4-0ubuntu0.14.04.3 amd64 [installed,automatic]
+[32mlibnss3-nssdb[0m/trusty-security,trusty-security,now 2:3.28.4-0ubuntu0.14.04.3 all [installed,automatic]
+[32mlibnuma1[0m/now 2.0.9~rc5-1ubuntu3.14.04.2 amd64 [installed,local]
+[32mlibogg0[0m/now 1.3.1-1ubuntu1 amd64 [installed,local]
+[32mlibopenexr-dev[0m/now 1.6.1-7ubuntu1 amd64 [installed,local]
+[32mlibopenexr6[0m/now 1.6.1-7ubuntu1 amd64 [installed,local]
+[32mlibopts25[0m/now 1:5.18-2ubuntu2 amd64 [installed,local]
+[32mliborc-0.4-0[0m/now 1:0.4.18-1ubuntu1 amd64 [installed,local]
+[32mlibossp-uuid-dev[0m/now 1.6.2-1.3ubuntu1 amd64 [installed,local]
+[32mlibossp-uuid16[0m/now 1.6.2-1.3ubuntu1 amd64 [installed,local]
+[32mlibotf0[0m/now 0.9.13-1ubuntu1 amd64 [installed,local]
+[32mlibp11-kit-dev[0m/now 0.20.2-2ubuntu2 amd64 [installed,local]
+[32mlibp11-kit0[0m/now 0.20.2-2ubuntu2 amd64 [installed,local]
+[32mlibpam-cap[0m/now 1:2.24-0ubuntu2 amd64 [installed,local]
+[32mlibpam-modules[0m/trusty-security,now 1.1.8-1ubuntu2.2 amd64 [installed]
+[32mlibpam-modules-bin[0m/trusty-security,now 1.1.8-1ubuntu2.2 amd64 [installed]
+[32mlibpam-runtime[0m/trusty-security,trusty-security,now 1.1.8-1ubuntu2.2 all [installed]
+[32mlibpam-systemd[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mlibpam0g[0m/trusty-security,now 1.1.8-1ubuntu2.2 amd64 [installed]
+[32mlibpam0g-dev[0m/trusty-security,now 1.1.8-1ubuntu2.2 amd64 [installed,automatic]
+[32mlibpango-1.0-0[0m/now 1.36.3-1ubuntu1.1 amd64 [installed,local]
+[32mlibpangocairo-1.0-0[0m/now 1.36.3-1ubuntu1.1 amd64 [installed,local]
+[32mlibpangoft2-1.0-0[0m/now 1.36.3-1ubuntu1.1 amd64 [installed,local]
+[32mlibparse-debianchangelog-perl[0m/now 1.2.0-1ubuntu1 all [installed,local]
+[32mlibparted0debian1[0m/now 2.3-19ubuntu1.14.04.1 amd64 [installed,local]
+[32mlibpathplan4[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibpcap0.8[0m/now 1.5.3-2 amd64 [installed,local]
+[32mlibpci3[0m/now 1:3.2.1-1ubuntu5.1 amd64 [installed,local]
+[32mlibpciaccess0[0m/now 0.13.2-1 amd64 [installed,local]
+[32mlibpcre3[0m/now 1:8.31-2ubuntu2.3 amd64 [installed,local]
+[32mlibpcre3-dev[0m/now 1:8.31-2ubuntu2.3 amd64 [installed,local]
+[32mlibpcrecpp0[0m/now 1:8.31-2ubuntu2.3 amd64 [installed,local]
+[32mlibpcsclite1[0m/trusty-security,now 1.8.10-1ubuntu1.1 amd64 [installed,automatic]
+[32mlibpipeline1[0m/now 1.3.0-1 amd64 [installed,local]
+[32mlibpixman-1-0[0m/trusty-security,now 0.30.2-2ubuntu1.1 amd64 [installed,automatic]
+[32mlibpixman-1-dev[0m/trusty-security,now 0.30.2-2ubuntu1.1 amd64 [installed,automatic]
+[32mlibplymouth2[0m/now 0.8.8-0ubuntu17.1 amd64 [installed,local]
+[32mlibpng12-0[0m/trusty-security,now 1.2.50-1ubuntu2.14.04.2 amd64 [installed]
+[32mlibpng12-dev[0m/trusty-security,now 1.2.50-1ubuntu2.14.04.2 amd64 [installed,automatic]
+[32mlibpod-latex-perl[0m/now 0.61-1 all [installed,local]
+[32mlibpolkit-agent-1-0[0m/now 0.105-4ubuntu3.14.04.1 amd64 [installed,local]
+[32mlibpolkit-backend-1-0[0m/now 0.105-4ubuntu3.14.04.1 amd64 [installed,local]
+[32mlibpolkit-gobject-1-0[0m/now 0.105-4ubuntu3.14.04.1 amd64 [installed,local]
+[32mlibpopt0[0m/now 1.16-8ubuntu1 amd64 [installed,local]
+[32mlibpq-dev[0m/trusty-security,now 9.3.20-0ubuntu0.14.04 amd64 [installed]
+[32mlibpq5[0m/trusty-security,now 9.3.20-0ubuntu0.14.04 amd64 [installed,automatic]
+[32mlibprocps3[0m/now 1:3.3.9-1ubuntu2.2 amd64 [installed,local]
+[32mlibpth20[0m/now 2.0.7-19ubuntu1 amd64 [installed,local]
+[32mlibpthread-stubs0-dev[0m/now 0.3-4 amd64 [installed,local]
+[32mlibpulse0[0m/now 1:4.0-0ubuntu11.1 amd64 [installed,local]
+[32mlibpython-dev[0m/now 2.7.5-5ubuntu3 amd64 [installed,local]
+[32mlibpython-stdlib[0m/now 2.7.5-5ubuntu3 amd64 [installed,local]
+[32mlibpython2.7[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed]
+[32mlibpython2.7-dev[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed,automatic]
+[32mlibpython2.7-minimal[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed]
+[32mlibpython2.7-stdlib[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed]
+[32mlibpython3-dev[0m/now 3.4.0-0ubuntu2 amd64 [installed,local]
+[32mlibpython3-stdlib[0m/now 3.4.0-0ubuntu2 amd64 [installed,local]
+[32mlibpython3.4[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed,automatic]
+[32mlibpython3.4-dev[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed,automatic]
+[32mlibpython3.4-minimal[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed]
+[32mlibpython3.4-stdlib[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed]
+[32mlibqt4-dbus[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-declarative[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-designer[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-dev[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed]
+[32mlibqt4-dev-bin[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-help[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-network[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-opengl[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed]
+[32mlibqt4-opengl-dev[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed]
+[32mlibqt4-qt3support[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-script[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-scripttools[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-sql[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-svg[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-test[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-xml[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqt4-xmlpatterns[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqtcore4[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqtdbus4[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqtgui4[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mlibqtwebkit-dev[0m/now 2.3.2-0ubuntu7 amd64 [installed,local]
+[32mlibqtwebkit4[0m/now 2.3.2-0ubuntu7 amd64 [installed,local]
+[32mlibquadmath0[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibreadline-dev[0m/now 6.3-4ubuntu2 amd64 [installed,local]
+[32mlibreadline5[0m/now 5.2+dfsg-2 amd64 [installed,local]
+[32mlibreadline6[0m/now 6.3-4ubuntu2 amd64 [installed,local]
+[32mlibreadline6-dev[0m/now 6.3-4ubuntu2 amd64 [installed,local]
+[32mlibroken18-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibrsvg2-2[0m/now 2.40.2-1 amd64 [installed,local]
+[32mlibrsvg2-common[0m/now 2.40.2-1 amd64 [installed,local]
+[32mlibrsvg2-dev[0m/now 2.40.2-1 amd64 [installed,local]
+[32mlibrtmp-dev[0m/trusty-security,now 2.4+20121230.gitdf6c518-1ubuntu0.1 amd64 [installed,automatic]
+[32mlibrtmp0[0m/trusty-security,now 2.4+20121230.gitdf6c518-1ubuntu0.1 amd64 [installed]
+[32mlibruby1.9.1[0m/trusty-security,now 1.9.3.484-2ubuntu1.7 amd64 [installed,automatic]
+[32mlibruby2.0[0m/trusty-security,now 2.0.0.484-1ubuntu2.5 amd64 [installed,automatic]
+[32mlibsasl2-2[0m/now 2.1.25.dfsg1-17build1 amd64 [installed,local]
+[32mlibsasl2-dev[0m/now 2.1.25.dfsg1-17build1 amd64 [installed,local]
+[32mlibsasl2-modules[0m/now 2.1.25.dfsg1-17build1 amd64 [installed,local]
+[32mlibsasl2-modules-db[0m/now 2.1.25.dfsg1-17build1 amd64 [installed,local]
+[32mlibsctp1[0m/now 1.0.15+dfsg-1 amd64 [installed,local]
+[32mlibsdl1.2debian[0m/now 1.2.15-8ubuntu1.1 amd64 [installed,local]
+[32mlibselinux1[0m/now 2.2.2-1ubuntu0.1 amd64 [installed,local]
+[32mlibsemanage-common[0m/now 2.2-1 all [installed,local]
+[32mlibsemanage1[0m/now 2.2-1 amd64 [installed,local]
+[32mlibsepol1[0m/now 2.2-1ubuntu0.1 amd64 [installed,local]
+[32mlibserf-1-1[0m/trusty-security,now 1.3.3-1ubuntu0.1 amd64 [installed,automatic]
+[32mlibsigc++-2.0-0c2a[0m/now 2.2.10-0.2ubuntu2 amd64 [installed,local]
+[32mlibsigsegv2[0m/now 2.10-2 amd64 [installed,local]
+[32mlibslang2[0m/now 2.2.4-15ubuntu1 amd64 [installed,local]
+[32mlibsm-dev[0m/now 2:1.2.1-2 amd64 [installed,local]
+[32mlibsm6[0m/now 2:1.2.1-2 amd64 [installed,local]
+[32mlibsndfile1[0m/trusty-security,now 1.0.25-7ubuntu2.2 amd64 [installed,automatic]
+[32mlibsqlite3-0[0m/trusty-security,now 3.8.2-1ubuntu2.1 amd64 [installed]
+[32mlibsqlite3-dev[0m/trusty-security,now 3.8.2-1ubuntu2.1 amd64 [installed]
+[32mlibss2[0m/now 1.42.9-3ubuntu1.3 amd64 [installed,local]
+[32mlibssl-dev[0m/trusty-security,now 1.0.1f-1ubuntu2.23 amd64 [installed,automatic]
+[32mlibssl0.9.8[0m/trusty-security,now 0.9.8o-7ubuntu3.2.14.04.1 amd64 [installed]
+[32mlibssl1.0.0[0m/trusty-security,now 1.0.1f-1ubuntu2.23 amd64 [installed]
+[32mlibstdc++-4.8-dev[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibstdc++6[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed]
+[32mlibsub-name-perl[0m/now 0.05-1build4 amd64 [installed,local]
+[32mlibsvn1[0m/trusty-security,now 1.8.8-1ubuntu3.3 amd64 [installed,automatic]
+[32mlibsystemd-daemon0[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mlibsystemd-journal0[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mlibsystemd-login0[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mlibt1-5[0m/now 5.1.2-3.6ubuntu1 amd64 [installed,local]
+[32mlibt1-dev[0m/now 5.1.2-3.6ubuntu1 amd64 [installed,local]
+[32mlibtasn1-6[0m/trusty-security,now 3.4-3ubuntu0.6 amd64 [installed]
+[32mlibtasn1-6-dev[0m/trusty-security,now 3.4-3ubuntu0.6 amd64 [installed,automatic]
+[32mlibtcl8.6[0m/now 8.6.1-4ubuntu1 amd64 [installed,local]
+[32mlibterm-readkey-perl[0m/now 2.31-1 amd64 [installed,local]
+[32mlibterm-ui-perl[0m/now 0.42-1 all [installed,local]
+[32mlibtext-charwidth-perl[0m/now 0.04-7build3 amd64 [installed,local]
+[32mlibtext-iconv-perl[0m/now 1.7-5build2 amd64 [installed,local]
+[32mlibtext-soundex-perl[0m/now 3.4-1build1 amd64 [installed,local]
+[32mlibtext-wrapi18n-perl[0m/now 0.06-7 all [installed,local]
+[32mlibthai-data[0m/now 0.1.20-3 all [installed,local]
+[32mlibthai0[0m/now 0.1.20-3 amd64 [installed,local]
+[32mlibtidy-0.99-0[0m/trusty-security,now 20091223cvs-1.2ubuntu1.1 amd64 [installed,automatic]
+[32mlibtidy-dev[0m/trusty-security,now 20091223cvs-1.2ubuntu1.1 amd64 [installed]
+[32mlibtiff5[0m/trusty-security,now 4.0.3-7ubuntu0.7 amd64 [installed,automatic]
+[32mlibtiff5-dev[0m/trusty-security,now 4.0.3-7ubuntu0.7 amd64 [installed,automatic]
+[32mlibtiffxx5[0m/trusty-security,now 4.0.3-7ubuntu0.7 amd64 [installed,automatic]
+[32mlibtimedate-perl[0m/now 2.3000-1 all [installed,local]
+[32mlibtinfo-dev[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibtinfo5[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mlibtk8.6[0m/now 8.6.1-3ubuntu2 amd64 [installed,local]
+[32mlibtool[0m/now 2.4.2-1.7ubuntu1 amd64 [installed,local]
+[32mlibtsan0[0m/trusty-security,now 4.8.4-2ubuntu1~14.04.3 amd64 [installed,automatic]
+[32mlibudev1[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mlibunistring0[0m/now 0.9.3-5ubuntu3 amd64 [installed,local]
+[32mlibusb-0.1-4[0m/now 2:0.1.12-23.3ubuntu1 amd64 [installed,local]
+[32mlibusb-1.0-0[0m/now 2:1.0.17-1ubuntu2 amd64 [installed,local]
+[32mlibustr-1.0-1[0m/now 1.0.4-3ubuntu2 amd64 [installed,local]
+[32mlibutempter0[0m/now 1.1.5-4build1 amd64 [installed,local]
+[32mlibuuid1[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mlibvorbis0a[0m/now 1.3.2-1.3ubuntu1 amd64 [installed,local]
+[32mlibvorbisenc2[0m/now 1.3.2-1.3ubuntu1 amd64 [installed,local]
+[32mlibvpx1[0m/now 1.3.0-2 amd64 [installed,local]
+[32mlibwayland-client0[0m/now 1.4.0-1ubuntu1 amd64 [installed,local]
+[32mlibwayland-cursor0[0m/now 1.4.0-1ubuntu1 amd64 [installed,local]
+[32mlibwind0-heimdal[0m/trusty-security,now 1.6~git20131207+dfsg-1ubuntu1.2 amd64 [installed]
+[32mlibwmf-dev[0m/trusty-security,now 0.2.8.4-10.3ubuntu1.14.04.1 amd64 [installed,automatic]
+[32mlibwmf0.2-7[0m/trusty-security,now 0.2.8.4-10.3ubuntu1.14.04.1 amd64 [installed,automatic]
+[32mlibwrap0[0m/now 7.6.q-25 amd64 [installed,local]
+[32mlibx11-6[0m/now 2:1.6.2-1ubuntu2 amd64 [installed,local]
+[32mlibx11-data[0m/now 2:1.6.2-1ubuntu2 all [installed,local]
+[32mlibx11-dev[0m/now 2:1.6.2-1ubuntu2 amd64 [installed,local]
+[32mlibx11-xcb-dev[0m/now 2:1.6.2-1ubuntu2 amd64 [installed,local]
+[32mlibx11-xcb1[0m/now 2:1.6.2-1ubuntu2 amd64 [installed,local]
+[32mlibxapian22[0m/now 1.2.16-2ubuntu1 amd64 [installed,local]
+[32mlibxau-dev[0m/now 1:1.0.8-1 amd64 [installed,local]
+[32mlibxau6[0m/now 1:1.0.8-1 amd64 [installed,local]
+[32mlibxaw7[0m/now 2:1.0.12-1 amd64 [installed,local]
+[32mlibxaw7-dev[0m/now 2:1.0.12-1 amd64 [installed,local]
+[32mlibxcb-dri2-0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-dri2-0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-dri3-0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-dri3-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-glx0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-glx0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-present-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-present0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-randr0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-randr0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-render0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-render0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-shape0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-shape0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-shm0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-shm0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-sync-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-sync1[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-xfixes0[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb-xfixes0-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb1[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcb1-dev[0m/now 1.10-2ubuntu1 amd64 [installed,local]
+[32mlibxcomposite1[0m/now 1:0.4.4-1 amd64 [installed,local]
+[32mlibxcursor1[0m/trusty-security,now 1:1.1.14-1ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mlibxdamage-dev[0m/now 1:1.1.4-1ubuntu1 amd64 [installed,local]
+[32mlibxdamage1[0m/now 1:1.1.4-1ubuntu1 amd64 [installed,local]
+[32mlibxdmcp-dev[0m/now 1:1.1.1-1 amd64 [installed,local]
+[32mlibxdmcp6[0m/now 1:1.1.1-1 amd64 [installed,local]
+[32mlibxdot4[0m/now 2.36.0-0ubuntu3.2 amd64 [installed,local]
+[32mlibxext-dev[0m/trusty-security,now 2:1.3.2-1ubuntu0.0.14.04.1 amd64 [installed,automatic]
+[32mlibxext6[0m/trusty-security,now 2:1.3.2-1ubuntu0.0.14.04.1 amd64 [installed]
+[32mlibxfixes-dev[0m/trusty-security,now 1:5.0.1-1ubuntu1.1 amd64 [installed,automatic]
+[32mlibxfixes3[0m/trusty-security,now 1:5.0.1-1ubuntu1.1 amd64 [installed,automatic]
+[32mlibxfont1[0m/trusty-security,now 1:1.4.7-1ubuntu0.4 amd64 [installed,automatic]
+[32mlibxft-dev[0m/now 2.3.1-2 amd64 [installed,local]
+[32mlibxft2[0m/now 2.3.1-2 amd64 [installed,local]
+[32mlibxi6[0m/trusty-security,now 2:1.7.1.901-1ubuntu1.1 amd64 [installed,automatic]
+[32mlibxinerama1[0m/now 2:1.1.3-1 amd64 [installed,local]
+[32mlibxkbcommon0[0m/now 0.4.1-0ubuntu1 amd64 [installed,local]
+[32mlibxml2[0m/trusty-security,now 2.9.1+dfsg1-3ubuntu4.12 amd64 [installed]
+[32mlibxml2-dev[0m/trusty-security,now 2.9.1+dfsg1-3ubuntu4.12 amd64 [installed,automatic]
+[32mlibxmu-dev[0m/now 2:1.1.1-1 amd64 [installed,local]
+[32mlibxmu-headers[0m/now 2:1.1.1-1 all [installed,local]
+[32mlibxmu6[0m/now 2:1.1.1-1 amd64 [installed,local]
+[32mlibxmuu1[0m/now 2:1.1.1-1 amd64 [installed,local]
+[32mlibxpm-dev[0m/trusty-security,now 1:3.5.10-1ubuntu0.1 amd64 [installed,automatic]
+[32mlibxpm4[0m/trusty-security,now 1:3.5.10-1ubuntu0.1 amd64 [installed,automatic]
+[32mlibxrandr2[0m/now 2:1.5.0-1~trusty1 amd64 [installed,local]
+[32mlibxrender-dev[0m/trusty-security,now 1:0.9.8-1build0.14.04.1 amd64 [installed,automatic]
+[32mlibxrender1[0m/trusty-security,now 1:0.9.8-1build0.14.04.1 amd64 [installed,automatic]
+[32mlibxshmfence-dev[0m/now 1.1-2 amd64 [installed,local]
+[32mlibxshmfence1[0m/now 1.1-2 amd64 [installed,local]
+[32mlibxslt1-dev[0m/trusty-security,now 1.1.28-2ubuntu0.1 amd64 [installed]
+[32mlibxslt1.1[0m/trusty-security,now 1.1.28-2ubuntu0.1 amd64 [installed,automatic]
+[32mlibxss-dev[0m/now 1:1.2.2-1 amd64 [installed,local]
+[32mlibxss1[0m/now 1:1.2.2-1 amd64 [installed,local]
+[32mlibxt-dev[0m/now 1:1.1.4-1 amd64 [installed,local]
+[32mlibxt6[0m/now 1:1.1.4-1 amd64 [installed,local]
+[32mlibxtables10[0m/now 1.4.21-1ubuntu1 amd64 [installed,local]
+[32mlibxtst6[0m/now 2:1.2.2-1 amd64 [installed,local]
+[32mlibxv1[0m/now 2:1.0.10-1 amd64 [installed,local]
+[32mlibxxf86dga1[0m/now 2:1.1.4-1 amd64 [installed,local]
+[32mlibxxf86vm-dev[0m/now 1:1.1.3-1 amd64 [installed,local]
+[32mlibxxf86vm1[0m/now 1:1.1.3-1 amd64 [installed,local]
+[32mlibyaml-0-2[0m/trusty-security,now 0.1.4-3ubuntu3.1 amd64 [installed]
+[32mlibyaml-dev[0m/trusty-security,now 0.1.4-3ubuntu3.1 amd64 [installed]
+[32mlinux-firmware[0m/trusty-security,trusty-security,now 1.127.24 all [installed,automatic]
+[32mlinux-image-4.4.0-111-generic[0m/trusty-security,now 4.4.0-111.134~14.04.1 amd64 [installed,automatic]
+[32mlinux-image-4.4.0-98-generic[0m/trusty-security,now 4.4.0-98.121~14.04.1 amd64 [installed,automatic]
+[32mlinux-image-extra-4.4.0-111-generic[0m/trusty-security,now 4.4.0-111.134~14.04.1 amd64 [installed,automatic]
+[32mlinux-image-extra-4.4.0-98-generic[0m/trusty-security,now 4.4.0-98.121~14.04.1 amd64 [installed,automatic]
+[32mlinux-image-generic-lts-xenial[0m/trusty-security,now 4.4.0.111.95 amd64 [installed]
+[32mlinux-libc-dev[0m/trusty-security,now 3.13.0-141.190 amd64 [installed,automatic]
+[32mlksctp-tools[0m/now 1.0.15+dfsg-1 amd64 [installed,local]
+[32mllvm[0m/now 1:3.4-0ubuntu1 amd64 [installed,local]
+[32mllvm-3.4[0m/now 1:3.4-1ubuntu3 amd64 [installed,local]
+[32mllvm-3.4-dev[0m/now 1:3.4-1ubuntu3 amd64 [installed,local]
+[32mllvm-3.4-runtime[0m/now 1:3.4-1ubuntu3 amd64 [installed,local]
+[32mllvm-runtime[0m/now 1:3.4-0ubuntu1 amd64 [installed,local]
+[32mlocales[0m/now 2.13+git20120306-12.1 all [installed,local]
+[32mlockfile-progs[0m/now 0.1.17 amd64 [installed,local]
+[32mlogin[0m/trusty-security,now 1:4.1.5.1-1ubuntu9.5 amd64 [installed]
+[32mlogrotate[0m/now 3.8.7-1ubuntu1.2 amd64 [installed,local]
+[32mlsb-base[0m/now 4.1+Debian11ubuntu6.2 all [installed,local]
+[32mlsb-release[0m/now 4.1+Debian11ubuntu6.2 all [installed,local]
+[32mlshw[0m/now 02.16-2ubuntu1.4 amd64 [installed,local]
+[32mlsof[0m/now 4.86+dfsg-1ubuntu2 amd64 [installed,local]
+[32mltrace[0m/now 0.7.3-4ubuntu5.1 amd64 [installed,local]
+[32mlvm2[0m/now 2.02.98-6ubuntu2 amd64 [installed,local]
+[32mm17n-contrib[0m/now 1.1.14-1 all [installed,local]
+[32mm17n-db[0m/now 1.6.4-1 all [installed,local]
+[32mm4[0m/now 1.4.17-2ubuntu1 amd64 [installed,local]
+[32mmake[0m/now 3.81-8.2ubuntu3 amd64 [installed,local]
+[32mmakedev[0m/now 2.3.1-93ubuntu2~ubuntu14.04.1 all [installed,local]
+[32mman-db[0m/now 2.6.7.1-1ubuntu1 amd64 [installed,local]
+[32mmanpages[0m/now 3.54-1ubuntu1 all [installed,local]
+[32mmawk[0m/now 1.3.3-17ubuntu2 amd64 [installed,local]
+[32mmd5deep[0m/now 4.2-1 amd64 [installed,local]
+[32mmesa-common-dev[0m/now 10.1.3-0ubuntu0.6 amd64 [installed,local]
+[32mmime-support[0m/trusty-security,trusty-security,now 3.54ubuntu1.1 all [installed]
+[32mmingw32[0m/now 4.2.1.dfsg-2ubuntu1 amd64 [installed,local]
+[32mmingw32-binutils[0m/now 2.20-0.2ubuntu1 amd64 [installed,local]
+[32mmingw32-runtime[0m/now 3.15.2-0ubuntu1 all [installed,local]
+[32mmlocate[0m/now 0.26-1ubuntu1 amd64 [installed,local]
+[32mmlock[0m/now 8:2007f~dfsg-2 amd64 [installed,local]
+[32mmodule-init-tools[0m/now 15-0ubuntu6 all [installed,local]
+[32mmount[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mmountall[0m/now 2.53 amd64 [installed,local]
+[32mmtr-tiny[0m/now 0.85-2 amd64 [installed,local]
+[32mmultiarch-support[0m/trusty-security,now 2.19-0ubuntu6.14 amd64 [installed]
+[32mmysql-client[0m/trusty-security,trusty-security,now 5.5.59-0ubuntu0.14.04.1 all [installed]
+[32mmysql-client-5.5[0m/trusty-security,now 5.5.59-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mmysql-client-core-5.5[0m/trusty-security,now 5.5.59-0ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mmysql-common[0m/trusty-security,trusty-security,now 5.5.59-0ubuntu0.14.04.1 all [installed,automatic]
+[32mnano[0m/now 2.2.6-1ubuntu1 amd64 [installed,local]
+[32mncurses-base[0m/now 5.9+20140118-1ubuntu1 all [installed,local]
+[32mncurses-bin[0m/now 5.9+20140118-1ubuntu1 amd64 [installed,local]
+[32mncurses-term[0m/now 5.9+20140118-1ubuntu1 all [installed,local]
+[32mnet-tools[0m/now 1.60-25ubuntu2.1 amd64 [installed,local]
+[32mnetbase[0m/now 5.2 all [installed,local]
+[32mnetcat-openbsd[0m/now 1.105-7ubuntu1 amd64 [installed,local]
+[32mntfs-3g[0m/now 1:2013.1.13AR.1-2ubuntu2 amd64 [installed,local]
+[32mntp[0m/now 1:4.2.6.p5+dfsg-3ubuntu2.14.04.12 amd64 [installed,local]
+[32mntpdate[0m/now 1:4.2.6.p5+dfsg-3ubuntu2.14.04.12 amd64 [installed,local]
+[32mopen-vm-tools[0m/now 2:9.4.0-1280544-5ubuntu6.2 amd64 [installed,local]
+[32mopenjdk-7-jdk[0m/trusty-security,now 7u151-2.6.11-2ubuntu0.14.04.1 amd64 [installed]
+[32mopenjdk-7-jre[0m/trusty-security,now 7u151-2.6.11-2ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mopenjdk-7-jre-headless[0m/trusty-security,now 7u151-2.6.11-2ubuntu0.14.04.1 amd64 [installed,automatic]
+[32mopenjdk-8-jdk[0m/trusty,now 8u141-b15-3~14.04 amd64 [installed]
+[32mopenjdk-8-jdk-headless[0m/trusty,now 8u141-b15-3~14.04 amd64 [installed,automatic]
+[32mopenjdk-8-jre[0m/trusty,now 8u141-b15-3~14.04 amd64 [installed,automatic]
+[32mopenjdk-8-jre-headless[0m/trusty,now 8u141-b15-3~14.04 amd64 [installed,automatic]
+[32mopenssh-client[0m/trusty-security,now 1:6.6p1-2ubuntu2.10 amd64 [installed]
+[32mopenssh-server[0m/trusty-security,now 1:6.6p1-2ubuntu2.10 amd64 [installed]
+[32mopenssh-sftp-server[0m/trusty-security,now 1:6.6p1-2ubuntu2.10 amd64 [installed]
+[32mopenssl[0m/trusty-security,now 1.0.1f-1ubuntu2.23 amd64 [installed]
+[32moracle-java8-installer[0m/trusty,trusty,now 8u161-1~webupd8~0 all [installed]
+[32moracle-java8-set-default[0m/trusty,trusty,now 8u161-1~webupd8~0 all [installed,automatic]
+[32moracle-java8-unlimited-jce-policy[0m/trusty,trusty,now 8u161-1~webupd8~0 all [installed]
+[32mos-prober[0m/now 1.63ubuntu1.1 amd64 [installed,local]
+[32moverlayroot[0m/now 0.25ubuntu1.14.04.2 all [installed,local]
+[32mparted[0m/now 2.3-19ubuntu1.14.04.1 amd64 [installed,local]
+[32mpasswd[0m/trusty-security,now 1:4.1.5.1-1ubuntu9.5 amd64 [installed]
+[32mpatch[0m/trusty-security,now 2.7.1-4ubuntu2.3 amd64 [installed]
+[32mpciutils[0m/now 1:3.2.1-1ubuntu5.1 amd64 [installed,local]
+[32mperl[0m/trusty-security,now 5.18.2-2ubuntu1.3 amd64 [installed]
+[32mperl-base[0m/trusty-security,now 5.18.2-2ubuntu1.3 amd64 [installed]
+[32mperl-modules[0m/trusty-security,trusty-security,now 5.18.2-2ubuntu1.3 all [installed]
+[32mpinentry-gtk2[0m/now 0.8.3-1ubuntu1 amd64 [installed,local]
+[32mpkg-config[0m/now 0.26-1ubuntu4 amd64 [installed,local]
+[32mplymouth[0m/now 0.8.8-0ubuntu17.1 amd64 [installed,local]
+[32mplymouth-theme-ubuntu-text[0m/now 0.8.8-0ubuntu17.1 amd64 [installed,local]
+[32mpolicykit-1[0m/now 0.105-4ubuntu3.14.04.1 amd64 [installed,local]
+[32mpollinate[0m/trusty,trusty,now 4.25-0ubuntu1~trusty all [installed]
+[32mpostgresql-client[0m/trusty-security,trusty-security,now 9.3+154ubuntu1.1 all [installed]
+[32mpostgresql-client-9.3[0m/trusty-security,now 9.3.20-0ubuntu0.14.04 amd64 [installed,automatic]
+[32mpostgresql-client-common[0m/trusty-security,trusty-security,now 154ubuntu1.1 all [installed,automatic]
+[32mpowermgmt-base[0m/now 1.31build1 amd64 [installed,local]
+[32mprocps[0m/now 1:3.3.9-1ubuntu2.2 amd64 [installed,local]
+[32mpsmisc[0m/now 22.20-1ubuntu2 amd64 [installed,local]
+[32mpython[0m/now 2.7.5-5ubuntu3 amd64 [installed,local]
+[32mpython-apt[0m/now 0.9.3.5ubuntu2 amd64 [installed,local]
+[32mpython-apt-common[0m/now 0.9.3.5ubuntu2 all [installed,local]
+[32mpython-boto[0m/now 2.20.1-2ubuntu2 all [installed,local]
+[32mpython-bzrlib[0m/trusty-security,now 2.6.0+bzr6593-1ubuntu1.6 amd64 [installed,automatic]
+[32mpython-chardet[0m/now 2.0.1-2build2 all [installed,local]
+[32mpython-cheetah[0m/now 2.4.4-3.fakesyncbuild1 amd64 [installed,local]
+[32mpython-configobj[0m/now 4.7.2+ds-5build1 all [installed,local]
+[32mpython-crcmod[0m/now 1.7-1 amd64 [installed,local]
+[32mpython-debian[0m/now 0.1.21+nmu2ubuntu2 all [installed,local]
+[32mpython-dev[0m/now 2.7.5-5ubuntu3 amd64 [installed,local]
+[32mpython-gdbm[0m/now 2.7.5-1ubuntu1 amd64 [installed,local]
+[32mpython-google-compute-engine[0m/now 20171025+dfsg1-0ubuntu1~14.04.0 all [installed,local]
+[32mpython-json-pointer[0m/now 1.0-2build1 all [installed,local]
+[32mpython-jsonpatch[0m/now 1.3-4 all [installed,local]
+[32mpython-minimal[0m/now 2.7.5-5ubuntu3 amd64 [installed,local]
+[32mpython-oauth[0m/now 1.0.1-3build2 all [installed,local]
+[32mpython-openssl[0m/now 0.13-2ubuntu6 amd64 [installed,local]
+[32mpython-pam[0m/now 0.4.2-13.1ubuntu3 amd64 [installed,local]
+[32mpython-pkg-resources[0m/now 3.3-1ubuntu2 all [installed,local]
+[32mpython-prettytable[0m/now 0.7.2-2ubuntu2 all [installed,local]
+[32mpython-pycurl[0m/now 7.19.3-0ubuntu3 amd64 [installed,local]
+[32mpython-requests[0m/now 2.2.1-1ubuntu0.3 all [installed,local]
+[32mpython-serial[0m/now 2.6-1build1 all [installed,local]
+[32mpython-six[0m/now 1.5.2-1ubuntu1 all [installed,local]
+[32mpython-twisted-bin[0m/now 13.2.0-1ubuntu1 amd64 [installed,local]
+[32mpython-twisted-core[0m/now 13.2.0-1ubuntu1 all [installed,local]
+[32mpython-twisted-names[0m/now 13.2.0-1ubuntu1 all [installed,local]
+[32mpython-twisted-web[0m/now 13.2.0-1ubuntu1 all [installed,local]
+[32mpython-urllib3[0m/now 1.7.1-1ubuntu4 all [installed,local]
+[32mpython-xapian[0m/now 1.2.16-2ubuntu1 amd64 [installed,local]
+[32mpython-yaml[0m/trusty-security,now 3.10-4ubuntu0.1 amd64 [installed]
+[32mpython-zope.interface[0m/now 4.0.5-1ubuntu4 amd64 [installed,local]
+[32mpython2.7[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed]
+[32mpython2.7-dev[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed,automatic]
+[32mpython2.7-minimal[0m/trusty-security,now 2.7.6-8ubuntu0.4 amd64 [installed]
+[32mpython3[0m/now 3.4.0-0ubuntu2 amd64 [installed,local]
+[32mpython3-apport[0m/trusty-security,trusty-security,now 2.14.1-0ubuntu3.27 all [installed]
+[32mpython3-apt[0m/now 0.9.3.5ubuntu2 amd64 [installed,local]
+[32mpython3-commandnotfound[0m/now 0.3ubuntu12 all [installed,local]
+[32mpython3-dbus[0m/now 1.2.0-2build2 amd64 [installed,local]
+[32mpython3-dev[0m/now 3.4.0-0ubuntu2 amd64 [installed,local]
+[32mpython3-distupgrade[0m/now 1:0.220.9 all [installed,local]
+[32mpython3-gdbm[0m/now 3.4.3-1~14.04.2 amd64 [installed,local]
+[32mpython3-gi[0m/now 3.12.0-1ubuntu1 amd64 [installed,local]
+[32mpython3-minimal[0m/now 3.4.0-0ubuntu2 amd64 [installed,local]
+[32mpython3-newt[0m/now 0.52.15-2ubuntu5 amd64 [installed,local]
+[32mpython3-problem-report[0m/trusty-security,trusty-security,now 2.14.1-0ubuntu3.27 all [installed]
+[32mpython3-pycurl[0m/now 7.19.3-0ubuntu3 amd64 [installed,local]
+[32mpython3-software-properties[0m/now 0.92.37.8 all [installed,local]
+[32mpython3-update-manager[0m/now 1:0.196.24 all [installed,local]
+[32mpython3.4[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed]
+[32mpython3.4-dev[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed,automatic]
+[32mpython3.4-minimal[0m/trusty-security,now 3.4.3-1ubuntu1~14.04.6 amd64 [installed]
+[32mqdbus[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mqt4-linguist-tools[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mqt4-qmake[0m/trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 amd64 [installed,automatic]
+[32mqtchooser[0m/now 39-g4717841-3 amd64 [installed,local]
+[32mqtcore4-l10n[0m/trusty-security,trusty-security,now 4:4.8.5+git192-g085f851+dfsg-2ubuntu4.1 all [installed,automatic]
+[32mragel[0m/now 6.8-1build1 amd64 [installed,local]
+[32mre2c[0m/now 0.13.5-1build2 amd64 [installed,local]
+[32mreadline-common[0m/now 6.3-4ubuntu2 all [installed,local]
+[32mresolvconf[0m/now 1.69ubuntu1.3 all [installed,local]
+[32mrsync[0m/trusty-security,now 3.1.0-2ubuntu0.4 amd64 [installed]
+[32mrsyslog[0m/now 7.4.4-1ubuntu2.7 amd64 [installed,local]
+[32mruby[0m/now 1:1.9.3.4 all [installed,local]
+[32mruby1.9.1[0m/trusty-security,now 1.9.3.484-2ubuntu1.7 amd64 [installed,automatic]
+[32mruby2.0[0m/trusty-security,now 2.0.0.484-1ubuntu2.5 amd64 [installed]
+[32mrubygems-integration[0m/now 1.5 all [installed,local]
+[32mrun-one[0m/now 1.17-0ubuntu1 all [installed,local]
+[32mscreen[0m/now 4.1.0~20120320gitdb59704-9 amd64 [installed,local]
+[32msed[0m/now 4.2.2-4ubuntu1 amd64 [installed,local]
+[32msensible-utils[0m/now 0.0.9 all [installed,local]
+[32msgml-base[0m/now 1.26+nmu4ubuntu1 all [installed,local]
+[32mshared-mime-info[0m/now 1.2-0ubuntu3 amd64 [installed,local]
+[32msoftware-properties-common[0m/now 0.92.37.8 all [installed,local]
+[32msqlite3[0m/trusty-security,now 3.8.2-1ubuntu2.1 amd64 [installed]
+[32msqlite3-doc[0m/trusty-security,trusty-security,now 3.8.2-1ubuntu2.1 all [installed]
+[32mssh-import-id[0m/now 3.21-0ubuntu1 all [installed,local]
+[32msshguard[0m/now 1.5-5 amd64 [installed,local]
+[32mstrace[0m/now 4.8-1ubuntu5 amd64 [installed,local]
+[32msubversion[0m/trusty-security,now 1.8.8-1ubuntu3.3 amd64 [installed]
+[32msudo[0m/trusty-security,now 1.8.9p5-1ubuntu1.4 amd64 [installed]
+[32msystemd-services[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32msystemd-shim[0m/now 6-2bzr1 amd64 [installed,local]
+[32msysv-rc[0m/now 2.88dsf-41ubuntu6.3 all [installed,local]
+[32msysvinit-utils[0m/now 2.88dsf-41ubuntu6.3 amd64 [installed,local]
+[32mtar[0m/trusty-security,now 1.27.1-1ubuntu0.1 amd64 [installed]
+[32mtasksel[0m/now 2.88ubuntu15 all [installed,local]
+[32mtasksel-data[0m/now 2.88ubuntu15 all [installed,local]
+[32mtcl[0m/now 8.6.0+6ubuntu3 amd64 [installed,local]
+[32mtcl-dev[0m/now 8.6.0+6ubuntu3 amd64 [installed,local]
+[32mtcl8.6[0m/now 8.6.1-4ubuntu1 amd64 [installed,local]
+[32mtcl8.6-dev[0m/now 8.6.1-4ubuntu1 amd64 [installed,local]
+[32mtcpd[0m/now 7.6.q-25 amd64 [installed,local]
+[32mtcpdump[0m/trusty-security,now 4.9.2-0ubuntu0.14.04.1 amd64 [installed]
+[32mtelnet[0m/now 0.17-36build2 amd64 [installed,local]
+[32mthin-provisioning-tools[0m/now 0.2.8-1 amd64 [installed,local]
+[32mtime[0m/now 1.7-24 amd64 [installed,local]
+[32mtk[0m/now 8.6.0+6ubuntu3 amd64 [installed,local]
+[32mtk-dev[0m/now 8.6.0+6ubuntu3 amd64 [installed,local]
+[32mtk8.6[0m/now 8.6.1-3ubuntu2 amd64 [installed,local]
+[32mtk8.6-dev[0m/now 8.6.1-3ubuntu2 amd64 [installed,local]
+[32mtmux[0m/now 1.8-5 amd64 [installed,local]
+[32mtzdata[0m/trusty-security,trusty-security,now 2017c-0ubuntu0.14.04 all [installed]
+[32mtzdata-java[0m/trusty-security,trusty-security,now 2017c-0ubuntu0.14.04 all [installed,automatic]
+[32mubuntu-keyring[0m/now 2012.05.19 all [installed,local]
+[32mubuntu-minimal[0m/now 1.325 amd64 [installed,local]
+[32mubuntu-release-upgrader-core[0m/now 1:0.220.9 all [installed,local]
+[32mucf[0m/now 3.0027+nmu1 all [installed,local]
+[32mudev[0m/now 204-5ubuntu20.25 amd64 [installed,local]
+[32mufw[0m/now 0.34~rc-0ubuntu2 all [installed,local]
+[32munattended-upgrades[0m/now 0.82.1ubuntu2.5 all [installed,local]
+[32munzip[0m/trusty-security,now 6.0-9ubuntu1.5 amd64 [installed]
+[32mupdate-manager-core[0m/now 1:0.196.24 all [installed,local]
+[32mupdate-notifier-common[0m/now 0.154.1ubuntu3 all [installed,local]
+[32mupstart[0m/now 1.12.1-0ubuntu4.2 amd64 [installed,local]
+[32mureadahead[0m/now 0.100.0-16 amd64 [installed,local]
+[32musbutils[0m/now 1:007-2ubuntu1.1 amd64 [installed,local]
+[32mutil-linux[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32muuid-dev[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32muuid-runtime[0m/now 2.20.1-5.1ubuntu20.9 amd64 [installed,local]
+[32mvim[0m/trusty-security,now 2:7.4.052-1ubuntu3.1 amd64 [installed]
+[32mvim-common[0m/trusty-security,now 2:7.4.052-1ubuntu3.1 amd64 [installed]
+[32mvim-runtime[0m/trusty-security,trusty-security,now 2:7.4.052-1ubuntu3.1 all [installed]
+[32mvim-tiny[0m/trusty-security,now 2:7.4.052-1ubuntu3.1 amd64 [installed]
+[32mw3m[0m/trusty-security,now 0.5.3-15ubuntu0.1 amd64 [installed]
+[32mwamerican[0m/now 7.1-1 all [installed,local]
+[32mwatershed[0m/now 7 amd64 [installed,local]
+[32mwget[0m/trusty-security,now 1.15-1ubuntu1.14.04.3 amd64 [installed]
+[32mwhiptail[0m/now 0.52.15-2ubuntu5 amd64 [installed,local]
+[32mwireless-regdb[0m/now 2013.02.13-1ubuntu1 all [installed,local]
+[32mx11-common[0m/now 1:7.7+1ubuntu8.1 all [installed,local]
+[32mx11-utils[0m/now 7.7+1 amd64 [installed,local]
+[32mx11proto-core-dev[0m/trusty-security,trusty-security,now 7.0.26-1~ubuntu2 all [installed,automatic]
+[32mx11proto-damage-dev[0m/now 1:1.2.1-2 all [installed,local]
+[32mx11proto-dri2-dev[0m/now 2.8-2 all [installed,local]
+[32mx11proto-fixes-dev[0m/now 1:5.0-2ubuntu2 all [installed,local]
+[32mx11proto-gl-dev[0m/now 1.4.17-1 all [installed,local]
+[32mx11proto-input-dev[0m/now 2.3-1 all [installed,local]
+[32mx11proto-kb-dev[0m/now 1.0.6-2 all [installed,local]
+[32mx11proto-render-dev[0m/now 2:0.11.1-2 all [installed,local]
+[32mx11proto-scrnsaver-dev[0m/now 1.2.2-1 all [installed,local]
+[32mx11proto-xext-dev[0m/now 7.3.0-1 all [installed,local]
+[32mx11proto-xf86vidmode-dev[0m/now 2.3.1-2 all [installed,local]
+[32mxauth[0m/now 1:1.0.7-1ubuntu1 amd64 [installed,local]
+[32mxbitmaps[0m/now 1.1.1-2 all [installed,local]
+[32mxfonts-encodings[0m/now 1:1.0.4-1ubuntu1 all [installed,local]
+[32mxfonts-utils[0m/now 1:7.7+1 amd64 [installed,local]
+[32mxfsprogs[0m/now 3.1.9ubuntu2 amd64 [installed,local]
+[32mxkb-data[0m/now 2.10.1-1ubuntu1 all [installed,local]
+[32mxml-core[0m/now 0.13+nmu2 all [installed,local]
+[32mxorg-sgml-doctools[0m/now 1:1.11-1 all [installed,local]
+[32mxterm[0m/now 297-1ubuntu1 amd64 [installed,local]
+[32mxtrans-dev[0m/trusty-security,trusty-security,now 1.3.5-1~ubuntu14.04.2 all [installed,automatic]
+[32mxz-utils[0m/now 5.1.1alpha+20120614-2ubuntu2 amd64 [installed,local]
+[32mzerofree[0m/now 1.0.2-1ubuntu1 amd64 [installed,local]
+[32mzip[0m/now 3.0-8 amd64 [installed,local]
+[32mzlib1g[0m/now 1:1.2.8.dfsg-1ubuntu1 amd64 [installed,local]
+[32mzlib1g-dev[0m/now 1:1.2.8.dfsg-1ubuntu1 amd64 [installed,local]
+travis_time:end:0cdd6836:start=1618438665567954198,finish=1618438665637650334,duration=69696136,event=before_script[0Ktravis_fold:end:before_script.1[0Ktravis_fold:start:before_script.2[0Ktravis_time:start:0e4a06d7[0K$ echo yes | sdkmanager 'tools' 'platform-tools'
+Warning: File /home/travis/.android/repositories.cfg could not be loaded.
+License android-sdk-license:
+---------------------------------------
+Terms and Conditions
+
+This is the Android Software Development Kit License Agreement
+
+1. Introduction
+
+1.1 The Android Software Development Kit (referred to in the License Agreement as the "SDK" and specifically including the Android system files, packaged APIs, and Google APIs add-ons) is licensed to you subject to the terms of the License Agreement. The License Agreement forms a legally binding contract between you and Google in relation to your use of the SDK.
+
+1.2 "Android" means the Android software stack for devices, as made available under the Android Open Source Project, which is located at the following URL: http://source.android.com/, as updated from time to time.
+
+1.3 A "compatible implementation" means any Android device that (i) complies with the Android Compatibility Definition document, which can be found at the Android compatibility website (http://source.android.com/compatibility) and which may be updated from time to time; and (ii) successfully passes the Android Compatibility Test Suite (CTS).
+
+1.4 "Google" means Google Inc., a Delaware corporation with principal place of business at 1600 Amphitheatre Parkway, Mountain View, CA 94043, United States.
+
+
+2. Accepting the License Agreement
+
+2.1 In order to use the SDK, you must first agree to the License Agreement. You may not use the SDK if you do not accept the License Agreement.
+
+2.2 By clicking to accept, you hereby agree to the terms of the License Agreement.
+
+2.3 You may not use the SDK and may not accept the License Agreement if you are a person barred from receiving the SDK under the laws of the United States or other countries, including the country in which you are resident or from which you use the SDK.
+
+2.4 If you are agreeing to be bound by the License Agreement on behalf of your employer or other entity, you represent and warrant that you have full legal authority to bind your employer or such entity to the License Agreement. If you do not have the requisite authority, you may not accept the License Agreement or use the SDK on behalf of your employer or other entity.
+
+
+3. SDK License from Google
+
+3.1 Subject to the terms of the License Agreement, Google grants you a limited, worldwide, royalty-free, non-assignable, non-exclusive, and non-sublicensable license to use the SDK solely to develop applications for compatible implementations of Android.
+
+3.2 You may not use this SDK to develop applications for other platforms (including non-compatible implementations of Android) or to develop another SDK. You are of course free to develop applications for other platforms, including non-compatible implementations of Android, provided that this SDK is not used for that purpose.
+
+3.3 You agree that Google or third parties own all legal right, title and interest in and to the SDK, including any Intellectual Property Rights that subsist in the SDK. "Intellectual Property Rights" means any and all rights under patent law, copyright law, trade secret law, trademark law, and any and all other proprietary rights. Google reserves all rights not expressly granted to you.
+
+3.4 You may not use the SDK for any purpose not expressly permitted by the License Agreement. Except to the extent required by applicable third party licenses, you may not copy (except for backup purposes), modify, adapt, redistribute, decompile, reverse engineer, disassemble, or create derivative works of the SDK or any part of the SDK.
+
+3.5 Use, reproduction and distribution of components of the SDK licensed under an open source software license are governed solely by the terms of that open source software license and not the License Agreement.
+
+3.6 You agree that the form and nature of the SDK that Google provides may change without prior notice to you and that future versions of the SDK may be incompatible with applications developed on previous versions of the SDK. You agree that Google may stop (permanently or temporarily) providing the SDK (or any features within the SDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+
+3.7 Nothing in the License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+
+3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the SDK.
+
+
+4. Use of the SDK by You
+
+4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under the License Agreement in or to any software applications that you develop using the SDK, including any intellectual property rights that subsist in those applications.
+
+4.2 You agree to use the SDK and write applications only for purposes that are permitted by (a) the License Agreement and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+
+4.3 You agree that if you use the SDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+
+4.4 You agree that you will not engage in any activity with the SDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google or any mobile communications carrier.
+
+4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Android and/or applications for Android, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+
+4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under the License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+
+5. Your Developer Credentials
+
+5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+
+6. Privacy and Information
+
+6.1 In order to continually innovate and improve the SDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the SDK are being used and how they are being used. Before any of this information is collected, the SDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+
+6.2 The data collected is examined in the aggregate to improve the SDK and is maintained in accordance with Google's Privacy Policy.
+
+
+7. Third Party Applications
+
+7.1 If you use the SDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+
+7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+
+7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, the License Agreement does not affect your legal relationship with these third parties.
+
+
+8. Using Android APIs
+
+8.1 Google Data APIs
+
+8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+
+8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so. If you use the Android Recognition Service API, documented at the following URL: https://developer.android.com/reference/android/speech/RecognitionService, as updated from time to time, you acknowledge that the use of the API is subject to the Data Processing Addendum for Products where Google is a Data Processor, which is located at the following URL: https://privacy.google.com/businesses/gdprprocessorterms/, as updated from time to time. By clicking to accept, you hereby agree to the terms of the Data Processing Addendum for Products where Google is a Data Processor.
+
+
+9. Terminating the License Agreement
+
+9.1 The License Agreement will continue to apply until terminated by either you or Google as set out below.
+
+9.2 If you want to terminate the License Agreement, you may do so by ceasing your use of the SDK and any relevant developer credentials.
+
+9.3 Google may at any time, terminate the License Agreement with you if: (A) you have breached any provision of the License Agreement; or (B) Google is required to do so by law; or (C) the partner with whom Google offered certain parts of SDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the SDK to you; or (D) Google decides to no longer provide the SDK or certain parts of the SDK to users in the country in which you are resident or from which you use the service, or the provision of the SDK or certain SDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+
+9.4 When the License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst the License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+
+
+10. DISCLAIMER OF WARRANTIES
+
+10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE SDK IS AT YOUR SOLE RISK AND THAT THE SDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+
+10.2 YOUR USE OF THE SDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+
+10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+
+11. LIMITATION OF LIABILITY
+
+11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+
+
+12. Indemnification
+
+12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the SDK, (b) any application you develop on the SDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with the License Agreement.
+
+
+13. Changes to the License Agreement
+
+13.1 Google may make changes to the License Agreement as it distributes new versions of the SDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the SDK is made available.
+
+
+14. General Legal Terms
+
+14.1 The License Agreement constitutes the whole legal agreement between you and Google and governs your use of the SDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the SDK.
+
+14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in the License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+
+14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of the License Agreement is invalid, then that provision will be removed from the License Agreement without affecting the rest of the License Agreement. The remaining provisions of the License Agreement will continue to be valid and enforceable.
+
+14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to the License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of the License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to the License Agreement.
+
+14.5 EXPORT RESTRICTIONS. THE SDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE SDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+
+14.6 The rights granted in the License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under the License Agreement without the prior written approval of the other party.
+
+14.7 The License Agreement, and your relationship with Google under the License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from the License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+
+
+January 16, 2019
+---------------------------------------
+Accept? (y/N): done
+travis_time:end:0e4a06d7:start=1618438665643376856,finish=1618438686146902101,duration=20503525245,event=before_script[0Ktravis_fold:end:before_script.2[0Ktravis_time:start:20088fd9[0K$ ./gradlew clean build
+Downloading https://services.gradle.org/distributions/gradle-6.8.2-bin.zip
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 6.8.2!
+
+Here are the highlights of this release:
+ - Faster Kotlin DSL script compilation
+ - Vendor selection for Java toolchains
+ - Convenient execution of tasks in composite builds
+ - Consistent dependency resolution
+
+For more details see https://docs.gradle.org/6.8.2/release-notes.html
+
+File /home/travis/.android/repositories.cfg could not be loaded.
+Checking the license for package Android SDK Build-Tools 30.0.2 in /usr/local/android-sdk/licenses
+License for package Android SDK Build-Tools 30.0.2 accepted.
+Preparing "Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)".
+"Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" ready.
+Installing Android SDK Build-Tools 30.0.2 in /usr/local/android-sdk/build-tools/30.0.2
+"Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" complete.
+"Install Android SDK Build-Tools 30.0.2 (revision: 30.0.2)" finished.
+> Task :app:clean UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig
+> Task :app:checkDebugAarMetadata
+> Task :app:generateDebugResValues
+> Task :app:generateDebugResources
+> Task :app:javaPreCompileDebug
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:mergeDebugResources
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:compileDebugJavaWithJavac
+> Task :app:compileDebugSources
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:processDebugJavaRes NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeExtDexDebug
+> Task :app:mergeLibDexDebug
+> Task :app:mergeDebugJavaResource
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs NO-SOURCE
+> Task :app:stripDebugDebugSymbols NO-SOURCE
+> Task :app:mergeProjectDexDebug
+> Task :app:validateSigningDebug
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:compileReleaseAidl NO-SOURCE
+> Task :app:compileReleaseRenderscript NO-SOURCE
+> Task :app:generateReleaseBuildConfig
+> Task :app:javaPreCompileRelease
+> Task :app:checkReleaseAarMetadata
+> Task :app:generateReleaseResValues
+> Task :app:generateReleaseResources
+> Task :app:packageDebug
+> Task :app:assembleDebug
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :app:mergeReleaseResources
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:processReleaseManifestForPackage
+> Task :app:processReleaseResources
+> Task :app:compileReleaseJavaWithJavac
+> Task :app:compileReleaseSources
+> Task :app:lintVitalRelease SKIPPED
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:mergeReleaseShaders
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets
+> Task :app:compressReleaseAssets
+> Task :app:checkReleaseDuplicateClasses
+> Task :app:dexBuilderRelease
+> Task :app:mergeExtDexRelease
+> Task :app:processReleaseJavaRes NO-SOURCE
+> Task :app:mergeReleaseJavaResource
+> Task :app:mergeDexRelease
+> Task :app:collectReleaseDependencies
+> Task :app:sdkReleaseDependencyData
+> Task :app:mergeReleaseJniLibFolders
+> Task :app:mergeReleaseNativeLibs NO-SOURCE
+> Task :app:stripReleaseDebugSymbols NO-SOURCE
+
+> Task :app:lint
+Ran lint on variant debug: 19 issues found
+Ran lint on variant release: 19 issues found
+Wrote HTML report to file:///home/travis/build/kscott5/Checkers/app/build/reports/lint-results.html
+Wrote XML report to file:///home/travis/build/kscott5/Checkers/app/build/reports/lint-results.xml
+
+> Task :app:packageRelease
+> Task :app:assembleRelease
+> Task :app:assemble
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:bundleDebugClasses
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:processDebugUnitTestJavaRes NO-SOURCE
+> Task :app:compileDebugUnitTestJavaWithJavac
+
+> Task :app:testDebugUnitTest FAILED
+
+karega.scott.checkers.test.Player2PawnTest > no_move_from_3_6_to_7_4 FAILED
+    java.lang.AssertionError at Player2PawnTest.java:182
+
+karega.scott.checkers.test.Player2PawnTest > move_from_6_3_to_7_2_makes_king FAILED
+    java.lang.AssertionError at Player2PawnTest.java:117
+
+karega.scott.checkers.test.Player2PawnTest > move_from_6_3_to_7_4_makes_king FAILED
+    java.lang.AssertionError at Player2PawnTest.java:141
+
+karega.scott.checkers.test.Player2PawnTest > no_move_from_3_4_to_2_3 FAILED
+    java.lang.AssertionError at Player2PawnTest.java:73
+
+karega.scott.checkers.test.Player2PawnTest > no_move_from_3_4_to_2_5 FAILED
+    java.lang.AssertionError at Player2PawnTest.java:96
+
+karega.scott.checkers.test.Player1PawnTest > move_from_1_4_to_0_3_makes_king FAILED
+    java.lang.AssertionError at Player1PawnTest.java:129
+
+karega.scott.checkers.test.Player1PawnTest > no_move_from_4_3_to_5_2 FAILED
+    java.lang.AssertionError at Player1PawnTest.java:88
+
+karega.scott.checkers.test.Player1PawnTest > no_move_from_4_3_to_5_4 FAILED
+    java.lang.AssertionError at Player1PawnTest.java:67
+
+karega.scott.checkers.test.Player1PawnTest > move_from_1_2_to_0_3_makes_king FAILED
+    java.lang.AssertionError at Player1PawnTest.java:107
+
+karega.scott.checkers.test.Player1PawnTest > no_move_from_4_1_to_0_3 FAILED
+    java.lang.AssertionError at Player1PawnTest.java:167
+
+karega.scott.checkers.test.Player2KingTest > move_from_6_7_to_0_1 FAILED
+    java.lang.AssertionError at Player2KingTest.java:97
+
+karega.scott.checkers.test.Player2KingTest > move_from_7_0_to_0_7 FAILED
+    java.lang.AssertionError at Player2KingTest.java:25
+
+karega.scott.checkers.test.Player2KingTest > move_from_0_7_to_7_0 FAILED
+    java.lang.AssertionError at Player2KingTest.java:49
+
+karega.scott.checkers.test.Player2KingTest > move_from_0_1_to_6_7 FAILED
+    java.lang.AssertionError at Player2KingTest.java:73
+
+karega.scott.checkers.test.Player1KingTest > move_from_7_0_to_0_7 FAILED
+    java.lang.AssertionError at Player1KingTest.java:23
+
+karega.scott.checkers.test.Player1KingTest > move_from_0_7_to_7_0 FAILED
+    java.lang.AssertionError at Player1KingTest.java:45
+
+karega.scott.checkers.test.Player1KingTest > move_from_1_0_to_7_6 FAILED
+    java.lang.AssertionError at Player1KingTest.java:89
+
+karega.scott.checkers.test.Player1KingTest > move_from_7_6_to_1_0 FAILED
+    java.lang.AssertionError at Player1KingTest.java:67
+
+109 tests completed, 18 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///home/travis/build/kscott5/Checkers/app/build/reports/tests/testDebugUnitTest/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 59s
+54 actionable tasks: 53 executed, 1 up-to-date
+travis_time:end:20088fd9:start=1618438686153218183,finish=1618438746464056419,duration=60310838236,event=script[0K[31;1mThe command "./gradlew clean build" exited with 1.[0m
+
+
+Done. Your build exited with 1.
