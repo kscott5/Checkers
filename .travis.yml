@@ -15,7 +15,7 @@ before_install:
 # Emulator Management: Create, Start and Wait
 before_script:
    # The checkers project use build-tools-30.0.2. Gradle 3.0.0+ will download any SDK in. However, license agreement applies. 
-   - echo yes | sdkmanager 'tools' 'platform-tools'
+   - echo yes | sdkmanager 'tools' 'platform-tools' 'system-images;android-24;default;armeabi-v7a'
    - echo no  | avdmanager create avd --force -n test --tag default --abi armeabi-v7a --package 'system-images;android-24;default;armeabi-v7a'
    - emulator -avd test -no-skin -no-audio -no-window &
    - android-wait-for-emulator
