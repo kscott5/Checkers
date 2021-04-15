@@ -17,6 +17,8 @@ before_script:
    # The checkers project use build-tools-30.0.2. Gradle 3.0.0+ will download any SDK in. However, license agreement applies. 
    - echo yes | sdkmanager 'tools' 'platform-tools' 'system-images;android-24;default;armeabi-v7a' 'system-images;android-24;default;x86_64'
    - sdkmanager --list
+   - whereis emulator
+   - find ./ -type d -name 'emulator' -print
    - echo no  | avdmanager create avd --force -n test --tag default --abi x86_64 --package 'system-images;android-24;default;x86_64'
    - emulator -avd test -no-skin -no-audio -no-window &
    - android-wait-for-emulator
