@@ -27,6 +27,20 @@ public class CheckersEngine extends BoardGameEngine {
 		this.initialEngineSquares();
 	}
 
+	/*
+	 * validateSelection of UI board square
+	 */
+	public boolean validateSelection(int row, int col) {
+		BoardSquareInfo info = this.engineSquares[row][col];
+
+		if(info.state == LOCKED_STATE) return false;
+
+		if(info.state == PLAYER1_STATE && this.isPlayer1()) return false;
+		if(info.state == PLAYER2_STATE && this.isPlayer2()) return false;
+
+		return true; // info.state == EMPTY_STATE
+	}
+
 	/**
 	 * Is the square empty at this coordinates on the board
 	 * 
