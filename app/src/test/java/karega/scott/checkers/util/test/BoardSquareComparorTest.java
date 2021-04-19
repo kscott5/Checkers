@@ -19,7 +19,7 @@ public class BoardSquareComparorTest {
 		Assert.assertTrue(compare.equals(bsi));
 	}
 
-	@Test public void equalsFalse) {
+	@Test public void equalsFalse() {
 		final BoardSquareComparor bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 		final BoardSquareComparor bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
