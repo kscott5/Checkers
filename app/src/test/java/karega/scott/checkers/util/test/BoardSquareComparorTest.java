@@ -9,6 +9,21 @@ import org.junit.Test;
 import org.junit.Assert;
 
 public class BoardSquareComparorTest {    
+	@Test public void ctrDefault() {
+		BoardSquareComparor comparor = new BoardSquareComparor();
+
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
+	}
+
+	@Test public void ctrComparorMatrixType() {
+	}
+
+	@Test public void ctrComparorStepType() {
+	}
+
+	@Test public void ctrComparorRandomType() {
+	}
+
     @Test public void compare() {
 	}
 	
