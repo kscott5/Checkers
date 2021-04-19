@@ -37,21 +37,20 @@ public class BoardSquareComparorTest {
 	}
 	
     @Test public void equalsTrue() {
-		BoardSquareComparor comparor = new BoardSquareComparor();
 		BoardSquareInfo bsi0 = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
         BoardSquareInfo bsi1 = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
-		BoardSquareComparor compare = new BoardSquareComparor();
+		BoardSquareComparor comparor = new BoardSquareComparor();
 		
-		Assert.assertTrue(compare.equals(bsi0,bsi1));
+		Assert.assertTrue(comparor.equals(bsi0,bsi1));
 	}
 
 	@Test public void equalsFalse() {
 		BoardSquareComparor bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 		BoardSquareComparor bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
-		BoardSquareComparor compare = new BoardSquareComparor();
+		BoardSquareComparor comparor = new BoardSquareComparor();
 
-		Assert.assertFalse(compare.equals(bsi0,bsi1));
+		Assert.assertFalse(comparor.equals(bsi0,bsi1));
 	}
 }
