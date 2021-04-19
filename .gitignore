@@ -1,6 +1,9 @@
 # ctags
 tags
 
+# VIm temporory files
+*.swp
+
 # Built application files
 *.apk
 *.ap_
