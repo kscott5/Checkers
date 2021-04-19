@@ -14,16 +14,18 @@ public class BoardSquareComparor implements Comparator<BoardSquareInfo> {
 
 	public final int comparorType;
 
-	public BoardSQuareComparor() {
+	public BoardSquareComparor() {
 		this.comparorType = BoardSquareComparor.COMPAROR_MATRIX_TYPE;
 	}
 
-	public BoardSquareComparor(int compareType) {
-		switch(compareType) {
+	public BoardSquareComparor(int comparorType) {
+		switch(comparorType) {
 			case BoardSquareComparor.COMPAROR_STEP_TYPE:
-				this.comparorType =  BoardSquareComparor.COMPAROR_STEP_TYPE;
+				this.comparorType = BoardSquareComparor.COMPAROR_STEP_TYPE;
 				break;
-			else:
+
+			case BoardSquareComparor.COMPAROR_MATRIX_TYPE:
+			default:
 				this.comparorType = BoardSquareComparor.COMPAROR_MATRIX_TYPE;
 		}
 	}
