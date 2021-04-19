@@ -10,30 +10,6 @@ import org.junit.Before;
 import org.junit.After;
 
 public class CheckersEngineTest extends EngineBaseTest {
-	@Test public void validateSelectionPlayer1() {
-		Assert.assertFalse(engine.validateSelection(0,0)); //LOCK_STATE
-		Assert.assertFalse(engine.validateSelection(7,7)); //LOCK_STATE
-
-		Assert.assertTrue(engine.validateSelection(0,1)); //PLAYER2_STATE
-		Assert.assertFalse(engine.validateSelection(7,6)); //PLAYER1_STATE
-
-		Assert.assertTrue(engine.validateSelection(0,3)); //EMPTY_STATE
-		Assert.assertTrue(engine.validateSelection(7,5)); //EMPTY_STATE
-	}
-	
-	@Test public void validateSelectionPlayer2() {
-		engine.switchPlayer();
-
-        Assert.assertFalse(engine.validateSelection(0,0)); //LOCK_STATE
-        Assert.assertFalse(engine.validateSelection(7,7)); //LOCK_STATE
-
-        Assert.assertFalse(engine.validateSelection(0,1)); //PLAYER2_STATE
-        Assert.assertTrue(engine.validateSelection(7,6)); //PLAYER1_STATE
-
-        Assert.assertTrue(engine.validateSelection(0,3)); //EMPTY_STATE
-        Assert.assertTrue(engine.validateSelection(7,5)); //EMPTY_STATE
-    }
-
 	@Test public void getId() {		
 		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
 	}
