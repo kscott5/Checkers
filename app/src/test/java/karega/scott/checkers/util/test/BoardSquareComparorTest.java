@@ -42,15 +42,15 @@ public class BoardSquareComparorTest {
 
 		BoardSquareComparor comparor = new BoardSquareComparor();
 		
-		Assert.assertTrue(comparor.equals(bsi0,bsi1));
+		Assert.assertTrue(comparor.equals(bsi0));
 	}
 
 	@Test public void equalsFalse() {
-		BoardSquareInfo bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
-		BoardSquareInfo bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi0 = new BoardSquareInfo(0,0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi1 = new BoardSquareInfo(1,0,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
 		BoardSquareComparor comparor = new BoardSquareComparor();
 
-		Assert.assertFalse(comparor.equals(bsi0,bsi1));
+		Assert.assertFalse(comparor.equals(bsi0));
 	}
 }
