@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.After;
 
 public class CheckersEngineTest extends EngineBaseTest {
-	CheckersEngine engine;
-
 	@Test public void validateSelectionPlayer1() {
 		Assert.assertFalse(engine.validateSelection(0,0)); //LOCK_STATE
 		Assert.assertFalse(engine.validateSelection(7,7)); //LOCK_STATE
