@@ -46,8 +46,8 @@ public class BoardSquareComparorTest {
 	}
 
 	@Test public void equalsFalse() {
-		BoardSquareComparor bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
-		BoardSquareComparor bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
 		BoardSquareComparor comparor = new BoardSquareComparor();
 
