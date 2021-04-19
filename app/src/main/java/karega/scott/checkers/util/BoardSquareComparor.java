@@ -9,6 +9,25 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class BoardSquareComparor implements Comparator<BoardSquareInfo> {
+	public final static int COMPAROR_MATRIX_TYPE = 0;
+	public final static int COMPAROR_STEP_TYPE = 1;
+
+	public final int comparorType;
+
+	public BoardSQuareComparor() {
+		this.comparorType = BoardSquareComparor.COMPAROR_MATRIX_TYPE;
+	}
+
+	public BoardSquareComparor(int compareType) {
+		switch(compareType) {
+			case BoardSquareComparor.COMPAROR_STEP_TYPE:
+				this.comparorType =  BoardSquareComparor.COMPAROR_STEP_TYPE;
+				break;
+			else:
+				this.comparorType = BoardSquareComparor.COMPAROR_MATRIX_TYPE;
+		}
+	}
+	
 	public int compare(BoardSquareInfo obj1, BoardSquareInfo obj2) {
 		throw new RuntimeException("Not implemented");
 	}
