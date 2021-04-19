@@ -12,7 +12,7 @@ import org.junit.After;
 public class CheckersEngineBoardTest extends EngineBaseTest {
     @Test public void validateSelectionRow0() {
         engine.newGame(); // Player1 active
-        Assert.assertEquals(CheckersEngine.PLAYER1_STATE, engine.isPlayer1());
+        Assert.assertTrue(engine.isPlayer1());
 
 		Assert.assertFalse(engine.validateSelection(0,0));
 		Assert.assertTrue(engine.validateSelection(0,1));
@@ -26,7 +26,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
 
 	@Test public void validateSelectionRow1() {
 		engine.newGame(); // Player1 active		
-        Assert.assertEquals(CheckersEngine.PLAYER1_STATE, engine.isPlayer1());
+        Assert.assertTrue(engine.isPlayer1());
 
         Assert.assertTrue(engine.validateSelection(1,0));
         Assert.assertFalse(engine.validateSelection(1,1));
@@ -40,7 +40,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
 
 	@Test public void validateSelectionRow2() {
 		engine.newGame(); // Player1 active
-        Assert.assertEquals(CheckersEngine.PLAYER1_STATE, engine.isPlayer1());
+        Assert.assertTrue(engine.isPlayer1());
 
         Assert.assertFalse(engine.validateSelection(2,0));
         Assert.assertTrue(engine.validateSelection(2,1));
@@ -54,7 +54,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
 
 	@Test public void validateSelectionRow3() {
 		engine.newGame(); // Player1 active     
-        Assert.assertEquals(CheckersEngine.PLAYER1_STATE, engine.isPlayer1());
+        Assert.assertTrue(engine.isPlayer1());
 
         Assert.assertTrue(engine.validateSelection(3,0));
         Assert.assertFalse(engine.validateSelection(3,1));
@@ -68,7 +68,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
 
 	@Test public void validateSelectionRow4() {
 		engine.newGame(); // Player1 active		
-        Assert.assertEquals(CheckersEngine.PLAYER1_STATE, engine.isPlayer1());
+        Assert.assertTrue(engine.isPlayer1());
 
         Assert.assertFalse(engine.validateSelection(4,0));
         Assert.assertTrue(engine.validateSelection(4,1));
@@ -83,7 +83,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
 	@Test public void validateSelectionRow5() {
         engine.newGame(); // Player1 active
 		engine.switchPlayer(); // from Player1 to Player2
-        Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.isPlayer2());
+        Assert.assertTrue(engine.isPlayer2());
 
         Assert.assertTrue(engine.validateSelection(5,0));
         Assert.assertFalse(engine.validateSelection(5,1));
@@ -98,7 +98,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
     @Test public void validateSelectionRow6() {
         engine.newGame(); // Player1 active
 		engine.switchPlayer(); // from Player1 to Player2
-        Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.isPlayer2());
+        Assert.assertTrue(engine.isPlayer2());
 
         Assert.assertFalse(engine.validateSelection(6,0));
         Assert.assertTrue(engine.validateSelection(6,1));
@@ -113,7 +113,7 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
     @Test public void validateSelectionRow7() {
         engine.newGame(); // Player1 active
 		engine.switchPlayer(); // from Player1 to Player2
-        Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.isPlayer2());
+        Assert.assertTrue( engine.isPlayer2());
 
         Assert.assertTrue(engine.validateSelection(7,0));
         Assert.assertFalse(engine.validateSelection(7,1));
