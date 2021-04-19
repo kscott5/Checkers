@@ -27,6 +27,27 @@ public class CheckersEngine extends BoardGameEngine {
 		this.initialEngineSquares();
 	}
 
+
+	/*
+    public void validateSelection() {
+        engine.newGame(); // Player1 active
+        Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.activeState);
+
+        final int multiplier = 8;
+        for(int row=0; row<CheckersEngine.CHECKERS_ROWS; row++) {
+            for(int col=0; col<CheckersEngine.CHECKERS_COLUMNS; col++) {
+                boolean lockedState = [((multiplier*row)+col) % 2]; // CheckersEngine.LOCK_STATE true
+
+                if(row%2 == 0 && col%2)
+                    Assert.assertFalse(engine.validateSelection(row,col));
+                else if(
+                Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.activeState);
+                Assert.assertEquals(TRUE, engine.validateSelection(row,col));
+            }
+        }
+    }
+    */
+
 	/*
 	 * validateSelection of UI board square
 	 */
@@ -50,19 +71,12 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public boolean isEmpty(int row, int col) {
-		try {
-			BoardSquareInfo info = this.engineSquares[row][col];
-			
-			if (info.state == EMPTY_STATE) {
-				//Log.d(LOG_TAG, String.format("Is empty for row[%s] col[%s]", row, col));
-				return true;
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-			//Log.d(LOG_TAG, String.format("Is empty array out of bounds for row[%s] col[%s]", row, col));
-			return false;
-		}
+		if(row<0 || row >= CHECKERS_ENGINE_ROWS) return false;
+		if(col<0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
 
-		//Log.d(LOG_TAG, String.format("Not is empty for row[%s] col[%s]", row, col));
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == EMPTY_STATE) return true;
+
 		return false;
 	} // end isEmpty
 
@@ -75,21 +89,13 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public BoardSquareInfo getData(int row, int col) {
-		//Log.d(LOG_TAG, String.format("Get data row[%s] col[%s]", row, col));
+		if(row<0 || row >= CHECKERS_ENGINE_ROWS) return null;
+        if(col<0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
+	
+		BoardSquareInfo data = this.engineSquares[row][col];	
+		if (data.state == LOCKED_STATE)	return null;
 
-		try {
-			BoardSquareInfo data = this.engineSquares[row][col];
-			
-			if (data.state == LOCKED_STATE) {
-				//Log.e(LOG_TAG, String.format(
-				//		"Get data for row[%s] and col[%s] is locked", row, col));
-				return null;
-			}
-
-			return data;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
-		}
+		return data;
 	} // end getData
 
 	/**
@@ -99,7 +105,6 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public BoardSquareInfo getData(int id) {
-		//Log.v(LOG_TAG, String.format("Get data for id[%s]", id));
 		try {
 			int row = id / 8;
 			int col = id % 8;
