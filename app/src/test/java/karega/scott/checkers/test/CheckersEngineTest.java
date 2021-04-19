@@ -9,16 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class CheckersEngineTest {
+public class CheckersEngineTest extends EngineBaseTest {
 	CheckersEngine engine;
-
-	@Before public void beforeTest() {
-		engine = new CheckersEngine(/*vsDevice*/ false);
-		engine.newGame();
-	}
-	@After public void afterTest() {
-		engine.exitGame();
-	}
 
 	@Test public void validateSelectionPlayer1() {
 		Assert.assertFalse(engine.validateSelection(0,0)); //LOCK_STATE
@@ -82,24 +74,24 @@ public class CheckersEngineTest {
 	}
 	
 	@Test public void newGame() {		
-		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(8, this.countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER1_STATE));
 		
-		clearGameBoard();
+		this.clearGameBoard();
 		
-		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(0, countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(32, countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(0, countSquares(CheckersEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(0, this.countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(32, this.countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(0, this.countSquares(CheckersEngine.PLAYER1_STATE));
 		
 		engine.newGame();		
 		
-		Assert.assertEquals(32, countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(CheckersEngine.PLAYER1_STATE));
+		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
+		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER2_STATE));
+		Assert.assertEquals(8, this.countSquares(CheckersEngine.EMPTY_STATE));
+		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER1_STATE));
 	}
 			
 	@Test public void exitGame() {
@@ -265,39 +257,4 @@ public class CheckersEngineTest {
 		actual = engine.getData(40);
 		Assert.assertTrue(actual.isActive);
 	}	
-
-	/**
-	 * Prepares the board for simulated game play.
-	 * by set all squares to EMPTY_STATE and ensures
-	 * player1 is ready for play.
-	 * 
-	 * ASSUMES THE WAS ALREADY INITIALIZE BY CALLING
-	 * engine.newGame()
-	 */
-	public void clearGameBoard() {		
-		if(!engine.isPlayer1())
-			engine.switchPlayer();
-		
-		for(int id=0;id<63;id++) {
-			BoardSquareInfo square=engine.getData(id);
-			if(square.state == CheckersEngine.LOCKED_STATE 
-					|| square.state == CheckersEngine.EMPTY_STATE) continue;
-			square.makeEmpty();
-		}
-	} // end clearGameBoard
-	
-	/**
-	 * Asserts the total square count for each Board Game Square State
-	 * @param forState
-	 */
-	public int countSquares(int forState) {
-		int count=0;
-		
-		for(int id=0; id<64; id++) {
-			BoardSquareInfo square = engine.getData(id);
-			if(square.state == forState) count++;
-		}
-		
-		return count;
-	} // end countSquares
-} // end CheckersEngineTestCase
+}
