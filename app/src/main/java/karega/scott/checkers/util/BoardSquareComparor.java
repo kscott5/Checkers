@@ -7,10 +7,10 @@ import java.util.Comparator;
 
 public class BoardSquareComparor implements Comparator<BoardSquareInfo> {
 	public int compare(BoardSquareInfo obj1, BoardSquareInfo obj2) {
-		throw new NotImplemented();
+		throw new Exception("Not implemented");
 	}
 
 	public boolean equals(Object obj) {
-		throw new NotImplemented();
+		throw new Exception("Not implemented");
 	}
 }
