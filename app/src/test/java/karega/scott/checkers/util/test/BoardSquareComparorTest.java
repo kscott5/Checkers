@@ -16,31 +16,42 @@ public class BoardSquareComparorTest {
 	}
 
 	@Test public void ctrComparorMatrixType() {
+		BoardSquareComparor comparor = new BoardSquareComparor(BoardSquareComparor.COMPAROR_MATRIX_TYPE);
+
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
 	}
 
 	@Test public void ctrComparorStepType() {
+		BoardSquareComparor comparor = new BoardSquareComparor(BoardSquareComparor.COMPAROR_STEP_TYPE);
+
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_STEP_TYPE, comparor.compororType);
 	}
 
 	@Test public void ctrComparorRandomType() {
+		BoardSquareComparor comparor = new BoardSquareComparor(543210);
+
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
 	}
 
     @Test public void compare() {
 	}
 	
     @Test public void equalsTrue() {
-		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareComparor comparor = new BoardSquareComparor();
+		BoardSquareInfo bsi0 = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+        BoardSquareInfo bsi1 = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
-		BoardSquareComparor compare = new BoardSquareComparor(bsi);
+		BoardSquareComparor compare = new BoardSquareComparor();
 		
-		Assert.assertTrue(compare.equals(bsi));
+		Assert.assertTrue(compare.equals(bsi0,bsi1));
 	}
 
 	@Test public void equalsFalse() {
-		final BoardSquareComparor bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
-		final BoardSquareComparor bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareComparor bsi0 = new BoardSquareInfo(0,0,BoardGameEngine.PLAYER1_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareComparor bsi1 = new BoardSquareInfo(1,0,BoardGameEngine.PLAYER2_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
 
-		BoardSquareComparor compare = new BoardSquareComparor(bsi1);
+		BoardSquareComparor compare = new BoardSquareComparor();
 
-		Assert.assertFalse(compare.equals(bsi0));
+		Assert.assertFalse(compare.equals(bsi0,bsi1));
 	}
 }
