@@ -6,7 +6,7 @@ import karega.scott.checkers.BoardSquareInfo;
 import org.junit.Test;
 import org.junit.Assert;
 
-public class Player2KingTest extends CheckersEngineTest {
+public class Player2KingTest extends EngineBaseTest {
 	@Test public void move_from_7_0_to_0_7() {
 		engine.switchPlayer();
 		

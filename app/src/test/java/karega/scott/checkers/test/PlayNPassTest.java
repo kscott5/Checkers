@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class PlayNPassTest extends CheckersEngineTest {
+public class PlayNPassTest extends EngineBaseTest {
 	/**
 	 * Moves player 1 a single square from (5,0) to (4,1)
 	 */
