@@ -124,26 +124,4 @@ public class CheckersEngineBoardTest extends EngineBaseTest {
         Assert.assertTrue(engine.validateSelection(7,6));
         Assert.assertFalse(engine.validateSelection(7,7));
     }
-
-/*
-    public void validateSelection() {
-        engine.newGame(); // Player1 active
-        Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.activeState);
-
-        final int multiplier = 8;
-        for(int row=0; row<CheckersEngine.CHECKERS_ROWS; row++) {
-            for(int col=0; col<CheckersEngine.CHECKERS_COLUMNS; col++) {
-                boolean lockedState = [((multiplier*row)+col) % 2]; // CheckersEngine.LOCK_STATE true
-
-                if(row%2 == 0 && col%2)
-                    Assert.assertFalse(engine.validateSelection(row,col));
-                else if(
-                Assert.assertEquals(CheckersEngine.PLAYER2_STATE, engine.activeState);
-                Assert.assertEquals(TRUE, engine.validateSelection(row,col));
-            }
-        }
-    }
-	*/
-
-
 }
