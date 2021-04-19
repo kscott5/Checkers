@@ -14,6 +14,6 @@ public class BoardSquareComparor implements Comparator<BoardSquareInfo> {
 	}
 
 	public boolean equals(Object obj) {
-		throws new RuntimeException("Not implemented");
+		throw new RuntimeException("Not implemented");
 	}
 }
