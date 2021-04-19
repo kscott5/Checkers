@@ -12,25 +12,25 @@ public class BoardSquareComparorTest {
 	@Test public void ctrDefault() {
 		BoardSquareComparor comparor = new BoardSquareComparor();
 
-		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.comparorType);
 	}
 
 	@Test public void ctrComparorMatrixType() {
 		BoardSquareComparor comparor = new BoardSquareComparor(BoardSquareComparor.COMPAROR_MATRIX_TYPE);
 
-		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.comparorType);
 	}
 
 	@Test public void ctrComparorStepType() {
 		BoardSquareComparor comparor = new BoardSquareComparor(BoardSquareComparor.COMPAROR_STEP_TYPE);
 
-		Assert.assertEquals(BoardSquareComparor.COMPAROR_STEP_TYPE, comparor.compororType);
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_STEP_TYPE, comparor.comparorType);
 	}
 
 	@Test public void ctrComparorRandomType() {
 		BoardSquareComparor comparor = new BoardSquareComparor(543210);
 
-		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.compororType);
+		Assert.assertEquals(BoardSquareComparor.COMPAROR_MATRIX_TYPE, comparor.comparorType);
 	}
 
     @Test public void compare() {
