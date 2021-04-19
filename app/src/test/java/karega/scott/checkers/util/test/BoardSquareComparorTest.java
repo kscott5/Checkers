@@ -1,5 +1,6 @@
 package karega.scott.checkers.util.test;
 
+import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.util.BoardSquareComparor;
 
