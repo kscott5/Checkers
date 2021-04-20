@@ -112,6 +112,14 @@ public abstract class BoardGameEngine {
 	public abstract boolean isEmpty(int row, int col);
 
 	/**
+     * Gets the square at the screen position {0..63}
+     *
+     * @param position
+     * @return Square information or null for LOCKED_STATE
+     */
+    public abstract BoardSquareInfo getData(int position); 
+
+	/**
 	 * Gets the square at these coordinates.
 	 * 
 	 * @param row
