@@ -9,7 +9,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class CheckersEngineTest extends EngineBaseTest {
+public class CheckersEngineTest {
+	CheckersEngine engine;
+
+	@Before public void before() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+	}
+
+	@After public void after() {
+	}
+
 	@Test public void getId() {		
 		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
 	}
@@ -48,24 +57,8 @@ public class CheckersEngineTest extends EngineBaseTest {
 	}
 	
 	@Test public void newGame() {		
-		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, this.countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER1_STATE));
-		
-		this.clearGameBoard();
-		
-		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(0, this.countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(32, this.countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(0, this.countSquares(CheckersEngine.PLAYER1_STATE));
-		
-		engine.newGame();		
-		
-		Assert.assertEquals(32, this.countSquares(CheckersEngine.LOCKED_STATE));
-		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER2_STATE));
-		Assert.assertEquals(8, this.countSquares(CheckersEngine.EMPTY_STATE));
-		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER1_STATE));
+		// TODO: newGame asserts what?
+		engine.newGame();
 	}
 			
 	@Test public void generateSquareId() {
@@ -86,7 +79,7 @@ public class CheckersEngineTest extends EngineBaseTest {
 	}
 
 	@Test public void exitGame() {
-		// TODO: What are we testing
+		// TODO: exitGame asserts what?
 		engine.exitGame();
 	}
 		
