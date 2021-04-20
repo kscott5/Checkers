@@ -68,6 +68,23 @@ public class CheckersEngineTest extends EngineBaseTest {
 		Assert.assertEquals(12, this.countSquares(CheckersEngine.PLAYER1_STATE));
 	}
 			
+	@Test public void generateSquareId() {
+		int id = engine.generateSquareId(12323,33412341);
+		Assert.assertEquals(id,-1);
+
+		id = engine.generateSquareId(0,0);
+		Assert.assertEquals(id,0);
+
+	 	id = engine.generateSquareId(4,6);
+        Assert.assertEquals(id,42);
+
+		id = engine.generateSquareId(6,4);
+        Assert.assertEquals(id,58);
+
+		id = engine.generateSquareId(7,7);
+		Assert.assertEquals(id,61);
+	}
+
 	@Test public void exitGame() {
 		// TODO: What are we testing
 		engine.exitGame();
