@@ -72,7 +72,7 @@ public class CheckersEngineTest {
         Assert.assertEquals(id,38);
 
 		id = engine.generateSquareId(6,4);
-        Assert.assertEquals(id,58);
+        Assert.assertEquals(id,52);
 
 		id = engine.generateSquareId(7,7);
 		Assert.assertEquals(id,61);
@@ -125,7 +125,12 @@ public class CheckersEngineTest {
 		
 	@Test public void getDataByRowColumn() {
 		BoardSquareInfo square = engine.getData(0,0);
-		Assert.assertNull(square);
+		Assert.assertEquals(0, square.id);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
+		Assert.assertEquals(CheckersEngine.EMPTY_CHIP, square.chip);
+		Assert.assertFalse(square.isKing);
+		Assert.assertEquals(0, square.row);
+		Assert.assertEquals(0, square.column);
 		
 		square = engine.getData(2,1);
 		Assert.assertEquals(17, square.id);
