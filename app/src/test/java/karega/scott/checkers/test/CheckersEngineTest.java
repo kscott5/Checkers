@@ -76,7 +76,7 @@ public class CheckersEngineTest extends EngineBaseTest {
 		Assert.assertEquals(id,0);
 
 	 	id = engine.generateSquareId(4,6);
-        Assert.assertEquals(id,42);
+        Assert.assertEquals(id,38);
 
 		id = engine.generateSquareId(6,4);
         Assert.assertEquals(id,58);
