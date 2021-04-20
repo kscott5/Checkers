@@ -6,7 +6,17 @@ import karega.scott.checkers.BoardSquareInfo;
 import org.junit.Test;
 import org.junit.Assert;
 
-public class Player1PawnTest extends EngineBaseTest {
+public class Player1PawnTest {
+	CheckersEngine engine;
+
+	@Before public void before() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+	}
+
+	@After public void after() {
+	}
+
 	@Test public void move_from_4_3_to_3_4() {
 		// Perform
 		BoardSquareInfo start = engine.getData(4,3);
@@ -164,9 +174,6 @@ public class Player1PawnTest extends EngineBaseTest {
 		actual = engine.getData(1,4);
 		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 
-		Assert.assertEquals(1, countSquares(engine.PLAYER1_STATE));
-		Assert.assertEquals(2, this.countSquares(engine.PLAYER2_STATE));
-		
 		Assert.assertTrue(engine.isPlayer1());				
 	}
 	

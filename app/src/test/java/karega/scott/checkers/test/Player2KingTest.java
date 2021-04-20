@@ -7,6 +7,16 @@ import org.junit.Test;
 import org.junit.Assert;
 
 public class Player2KingTest extends EngineBaseTest {
+	CheckersEngine engine;
+
+	@Before public void before() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+	}
+
+	@After public void after() {
+	}
+
 	@Test public void move_from_7_0_to_0_7() {
 		engine.switchPlayer();
 		
