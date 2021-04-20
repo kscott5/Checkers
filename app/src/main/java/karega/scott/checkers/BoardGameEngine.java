@@ -190,15 +190,17 @@ public abstract class BoardGameEngine {
 	protected void determineWinner() {
 		Log.d(LOG_TAG, "Determine winner now");
 		
-		int player1=0, player2=player1;
-		for(int id=0; id<ROWS*COLUMNS; id++) {
-			BoardSquareInfo square = getData(id);
+		int player1=0, player2=0;
+		for(int row=0; row<ROWS; row++) {
+			for(int col=0; col<COLUMNS; col++) {
+				BoardSquareInfo square = this.getData(row,col);
 			
-			if(square.state == PLAYER1_STATE)
-				player1++;
+				if(square.state == PLAYER1_STATE)
+					player1++;
 			
-			if(square.state == PLAYER2_STATE)
-				player2++;
+				if(square.state == PLAYER2_STATE)
+					player2++;
+			}
 		}
 		
 		if(player1 > player2)
