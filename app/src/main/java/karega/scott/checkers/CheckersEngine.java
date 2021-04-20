@@ -78,6 +78,27 @@ public class CheckersEngine extends BoardGameEngine {
 	} // end getData
 
 	/**
+     * Gets the square at the screen position {0..63}
+     * 
+     * @param position
+     * @return Square information or null for LOCKED_STATE
+     */
+	@Override
+	public BoardSquareInfo getData(int position) {
+		if(position<0 || position >= CHECKERS_ENGINE_ROWS*CHECKERS_ENGINE_COLUMNS) return null;
+
+		final int divisor = 8;
+		int row = (position%divisor);
+
+		for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++){
+			BoardSquareInfo square = this.engineSquares[row][col];
+			if(square.id == position) return square;
+		}
+
+		return null;
+	} // eng getData
+
+	/**
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
