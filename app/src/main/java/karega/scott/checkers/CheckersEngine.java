@@ -129,7 +129,7 @@ public class CheckersEngine extends BoardGameEngine {
 		// 12 squares with square state of
 		if((row >=5 && row <=7) && (
 			(row%2 == 0 && col%2 != 0) ||
-			(row%2 != 0 && col%2 == 0) ) return PLAYER2_STATE;
+			(row%2 != 0 && col%2 == 0))) return PLAYER2_STATE;
 
 		// 8 squares with square state of
 		return EMPTY_STATE;
