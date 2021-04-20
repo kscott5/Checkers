@@ -78,31 +78,6 @@ public class CheckersEngine extends BoardGameEngine {
 	} // end getData
 
 	/**
-	 * Gets the data for the identifier
-	 * @param id a numeric identifier for game board square
-	 * @return @link BoardSquareInfo represented by the id
-	 */
-	@Override
-	public BoardSquareInfo getData(int id) {
-		try {
-			int row = id / 8;
-			int col = id % 8;
-
-			BoardSquareInfo info = this.engineSquares[row][col];
-
-			if (id != info.id)
-				throw new Error("Get data for id " + id + ", not found");
-
-			return info;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			//Log.e(LOG_TAG, String.format(
-			//		"Get data array index out of bounds for id[%s]", id));
-		}
-
-		return null;
-	} // end getData
-
-	/**
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
