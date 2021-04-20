@@ -74,10 +74,7 @@ public class CheckersEngine extends BoardGameEngine {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
 	 
-		BoardSquareInfo data = this.engineSquares[row][col];	
-		if (data.state == LOCKED_STATE)	return null;
-
-		return data;
+		return this.engineSquares[row][col];	
 	} // end getData
 
 	/**
