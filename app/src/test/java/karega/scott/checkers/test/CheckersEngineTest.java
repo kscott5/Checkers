@@ -75,7 +75,7 @@ public class CheckersEngineTest {
         Assert.assertEquals(id,52);
 
 		id = engine.generateSquareId(7,7);
-		Assert.assertEquals(id,61);
+		Assert.assertEquals(id,63);
 	}
 
 	@Test public void exitGame() {
