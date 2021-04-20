@@ -101,6 +101,61 @@ public class CheckersEngineBoardTest {
 		Assert.assertTrue(engine.validateSelection(2,7));
 	}
 
+
+	@Test public void validateSelectionPlayer1Row3() {
+		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertTrue(engine.validateSelection(3,0));
+		Assert.assertFalse(engine.validateSelection(3,1));
+		Assert.assertTrue(engine.validateSelection(3,2));
+		Assert.assertFalse(engine.validateSelection(3,3));
+		Assert.assertTrue(engine.validateSelection(3,4));
+		Assert.assertFalse(engine.validateSelection(3,5));
+		Assert.assertTrue(engine.validateSelection(3,6));
+		Assert.assertFalse(engine.validateSelection(3,7));
+	}
+
+	@Test public void validateSelectionPlayer2Row3() {
+		engine.switchPlayer();
+		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertTrue(engine.validateSelection(3,0));
+		Assert.assertFalse(engine.validateSelection(3,1));
+		Assert.assertTrue(engine.validateSelection(3,2));
+		Assert.assertFalse(engine.validateSelection(3,3));
+		Assert.assertTrue(engine.validateSelection(3,4));
+		Assert.assertFalse(engine.validateSelection(3,5));
+		Assert.assertTrue(engine.validateSelection(3,6));
+		Assert.assertFalse(engine.validateSelection(3,7));
+	}
+
+	@Test public void validateSelectionPlayer1Row4() {
+		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertFalse(engine.validateSelection(4,0));
+		Assert.assertTrue(engine.validateSelection(4,1));
+		Assert.assertFalse(engine.validateSelection(4,2));
+		Assert.assertTrue(engine.validateSelection(4,3));
+		Assert.assertFalse(engine.validateSelection(4,4));
+		Assert.assertTrue(engine.validateSelection(4,5));
+		Assert.assertFalse(engine.validateSelection(4,6));
+		Assert.assertTrue(engine.validateSelection(4,7));
+	}
+
+	@Test public void validateSelectionPlayer2Row4() {
+		engine.switchPlayer();
+		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertFalse(engine.validateSelection(4,0));
+		Assert.assertTrue(engine.validateSelection(4,1));
+		Assert.assertFalse(engine.validateSelection(4,2));
+		Assert.assertTrue(engine.validateSelection(4,3));
+		Assert.assertFalse(engine.validateSelection(4,4));
+		Assert.assertTrue(engine.validateSelection(4,5));
+		Assert.assertFalse(engine.validateSelection(4,6));
+		Assert.assertTrue(engine.validateSelection(4,7));
+	}
+
 	@Test public void validateSelectionPlayer1Row5() {
 		Assert.assertTrue(engine.isPlayer1());
 
