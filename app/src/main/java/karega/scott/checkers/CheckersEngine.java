@@ -31,6 +31,9 @@ public class CheckersEngine extends BoardGameEngine {
 	 * validateSelection of UI board square
 	 */
 	public boolean validateSelection(int row, int col) {
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return false;
+		if(col < 0 || col >= CHECKERS_ENGINE_ROWS) return false;
+
 		BoardSquareInfo info = this.engineSquares[row][col];
 
 		if(info.state == LOCKED_STATE) return false;
@@ -50,8 +53,8 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public boolean isEmpty(int row, int col) {
-		if(row<0 || row >= CHECKERS_ENGINE_ROWS) return false;
-		if(col<0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return false;
+		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
 
 		BoardSquareInfo info = this.engineSquares[row][col];
 		if (info.state == EMPTY_STATE) return true;
@@ -68,9 +71,9 @@ public class CheckersEngine extends BoardGameEngine {
 	 */
 	@Override
 	public BoardSquareInfo getData(int row, int col) {
-		if(row<0 || row >= CHECKERS_ENGINE_ROWS) return null;
-        if(col<0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
-	
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
+        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
+	 
 		BoardSquareInfo data = this.engineSquares[row][col];	
 		if (data.state == LOCKED_STATE)	return null;
 
@@ -85,7 +88,7 @@ public class CheckersEngine extends BoardGameEngine {
      */
 	@Override
 	public BoardSquareInfo getData(int position) {
-		if(position<0 || position >= CHECKERS_ENGINE_ROWS*CHECKERS_ENGINE_COLUMNS) return null;
+		if(position < 0 || position >= CHECKERS_ENGINE_ROWS*CHECKERS_ENGINE_COLUMNS) return null;
 
 		final int divisor = 8;
 		int row = (position/divisor);
@@ -123,16 +126,16 @@ public class CheckersEngine extends BoardGameEngine {
 	} // end newGame
 	
 	public int generateSquareId(int row, int col) {
-		if(row < 0 && row >= CHECKERS_ENGINE_ROWS) return -1;
-		if(col < 0 && col >= CHECKERS_ENGINE_COLUMNS) return -1;
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
+		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
 
 		final int multiplier = 8;
 		return ((multiplier*row)+col);
 	}
 
 	public int generateSquareState(int row, int col) {
-	 	if(row < 0 && row >= CHECKERS_ENGINE_ROWS) return LOCKED_STATE;
-        if(col < 0 && col >= CHECKERS_ENGINE_COLUMNS) return LOCKED_STATE;
+	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return LOCKED_STATE;
+        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return LOCKED_STATE;
 
 		if(row <= 2)
 			return ( row%2 == 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
@@ -159,8 +162,6 @@ public class CheckersEngine extends BoardGameEngine {
 	
 	@Override
 	public void moveSquare(BoardSquareInfo target) {
-		//Log.d(LOG_TAG, "Move square");
-		
 		// Starting information must be set
 		if (activeState == target.state) {
 						
