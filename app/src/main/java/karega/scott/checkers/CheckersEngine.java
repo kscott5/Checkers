@@ -117,8 +117,6 @@ public class CheckersEngine extends BoardGameEngine {
 	
 	@Override
 	public void newGame() {
-		//Log.d(LOG_TAG, "New game");
-		
 		super.newGame();
 		
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
@@ -140,18 +138,19 @@ public class CheckersEngine extends BoardGameEngine {
 	 	if(row < 0 && row >= CHECKERS_ENGINE_ROWS) return LOCKED_STATE;
         if(col < 0 && col >= CHECKERS_ENGINE_COLUMNS) return LOCKED_STATE;
 
-		int state = PLAYER2_STATE;
-		if(row>=0 && row<=2)
-			return state;
-
-		return state;
+		if(row <= 2)
+			return ( row%2 == 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
+		if(row <= 4)
+		   return (row%2 == 0 && col%2 == 0)? LOCKED_STATE : EMPTY_STATE;
+		
+		return (row%w == 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
 	}
 
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
-        for(int row=0; row<CheckersEngine.CHECKERS_ROWS; row++) {	
-            for(int col=0; col<CheckersEngine.CHECKERS_COLUMNS; col++) {
+        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
+            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				int id = this.generateSquareId(row,col);
 				
 				int state = this.generateSquareState(row,col);
