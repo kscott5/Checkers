@@ -136,13 +136,22 @@ public class CheckersEngine extends BoardGameEngine {
 		return ((multiplier*row)+col);
 	}
 
+	public int generateSquareState(int row, int col) {
+	 	if(row < 0 && row >= CHECKERS_ENGINE_ROWS) return LOCKED_STATE;
+        if(col < 0 && col >= CHECKERS_ENGINE_COLUMNS) return LOCKED_STATE;
+
+		int state = PLAYER2_STATE;
+		if(row>=0 && row<=2)
+	}
+
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
-        for(int row=0; row<CheckersEngine.CHECKERS_ROWS; row++) {
+        for(int row=0; row<CheckersEngine.CHECKERS_ROWS; row++) {	
             for(int col=0; col<CheckersEngine.CHECKERS_COLUMNS; col++) {
 				int id = this.generateSquareId(row,col);
-            	int state = (row%2)? BoardGameEngine.LOCKED_STATE
+				
+				int state = this.generateSquareState(row,col);
             	int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
 
 	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
