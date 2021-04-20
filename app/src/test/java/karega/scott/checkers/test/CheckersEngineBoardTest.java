@@ -20,220 +20,211 @@ public class CheckersEngineBoardTest {
 	@After public void after() {
 	}
 	
-	@Test public void validateSelectionPlayer1Row0() {
-		Assert.assertTrue(engine.isPlayer1());
+	@Test public void validateRow0() {
+		BoardSquareInfo bsi = engine.getData(0,0);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(0,1);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 
-		Assert.assertFalse(engine.validateSelection(0,0));
-		Assert.assertFalse(engine.validateSelection(0,1));
-		Assert.assertFalse(engine.validateSelection(0,2));
-		Assert.assertFalse(engine.validateSelection(0,3));
-		Assert.assertFalse(engine.validateSelection(0,4));
-		Assert.assertFalse(engine.validateSelection(0,5));
-		Assert.assertFalse(engine.validateSelection(0,6));
-		Assert.assertFalse(engine.validateSelection(0,7));
+		bsi = engine.getData(0,2);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(0,3);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(0,4);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(0,5);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(0,6);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(0,7);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+	}
+	
+	@Test public void validateRow1() {
+		BoardSquareInfo bsi = engine.getData(1,0);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+		
+		bsi = engine.getData(1,1);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(1,2);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+		
+		bsi = engine.getData(1,3);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(1,4);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(1,5);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(1,6);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(1,7);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateSelectionPlayer2Row0() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
+	@Test public void validateRow2() {
+		BoardSquareInfo bsi = engine.getData(2,0);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(2,1);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 
-		Assert.assertFalse(engine.validateSelection(0,0));
-		Assert.assertTrue(engine.validateSelection(0,1));
-		Assert.assertFalse(engine.validateSelection(0,2));
-		Assert.assertTrue(engine.validateSelection(0,3));
-		Assert.assertFalse(engine.validateSelection(0,4));
-		Assert.assertTrue(engine.validateSelection(0,5));
-		Assert.assertFalse(engine.validateSelection(0,6));
-		Assert.assertTrue(engine.validateSelection(0,7));
+		bsi = engine.getData(2,2);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(2,3);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(2,4);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(2,5);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
+
+		bsi = engine.getData(2,6);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(2,7);
+		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 	}
 
-	@Test public void validateSelectionPlayer1Row1() {
-		Assert.assertTrue(engine.isPlayer1());
+	@Test public void validateRow3() {
+		BoardSquareInfo bsi = engine.getData(3,0);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+		
+		bsi = engine.getData(3,1);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 
-		Assert.assertFalse(engine.validateSelection(1,0));
-		Assert.assertFalse(engine.validateSelection(1,1));
-		Assert.assertFalse(engine.validateSelection(1,2));
-		Assert.assertFalse(engine.validateSelection(1,3));
-		Assert.assertFalse(engine.validateSelection(1,4));
-		Assert.assertFalse(engine.validateSelection(1,5));
-		Assert.assertFalse(engine.validateSelection(1,6));
-		Assert.assertFalse(engine.validateSelection(1,7));
+		bsi = engine.getData(3,2);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+		
+		bsi = engine.getData(3,3);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(3,4);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+
+		bsi = engine.getData(3,5);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(3,6);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+
+		bsi = engine.getData(3,7);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateSelectionPlayer2Row1() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
+	@Test public void validateRow4() {
+		BoardSquareInfo bsi = engine.getData(4,0);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(4,1);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
 
-		Assert.assertTrue(engine.validateSelection(1,0));
-		Assert.assertFalse(engine.validateSelection(1,1));
-		Assert.assertTrue(engine.validateSelection(1,2));
-		Assert.assertFalse(engine.validateSelection(1,3));
-		Assert.assertTrue(engine.validateSelection(1,4));
-		Assert.assertFalse(engine.validateSelection(1,5));
-		Assert.assertTrue(engine.validateSelection(1,6));
-		Assert.assertFalse(engine.validateSelection(1,7));
+		bsi = engine.getData(4,2);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(4,3);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+
+		bsi = engine.getData(4,4);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(4,5);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
+
+		bsi = engine.getData(4,6);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(4,7);
+		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
 	}
 
-	@Test public void validateSelectionPlayer1Row2() {
-		Assert.assertTrue(engine.isPlayer1());
+	@Test public void validateRow5() {
+		BoardSquareInfo bsi = engine.getData(5,0);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+		
+		bsi = engine.getData(5,1);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 
-		Assert.assertFalse(engine.validateSelection(2,0));
-		Assert.assertFalse(engine.validateSelection(2,1));
-		Assert.assertFalse(engine.validateSelection(2,2));
-		Assert.assertFalse(engine.validateSelection(2,3));
-		Assert.assertFalse(engine.validateSelection(2,4));
-		Assert.assertFalse(engine.validateSelection(2,5));
-		Assert.assertFalse(engine.validateSelection(2,6));
-		Assert.assertFalse(engine.validateSelection(2,7));
+		bsi = engine.getData(5,2);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+		
+		bsi = engine.getData(5,3);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(5,4);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+
+		bsi = engine.getData(5,5);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(5,6);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+
+		bsi = engine.getData(5,7);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateSelectionPlayer2Row2() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
+	@Test public void validateRow6() {
+		BoardSquareInfo bsi = engine.getData(6,0);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(6,1);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 
-		Assert.assertFalse(engine.validateSelection(2,0));
-		Assert.assertTrue(engine.validateSelection(2,1));
-		Assert.assertFalse(engine.validateSelection(2,2));
-		Assert.assertTrue(engine.validateSelection(2,3));
-		Assert.assertFalse(engine.validateSelection(2,4));
-		Assert.assertTrue(engine.validateSelection(2,5));
-		Assert.assertFalse(engine.validateSelection(2,6));
-		Assert.assertTrue(engine.validateSelection(2,7));
+		bsi = engine.getData(6,2);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+		
+		bsi = engine.getData(6,3);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+
+		bsi = engine.getData(6,4);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(6,5);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+
+		bsi = engine.getData(6,6);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
+
+		bsi = engine.getData(6,7);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 	}
+	
+	@Test public void validateRow7() {
+		BoardSquareInfo bsi = engine.getData(7,0);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+		
+		bsi = engine.getData(7,1);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 
+		bsi = engine.getData(7,2);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
+		
+		bsi = engine.getData(7,3);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 
-	@Test public void validateSelectionPlayer1Row3() {
-		Assert.assertTrue(engine.isPlayer1());
+		bsi = engine.getData(7,4);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 
-		Assert.assertTrue(engine.validateSelection(3,0));
-		Assert.assertFalse(engine.validateSelection(3,1));
-		Assert.assertTrue(engine.validateSelection(3,2));
-		Assert.assertFalse(engine.validateSelection(3,3));
-		Assert.assertTrue(engine.validateSelection(3,4));
-		Assert.assertFalse(engine.validateSelection(3,5));
-		Assert.assertTrue(engine.validateSelection(3,6));
-		Assert.assertFalse(engine.validateSelection(3,7));
-	}
+		bsi = engine.getData(7,5);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 
-	@Test public void validateSelectionPlayer2Row3() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
+		bsi = engine.getData(7,6);
+		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 
-		Assert.assertTrue(engine.validateSelection(3,0));
-		Assert.assertFalse(engine.validateSelection(3,1));
-		Assert.assertTrue(engine.validateSelection(3,2));
-		Assert.assertFalse(engine.validateSelection(3,3));
-		Assert.assertTrue(engine.validateSelection(3,4));
-		Assert.assertFalse(engine.validateSelection(3,5));
-		Assert.assertTrue(engine.validateSelection(3,6));
-		Assert.assertFalse(engine.validateSelection(3,7));
-	}
-
-	@Test public void validateSelectionPlayer1Row4() {
-		Assert.assertTrue(engine.isPlayer1());
-
-		Assert.assertFalse(engine.validateSelection(4,0));
-		Assert.assertTrue(engine.validateSelection(4,1));
-		Assert.assertFalse(engine.validateSelection(4,2));
-		Assert.assertTrue(engine.validateSelection(4,3));
-		Assert.assertFalse(engine.validateSelection(4,4));
-		Assert.assertTrue(engine.validateSelection(4,5));
-		Assert.assertFalse(engine.validateSelection(4,6));
-		Assert.assertTrue(engine.validateSelection(4,7));
-	}
-
-	@Test public void validateSelectionPlayer2Row4() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
-
-		Assert.assertFalse(engine.validateSelection(4,0));
-		Assert.assertTrue(engine.validateSelection(4,1));
-		Assert.assertFalse(engine.validateSelection(4,2));
-		Assert.assertTrue(engine.validateSelection(4,3));
-		Assert.assertFalse(engine.validateSelection(4,4));
-		Assert.assertTrue(engine.validateSelection(4,5));
-		Assert.assertFalse(engine.validateSelection(4,6));
-		Assert.assertTrue(engine.validateSelection(4,7));
-	}
-
-	@Test public void validateSelectionPlayer1Row5() {
-		Assert.assertTrue(engine.isPlayer1());
-
-		Assert.assertTrue(engine.validateSelection(5,0));
-		Assert.assertFalse(engine.validateSelection(5,1));
-		Assert.assertTrue(engine.validateSelection(5,2));
-		Assert.assertFalse(engine.validateSelection(5,3));
-		Assert.assertTrue(engine.validateSelection(5,4));
-		Assert.assertFalse(engine.validateSelection(5,5));
-		Assert.assertTrue(engine.validateSelection(5,6));
-		Assert.assertFalse(engine.validateSelection(5,7));
-	}
-
-	@Test public void validateSelectionPlayer2Row5() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
-
-		Assert.assertFalse(engine.validateSelection(5,0));
-		Assert.assertFalse(engine.validateSelection(5,1));
-		Assert.assertFalse(engine.validateSelection(5,2));
-		Assert.assertFalse(engine.validateSelection(5,3));
-		Assert.assertFalse(engine.validateSelection(5,4));
-		Assert.assertFalse(engine.validateSelection(5,5));
-		Assert.assertFalse(engine.validateSelection(5,6));
-		Assert.assertFalse(engine.validateSelection(5,7));
-	}
-
-	@Test public void validateSelectionPlayer1Row6() {
-		Assert.assertTrue(engine.isPlayer1());
-
-		Assert.assertFalse(engine.validateSelection(6,0));
-		Assert.assertTrue(engine.validateSelection(6,1));
-		Assert.assertFalse(engine.validateSelection(6,2));
-		Assert.assertTrue(engine.validateSelection(6,3));
-		Assert.assertFalse(engine.validateSelection(6,4));
-		Assert.assertTrue(engine.validateSelection(6,5));
-		Assert.assertFalse(engine.validateSelection(6,6));
-		Assert.assertTrue(engine.validateSelection(6,7));
-	}
-
-	@Test public void validateSelectionPlayer2Row6() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
-
-		Assert.assertFalse(engine.validateSelection(6,0));
-		Assert.assertFalse(engine.validateSelection(6,1));
-		Assert.assertFalse(engine.validateSelection(6,2));
-		Assert.assertFalse(engine.validateSelection(6,3));
-		Assert.assertFalse(engine.validateSelection(6,4));
-		Assert.assertFalse(engine.validateSelection(6,5));
-		Assert.assertFalse(engine.validateSelection(6,6));
-		Assert.assertFalse(engine.validateSelection(6,7));
-	}
-
-	@Test public void validateSelectionPlayer1Row7() {
-		Assert.assertTrue(engine.isPlayer1());
-
-		Assert.assertTrue(engine.validateSelection(7,0));
-		Assert.assertFalse(engine.validateSelection(7,1));
-		Assert.assertTrue(engine.validateSelection(7,2));
-		Assert.assertFalse(engine.validateSelection(7,3));
-		Assert.assertTrue(engine.validateSelection(7,4));
-		Assert.assertFalse(engine.validateSelection(7,5));
-		Assert.assertTrue(engine.validateSelection(7,6));
-		Assert.assertFalse(engine.validateSelection(7,7));
-	}
-
-	@Test public void validateSelectionPlayer2Row7() {
-		engine.switchPlayer();
-		Assert.assertTrue(engine.isPlayer2());
-
-		Assert.assertFalse(engine.validateSelection(7,0));
-		Assert.assertFalse(engine.validateSelection(7,1));
-		Assert.assertFalse(engine.validateSelection(7,2));
-		Assert.assertFalse(engine.validateSelection(7,3));
-		Assert.assertFalse(engine.validateSelection(7,4));
-		Assert.assertFalse(engine.validateSelection(7,5));
-		Assert.assertFalse(engine.validateSelection(7,6));
-		Assert.assertFalse(engine.validateSelection(7,7));
+		bsi = engine.getData(7,7);
+		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 }
