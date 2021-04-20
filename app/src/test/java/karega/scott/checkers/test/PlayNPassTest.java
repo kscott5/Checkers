@@ -123,11 +123,6 @@ public class PlayNPassTest {
 		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer1());
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
