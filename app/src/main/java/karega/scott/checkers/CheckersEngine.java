@@ -146,96 +146,27 @@ public class CheckersEngine extends BoardGameEngine {
 			if(isDevice())
 				return;
 
-			if(activateSquare(target)) {
-				//Log.d(LOG_TAG, String.format("Square selected for play: %s", target));
-			}
+			activateSquare(target);
 			return;
 		} // end if
 
-		// List of squares that should be modified between start and target squares
 		ArrayList<BoardSquareInfo> path = new ArrayList<BoardSquareInfo>();
 		
 		if (moveActiveSquare(activeSquare, target, PLAYER1_STATE, path) 
 				&& validatePath(activeSquare, target, path)) {
-			//Log.d(LOG_TAG, "Move square completed");
 			return; 
 		}
 		
 		if(moveActiveSquare(activeSquare, target, PLAYER2_STATE, path)
 				&& validatePath(activeSquare, target, path)) {
-			//Log.d(LOG_TAG, "Move square completed");
 			return;
 		}
 
-		//Log.d(LOG_TAG, "Nothing was moved");
 		determineWinner();
 	} // end moveSquare
 
 	@Override
 	protected void moveSquareForDevice() {
-		//Log.d(LOG_TAG, "Moving square for device");
-		
-		if(!isDevice())
-			return;
-		
-		int ubound = ROWS*COLUMNS;
-		int tries = 0;
-		
-		BoardSquareInfo square = null;
-		while(!activateSquare(square) && tries++ <= ubound*NUM_OF_TRIES) {
-			int id = random.nextInt(ubound);
-			square = getData(id);
-		} // end while
-		
-		if(activeSquare == null) {
-			determineWinner();
-			return;
-		} // end if
-
-		pause(1);
-		
-		// 50/50 chance 
-		if(!activeSquare.isKing && random.nextInt(1) == 1) {
-			BoardSquareInfo left = getData(activeSquare.row+1, activeSquare.column-1);
-			BoardSquareInfo right = getData(activeSquare.row+1, activeSquare.column+1);
-			
-			if(left != null && left.state == EMPTY_STATE && 
-			   right != null && right.state == EMPTY_STATE) {
-				
-				activeSquare.swap(((random.nextInt(1)==1)? right: left));
-				switchPlayer();
-				return;
-			} 
-			
-			if(left != null && left.state == EMPTY_STATE) {
-				activeSquare.swap(left);
-				switchPlayer();
-				return;
-			} 
-			
-			if(right != null && right.state == EMPTY_STATE) {
-				activeSquare.swap(right);
-				switchPlayer();
-				return;
-			} // end if
-		} // end if
-		
-		tries = 0;
-		while(isDevice() && tries++ <= ubound*NUM_OF_TRIES) {
-			int id = random.nextInt(ubound);
-			square = getData(id);
-			
-			if(square == null || square.state != EMPTY_STATE)
-				continue;
-			
-			moveSquare(square);
-		} // end while
-		
-		if(activeSquare != null) {
-			//Log.e(LOG_TAG, "No available square for the device to move to");
-			determineWinner();
-			return;
-		} // end if
 	} // end moveSquareForDevice
 	
 	/**
@@ -245,8 +176,6 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return
 	 */
 	private boolean activateSquare(BoardSquareInfo target) {
-		//Log.d(LOG_TAG, "Activating square info");
-
 		boolean active = false;
 		if(target == null)
 			return active;
@@ -263,13 +192,10 @@ public class CheckersEngine extends BoardGameEngine {
 
 			if (activeSquare != null) {
 				activeSquare.deactivate();
-				//Log.d(LOG_TAG, String.format("Deactivated square: %s",
-				//		activeSquare));
 			}
 
 			activeSquare = target;
 			activeSquare.activate();
-			//Log.d(LOG_TAG, String.format("Activated square: %s", target));
 
 			active = true;
 		} // end if
@@ -287,8 +213,6 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @return false is successful, otherwise false
 	 */
 	private boolean isSquareMovable(BoardSquareInfo target, int state, boolean isKing) {
-		//Log.d(LOG_TAG, String.format("Is square movable (recursive) square: %s, state: %s, isKing: %s",target,state,isKing));
-
 		// No need to check in opposite direction
 		if (!isKing && state != activeState)
 			return false;
