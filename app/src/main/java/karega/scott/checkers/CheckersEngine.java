@@ -181,7 +181,7 @@ public class CheckersEngine extends BoardGameEngine {
 		determineWinner();
 	} // end moveSquare
 
-	@Ovewrride
+	@Override
 	protected void moveSquareForDevice() {
 	} // end moveSquareForDevice
 	
