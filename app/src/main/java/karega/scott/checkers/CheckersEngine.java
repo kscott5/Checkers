@@ -88,7 +88,7 @@ public class CheckersEngine extends BoardGameEngine {
 		if(position<0 || position >= CHECKERS_ENGINE_ROWS*CHECKERS_ENGINE_COLUMNS) return null;
 
 		final int divisor = 8;
-		int row = (position%divisor);
+		int row = (position/divisor);
 
 		for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++){
 			BoardSquareInfo square = this.engineSquares[row][col];
