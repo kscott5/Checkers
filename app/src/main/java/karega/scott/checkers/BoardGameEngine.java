@@ -121,13 +121,6 @@ public abstract class BoardGameEngine {
 	public abstract BoardSquareInfo getData(int row, int col);
 
 	/**
-	 * Gets the data for the identifier
-	 * @param id a numeric identifier for game board square
-	 * @return @link BoardSquareInfo represented by the id
-	 */
-	public abstract BoardSquareInfo getData(int id);
-
-	/**
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
