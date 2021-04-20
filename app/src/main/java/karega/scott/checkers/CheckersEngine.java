@@ -142,6 +142,9 @@ public class CheckersEngine extends BoardGameEngine {
 
 		int state = PLAYER2_STATE;
 		if(row>=0 && row<=2)
+			return state;
+
+		return state;
 	}
 
 	public void initialBoardSquares() {
