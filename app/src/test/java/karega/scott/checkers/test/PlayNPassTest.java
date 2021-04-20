@@ -9,7 +9,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 
-public class PlayNPassTest extends EngineBaseTest {
+public class PlayNPassTest {
+	CheckersEngine engine;
+
+	@Before public void before() {
+		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine.newGame();
+	}
+
+	@After public void after() {
+	}
+
 	/**
 	 * Moves player 1 a single square from (5,0) to (4,1)
 	 */
@@ -29,11 +39,6 @@ public class PlayNPassTest extends EngineBaseTest {
 		Assert.assertEquals(engine.PLAYER1_STATE, actual.state);
 
 		Assert.assertTrue(engine.isPlayer2());
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
@@ -57,11 +62,6 @@ public class PlayNPassTest extends EngineBaseTest {
 		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
 
 		Assert.assertTrue(engine.isPlayer1());
-
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(12, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(8, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}	
 
 	/*
@@ -100,11 +100,6 @@ public class PlayNPassTest extends EngineBaseTest {
 		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer2());
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(9, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(12, countSquares(engine.PLAYER1_STATE));
 	}
 
 	/*
@@ -160,11 +155,6 @@ public class PlayNPassTest extends EngineBaseTest {
 		
 		actual = engine.getData(4,3);
 		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 
 		Assert.assertTrue(engine.isPlayer1());
 	}
@@ -195,11 +185,6 @@ public class PlayNPassTest extends EngineBaseTest {
 		
 		actual = engine.getData(2,5);
 		Assert.assertEquals(engine.PLAYER2_STATE, actual.state);
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(10, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 
 		Assert.assertTrue(engine.isPlayer1());
 	}
@@ -229,10 +214,5 @@ public class PlayNPassTest extends EngineBaseTest {
 		Assert.assertEquals(engine.EMPTY_STATE, actual.state);
 		
 		Assert.assertTrue(engine.isPlayer2());
-		
-		Assert.assertEquals(32, countSquares(engine.LOCKED_STATE));
-		Assert.assertEquals(9, countSquares(engine.PLAYER2_STATE));
-		Assert.assertEquals(12, countSquares(engine.EMPTY_STATE));
-		Assert.assertEquals(11, countSquares(engine.PLAYER1_STATE));
 	}
 } // end PlayNPassTest
