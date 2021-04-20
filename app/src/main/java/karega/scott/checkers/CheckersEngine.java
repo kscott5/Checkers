@@ -114,15 +114,25 @@ public class CheckersEngine extends BoardGameEngine {
 	}
 
 	public int generateSquareState(int row, int col) {
-	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return LOCKED_STATE;
-        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return LOCKED_STATE;
+	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
+        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
 
-		if(row <= 2)
-			return ( row%2 == 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
-		if(row <= 4)
-		   return (row%2 == 0 && col%2 == 0)? LOCKED_STATE : EMPTY_STATE;
-		
-		return (row%2== 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
+		// 32 squares or 50% with square state of
+		if(row%2 == 0 && col%2 == 0) return LOCKED_STATE;
+		if(row%2 != 0 && col%2 != 0) return LOCKED_STATE;
+
+		// 12 squares with square state of
+		if((row>=0 && row <=2) && (
+			(row%2 == 0 && col%2 != 0) ||
+			(row%2 != 0 && col%2 == 0))) return PLAYER2_STATE;
+
+		// 12 squares with square state of
+		if((row >=5 && row <=7) && (
+			(row%2 == 0 && col%2 != 0) ||
+			(row%2 != 0 && col%2 == 0) ) return PLAYER2_STATE;
+
+		// 8 squares with square state of
+		return EMPTY_STATE;
 	}
 
 	public void initialBoardSquares() {
