@@ -143,7 +143,7 @@ public class CheckersEngine extends BoardGameEngine {
 		if(row <= 4)
 		   return (row%2 == 0 && col%2 == 0)? LOCKED_STATE : EMPTY_STATE;
 		
-		return (row%w == 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
+		return (row%22== 0 && col%2 == 0)? LOCKED_STATE : PLAYER2_STATE;
 	}
 
 	public void initialBoardSquares() {
