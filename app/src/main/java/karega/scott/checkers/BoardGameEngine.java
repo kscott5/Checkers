@@ -96,7 +96,7 @@ public abstract class BoardGameEngine {
 	 * @return
 	 */
 	public abstract void moveSquare(BoardSquareInfo square);		
-
+	public abstract void moveSquare(BoardSquareInfo[] squares);
 	/**
 	 * Move the square for the device
 	 */

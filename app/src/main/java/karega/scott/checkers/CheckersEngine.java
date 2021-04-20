@@ -151,6 +151,10 @@ public class CheckersEngine extends BoardGameEngine {
 	} // end initialBoardSquares
 	
 	@Override
+	public void moveSquare(BoardSquareInfo[] squares) {
+	}
+
+	@Override
 	public void moveSquare(BoardSquareInfo target) {
 		// Starting information must be set
 		if (activeState == target.state) {
@@ -177,7 +181,7 @@ public class CheckersEngine extends BoardGameEngine {
 		determineWinner();
 	} // end moveSquare
 
-	@Override
+	@Ovewrride
 	protected void moveSquareForDevice() {
 	} // end moveSquareForDevice
 	
