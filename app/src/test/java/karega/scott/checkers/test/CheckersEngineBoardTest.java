@@ -20,7 +20,7 @@ public class CheckersEngineBoardTest {
 	@After public void after() {
 	}
 	
-	@Test public void validateRow0() {
+	@Test public void getDataAtRow0() {
 		BoardSquareInfo bsi = engine.getData(0,0);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 		
@@ -46,7 +46,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 	}
 	
-	@Test public void validateRow1() {
+	@Test public void getDataAtRow1() {
 		BoardSquareInfo bsi = engine.getData(1,0);
 		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 		
@@ -72,7 +72,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateRow2() {
+	@Test public void getDataAtRow2() {
 		BoardSquareInfo bsi = engine.getData(2,0);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 		
@@ -98,7 +98,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, bsi.state);
 	}
 
-	@Test public void validateRow3() {
+	@Test public void getDataAtRow3() {
 		BoardSquareInfo bsi = engine.getData(3,0);
 		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
 		
@@ -124,7 +124,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateRow4() {
+	@Test public void getDataAtRow4() {
 		BoardSquareInfo bsi = engine.getData(4,0);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 		
@@ -150,7 +150,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.EMPTY_STATE, bsi.state);
 	}
 
-	@Test public void validateRow5() {
+	@Test public void getDataAtRow5() {
 		BoardSquareInfo bsi = engine.getData(5,0);
 		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 		
@@ -176,7 +176,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 	}
 
-	@Test public void validateRow6() {
+	@Test public void getDataAtRow6() {
 		BoardSquareInfo bsi = engine.getData(6,0);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, bsi.state);
 		
@@ -202,7 +202,7 @@ public class CheckersEngineBoardTest {
 		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 	}
 	
-	@Test public void validateRow7() {
+	@Test public void getDataAtRow7() {
 		BoardSquareInfo bsi = engine.getData(7,0);
 		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, bsi.state);
 		
