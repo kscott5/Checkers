@@ -237,8 +237,6 @@ public abstract class BoardGameEngine {
 	 * Loads a new game for play
 	 */
 	public void newGame() {
-		Log.d(LOG_TAG, "New game");
-
 		activeSquare = null;
 		activeState = PLAYER1_STATE;
 	} // end newGame
