@@ -1,5 +1,8 @@
 language: android
 sudo: false
+branches:
+    only:
+        - main
 android:
   components:
     # Build tools available on travis-ci 04/12/2021
