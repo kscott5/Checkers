@@ -75,6 +75,34 @@ public class CheckersEngineTest {
 		Assert.assertEquals(engine.EMPTY_STATE, square.state);
 	}
 
+	@Test public void emptyBoardEmpty() {
+		engine.setBoardSquaresEmpty();
+
+		BoardSquareInfo square = engine.getData(3,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(3,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(3,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(3,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(4,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(4,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(4,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(4,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+	}
+	
 	@Test public void emptyBoardPlayer1() {
 		engine.setBoardSquaresEmpty();
 
