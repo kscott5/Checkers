@@ -204,46 +204,4 @@ public class CheckersEngineTest {
 		
 		Assert.assertFalse(engine.isEmpty(square.row, square.column));
 	}
-
-	@Test public void moveSquare() {		
-		// Locked
-		BoardSquareInfo square = engine.getData(0);
-		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
-		engine.moveSquare(square);
-		
-		BoardSquareInfo actual = engine.getData(0);
-		Assert.assertFalse(actual.isActive);
-		
-		// Player2
-		square = engine.getData(23);
-		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(23);
-		Assert.assertFalse(actual.isActive);
-				
-		// Empty
-		square = engine.getData(24);
-		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(24);
-		Assert.assertFalse(actual.isActive);		
-
-		// Player1
-		square = engine.getData(62);
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
-		engine.moveSquare(square);
-			
-		actual = engine.getData(62);
-		Assert.assertFalse(actual.isActive);		
-		
-		// Player1
-		square = engine.getData(40);
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(40);
-		Assert.assertTrue(actual.isActive);
-	}	
 }
