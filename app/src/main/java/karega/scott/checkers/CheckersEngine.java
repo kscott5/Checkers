@@ -134,6 +134,19 @@ public class CheckersEngine extends BoardGameEngine {
 		return EMPTY_STATE;
 	}
 
+	public void emptyBoardSquares() {
+        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
+            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+				BoardSquareInfo square = this.getData(row,col);
+
+				if(this.isLocked(square) == false) {
+					square.chip = BoardEngine.EMPTY_CHIP;
+					square.state = BoardEngine.PAWN_CHIP;
+				}
+            }
+        }
+	} // emptyBoardSquares
+
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
