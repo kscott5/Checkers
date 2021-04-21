@@ -75,6 +75,46 @@ public class CheckersEngineTest {
 		Assert.assertEquals(engine.EMPTY_STATE, square.state);
 	}
 
+	@Test public void emptyBoardPlayer1() {
+		engine.setBoardSquaresEmpty();
+
+		BoardSquareInfo square = engine.getData(5,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(5,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(5,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(5,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(7,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(7,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(7,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(7,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+	}
+
 	@Test public void switchPlayers() {
 		Assert.assertTrue(engine.isPlayer1());
 		Assert.assertFalse(engine.isDevice());
