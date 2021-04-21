@@ -1,6 +1,7 @@
 package karega.scott.checkers;
 
 import android.content.Context;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +17,8 @@ public class BoardAdapter extends BaseAdapter {
 	
 	private BoardGameEngine engine; 
 	private Context context;
-	
+	private ArrayList squares;
+
 	public BoardAdapter(Context context, BoardGameEngine engine) {
 		this.context = context;
 		this.engine = engine;
@@ -45,7 +47,17 @@ public class BoardAdapter extends BaseAdapter {
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
 				Log.d(LOG_TAG,"On touch");
-				
+			
+				switch(action) {
+            		case MotionEvent.ACTION_DOWN:
+                		break;
+            		case MotionEvent.ACTION_MOVE:
+                		break;
+            		case MotionEvent.ACTION_UP:
+            		case MotionEvent.ACTION_CANCEL:
+                		break;
+        		}
+
 				BoardSquare square = (BoardSquare)view;
 				return engine.handleOnTouch(square);
 			}
