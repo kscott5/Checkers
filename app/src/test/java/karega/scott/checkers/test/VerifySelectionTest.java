@@ -21,7 +21,7 @@ public class VerifySelectionTest {
 	@After public void after() {
 	}
 
-	@Test public void initialStartSquare() {
+	@Test public void initialStartSquarePlayer1() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,0)));
