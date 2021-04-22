@@ -134,6 +134,26 @@ public class CheckersEngine extends BoardGameEngine {
 		return EMPTY_STATE;
 	}
 
+	public boolean updateSquareState(BoardSquareInfo square, int newState) {
+		if(square == null || this.activeState != newState) return false;
+		if(square.state == LOCKED_STATE) return false;
+
+		square.state = newState;
+		return true;
+	}
+
+	public boolean updateSquareState(int row, int col, int newState) {
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return false;
+		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
+		
+		if(this.activeState != newState) return false;
+
+		BoardSquareInfo square = this.getData(row,col);
+		if(square.state == LOCKED_STATE) return false;
+
+		return this.updateSquareState(square, newState);
+	}
+
 	public void setBoardSquaresEmpty() {
         for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
             for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
