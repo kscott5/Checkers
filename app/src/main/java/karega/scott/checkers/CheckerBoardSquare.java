@@ -1,6 +1,6 @@
 package karega.scott.checkers;
 
-import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
+import karega.scott.checkers.BoardSquareInfo;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
@@ -26,7 +26,7 @@ public class CheckerBoardSquare extends View {
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
-	private CheckersEngine engine;
+	 public final CheckersEngine engine;
 	
 	public CheckerBoardSquare(Context context, CheckersEngine engine, BoardSquareInfo info) {
 		super(context);
@@ -37,7 +37,7 @@ public class CheckerBoardSquare extends View {
 		this.engine = engine;
 		
 		// TODO: Are parameters by references
-		info.setOnChangeListener( new OnBoardSquareChangeListener(this));
+		info.setOnChangeListener( new BoardSquareInfo.OnBoardSquareChangeListener(this));
 		this.info = info;
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -59,7 +59,6 @@ public class CheckerBoardSquare extends View {
 			this.square = square;
 		}
 		
-		@Override
 		public void OnSquareInformationChange() {
 			BoardGameEngine.handleSquareChanged(square);
 		}		
