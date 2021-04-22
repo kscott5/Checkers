@@ -103,15 +103,6 @@ public abstract class BoardGameEngine {
 	protected abstract void moveSquareForDevice();		
 
 	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public abstract boolean isEmpty(int row, int col);
-
-	/**
      * Gets the square at the screen position {0..63}
      *
      * @param position
@@ -267,6 +258,40 @@ public abstract class BoardGameEngine {
 				square.state == EMPTY_STATE) {
 			return true;
 		}
+
+		return false;
+	}
+	
+	/**
+	 * Is the square empty at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isEmpty(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == EMPTY_STATE) return true;
+
+		return false;
+	} // end isEmpty
+
+	/**
+	 * Is the square locked at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isLocked(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == LOCKED_STATE) return true;
 
 		return false;
 	}

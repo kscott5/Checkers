@@ -27,24 +27,6 @@ public class CheckersEngine extends BoardGameEngine {
 	}
 
 	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	@Override
-	public boolean isEmpty(int row, int col) {
-		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return false;
-		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
-
-		BoardSquareInfo info = this.engineSquares[row][col];
-		if (info.state == EMPTY_STATE) return true;
-
-		return false;
-	} // end isEmpty
-
-	/**
 	 * Gets the square at these coordinates.
 	 * 
 	 * @param row
