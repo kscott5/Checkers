@@ -241,11 +241,28 @@ public abstract class BoardGameEngine {
 		activeState = PLAYER1_STATE;
 	} // end newGame
 	
-	public boolean verifyInitalSelection(BoardSquareInfo info) {
-		if(this.isPlayer1() && info.state == PLAYER1_STATE) return true;
+	public boolean verifySelectionHead(BoardSquareInfo info) {
+		if(this.isPlayer1() && info.state == PLAYER1_STATE) {
+			return true;
+		}
 
 		if((this.isPlayer2() || this.isDevice()) && 
-				info.state == PLAYER2_STATE) return true;
+				info.state == PLAYER2_STATE) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean verifySelectionTail(BoardSquareInfo info) {
+		if(this.isPlayer1() && info.state == EMPTY_STATE) {
+		   	return true;
+		}
+
+		if((this.isPlayer2() || this.isDevice()) && 
+				info.state == EMPTY_STATE) {
+			return true;
+		}
 
 		return false;
 	}
