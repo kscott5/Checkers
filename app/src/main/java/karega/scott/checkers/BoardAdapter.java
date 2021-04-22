@@ -39,24 +39,24 @@ public class BoardAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {				
-		BoardSquare view = getViewFromConvertView(position, convertView, parent);
+		CheckerBoardSquare view = getViewFromConvertView(position, convertView, parent);
 		view.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
-				BoardSquare square = (BoardSquare)view;
+				CheckerBoardSquare square = (CheckerBoardSquare)view;
 				int action = event.getActionMasked();
 				
 				switch(action) {
             		case MotionEvent.ACTION_DOWN:
-						return square.getEngine().verifyInitialSeletion(square.getInformation());
+						return engine.verifyInitialSeletion(square.getInformation());
 
             		case MotionEvent.ACTION_MOVE:
-						return square.getEngine().verifySelection(square.getInformation());
+						return engine.verifySelection(square.getInformation());
 
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
-						return square.getEngine().verifyFinalSelection(square.getInformation());
+						return engine.verifyFinalSelection(square.getInformation());
         		}
 
 				return false; //return engine.handleOnTouch(square);
@@ -68,12 +68,12 @@ public class BoardAdapter extends BaseAdapter {
 	}
 
 	public BoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
-		if(convertView == null || !(convertView instanceof BoardSquare)) {
+		if(convertView == null || !(convertView instanceof CheckerBoardSquare)) {
 			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
 
-			return BoardSquare.instance(this.context, this.engine.getId(), parent, info);
+			return CheckerBoardSquare.instance(this.context, this.engine, parent, info);
 		}
 		
-		return (BoardSquare) convertView;	
+		return (CheckerBoardSquare) convertView;	
 	}	
 } //end GameBoardAdapter
