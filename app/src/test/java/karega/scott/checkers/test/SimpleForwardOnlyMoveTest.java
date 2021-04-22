@@ -25,9 +25,15 @@ public class SimpleForwardOnlyMoveTest {
 	@After public void after() {
 	}
 
-	@Test public void Player2Middle() {
+	@Test public void invalidMovePlayer2() {
 		engine.switchPlayer();
 		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertTrue(engine.updateSquareState(0,1,CheckersEngine.PLAYER2_STATE));
+		squares.add(/*source*/ engine.getData(0,1));
+		squares.add(/*target*/ engine.getData(1,1));
+
+				
 	}
 }
 
