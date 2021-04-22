@@ -11,10 +11,10 @@ import android.widget.BaseAdapter;
  * Adapter used to provide data to the BoardActivity.boardGame
  */
 public class BoardAdapter extends BaseAdapter {
-	private BoardGameEngine engine; 
+	private CheckersEngine engine; 
 	private Context context;
 
-	public BoardAdapter(Context context, BoardGameEngine engine) {
+	public BoardAdapter(Context context, CheckersEngine engine) {
 		this.context = context;
 		this.engine = engine;
 	}
@@ -42,11 +42,11 @@ public class BoardAdapter extends BaseAdapter {
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
 				CheckerBoardSquare square = (CheckerBoardSquare)view;
-				int action = event.getActionMasked();
-				
-				switch(action) {
+				CheckersEngine engine = square.engine;
+
+				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
-						return engine.verifyInitialSeletion(square.info);
+						return engine.verifyInitialSelection(square.info);
 
             		case MotionEvent.ACTION_MOVE:
 						return engine.verifySelection(square.info);

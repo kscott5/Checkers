@@ -17,7 +17,7 @@ import android.widget.GridView;
 public class BoardActivity extends Activity {
 	private static final String LOG_TAG = "BoardActivity";
 	
-	private BoardGameEngine gameEngine;
+	private CheckersEngine gameEngine;
 	
 	// TODO: Do I really need these instance variables
 	private Button exitGame;

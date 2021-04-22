@@ -167,7 +167,7 @@ public abstract class BoardGameEngine {
 	 * Handles the square changes by calling invalidating its view.
 	 * @param square
 	 */
-	public static void handleSquareChanged(BoardSquare square) {
+	public static void handleSquareChanged(CheckerBoardSquare square) {
 		// When there is no looper, changes are on 
 		// secondary thread used to active and move 
 		// square for this device play
@@ -182,14 +182,14 @@ public abstract class BoardGameEngine {
 	 * Handles the player on touch by selecting and/or moving the active square 
 	 * @param square
 	 */
-	public boolean handleOnTouch(BoardSquare square) {
+	public boolean handleOnTouch(CheckerBoardSquare square) {
 		Log.d(LOG_TAG, "Handling on touch event");
 		
 		if(square == null)
 			return true;
 		
 		if(!isDevice()) { 
-			moveSquare(square.getInformation());
+			moveSquare(square.info);
 		}
 		
 		return true;
