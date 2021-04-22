@@ -49,14 +49,14 @@ public class BoardAdapter extends BaseAdapter {
 				
 				switch(action) {
             		case MotionEvent.ACTION_DOWN:
-						return this.engine.verifyInitialSeletion(square.getInformation());
+						return square.getEngine().verifyInitialSeletion(square.getInformation());
 
             		case MotionEvent.ACTION_MOVE:
-						return this.engine.verifySelection(square.getInformation());
+						return square.getEngine().verifySelection(square.getInformation());
 
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
-						return this.engine.verifyFinalSelection(square.getInformation());
+						return square.getEngine().verifyFinalSelection(square.getInformation());
         		}
 
 				return false; //return engine.handleOnTouch(square);
