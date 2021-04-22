@@ -1,7 +1,6 @@
 package karega.scott.checkers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -12,8 +11,6 @@ import android.widget.BaseAdapter;
  * Adapter used to provide data to the BoardActivity.boardGame
  */
 public class BoardAdapter extends BaseAdapter {
-	private static final String LOG_TAG = "BoardAdapter";
-	
 	private BoardGameEngine engine; 
 	private Context context;
 
@@ -59,7 +56,7 @@ public class BoardAdapter extends BaseAdapter {
 						return engine.verifyFinalSelection(square.getInformation());
         		}
 
-				return false; //return engine.handleOnTouch(square);
+				return engine.handleOnTouch(square);
 			}
 			
 		});
@@ -75,5 +72,5 @@ public class BoardAdapter extends BaseAdapter {
 		}
 		
 		return (CheckerBoardSquare) convertView;	
-	}	
+	}
 } //end GameBoardAdapter
