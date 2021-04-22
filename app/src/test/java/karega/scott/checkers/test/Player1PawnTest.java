@@ -19,5 +19,4 @@ public class Player1PawnTest {
 
 	@After public void after() {
 	}
-
-} // end Player1PawnTest
+}

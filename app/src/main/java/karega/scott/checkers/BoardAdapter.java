@@ -1,7 +1,6 @@
 package karega.scott.checkers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -12,12 +11,10 @@ import android.widget.BaseAdapter;
  * Adapter used to provide data to the BoardActivity.boardGame
  */
 public class BoardAdapter extends BaseAdapter {
-	private static final String LOG_TAG = "BoardAdapter";
-	
-	private BoardGameEngine engine; 
+	private CheckersEngine engine; 
 	private Context context;
-	
-	public BoardAdapter(Context context, BoardGameEngine engine) {
+
+	public BoardAdapter(Context context, CheckersEngine engine) {
 		this.context = context;
 		this.engine = engine;
 	}
@@ -39,14 +36,26 @@ public class BoardAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {				
-		BoardSquare view = getViewFromConvertView(position, convertView, parent);
+		CheckerBoardSquare view = getViewFromConvertView(position, convertView, parent);
 		view.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
-				Log.d(LOG_TAG,"On touch");
-				
-				BoardSquare square = (BoardSquare)view;
+				CheckerBoardSquare square = (CheckerBoardSquare)view;
+				CheckersEngine engine = square.engine;
+
+				switch(event.getActionMasked()) {
+            		case MotionEvent.ACTION_DOWN:
+						return engine.verifyInitialSelection(square.info);
+
+            		case MotionEvent.ACTION_MOVE:
+						return engine.verifySelection(square.info);
+
+            		case MotionEvent.ACTION_UP:
+            		case MotionEvent.ACTION_CANCEL:
+						return engine.verifyFinalSelection(square.info);
+        		}
+
 				return engine.handleOnTouch(square);
 			}
 			
@@ -55,13 +64,13 @@ public class BoardAdapter extends BaseAdapter {
 		return (View)view;
 	}
 
-	public BoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
-		if(convertView == null || !(convertView instanceof BoardSquare)) {
+	public CheckerBoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
+		if(convertView == null || !(convertView instanceof CheckerBoardSquare)) {
 			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
 
-			return BoardSquare.instance(this.context, this.engine.getId(), parent, info);
+			return CheckerBoardSquare.instance(this.context, this.engine, parent, info);
 		}
 		
-		return (BoardSquare) convertView;	
-	}	
+		return (CheckerBoardSquare) convertView;	
+	}
 } //end GameBoardAdapter

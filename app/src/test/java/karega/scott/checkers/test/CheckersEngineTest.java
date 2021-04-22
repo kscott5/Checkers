@@ -19,22 +19,146 @@ public class CheckersEngineTest {
 	@After public void after() {
 	}
 
-	@Test public void getId() {		
-		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
+	@Test public void isLocked() {
+		Assert.assertTrue(engine.isLocked(0,0));
+		Assert.assertFalse(engine.isLocked(3,0));
+		Assert.assertTrue(engine.isLocked(7,7));
 	}
-	
+
 	@Test public void isPlayer1(){
 		Assert.assertTrue(engine.isPlayer1());
+
+		engine.switchPlayer();
+		Assert.assertFalse(engine.isPlayer1());
 	}
 	
 	@Test public void isPlayer2(){
 		Assert.assertFalse(engine.isPlayer2());
+
+		engine.switchPlayer();
+		Assert.assertTrue(engine.isPlayer2());
 	}
 	
 	@Test public void isDevice(){
+		// vs Device is seperate set of test with
+		// new CheckersEngine(/*vsDevice*/true);
+		Assert.assertFalse(engine.isDevice());
+
+		engine.switchPlayer();
+		Assert.assertFalse(engine.isDevice());
+
+		engine.switchPlayer();
 		Assert.assertFalse(engine.isDevice());
 	}
 	
+	@Test public void setBoardSquaresEmptyPlayer2() {
+		engine.setBoardSquaresEmpty();
+
+		BoardSquareInfo square = engine.getData(0,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(0,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(0,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(0,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(1,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(1,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(1,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(1,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(2,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(2,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(2,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(2,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+	}
+
+	@Test public void setBoardSquaresEmpty() {
+		engine.setBoardSquaresEmpty();
+
+		BoardSquareInfo square = engine.getData(3,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(3,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(3,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(3,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(4,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(4,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(4,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(4,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+	}
+	
+	@Test public void setBoardSquaresEmptyPlayer1() {
+		engine.setBoardSquaresEmpty();
+
+		BoardSquareInfo square = engine.getData(5,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(5,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(5,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(5,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,1);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,3);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,5);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(6,7);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(7,0);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(7,2);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+		
+		square = engine.getData(7,4);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+
+		square = engine.getData(7,6);
+		Assert.assertEquals(engine.EMPTY_STATE, square.state);
+	}
+
 	@Test public void switchPlayers() {
 		Assert.assertTrue(engine.isPlayer1());
 		Assert.assertFalse(engine.isDevice());
@@ -164,6 +288,11 @@ public class CheckersEngineTest {
 	}
 	
 	@Test public void isEmpty() {
+		Assert.assertTrue(engine.isEmpty(4,1));
+		Assert.assertFalse(engine.isEmpty(4,2));
+		Assert.assertTrue(engine.isEmpty(4,3));
+		Assert.assertFalse(engine.isEmpty(4,4));
+
 		BoardSquareInfo square = engine.getData(0);
 		Assert.assertEquals(0, square.id);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
@@ -204,46 +333,4 @@ public class CheckersEngineTest {
 		
 		Assert.assertFalse(engine.isEmpty(square.row, square.column));
 	}
-
-	@Test public void moveSquare() {		
-		// Locked
-		BoardSquareInfo square = engine.getData(0);
-		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
-		engine.moveSquare(square);
-		
-		BoardSquareInfo actual = engine.getData(0);
-		Assert.assertFalse(actual.isActive);
-		
-		// Player2
-		square = engine.getData(23);
-		Assert.assertEquals(CheckersEngine.PLAYER2_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(23);
-		Assert.assertFalse(actual.isActive);
-				
-		// Empty
-		square = engine.getData(24);
-		Assert.assertEquals(CheckersEngine.EMPTY_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(24);
-		Assert.assertFalse(actual.isActive);		
-
-		// Player1
-		square = engine.getData(62);
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
-		engine.moveSquare(square);
-			
-		actual = engine.getData(62);
-		Assert.assertFalse(actual.isActive);		
-		
-		// Player1
-		square = engine.getData(40);
-		Assert.assertEquals(CheckersEngine.PLAYER1_STATE, square.state);
-		engine.moveSquare(square);
-				
-		actual = engine.getData(40);
-		Assert.assertTrue(actual.isActive);
-	}	
 }

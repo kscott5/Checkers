@@ -103,15 +103,6 @@ public abstract class BoardGameEngine {
 	protected abstract void moveSquareForDevice();		
 
 	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public abstract boolean isEmpty(int row, int col);
-
-	/**
      * Gets the square at the screen position {0..63}
      *
      * @param position
@@ -167,7 +158,7 @@ public abstract class BoardGameEngine {
 	 * Handles the square changes by calling invalidating its view.
 	 * @param square
 	 */
-	public static void handleSquareChanged(BoardSquare square) {
+	public static void handleSquareChanged(CheckerBoardSquare square) {
 		// When there is no looper, changes are on 
 		// secondary thread used to active and move 
 		// square for this device play
@@ -182,14 +173,14 @@ public abstract class BoardGameEngine {
 	 * Handles the player on touch by selecting and/or moving the active square 
 	 * @param square
 	 */
-	public boolean handleOnTouch(BoardSquare square) {
+	public boolean handleOnTouch(CheckerBoardSquare square) {
 		Log.d(LOG_TAG, "Handling on touch event");
 		
 		if(square == null)
 			return true;
 		
 		if(!isDevice()) { 
-			moveSquare(square.getInformation());
+			moveSquare(square.info);
 		}
 		
 		return true;
@@ -219,11 +210,6 @@ public abstract class BoardGameEngine {
 			Log.d(LOG_TAG, "Draw");
 	} // end determineWinner
 	
-	/*
-	 * Gets the Game Engine Identifier
-	 */
-	public final int getId() { return this.engineId; }
-	
 	/**
 	 * Exit the game
 	 */
@@ -241,6 +227,82 @@ public abstract class BoardGameEngine {
 		activeState = PLAYER1_STATE;
 	} // end newGame
 	
+	private boolean verifyInitialSurroundings(BoardSquareInfo start) {
+		BoardSquareInfo target = this.getData(start.row+1, start.column-1);
+
+
+		this.getData(start.row+1, start.column+1);
+
+		this.getData(start.row-1, start.column-1);
+		this.getData(start.row-1, start.column+1);
+
+		return false;
+	}
+
+	public boolean verifyInitialSelection(BoardSquareInfo square) {
+		if(this.isPlayer1() && square.state == PLAYER1_STATE) {
+			return true;
+		}
+
+		if((this.isPlayer2() || this.isDevice()) && 
+				square.state == PLAYER2_STATE) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean verifySelection(BoardSquareInfo square) {
+		return false;
+	}
+
+	public boolean verifyFinalSelection(BoardSquareInfo square) {
+		if(this.isPlayer1() && square.state == EMPTY_STATE) {
+		   	return true;
+		}
+
+		if((this.isPlayer2() || this.isDevice()) && 
+				square.state == EMPTY_STATE) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Is the square empty at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isEmpty(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == EMPTY_STATE) return true;
+
+		return false;
+	} // end isEmpty
+
+	/**
+	 * Is the square locked at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isLocked(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == LOCKED_STATE) return true;
+
+		return false;
+	}
+
 	/**
 	 * Is player 1 moving square
 	 * @return
