@@ -1,7 +1,6 @@
 package karega.scott.checkers;
 
 import android.content.Context;
-import android.util.ArrayList;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +16,6 @@ public class BoardAdapter extends BaseAdapter {
 	
 	private BoardGameEngine engine; 
 	private Context context;
-	private ArrayList<int>  squareIds;
 
 	public BoardAdapter(Context context, BoardGameEngine engine) {
 		this.context = context;
