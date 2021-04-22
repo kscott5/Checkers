@@ -2,7 +2,7 @@
 tags
 
 # VIm temporory files
-[._]*.swp
+[._~]*.[swp|ods#]
 
 # Built application files
 *.apk
