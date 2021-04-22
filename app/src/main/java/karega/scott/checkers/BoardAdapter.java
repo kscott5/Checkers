@@ -46,14 +46,14 @@ public class BoardAdapter extends BaseAdapter {
 				
 				switch(action) {
             		case MotionEvent.ACTION_DOWN:
-						return engine.verifyInitialSeletion(square.getInformation());
+						return engine.verifyInitialSeletion(square.info);
 
             		case MotionEvent.ACTION_MOVE:
-						return engine.verifySelection(square.getInformation());
+						return engine.verifySelection(square.info);
 
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
-						return engine.verifyFinalSelection(square.getInformation());
+						return engine.verifyFinalSelection(square.info);
         		}
 
 				return engine.handleOnTouch(square);
@@ -64,7 +64,7 @@ public class BoardAdapter extends BaseAdapter {
 		return (View)view;
 	}
 
-	public BoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
+	public CheckerBoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof CheckerBoardSquare)) {
 			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
 

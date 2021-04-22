@@ -17,7 +17,7 @@ import android.widget.GridView;
  */
 @SuppressLint("NewApi")
 public class CheckerBoardSquare extends View {	
-	private BoardSquareInfo info;
+	public BoardSquareInfo info;
 
 	private Paint playerPaint;
 	private Paint activePlayerPaint;
@@ -71,7 +71,7 @@ public class CheckerBoardSquare extends View {
 	 * @param engineType @link BoardGameEngineType 
 	 * @return @CheckerBoardSquare
 	 */
-	public static CheckerBoardSquare instance(Context context, int engine, ViewGroup parent, BoardSquareInfo square) {
+	public static CheckerBoardSquare instance(Context context, CheckersEngine engine, ViewGroup parent, BoardSquareInfo square) {
 		if( !(parent instanceof GridView))
 			return null;
 		
