@@ -134,18 +134,18 @@ public class CheckersEngine extends BoardGameEngine {
 		return EMPTY_STATE;
 	}
 
-	public void emptyBoardSquares() {
+	public void setBoardSquaresEmpty() {
         for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
             for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				BoardSquareInfo square = this.getData(row,col);
 
 				if(square.state != LOCKED_STATE) {
 					square.chip = EMPTY_CHIP;
-					square.state = PAWN_CHIP;
+					square.state = EMPTY_STATE;
 				}
             }
         }
-	} // emptyBoardSquares
+	} // setBoardSquaresEmpty
 
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];

@@ -35,7 +35,7 @@ public class CheckersEngineTest {
 		Assert.assertFalse(engine.isDevice());
 	}
 	
-	@Test public void emptyBoardPlayer2() {
+	@Test public void setBoardSquaresEmptyPlayer2() {
 		engine.setBoardSquaresEmpty();
 
 		BoardSquareInfo square = engine.getData(0,1);
@@ -75,7 +75,7 @@ public class CheckersEngineTest {
 		Assert.assertEquals(engine.EMPTY_STATE, square.state);
 	}
 
-	@Test public void emptyBoardEmpty() {
+	@Test public void setBoardSquaresEmpty() {
 		engine.setBoardSquaresEmpty();
 
 		BoardSquareInfo square = engine.getData(3,0);
@@ -103,7 +103,7 @@ public class CheckersEngineTest {
 		Assert.assertEquals(engine.EMPTY_STATE, square.state);
 	}
 	
-	@Test public void emptyBoardPlayer1() {
+	@Test public void setBoardSquaresEmptyPlayer1() {
 		engine.setBoardSquaresEmpty();
 
 		BoardSquareInfo square = engine.getData(5,0);
