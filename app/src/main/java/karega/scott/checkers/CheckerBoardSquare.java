@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -27,9 +26,9 @@ public class CheckerBoardSquare extends View {
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
-	private int engine;
+	private CheckersEngine engine;
 	
-	public CheckerBoardSquare(Context context, int engine, BoardSquareInfo info) {
+	public CheckerBoardSquare(Context context, CheckersEngine engine, BoardSquareInfo info) {
 		super(context);
 
 		this.fillPaint = new Paint();
@@ -62,8 +61,6 @@ public class CheckerBoardSquare extends View {
 		
 		@Override
 		public void OnSquareInformationChange() {
-			Log.d(LOG_TAG, "Square information changed for CheckerBoardSquare");
-
 			BoardGameEngine.handleSquareChanged(square);
 		}		
 	} // end OnSquarInfoChangeListener
@@ -81,7 +78,7 @@ public class CheckerBoardSquare extends View {
 		GridView grid = (GridView)parent;
 		int width= grid.getColumnWidth(); // Added Lint.xml to resolve NewApi issue. Should remove
 
-		CheckerBoardSquare view = new CheckerBoardSquare(context, square);
+		CheckerBoardSquare view = new CheckerBoardSquare(context, engine, square);
 		view.setLayoutParams( new GridView.LayoutParams(width, width));
 
 		return view;
@@ -169,7 +166,6 @@ public class CheckerBoardSquare extends View {
 		}
 	} // end onDraw
 	
-	@Override
 	protected void updateViewForRedraw() {	
 		this.playerPaint.setColor(this.info.inactiveColor);
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
