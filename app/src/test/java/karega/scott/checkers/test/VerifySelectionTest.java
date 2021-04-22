@@ -10,20 +10,25 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-public class SimpleForwardOnlyMoveTest {
+public class VerifySelectionTest {
 	CheckersEngine engine;
-	ArrayList<BoardSquareInfo> squares;
 
 	@Before public void before() {
 		engine = new CheckersEngine(/*vsDevice*/false);
 		engine.newGame();
-		engine.setBoardSquaresEmpty();
-
-		squares = new ArrayList<BoardSquareInfo>();
 	}
 
 	@After public void after() {
 	}
 
+	@Test public void initialStartSquare() {
+		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,0)));
+		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,1)));
+		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,3)));
+
+		Assert.assertTrue(engine.verifyInitialSelection(engine.getData(2,3)));
+	}
 }
 
