@@ -23,15 +23,35 @@ public class CheckersEngineTest {
 		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
 	}
 	
+	@Test public void isLocked() {
+		Assert.assertTrue(engine.isLocked(0,0));
+		Assert.assertFalse(engine.isLocked(3,0));
+		Assert.assertTrue(engine.isLocked(7,7));
+	}
+
 	@Test public void isPlayer1(){
 		Assert.assertTrue(engine.isPlayer1());
+
+		engine.switchPlayer();
+		Assert.assertFalse(engine.isPlayer1());
 	}
 	
 	@Test public void isPlayer2(){
 		Assert.assertFalse(engine.isPlayer2());
+
+		engine.switchPlayer();
+		Assert.assertTrue(engine.isPlayer2());
 	}
 	
 	@Test public void isDevice(){
+		// vs Device is seperate set of test with
+		// new CheckersEngine(/*vsDevice*/true);
+		Assert.assertFalse(engine.isDevice());
+
+		engine.switchPlayer();
+		Assert.assertFalse(engine.isDevice());
+
+		engine.switchPlayer();
 		Assert.assertFalse(engine.isDevice());
 	}
 	
@@ -272,6 +292,11 @@ public class CheckersEngineTest {
 	}
 	
 	@Test public void isEmpty() {
+		Assert.assertTrue(engine.isEmpty(4,1));
+		Assert.assertFalse(engine.isEmpty(4,2));
+		Assert.assertTrue(engine.isEmpty(4,3));
+		Assert.assertFalse(engine.isEmpty(4,4));
+
 		BoardSquareInfo square = engine.getData(0);
 		Assert.assertEquals(0, square.id);
 		Assert.assertEquals(CheckersEngine.LOCKED_STATE, square.state);
