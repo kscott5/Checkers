@@ -38,7 +38,7 @@ public class CheckerBoardSquare extends View {
 		this.engine = engine;
 		
 		// TODO: Are parameters by references
-		info.setOnChangeListener( new BoardSquare.OnBoardSquareChangeListener(this));
+		info.setOnChangeListener( new OnBoardSquareChangeListener(this));
 		this.info = info;
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -55,14 +55,14 @@ public class CheckerBoardSquare extends View {
 	 *
 	 */
 	public final class OnBoardSquareChangeListener implements OnChangeListener {		
-		private BoardSquare square;
-		public OnBoardSquareChangeListener(BoardSquare square) {
+		private CheckerBoardSquare square;
+		public OnBoardSquareChangeListener(CheckerBoardSquare square) {
 			this.square = square;
 		}
 		
 		@Override
 		public void OnSquareInformationChange() {
-			Log.d(LOG_TAG, "Square information changed for BoardSquare");
+			Log.d(LOG_TAG, "Square information changed for CheckerBoardSquare");
 
 			BoardGameEngine.handleSquareChanged(square);
 		}		
@@ -72,7 +72,7 @@ public class CheckerBoardSquare extends View {
 	 * Creates the CheckerBoardSquare
 	 * @param context
 	 * @param engineType @link BoardGameEngineType 
-	 * @return @BoardSquare
+	 * @return @CheckerBoardSquare
 	 */
 	public static CheckerBoardSquare instance(Context context, int engine, ViewGroup parent, BoardSquareInfo square) {
 		if( !(parent instanceof GridView))
@@ -81,7 +81,7 @@ public class CheckerBoardSquare extends View {
 		GridView grid = (GridView)parent;
 		int width= grid.getColumnWidth(); // Added Lint.xml to resolve NewApi issue. Should remove
 
-		BoardSquare view = new CheckerBoardSquare(context, square);
+		CheckerBoardSquare view = new CheckerBoardSquare(context, square);
 		view.setLayoutParams( new GridView.LayoutParams(width, width));
 
 		return view;
@@ -116,16 +116,16 @@ public class CheckerBoardSquare extends View {
 	
 	@Override
 	public boolean equals(Object value) {
-		if(value == null || !(value instanceof BoardSquare))
+		if(value == null || !(value instanceof CheckerBoardSquare))
 			return false;
 		
-		BoardSquare view = (BoardSquare)value;
+		CheckerBoardSquare view = (CheckerBoardSquare)value;
 		return this.info.equals(view.info);
 	}
 
 	/**
-	 * Updates the @link BoardSquare paint objects
-	 * @param refresh Flag to invalidate the @link BoardSquare
+	 * Updates the @link CheckerBoardSquare paint objects
+	 * @param refresh Flag to invalidate the @link CheckerBoardSquare
 	 */
 	public void invalidate() {
 		// TODO: Do this once. Remove these values from BoardSquareInfo
