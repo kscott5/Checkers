@@ -139,9 +139,9 @@ public class CheckersEngine extends BoardGameEngine {
             for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				BoardSquareInfo square = this.getData(row,col);
 
-				if(this.isLocked(square) == false) {
-					square.chip = BoardEngine.EMPTY_CHIP;
-					square.state = BoardEngine.PAWN_CHIP;
+				if(square.state != LOCKED_STATE) {
+					square.chip = EMPTY_CHIP;
+					square.state = PAWN_CHIP;
 				}
             }
         }
