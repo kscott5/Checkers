@@ -19,10 +19,6 @@ public class CheckersEngineTest {
 	@After public void after() {
 	}
 
-	@Test public void getId() {		
-		Assert.assertEquals(CheckersEngine.CHECKERS_ENGINE, engine.getId());
-	}
-	
 	@Test public void isLocked() {
 		Assert.assertTrue(engine.isLocked(0,0));
 		Assert.assertFalse(engine.isLocked(3,0));

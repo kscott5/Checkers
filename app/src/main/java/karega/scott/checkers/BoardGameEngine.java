@@ -210,11 +210,6 @@ public abstract class BoardGameEngine {
 			Log.d(LOG_TAG, "Draw");
 	} // end determineWinner
 	
-	/*
-	 * Gets the Game Engine Identifier
-	 */
-	public final int getId() { return this.engineId; }
-	
 	/**
 	 * Exit the game
 	 */
@@ -232,6 +227,18 @@ public abstract class BoardGameEngine {
 		activeState = PLAYER1_STATE;
 	} // end newGame
 	
+	private boolean verifyInitialSurroundings(BoardSquareInfo start) {
+		BoardSquareInfo target = this.getData(start.row+1, start.column-1);
+
+
+		this.getData(start.row+1, start.column+1);
+
+		this.getData(start.row-1, start.column-1);
+		this.getData(start.row-1, start.column+1);
+
+		return false;
+	}
+
 	public boolean verifyInitialSelection(BoardSquareInfo square) {
 		if(this.isPlayer1() && square.state == PLAYER1_STATE) {
 			return true;
