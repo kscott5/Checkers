@@ -1,4 +1,4 @@
-import karega.scott.checkers.test;
+package karega.scott.checkers.test;
 
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
