@@ -1,6 +1,6 @@
 package karega.scott.checkers;
 
-import karega.scott.checkers.BoardSquareInfo.Sibling;
+import karega.scott.checkers.BoardSquareInfo.Siblings;
 
 import java.util.ArrayList;
 
@@ -96,16 +96,15 @@ public class CheckersEngine extends BoardGameEngine {
 		return ((multiplier*row)+col);
 	}
 
-	public Sibling[] generateSquareSiblingIds(int row, int col) {
+	public Siblings[] generateSquareSiblingIds(int row, int col) {
  		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;
 
-
 		int id = this.generateSquareId(row,col);
-		Sibling[] siblings = new Sibling[2];
+		Siblings[] siblings = new Siblings[2];
 
-		siblings[Sibling.BACKWARD_SLIBING_INDEX] = new Sibling(id-7,id-9);
-		siblings[Sibling.FORWARD_SLIBING_INDEX] = new Sibling(id+7,id+9);
+		siblings[Sibling.BACKWARD_SLIBING_INDEX] = new Siblings(id-7,id-9);
+		siblings[Sibling.FORWARD_SLIBING_INDEX] = new Siblings(id+7,id+9);
 
 		return siblings;
 	}

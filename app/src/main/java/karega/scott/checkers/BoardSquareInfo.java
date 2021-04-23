@@ -13,7 +13,7 @@ public class BoardSquareInfo {
 	public final static int SIBLING_BACKWARD_INDEX = 0;
 	public final static int SIBLING_FORWARD_INDEX = 1;
 
-	public final Siblings[] siblings
+	public final Siblings[] siblings;
 	
 	public int chip;
 	public int state;
@@ -29,7 +29,7 @@ public class BoardSquareInfo {
 		public final int leftId;
 		public final int rightId;
 
-		public Siblinig(int leftId, int rightId) {
+		public Siblings(int leftId, int rightId) {
 			this.leftId = leftId;
 			this.rightId = rightId;
 		}
