@@ -234,26 +234,25 @@ public abstract class BoardGameEngine {
 		BoardSquareInfo left, right;
 		
 		if(this.activeState == square.state || square.isKing) {
-
 			left = this.getData(square.backwardSiblings.leftId);
 			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
 				selectionValid = true;
 			}
 
 			right = this.getData(square.backwardSiblings.rightId);
-			if(right != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER2_STATE) {
 				selectionValid = true;
 			}
 		}
 
 		if(this.activeState == square.state || square.isKing || this.vsDevice) {
 			left = this.getData(square.forwardSiblings.leftId);
-			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
+			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER1_STATE) {
 				selectionValid = true;
 			}
 
 			right = this.getData(square.forwardSiblings.rightId);
-			if(right != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER1_STATE) {
 				selectionValid = true;
 			}
 		}
