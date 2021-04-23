@@ -59,7 +59,7 @@ public class CheckersEngine extends BoardGameEngine {
 		if(square.id == position) return square;
 
 		return null;
-	} // eng getData
+	} // end getData
 
 	/**
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
