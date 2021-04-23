@@ -1,6 +1,8 @@
 package karega.scott.checkers;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
 
 /**
  * Game engine for checkers
@@ -14,14 +16,56 @@ import java.util.ArrayList;
  * Enums often require more than twice as much memory as static constants. 
  * You should strictly avoid using enums on Android.
  */
-public class CheckersEngine extends BoardGameEngine {
+public class CheckersEngine  {
 	private static final String LOG_TAG = "CheckersEngine";
+	public static final String VS_DEVICE = "you vs computer";
+	
+	protected static final Random random = new Random();
+	
+	protected static final int NUM_OF_TRIES = 6;
+	
+	public static final int TOP_ROW = 0;
+	public static final int BOTTOM_ROW = 7;
+	protected static final int ROWS = 8;
+	protected static final int COLUMNS = 8;
+	
+	public static final int SQUARE_HEIGHT = 30;
+	public static final int SQUARE_WIDTH = 30;
+	
+	public static final int SQUARE_CHIP_START_ANGLE = 0;
+	public static final int SQUARE_CHIP_SWEEP_ANGLE = 360;
+	public static final int SQUARE_CHIP_STROKE_WIDTH = 2;
+	public static final boolean SQUARE_CHIP_USE_CENTER = false;
 
+	public static final int CHECKERS_ENGINE = 1;
+	public static final int CHESS_ENGINE = 2;
+	
+	public static final int PLAYER1 = 1;
+	public static final int PLAYER2 = 2;
+	
+	public static final int PLAYER1_STATE = 1;
+	public static final int PLAYER2_STATE = 2;
+	public static final int EMPTY_STATE = 3;
+	public static final int LOCKED_STATE = 4;
+
+	public static final int EMPTY_CHIP = 1;
+	public static final int PAWN_CHIP = 2;
+		
+	protected final int engineId;
+	protected final boolean vsDevice;
+	
+	protected BoardSquareInfo[][] engineSquares;
+	protected BoardSquareInfo activeSquare;
+	protected int activeState;
+	
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
 
 	public CheckersEngine(boolean vsDevice) {
-		super(CHECKERS_ENGINE, vsDevice);
+		this.vsDevice = vsDevice;
+		this.engineId = CHECKERS_ENGINE;
+		this.activeState = PLAYER1_STATE;
+		this.activeSquare = null;
 
 		this.initialBoardSquares();
 	}
@@ -33,7 +77,6 @@ public class CheckersEngine extends BoardGameEngine {
 	 * @param col
 	 * @return Square information or null for LOCKED_STATE
 	 */
-	@Override
 	public BoardSquareInfo getData(int row, int col) {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
@@ -47,7 +90,6 @@ public class CheckersEngine extends BoardGameEngine {
      * @param position
      * @return Square information or null for LOCKED_STATE
      */
-	@Override
 	public BoardSquareInfo getData(int position) {
 		if(position < 0 || position >= CHECKERS_ENGINE_ROWS*CHECKERS_ENGINE_COLUMNS) return null;
 
@@ -65,7 +107,6 @@ public class CheckersEngine extends BoardGameEngine {
 	 * Returns the size of the game engine board. Must call newGame() to load board first.
 	 * @return
 	 */
-	@Override
 	public int getSize() {
 		try {
 			return this.engineSquares.length*this.engineSquares[0].length;
@@ -74,17 +115,176 @@ public class CheckersEngine extends BoardGameEngine {
 		}
 	} // end getSize
 	
-	@Override
-	public void newGame() {
-		super.newGame();
+	/**
+	 * Handles the player on touch by selecting and/or moving the active square 
+	 * @param square
+	 */
+	public boolean handleOnTouch(CheckerBoardSquare square) {
+		if(square == null)
+			return true;
 		
+		if(!isDevice()) { 
+			moveSquare(square.info);
+		}
+		
+		return true;
+	} // end handleOnTouch
+	
+	protected void determineWinner() {
+		int player1=0, player2=0;
+		for(int row=0; row<ROWS; row++) {
+			for(int col=0; col<COLUMNS; col++) {
+				BoardSquareInfo square = this.getData(row,col);
+			
+				if(square.state == PLAYER1_STATE)
+					player1++;
+			
+				if(square.state == PLAYER2_STATE)
+					player2++;
+			}
+		}
+		
+		// TODO: return the winner!
+	} // end determineWinner
+	
+	/**
+	 * Exit the game
+	 */
+	public void exitGame() {
+	} // end exitGame
+	
+	public void newGame() {
+		this.activeState = PLAYER1_STATE;
+		this.activeSquare = null;
+
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				this.engineSquares[row][col].reset();
 			}
-		} // end for		
+		}
 	} // end newGame
 	
+	public boolean verifyInitialSelection(BoardSquareInfo square) {		
+		if(square == null) return false;
+		
+		boolean selectionValid = false;
+		BoardSquareInfo left, right;
+		
+		if(this.activeState == square.state || square.isKing) {
+			left = this.getData(square.backwardSiblings.leftId);
+			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
+				selectionValid = true;
+			}
+
+			right = this.getData(square.backwardSiblings.rightId);
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER2_STATE) {
+				selectionValid = true;
+			}
+		}
+
+		if(this.activeState == square.state || square.isKing || this.vsDevice) {
+			left = this.getData(square.forwardSiblings.leftId);
+			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER1_STATE) {
+				selectionValid = true;
+			}
+
+			right = this.getData(square.forwardSiblings.rightId);
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER1_STATE) {
+				selectionValid = true;
+			}
+		}
+
+		if(selectionValid) ; // save the square
+		return selectionValid;
+	} // end verifyInitialSelection
+
+	public boolean verifySelection(BoardSquareInfo square) {
+		return false;
+	}
+
+	public boolean verifyFinalSelection(BoardSquareInfo square) {
+		if(this.isPlayer1() && square.state == EMPTY_STATE) {
+		   	return true;
+		}
+
+		if((this.isPlayer2() || this.isDevice()) && 
+				square.state == EMPTY_STATE) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Is the square empty at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isEmpty(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == EMPTY_STATE) return true;
+
+		return false;
+	} // end isEmpty
+
+	/**
+	 * Is the square locked at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isLocked(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == LOCKED_STATE) return true;
+
+		return false;
+	}
+
+	/**
+	 * Is player 1 moving square
+	 * @return
+	 */
+	public boolean isPlayer1() {
+		return (activeState == PLAYER1_STATE);
+	} // end isPlayer1
+
+	/**
+	 * Is player 2 moving square
+	 * @return
+	 */
+	public boolean isPlayer2() {
+		return (activeState == PLAYER2_STATE);
+	} // end isPlayer2
+	
+	/**
+	 * Returns true if the device is move square
+	 * @return
+	 */
+	public boolean isDevice() {
+		return (isPlayer2() && vsDevice);
+	} // end isDevice
+	
+	/*
+	 * Allows the other player to take turn
+	 */
+	public void switchPlayer() {
+		if (activeSquare != null) {
+			activeSquare.deactivate();
+		}
+
+		activeSquare = null;
+		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
+	} // end switchPlayer
+
 	public int generateSquareId(int row, int col) {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
 		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
@@ -163,15 +363,12 @@ public class CheckersEngine extends BoardGameEngine {
         }
 	} // end initialBoardSquares
 	
-	@Override
 	public void moveSquare(BoardSquareInfo[] squares) {
 	}
 
-	@Override
 	public void moveSquare(BoardSquareInfo target) {
 	} // end moveSquare
 
-	@Override
 	protected void moveSquareForDevice() {
 	} // end moveSquareForDevice
 } // end CheckersEngine
