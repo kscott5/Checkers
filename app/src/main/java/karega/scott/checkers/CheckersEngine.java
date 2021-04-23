@@ -1,5 +1,7 @@
 package karega.scott.checkers;
 
+import karega.scott.checkers.BoardSquareInfo.Sibling;
+
 import java.util.ArrayList;
 
 /**
@@ -94,13 +96,27 @@ public class CheckersEngine extends BoardGameEngine {
 		return ((multiplier*row)+col);
 	}
 
+	public Sibling[] generateSquareSiblingIds(int row, int col) {
+ 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
+        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;
+
+
+		int id = this.generateSquareId(row,col);
+		Sibling[] siblings = new Sibling[2];
+
+		siblings[Sibling.BACKWARD_SLIBING_INDEX] = new Sibling(id-7,id-9);
+		siblings[Sibling.FORWARD_SLIBING_INDEX] = new Sibling(id+7,id+9);
+
+		return siblings;
+	}
+
 	public int generateSquareState(int row, int col) {
 	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
 
 		// 32 squares or 50% with square state of
-		if(row%2 == 0 && col%2 == 0) return LOCKED_STATE;
-		if(row%2 != 0 && col%2 != 0) return LOCKED_STATE;
+		if((row%2 == 0 && col%2 == 0) || 
+			(row%2 != 0 && col%2 != 0) return LOCKED_STATE;
 
 		// 12 squares with square state of
 		if((row>=0 && row <=2) && (
@@ -159,7 +175,8 @@ public class CheckersEngine extends BoardGameEngine {
 				int state = this.generateSquareState(row,col);
             	int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
 
-	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
+				Sibling[] siblings = this.generateSqaureSiblingIds(row,col);
+	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip,siblings);
             }
         }
 	} // end initialBoardSquares
