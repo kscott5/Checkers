@@ -44,8 +44,8 @@ public class BoardSquareInfo {
 		this.isKing = false;
 		this.isActive = false;
 		
-		this.forwardSiblings = new Siblings(this.id+7,this.id+9);
-		this.backwardSiblings = new Siblings(this.id-7,this.id-9);
+		this.forwardSiblings = new Siblings(this.id+7,this.id+9); // Down from top-left
+		this.backwardSiblings = new Siblings(this.id-7,this.id-9); // Up from bottom-right
 		
 		this.reset();
 	}
