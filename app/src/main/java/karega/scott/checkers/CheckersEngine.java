@@ -53,7 +53,7 @@ public class CheckersEngine extends BoardGameEngine {
 
 		final int divisor = 8;
 		int row = (position/divisor);
-		int col = (row*divisor)-position;
+		int col = position-(row*divisor);
 
 		BoardSquareInfo square = this.engineSquares[row][col];
 		if(square.id == position) return square;
