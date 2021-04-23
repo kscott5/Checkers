@@ -96,15 +96,18 @@ public class CheckersEngine extends BoardGameEngine {
 		return ((multiplier*row)+col);
 	}
 
-	public Siblings[] generateSquareSiblingIds(int row, int col) {
+	public BoardSquareInfo.Siblings[] generateSquareSiblingIds(int row, int col) {
  		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;
 
 		int id = this.generateSquareId(row,col);
-		Siblings[] siblings = new Siblings[2];
+		BoardSquareInfo.Siblings[] siblings = new BoardSquareInfo.Siblings[2]; 
 
-		siblings[Sibling.BACKWARD_SLIBING_INDEX] = new Siblings(id-7,id-9);
-		siblings[Sibling.FORWARD_SLIBING_INDEX] = new Siblings(id+7,id+9);
+		siblings[BoardSquareInfo.SIBLING_BACKWARD_INDEX].leftId = id-7;
+		siblings[BoardSquareInfo.SIBLING_BACKWARD_INDEX].rightId = id-9;
+
+		siblings[BoardSquareInfo.SIBLING_FORWARD_INDEX].leftId = id+7;
+		siblings[BoardSquareInfo.SIBLING_FORWARD_INDEX].rightId = id+9;
 
 		return siblings;
 	}
@@ -174,7 +177,7 @@ public class CheckersEngine extends BoardGameEngine {
 				int state = this.generateSquareState(row,col);
             	int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
 
-				Sibling[] siblings = this.generateSqaureSiblingIds(row,col);
+				BoardSquareInfo.Siblings[] siblings = this.generateSquareSiblingIds(row,col);
 	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip,siblings);
             }
         }

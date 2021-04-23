@@ -26,13 +26,8 @@ public class BoardSquareInfo {
 	public int activeColor = 0;         // android.graphics.0; // android.graphics.Color.TRANSPARENT
 
 	public class Siblings {
-		public final int leftId;
-		public final int rightId;
-
-		public Siblings(int leftId, int rightId) {
-			this.leftId = leftId;
-			this.rightId = rightId;
-		}
+		public int leftId;
+		public int rightId;
 	}
 
 	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip, Siblings[] siblings) {
