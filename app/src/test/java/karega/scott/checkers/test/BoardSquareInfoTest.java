@@ -2,12 +2,20 @@ package karega.scott.checkers.test;
 
 import karega.scott.checkers.BoardGameEngine;
 import karega.scott.checkers.BoardSquareInfo;
+import karega.scott.checkers.BoardSquareInfo.Siblings;
 
 import java.lang.Integer;
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.After;
 
 public class BoardSquareInfoTest {    
+	@Before public void before() {
+	}
+	
     @Test public void deactivate() {
         // setup
 		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);

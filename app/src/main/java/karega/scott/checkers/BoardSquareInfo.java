@@ -10,10 +10,8 @@ public class BoardSquareInfo {
 	public final int initialChip;
 	public final int initialState;
 	
-	public final static int SIBLING_BACKWARD_INDEX = 0;
-	public final static int SIBLING_FORWARD_INDEX = 1;
-
-	public final Siblings[] siblings;
+	public final Siblings forwardSiblings;
+	public final Siblings backwardSiblings;
 	
 	public int chip;
 	public int state;
@@ -26,11 +24,16 @@ public class BoardSquareInfo {
 	public int activeColor = 0;         // android.graphics.0; // android.graphics.Color.TRANSPARENT
 
 	public class Siblings {
-		public int leftId;
-		public int rightId;
+		public final int leftId;
+		public final int rightId;
+
+		public Siblings(int leftId, int rightId) {
+			this.leftId = leftId;
+			this.rightId = rightId;
+		}
 	}
 
-	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip, Siblings[] siblings) {
+	public BoardSquareInfo(int id, int row, int column,	int initialState, int initialChip) {
 		this.id = id;
 		this.row = row;
 		this.column = column;
@@ -41,7 +44,9 @@ public class BoardSquareInfo {
 		this.isKing = false;
 		this.isActive = false;
 		
-		this.siblings = siblings;
+		this.forwardSiblings = new Siblings(this.id+7,this.id+9);
+		this.backwardSiblings = new Siblings(this.id-7,this.id-9);
+		
 		this.reset();
 	}
 	

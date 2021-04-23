@@ -1,7 +1,5 @@
 package karega.scott.checkers;
 
-import karega.scott.checkers.BoardSquareInfo.Siblings;
-
 import java.util.ArrayList;
 
 /**
@@ -55,11 +53,10 @@ public class CheckersEngine extends BoardGameEngine {
 
 		final int divisor = 8;
 		int row = (position/divisor);
+		int col = (row*divisor)-position;
 
-		for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++){
-			BoardSquareInfo square = this.engineSquares[row][col];
-			if(square.id == position) return square;
-		}
+		BoardSquareInfo square = this.engineSquares[row][col];
+		if(square.id == position) return square;
 
 		return null;
 	} // eng getData
@@ -94,22 +91,6 @@ public class CheckersEngine extends BoardGameEngine {
 
 		final int multiplier = 8;
 		return ((multiplier*row)+col);
-	}
-
-	public BoardSquareInfo.Siblings[] generateSquareSiblingIds(int row, int col) {
- 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
-        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;
-
-		int id = this.generateSquareId(row,col);
-		BoardSquareInfo.Siblings[] siblings = new BoardSquareInfo.Siblings[2]; 
-
-		siblings[BoardSquareInfo.SIBLING_BACKWARD_INDEX].leftId = id-7;
-		siblings[BoardSquareInfo.SIBLING_BACKWARD_INDEX].rightId = id-9;
-
-		siblings[BoardSquareInfo.SIBLING_FORWARD_INDEX].leftId = id+7;
-		siblings[BoardSquareInfo.SIBLING_FORWARD_INDEX].rightId = id+9;
-
-		return siblings;
 	}
 
 	public int generateSquareState(int row, int col) {
@@ -177,8 +158,7 @@ public class CheckersEngine extends BoardGameEngine {
 				int state = this.generateSquareState(row,col);
             	int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
 
-				BoardSquareInfo.Siblings[] siblings = this.generateSquareSiblingIds(row,col);
-	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip,siblings);
+	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
             }
         }
 	} // end initialBoardSquares
