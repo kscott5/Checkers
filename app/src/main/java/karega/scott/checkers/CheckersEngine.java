@@ -119,12 +119,12 @@ public class CheckersEngine  {
 	 * Handles the player on touch by selecting and/or moving the active square 
 	 * @param square
 	 */
-	public boolean handleOnTouch(CheckerBoardSquare square) {
+	public boolean handleOnTouch(BoardSquareInfo square) {
 		if(square == null)
 			return true;
-		
+	
 		if(!isDevice()) { 
-			moveSquare(square.info);
+			moveSquare(square);
 		}
 		
 		return true;

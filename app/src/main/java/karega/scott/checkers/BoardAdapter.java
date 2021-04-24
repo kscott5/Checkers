@@ -56,7 +56,7 @@ public class BoardAdapter extends BaseAdapter {
 						return engine.verifyFinalSelection(square.info);
         		}
 
-				return engine.handleOnTouch(square);
+				return engine.handleOnTouch(square.info);
 			}
 			
 		});
