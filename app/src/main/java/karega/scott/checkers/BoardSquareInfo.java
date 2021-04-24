@@ -95,25 +95,25 @@ public class BoardSquareInfo {
         this.isActive = false;
 		
 		switch(this.initialState) {
-			case BoardGameEngine.EMPTY_STATE:
+			case CheckersEngine.EMPTY_STATE:
 				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
 				this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
 				this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 				break;
 				
-			case BoardGameEngine.LOCKED_STATE:
+			case CheckersEngine.LOCKED_STATE:
 				this.fillColor = -7829368; // android.graphics.Color.GRAY
 				this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
 				this.activeColor = 0; // android.graphics.Color.TRANSPARENT
 				break;
 				
-			case BoardGameEngine.PLAYER2_STATE:
+			case CheckersEngine.PLAYER2_STATE:
 				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
 				this.inactiveColor = -65536; // android.graphics.Color.RED
 				this.activeColor = -65536; // android.graphics.Color.RED
 				break;
 			
-			case BoardGameEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER1_STATE:
 				this.fillColor = -12303292; // android.graphics.Color.DKGRAY
 				this.inactiveColor = -16776961; // android.graphics.Color.BLUE
 				this.activeColor = -16776961; // android.graphics.Color.BLUE
@@ -130,7 +130,7 @@ public class BoardSquareInfo {
 	public boolean swap(BoardSquareInfo value) {
 		//Log.d(LOG_TAG, "Swapping square information");
 
-		if(value.state != BoardGameEngine.EMPTY_STATE) {
+		if(value.state != CheckersEngine.EMPTY_STATE) {
 			//Log.d(LOG_TAG, "Swap requires an empty square");
 			return false;
 		}
@@ -142,7 +142,7 @@ public class BoardSquareInfo {
 		value.state = this.state;
 		value.activeColor = this.inactiveColor;
 		value.isActive = this.isActive;
-		value.isKing = (this.isKing || value.row == BoardGameEngine.TOP_ROW || value.row == BoardGameEngine.BOTTOM_ROW);
+		value.isKing = (this.isKing || value.row == CheckersEngine.TOP_ROW || value.row == CheckersEngine.BOTTOM_ROW);
 		value.deactivate();
 		
 		this.makeEmpty();
@@ -155,11 +155,11 @@ public class BoardSquareInfo {
 	public void makeEmpty() {
 		//Log.d(LOG_TAG, "Making this square empty");
 		
-		if(this.initialState == BoardGameEngine.LOCKED_STATE) 
+		if(this.initialState == CheckersEngine.LOCKED_STATE) 
 			return;
 		
-		this.chip = BoardGameEngine.EMPTY_CHIP;
-		this.state = BoardGameEngine.EMPTY_STATE;
+		this.chip = CheckersEngine.EMPTY_CHIP;
+		this.state = CheckersEngine.EMPTY_STATE;
 		this.fillColor = -12303292; // android.graphics.Color.DKGRAY
 		this.borderColor = -16777216; // android.graphics.Color.BLACK
 		this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
