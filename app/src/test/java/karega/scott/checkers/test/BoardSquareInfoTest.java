@@ -1,6 +1,6 @@
 package karega.scott.checkers.test;
 
-import karega.scott.checkers.BoardGameEngine;
+import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.BoardSquareInfo.Siblings;
 
@@ -18,7 +18,7 @@ public class BoardSquareInfoTest {
 	
     @Test public void deactivate() {
         // setup
-		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,CheckersEngine.EMPTY_STATE,CheckersEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = true;
         bsi.activeColor = bsi.activeColor;
 
@@ -40,7 +40,7 @@ public class BoardSquareInfoTest {
 	
     @Test public void activate() {
 		// setup
-		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		final BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,CheckersEngine.EMPTY_STATE,CheckersEngine.SQUARE_CHIP_START_ANGLE);
         bsi.isActive = false;
         bsi.activeColor = 0xff000000;
 
@@ -67,7 +67,7 @@ public class BoardSquareInfoTest {
 	}
 
 	@Test public void makeEmpty() {
-		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.EMPTY_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,CheckersEngine.EMPTY_STATE,CheckersEngine.SQUARE_CHIP_START_ANGLE);
 		bsi.chip = Integer.MAX_VALUE;
 		bsi.state = Integer.MAX_VALUE;
 		bsi.fillColor = Integer.MAX_VALUE;
@@ -80,10 +80,10 @@ public class BoardSquareInfoTest {
 				
 		bsi.makeEmpty();
 
-		Assert.assertNotEquals(bsi.initialState,BoardGameEngine.LOCKED_STATE);
+		Assert.assertNotEquals(bsi.initialState,CheckersEngine.LOCKED_STATE);
 		
-		Assert.assertEquals(bsi.chip, BoardGameEngine.EMPTY_CHIP);
-		Assert.assertEquals(bsi.state, BoardGameEngine.EMPTY_STATE);
+		Assert.assertEquals(bsi.chip, CheckersEngine.EMPTY_CHIP);
+		Assert.assertEquals(bsi.state, CheckersEngine.EMPTY_STATE);
 		Assert.assertEquals(bsi.fillColor, 0xff444444);
 		Assert.assertEquals(bsi.borderColor, 0xff000000);
 		Assert.assertEquals(bsi.inactiveColor, 0x00000000);
@@ -93,7 +93,7 @@ public class BoardSquareInfoTest {
 	}
 
 	@Test public void makeEmptyIgnored() {
-		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,BoardGameEngine.LOCKED_STATE,BoardGameEngine.SQUARE_CHIP_START_ANGLE);
+		BoardSquareInfo bsi = new BoardSquareInfo(0,0,0,CheckersEngine.LOCKED_STATE,CheckersEngine.SQUARE_CHIP_START_ANGLE);
 		bsi.chip = Integer.MAX_VALUE;
 		bsi.state = Integer.MAX_VALUE;
 		bsi.fillColor = Integer.MAX_VALUE;
@@ -106,7 +106,7 @@ public class BoardSquareInfoTest {
 				
 		bsi.makeEmpty();
 
-		Assert.assertEquals(bsi.initialState,BoardGameEngine.LOCKED_STATE);
+		Assert.assertEquals(bsi.initialState,CheckersEngine.LOCKED_STATE);
 		
 		Assert.assertEquals(bsi.chip, Integer.MAX_VALUE);
 		Assert.assertEquals(bsi.state, Integer.MAX_VALUE);
