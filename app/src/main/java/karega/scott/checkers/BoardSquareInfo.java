@@ -17,7 +17,6 @@ public class BoardSquareInfo {
 	public int state;
 	public boolean isKing;
 	public boolean isActive;
-	public int selectionIndex;
 
 	public int fillColor = -7829368;    // android.graphics.Color.GRAY
 	public int borderColor = -16777216; // android.graphics.Color.BLACK
@@ -45,8 +44,6 @@ public class BoardSquareInfo {
 		this.isKing = false;
 		this.isActive = false;
 		
-		this.selectionIndex = -1;
-
 		this.forwardSiblings = new Siblings(this.id+7,this.id+9); // Down from top-left
 		this.backwardSiblings = new Siblings(this.id-9,this.id-7); // Up from bottom-right
 		
@@ -96,7 +93,6 @@ public class BoardSquareInfo {
 		this.borderColor = -16777216; // android.graphics.Color.BLACK
 		this.isKing = false;
         this.isActive = false;
-	    this.selectionIndex = -1;
 
 		switch(this.initialState) {
 			case CheckersEngine.EMPTY_STATE:
