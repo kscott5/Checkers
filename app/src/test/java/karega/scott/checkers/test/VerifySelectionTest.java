@@ -3,8 +3,6 @@ package karega.scott.checkers.test;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
-import java.util.ArrayList;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
