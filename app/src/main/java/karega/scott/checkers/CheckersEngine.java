@@ -323,7 +323,9 @@ public class CheckersEngine  {
 		return EMPTY_STATE;
 	}
 
-	public boolean updateSquareState(BoardSquareInfo square, int newState) {
+	public boolean updateSquareState(int id, int newState) {
+		BoardSquareInfo square = this.getData(id);
+
 		if(square == null || this.activeState != newState) return false;
 		if(square.state == LOCKED_STATE) return false;
 
