@@ -156,7 +156,8 @@ public class CheckersEngine  {
 	public void newGame() {
 		this.activeState = PLAYER1_STATE;
 		this.activeSquare = null;
-
+		this.selectionIds = new int[10];
+		
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				this.engineSquares[row][col].reset();
@@ -164,53 +165,36 @@ public class CheckersEngine  {
 		}
 	} // end newGame
 	
-	public boolean verifyInitialSelection(BoardSquareInfo square) {		
-		if(square == null) return false;
-		
-		boolean selectionValid = false;
-		BoardSquareInfo left, right;
-		
-		if(this.activeState == square.state || square.isKing) {
-			left = this.getData(square.backwardSiblings.leftId);
-			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
-				selectionValid = true;
-			}
+	private int[] selectionIds;
 
-			right = this.getData(square.backwardSiblings.rightId);
-			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER2_STATE) {
-				selectionValid = true;
-			}
-		}
+	/*
+	 * Save the id of the @link BoardSquareInfo
+	 *
+	 */
+	public boolean saveSelection(int id) {
+		BoardSquareInfo square = this.getData(id);
+		if(square == null || square.id != id || square.state == LOCKED_STATE) return false;
 
-		if(this.activeState == square.state || square.isKing || this.vsDevice) {
-			left = this.getData(square.forwardSiblings.leftId);
-			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER1_STATE) {
-				selectionValid = true;
-			}
-
-			right = this.getData(square.forwardSiblings.rightId);
-			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER1_STATE) {
-				selectionValid = true;
-			}
-		}
-
-		if(selectionValid) ; // save the square
-		return selectionValid;
-	} // end verifyInitialSelection
-
-	public boolean verifySelection(BoardSquareInfo square) {
-		return false;
-	}
-
-	public boolean verifyFinalSelection(BoardSquareInfo square) {
-		if(this.isPlayer1() && square.state == EMPTY_STATE) {
-		   	return true;
-		}
-
-		if((this.isPlayer2() || this.isDevice()) && 
-				square.state == EMPTY_STATE) {
+		if(selectionIndex < 0 /* then initial selection list first. */) {
+		   	if(this.activeState == square.state || square.state == EMPTY_STATE) return false;
+			
+			selectionIndex = 0;
+			selectionIds[selectionIndex++] = square.id;
 			return true;
 		}
+
+		BoardSquareInfo ppSquare = this.getData(selectionIds[selectionIndex-1]);
+		if(ppSquare == null) return false;
+
+		// Never allow two or more of the same type of square
+	   	if(ppSquare.state == square.state) return false;
+
+		selectionIds[selectionIndex++] = square.id;
+		return true;
+	}
+
+	public boolean verifySelectionIds() {
+		if(selectionIndex < 0) return false;
 
 		return false;
 	}
