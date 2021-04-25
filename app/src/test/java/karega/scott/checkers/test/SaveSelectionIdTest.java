@@ -94,7 +94,8 @@ public class SaveSelectionIdTest {
 		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
-		Assert.assertFalse(engine.saveSelection(21)); // Good. Capture PLAYER2_STATE
+		Assert.assertTrue(engine.saveSelection(21)); // Good. Capture PLAYER2_STATE
+		Assert.assertTRue(engine.saveSelection(14)); // Good. Capture EMPTY_STATE
 	}
 }
 
