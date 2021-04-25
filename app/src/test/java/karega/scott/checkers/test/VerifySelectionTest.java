@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-// equation: id = (row*8)
+// equation: id = (row*8)+col
 public class VerifySelectionTest {
 	CheckersEngine engine;
 
@@ -22,7 +22,7 @@ public class VerifySelectionTest {
 	@After public void after() {
 	}
 
-	@Test public void verifySelectionPlayer1() {
+	@Test public void simplePlayer1() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		Assert.assertFalse(engine.saveSelection(57));
@@ -30,9 +30,12 @@ public class VerifySelectionTest {
 		Assert.assertFalse(engine.saveSelection(59));
 
 		Assert.assertTrue(engine.saveSelection(44));
+		Assert.assertTrue(engine.saveSelection(35));
+
+		Assert.assertTrue(engine.verifySelectionList());
 	}
 
-	@Test public void verifySelectionPlayer2() {
+	@Test public void simplePlayer2() {
 		engine.switchPlayer();
 
 		Assert.assertTrue(engine.isPlayer2());
@@ -42,6 +45,9 @@ public class VerifySelectionTest {
 		Assert.assertFalse(engine.saveSelection(2));
 
 		Assert.assertTrue(engine.saveSelection(19));
+		Assert.assertTrue(engine.saveSelection(28));
+
+		Assert.assertTrue(engine.verifySelectionList());
 	}
 }
 
