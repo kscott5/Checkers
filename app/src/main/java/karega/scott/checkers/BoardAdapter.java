@@ -43,17 +43,16 @@ public class BoardAdapter extends BaseAdapter {
 			public boolean onTouch(View view, MotionEvent event) {
 				CheckerBoardSquare square = (CheckerBoardSquare)view;
 				CheckersEngine engine = square.engine;
+				int position = square.info.id;
 
 				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
-						return engine.verifyInitialSelection(square.info);
-
             		case MotionEvent.ACTION_MOVE:
-						return engine.verifySelection(square.info);
+						return engine.saveSelection(positionalId);
 
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
-						return engine.verifyFinalSelection(square.info);
+						return engine.verifySelectionList(positionalId);
         		}
 
 				return engine.handleOnTouch(square.info);

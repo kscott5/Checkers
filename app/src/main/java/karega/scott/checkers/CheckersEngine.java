@@ -67,6 +67,7 @@ public class CheckersEngine  {
 		this.activeState = PLAYER1_STATE;
 		this.activeSquare = null;
 
+		this.selectionIndex = -1;
 		this.initialBoardSquares();
 	}
 
@@ -156,8 +157,9 @@ public class CheckersEngine  {
 	public void newGame() {
 		this.activeState = PLAYER1_STATE;
 		this.activeSquare = null;
-		this.selectionIds = new int[10];
-		
+		this.selectionIds = null;
+		this.selectionIndex = -1;
+
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				this.engineSquares[row][col].reset();
@@ -166,6 +168,8 @@ public class CheckersEngine  {
 	} // end newGame
 	
 	private int[] selectionIds;
+	private int selectionIndex;
+
 	/*
 	 * Save the id of the @link BoardSquareInfo
 	 *
@@ -193,9 +197,10 @@ public class CheckersEngine  {
 		return true;
 	}
 
-	public boolean verifySelectionIds() {
+	public boolean verifySelectionList() {
 		if(selectionIndex < 0) return false;
 
+		selectionIndex = -1;
 		return false;
 	}
 	
