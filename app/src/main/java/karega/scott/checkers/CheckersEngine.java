@@ -178,7 +178,7 @@ public class CheckersEngine  {
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return false;
 
-		if(selectionIndex < 0 /* then initial selection list first. */) {
+		if(selectionIndex < 0 /* then initialize selection list first. */) {
 		   	if(this.activeState == square.state || square.state == EMPTY_STATE) return false;
 			
 			selectionIndex = 0;
@@ -190,6 +190,9 @@ public class CheckersEngine  {
 		BoardSquareInfo ppSquare = this.getData(selectionIds[selectionIndex-1]);
 		if(ppSquare == null) return false;
 
+		// Never allow active player capture own board item
+		if(square.state == this.activeState) return false;
+
 		// Never allow two or more of the same type of square
 	   	if(ppSquare.state == square.state) return false;
 
@@ -198,9 +201,25 @@ public class CheckersEngine  {
 	}
 
 	public boolean verifySelectionList() {
-		if(selectionIndex < 0) return false;
+		if(selectionIndex < 1) return false;
 
-		selectionIndex = -1;
+		BoardSquareInfo square = this.getData(selectionIds[selectionIndex]); // target
+		
+		if(/*target*/ selectionIndex == 1 && /*target*/ square.state == EMPTY_STATE) return true;
+		if(/*target*/ square.state != EMPTY_STATE) return false;
+
+		square = this.getData(selectionIds[0]); // start
+		if(/*start*/ square.state != this.activeState /*player*/) return false;
+
+		if(/*player start*/ square.isKing /*then direction not important*/) {
+		}
+
+		if(this.activeState == PLAYER2_STATE /*forward only*/) {
+		}
+
+		if(this.activeState == PLAYER1_STATE /*backward only*/){
+		}
+
 		return false;
 	}
 	
