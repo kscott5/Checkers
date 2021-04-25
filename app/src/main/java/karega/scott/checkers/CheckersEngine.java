@@ -166,7 +166,6 @@ public class CheckersEngine  {
 	} // end newGame
 	
 	private int[] selectionIds;
-
 	/*
 	 * Save the id of the @link BoardSquareInfo
 	 *
@@ -179,6 +178,7 @@ public class CheckersEngine  {
 		   	if(this.activeState == square.state || square.state == EMPTY_STATE) return false;
 			
 			selectionIndex = 0;
+			selectionIds = new int[10];
 			selectionIds[selectionIndex++] = square.id;
 			return true;
 		}
