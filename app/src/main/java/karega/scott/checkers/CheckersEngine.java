@@ -196,6 +196,9 @@ public class CheckersEngine  {
 		// Never allow two or more of the same type of square
 	   	if(ppSquare.state == square.state) return false;
 
+		// Never allow empty space then opposite player capture item
+		if(ppSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
+
 		selectionIds[selectionIndex++] = square.id;
 		return true;
 	}

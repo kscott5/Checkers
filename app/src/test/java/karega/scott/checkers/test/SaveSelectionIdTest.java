@@ -80,7 +80,24 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(19)); // Wrong. Previous EMPTY_STATE
 	}
 
-	@Test public void if4AllowState() {
+	@Test public void if4NeverAllowEmptyThenPlayerState() {
+		Assert.assertTrue(engine.isPlayer1());
+
+		// Use fake squares and board state
+		Assert.assertTrue(engine.updateSquareState(14,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(21,engine.PLAYER2_STATE));
+		Assert.assertTrue(engine.updateSquareState(26,engine.PLAYER1_STATE));
+		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
+		
+		Assert.assertTrue(engine.saveSelection(35));  // First.
+		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
+		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
+		Assert.assertFalse(engine.saveSelection(21)); // Wrong. Capture PLAYER2_STATE
+	}
+
+	@Test public void if5AllowState() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
@@ -95,7 +112,7 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 		Assert.assertTrue(engine.saveSelection(21)); // Good. Capture PLAYER2_STATE
-		Assert.assertTRue(engine.saveSelection(14)); // Good. Capture EMPTY_STATE
+		Assert.assertTrue(engine.saveSelection(14)); // Good. Capture EMPTY_STATE
 	}
 }
 
