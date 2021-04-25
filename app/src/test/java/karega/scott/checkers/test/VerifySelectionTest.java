@@ -29,12 +29,12 @@ public class VerifySelectionTest {
 
 		BoardSquareInfo square = engine.getData(44);
 		Assert.assertNotNull(square);
-		Assert.assertTrue(square.state == CheckersEngine.PLAYER1_STATE);
+		Assert.assertEquals(square.state,CheckersEngine.PLAYER1_STATE);
 		Assert.assertTrue(engine.saveSelection(44));
 
 		square = engine.getData(35);
 		Assert.assertNotNull(square);
-		Assert.assertTrue(square.state == CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(square.state,CheckersEngine.EMPTY_STATE);
 		Assert.assertTrue(engine.saveSelection(35));
 
 		Assert.assertTrue(engine.verifySelectionList());
@@ -51,12 +51,12 @@ public class VerifySelectionTest {
 
 		BoardSquareInfo square = engine.getData(19);
 		Assert.assertNotNull(square);
-		Assert.assertTrue(square.state, CheckersEngine.PLAYER2_STATE);
+		Assert.assertEquals(square.state,CheckersEngine.PLAYER2_STATE);
 		Assert.assertTrue(engine.saveSelection(19));
 
 		square = engine.getData(28);
 		Assert.assertNotNull(square);
-		Assert.assertTrue(square.state, CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(square.state,CheckersEngine.EMPTY_STATE);
 		Assert.assertTrue(engine.saveSelection(28));
 
 		Assert.assertTrue(engine.verifySelectionList());
