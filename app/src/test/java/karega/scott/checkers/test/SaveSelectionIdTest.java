@@ -18,7 +18,10 @@ public class SaveSelectionIdTest {
 
 	@Before public void before() {
 		engine = new CheckersEngine(/*vsDevice*/false);
+
 		engine.newGame();
+		
+		engine.setBoardSquaresEmpty(); // Not LOCKED_STATE
 	}
 
 	@After public void after() {
@@ -27,13 +30,18 @@ public class SaveSelectionIdTest {
 	@Test public void if0ValidSuqareId() {
 		Assert.assertFalse(engine.saveSelection(-1)); // Wrong. Not on board
 		Assert.assertFalse(engine.saveSelection(0));  // Wrong. LOCKED_STATE
+		Assert.assertFalse(engine.saveSelection(63)); // Wrong. LOCKED_STATE
 	}
 
 	@Test public void if1FirstSquareSelected() {
-		Assert.assertFalse(engine.saveSelection(1)); // Wrong. PLAYER2_STATE
-		Assert.assertFalse(engine.saveSelection(24)); // Wrong. EMPTY_STATE
-		Assert.assertFalse(engine.saveSelection(49)); // Wrong. Capture not available
-		Assert.assertTrue(engine.saveSelection(40));  // Good. Capture EMPTY_STATE
+		// Use fake squares and board state
+		Assert.assertTrue(engine.updateSquareState(26,engine.PLAYER2_STATE));
+		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
+		
+		Assert.assertFalse(engine.saveSelection(26)); // Wrong. PLAYER2_STATE
+		Assert.assertTrue(engine.saveSelection(35));  // First.
+		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 	}
 
 	@Test public void if2SelectionIdAvailable() {
@@ -41,14 +49,12 @@ public class SaveSelectionIdTest {
 	}
 
 	@Test public void if3NeverAllow() {
-		engine.setBoardSquaresEmpty(); // Not LOCKED_STATE
-
 		// Use fake squares and board state
 		Assert.assertTrue(engine.updateSquareState(26,engine.PLAYER1_STATE));
 		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
-		Assert.assetTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
+		Assert.assertTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
 		
-		Assert.assertTrue(engine.saveSelection(35));
+		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 	}
