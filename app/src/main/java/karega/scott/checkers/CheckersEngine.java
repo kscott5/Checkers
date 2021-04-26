@@ -202,7 +202,7 @@ public class CheckersEngine  {
 		if(psSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
 
 		// Never allow capture item in different heading
-	//	if(selectionDirectionWrong(id)) return false;
+		if(selectionDirectionWrong(id)) return false;
 
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;

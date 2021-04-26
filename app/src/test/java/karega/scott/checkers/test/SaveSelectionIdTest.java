@@ -101,20 +101,22 @@ public class SaveSelectionIdTest {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
-		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(26,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
-		Assert.assertTrue(engine.updateSquareState(33,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
-		Assert.assertTrue(engine.updateSquareState(37,engine.EMPTY_STATE));
-		Assert.assertTrue(engine.updateSquareState(51,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(42,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(44,engine.EMPTY_STATE));
 
-		Assert.assertTrue(engine.saveSelection(35));
-		Assert.assertFalse(engine.saveSelection(19));
-		Assert.assertFalse(engine.saveSelection(51));
-		Assert.assertFalse(engine.saveSelection(33));
-		Assert.assertFalse(engine.saveSelection(37));
-		Assert.assertTrue(engine.saveSelection(28));
+		BoardSquareInfo square = engine.getData(35);
+		Assert.assertFalse(square.isKing);
+
+		Assert.assertTrue(engine.saveSelection(35)); // First.
+		Assert.assertFalse(engine.saveSelection(27)); // Wrong. Capture LOCKED_STATE
+		Assert.assertFalse(engine.saveSelection(34)); // Wrong. Capture LOCKED_STATE
+		Assert.assertFalse(engine.saveSelection(36)); // Wrong. Capture LOCKED_STATE
+		Assert.assertFalse(engine.saveSelection(43)); // Wrong. Capture LOCKED_STATE
+		Assert.assertFalse(engine.saveSelection(44)); // Wrong. Direction EMPTY_STATE
+		Assert.assertTrue(engine.saveSelection(28)); // Good.
 	}
 
 	@Test public void if7AllowState() {
