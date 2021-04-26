@@ -1,6 +1,5 @@
 package karega.scott.checkers;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 
@@ -51,19 +50,19 @@ public class CheckersEngine  {
 	public static final int EMPTY_CHIP = 1;
 	public static final int PAWN_CHIP = 2;
 		
-	protected final int engineId;
 	protected final boolean vsDevice;
 	
 	protected BoardSquareInfo[][] engineSquares;
-	protected int activeState;
-	
+	protected int activePlayerState;
+	protected boolean activePlayerIsKing;
+
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
 
 	public CheckersEngine(boolean vsDevice) {
 		this.vsDevice = vsDevice;
-		this.engineId = CHECKERS_ENGINE;
-		this.activeState = PLAYER1_STATE;
+		this.activePlayerState = PLAYER1_STATE;
+		this.activePlayerIsKing = false;
 
 		this.selectionIndex = -1;
 		this.initialBoardSquares();
@@ -115,29 +114,24 @@ public class CheckersEngine  {
 	 * @param square
 	 */
 	public boolean updateGameBoard() {
-		BoardSquareInfo square = this.getData(selectionIds[0]);
-		if(square != null && selectionIndex <= 0) {
-			square.deactivate();
-			selectionIndex = -1;
-
-			return false;
-		}
-
-		boolean isKing = square.isKing;
+		// Update the engine squares with selection id list
 		for(int index=0; index<selectionIndex; index++) {
-			square = this.getData(selectionIds[index]);
-
-			square.deactivate();
-			square.state = EMPTY_STATE;
+			this.updateSquareState(selectionIds[index], EMPTY_STATE);
 		}
 
-		square = this.getData(selectionIds[selectionIndex]);
-
-		square.state = this.activeState;
-		square.isKing = isKing;
-		square.deactivate();
-
+		// The last item in selection ids with active player chip
+		// 
+		// NOTE: 
+		//
+		// An built generic list is not in use with this application. This
+		// application use simple data type and structure where possible. However,
+		// the application must maintain the correct values where simple arrays of
+		// built-in data types are in use. int, char, float, double and more.
+		//
+		// selectionIndex is zero base
+		this.updateSquareState(selectionIds[selectionIndex-1], this.activePlayerState);
 		this.switchPlayer();
+
 		return true;
 	} // end updateGameBoard
 	
@@ -165,7 +159,8 @@ public class CheckersEngine  {
 	} // end exitGame
 	
 	public void newGame() {
-		this.activeState = PLAYER1_STATE;
+		this.activePlayerState = PLAYER1_STATE;
+		this.activePlayerIsKing = false;
 		this.selectionIds = new int[10];
 		this.selectionIndex = -1;
 
@@ -188,8 +183,10 @@ public class CheckersEngine  {
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return false;
 
 		if(selectionIndex == -1 /* then initialize selection list first. */) {
-		   	if(this.activeState != square.state || square.state == EMPTY_STATE) return false;
+		   	if(this.activePlayerState != square.state || square.state == EMPTY_STATE) return false;
 			
+			this.activePlayerIsKing = square.isKing;
+
 			square.activate();
 
 			selectionIndex = 0;
@@ -204,13 +201,13 @@ public class CheckersEngine  {
 		if(psSquare == null) return false;
 
 		// Never allow active player capture own board item
-		if(square.state == this.activeState) return false;
+		if(square.state == this.activePlayerState) return false;
 
 		// Never allow two or more of the same type of square
 	   	if(psSquare.state == square.state) return false;
 
 		// Never allow empty space then opposite player capture item
-		if(psSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
+		if(psSquare.state == EMPTY_STATE && square.state != this.activePlayerState) return false;
 
 		// Never allow capture item in different heading
 		if(selectionDirectionWrong(id)) return false;
@@ -226,19 +223,17 @@ public class CheckersEngine  {
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return true;
 
-		BoardSquareInfo start = this.getData(selectionIds[0]);
-
 		// Previous select square
 		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
 
 		// Determine the valid available
-		if(this.activeState == PLAYER1_STATE || start.isKing) { 
+		if(this.activePlayerState == PLAYER1_STATE || this.activePlayerIsKing) { 
 			if(psSquare.backwardSiblings.leftId == square.id || 
 					psSquare.backwardSiblings.rightId == square.id) return false; // Not wrong
 		}
 
 		// Determine the valid available
-		if(this.activeState == PLAYER2_STATE || start.isKing) { 
+		if(this.activePlayerState == PLAYER2_STATE || this.activePlayerIsKing) { 
 			if(psSquare.forwardSiblings.leftId == square.id || 
 					psSquare.forwardSiblings.rightId == square.id) return false; // Not wrong.
 		}
@@ -285,7 +280,7 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public boolean isPlayer1() {
-		return (activeState == PLAYER1_STATE);
+		return (this.activePlayerState == PLAYER1_STATE);
 	} // end isPlayer1
 
 	/**
@@ -293,7 +288,7 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public boolean isPlayer2() {
-		return (activeState == PLAYER2_STATE);
+		return (this.activePlayerState == PLAYER2_STATE);
 	} // end isPlayer2
 	
 	/**
@@ -311,7 +306,8 @@ public class CheckersEngine  {
 		selectionIndex = -1;
 		selectionIds = new int[10];
 
-		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
+		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
+		this.activePlayerIsKing = false;
 	} // end switchPlayer
 
 	public int generateSquareId(int row, int col) {
@@ -346,11 +342,9 @@ public class CheckersEngine  {
 
 	public boolean updateSquareState(int id, int newState) {
 		BoardSquareInfo square = this.getData(id);
+		if(square == null || square.state == LOCKED_STATE) return false;
 
-		if(square.state == LOCKED_STATE) return false;
-
-		square.state = newState;
-		return true;
+		return this.updateSquareState(square.row,square.column,newState);
 	}
 
 	public boolean updateSquareState(int row, int col, int newState) {
@@ -359,8 +353,12 @@ public class CheckersEngine  {
 
 		BoardSquareInfo square = this.getData(row,col);
 		if(square.state == LOCKED_STATE) return false;
-		
+
+		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
+
+		square.deactivate();
+
 		return true;
 	}
 
