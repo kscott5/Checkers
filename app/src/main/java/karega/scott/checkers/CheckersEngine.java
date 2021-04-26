@@ -202,7 +202,7 @@ public class CheckersEngine  {
 		if(psSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
 
 		// Never allow capture item in different heading
-		if(selectionDirectionWrong(id)) return false;
+	//	if(selectionDirectionWrong(id)) return false;
 
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
@@ -400,19 +400,48 @@ public class CheckersEngine  {
         }
 	} // setBoardSquaresEmpty
 
+	public BoardSquareSiblings generateSquareSiblings(int id, boolean forward) {
+		BoardSquareInfo parent = this.getData(id);
+		if(parent.id != id) return new BoardSquareSiblings(-1,-1);
+
+		final int multiplier = (forward)? +1:-1;
+		
+		int[] siblingIds = new int[2];
+		siblingIds[0] = 7; siblingIds[1] = 9;
+
+		for(int index=0; index<2; index++) {
+			BoardSquareInfo sibling = this.getData( parent.id + (multiplier * siblingIds[index]) );
+
+			// Update or change the array value with correct information
+			siblingIds[index] = (sibling == null || sibling.row == parent.row || sibling.row == parent.row+2)? -1 : sibling.id;
+		}
+
+		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
+	}
+
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
         for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
             for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
-				int id = this.generateSquareId(row,col);
-				
+				int id = this.generateSquareId(row,col);				
+	
 				int state = this.generateSquareState(row,col);
-            	int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
-
-	            this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
-            }
+				int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
+						
+           	   	this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
+           }
         }
+
+		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
+			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+				BoardSquareInfo parent = this.engineSquares[row][col];
+
+				parent.backwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ false);
+				parent.forwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ true);
+			}
+		}
+	
 	} // end initialBoardSquares
 	
 	public void moveSquare(BoardSquareInfo[] squares) {
