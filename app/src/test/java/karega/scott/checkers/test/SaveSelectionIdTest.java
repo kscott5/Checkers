@@ -65,7 +65,7 @@ public class SaveSelectionIdTest {
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 	}
 
-	@Test public void if3NeverAllowSamePreviousState() {
+	@Test public void if4NeverAllowSamePreviousState() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
@@ -80,7 +80,7 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(19)); // Wrong. Previous EMPTY_STATE
 	}
 
-	@Test public void if4NeverAllowEmptyThenPlayerState() {
+	@Test public void if5NeverAllowEmptyThenPlayerState() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
@@ -97,7 +97,7 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(21)); // Wrong. Capture PLAYER2_STATE
 	}
 
-	@Test public void if5AllowState() {
+	@Test public void if6AllowState() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
