@@ -97,7 +97,27 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(21)); // Wrong. Capture PLAYER2_STATE
 	}
 
-	@Test public void if6AllowState() {
+	@Test public void if6SelectionDirectionWrong() {
+		Assert.assertTtrue(engine.isPlayer1());
+
+		// Use fake squares and board state
+		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE);
+		Assert.assertTrue(engine.updateSquareState(26,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(33,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(35,engine.PLAYER1_STATE));
+		Assert.assertTrue(engine.updateSquareState(37,engine.EMPTY_STATE));
+		Assert.assertTrue(engine.updateSquareState(51,engine.EMPTY_STATE));
+
+		Assert.assertTrue(engine.saveSelection(35));
+		Assert.assertFalse(engine.saveSelection(19));
+		Assert.assertFalse(engine.saveSelection(51));
+		Assert.assertFalse(engine.saveSelection(33));
+		Assert.assertFalse(engine.saveSelection(37));
+		Assert.assertTrue(engine.saveSelection(28));
+	}
+
+	@Test public void if7AllowState() {
 		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
