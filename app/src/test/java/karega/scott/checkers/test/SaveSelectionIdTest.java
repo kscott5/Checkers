@@ -98,7 +98,7 @@ public class SaveSelectionIdTest {
 	}
 
 	@Test public void if6SelectionDirectionWrong() {
-		Assert.assertTtrue(engine.isPlayer1());
+		Assert.assertTrue(engine.isPlayer1());
 
 		// Use fake squares and board state
 		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE));
