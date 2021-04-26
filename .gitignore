@@ -21,12 +21,6 @@ gen/
 # Gradle files
 .gradle/
 
-# Gradle --project-cache-dir files
-6.8.2/
-buildOutputCleanup/
-checksums/
-vcs-1/
-
 # Exclude any directory 
 /**/build/**/
 
