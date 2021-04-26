@@ -32,6 +32,9 @@ public class VerifySelectionTest {
 		Assert.assertTrue(engine.updateGameBoard());
 
 		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertEquals(engine.getData(46).state, CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(engine.getData(39).state, CheckersEngine.PLAYER1_STATE);
 	}
 
 	@Test public void simplePlayer1NotValid() {
@@ -52,6 +55,9 @@ public class VerifySelectionTest {
 		Assert.assertTrue(engine.updateGameBoard());
 
 		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertEquals(engine.getData(17).state, CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(engine.getData(26).state, CheckersEngine.PLAYER2_STATE);
 	}
 
 	@Test public void simplePlayer2NotValid() {
