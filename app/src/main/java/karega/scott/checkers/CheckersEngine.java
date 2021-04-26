@@ -109,25 +109,14 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public int getSize() {
-		try {
-			return this.engineSquares.length*this.engineSquares[0].length;
-		} catch(Exception e) {
-			return 0;
-		}
+		return this.engineSquares.length;
 	} // end getSize
 	
 	/**
-	 * Handles the player on touch by selecting and/or moving the active square 
+	 * Updates the game board with active player selection and switch player 
 	 * @param square
 	 */
-	public boolean handleOnTouch(BoardSquareInfo square) {
-		if(square == null)
-			return true;
-	
-		if(!isDevice()) { 
-			moveSquare(square);
-		}
-		
+	public boolean updateGameBoard() {
 		return true;
 	} // end handleOnTouch
 	
@@ -433,13 +422,4 @@ public class CheckersEngine  {
 		}
 	
 	} // end initialBoardSquares
-	
-	public void moveSquare(BoardSquareInfo[] squares) {
-	}
-
-	public void moveSquare(BoardSquareInfo target) {
-	} // end moveSquare
-
-	protected void moveSquareForDevice() {
-	} // end moveSquareForDevice
 } // end CheckersEngine
