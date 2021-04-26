@@ -29,8 +29,9 @@ public class VerifySelectionTest {
 
 		Assert.assertTrue(engine.saveSelection(46));
 		Assert.assertTrue(engine.saveSelection(39));
+		Assert.assertTrue(engine.updateGameBoard());
 
-		Assert.assertTrue("" == "App switch player after move not done");
+		Assert.assertTrue(engine.isPlayer2());
 	}
 
 	@Test public void simplePlayer1NotValid() {
@@ -46,10 +47,11 @@ public class VerifySelectionTest {
 
 		Assert.assertTrue(engine.isPlayer2());
 
-		Assert.assertFalse(engine.saveSelection(17));
-		Assert.assertFalse(engine.saveSelection(24));
+		Assert.assertTrue(engine.saveSelection(17));
+		Assert.assertTrue(engine.saveSelection(26));
+		Assert.assertTrue(engine.updateGameBoard());
 
-		Assert.assertTrue("" == "App switch player after move not done");
+		Assert.assertTrue(engine.isPlayer1());
 	}
 
 	@Test public void simplePlayer2NotValid() {
