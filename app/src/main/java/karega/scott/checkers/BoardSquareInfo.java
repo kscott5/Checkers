@@ -10,8 +10,8 @@ public class BoardSquareInfo {
 	public final int initialChip;
 	public final int initialState;
 	
-	public final BoardSquareSiblings forwardSiblings;
-	public final BoardSquareSiblings backwardSiblings;
+	public BoardSquareSiblings forwardSiblings;
+	public BoardSquareSiblings backwardSiblings;
 	
 	public int chip;
 	public int state;
@@ -33,9 +33,6 @@ public class BoardSquareInfo {
 		this.chip = initialChip;
 		this.isKing = false;
 		this.isActive = false;
-		
-		this.forwardSiblings = new BoardSquareSiblings(this.id+7,this.id+9); // Down from top-left
-		this.backwardSiblings = new BoardSquareSiblings(this.id-9,this.id-7); // Up from bottom-right
 		
 		this.reset();
 	}
