@@ -101,7 +101,7 @@ public class SaveSelectionIdTest {
 		Assert.assertTtrue(engine.isPlayer1());
 
 		// Use fake squares and board state
-		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE);
+		Assert.assertTrue(engine.updateSquareState(19,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(26,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(28,engine.EMPTY_STATE));
 		Assert.assertTrue(engine.updateSquareState(33,engine.EMPTY_STATE));
