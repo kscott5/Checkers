@@ -109,7 +109,7 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public int getSize() {
-		return this.engineSquares.length;
+		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
 	
 	/**
