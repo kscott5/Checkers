@@ -214,16 +214,6 @@ public class CheckersEngine  {
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return true;
 
-		if(selectionIndex == -1 /* then initialize selection list first. */) {
-             if(this.activeState != square.state || square.state == EMPTY_STATE) return true;
- 
-             selectionIndex = 0;
-             selectionIds = new int[10];
-             selectionIds[selectionIndex++] = square.id;
-
-             return false; // selection direction not wrong.
-         }
-
 		BoardSquareInfo start = this.getData(selectionIds[0]);
 
 		// Previous select square
