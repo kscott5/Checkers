@@ -190,7 +190,7 @@ public class CheckersEngine  {
 
 		// Previous select square
 		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
-		if(ppSquare == null) return false;
+		if(psSquare == null) return false;
 
 		// Never allow active player capture own board item
 		if(square.state == this.activeState) return false;
@@ -231,7 +231,7 @@ public class CheckersEngine  {
 		int rowDiscriminator = (this.activeState == PLAYER1_STATE)? +1: -1;
 		
 		// Previous select square
-		BoardSqaureInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
+		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
 		if(psSquare.row+rowDiscriminator != /*not*/  square.row) return true;
 
 		return false; // selection direction not wrong.
