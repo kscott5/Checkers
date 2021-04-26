@@ -55,7 +55,6 @@ public class CheckersEngine  {
 	protected final boolean vsDevice;
 	
 	protected BoardSquareInfo[][] engineSquares;
-	protected BoardSquareInfo activeSquare;
 	protected int activeState;
 	
 	private final int CHECKERS_ENGINE_ROWS = 8;
@@ -65,7 +64,6 @@ public class CheckersEngine  {
 		this.vsDevice = vsDevice;
 		this.engineId = CHECKERS_ENGINE;
 		this.activeState = PLAYER1_STATE;
-		this.activeSquare = null;
 
 		this.selectionIndex = -1;
 		this.initialBoardSquares();
@@ -111,14 +109,37 @@ public class CheckersEngine  {
 	public int getSize() {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
-	
+
 	/**
 	 * Updates the game board with active player selection and switch player 
 	 * @param square
 	 */
 	public boolean updateGameBoard() {
+		BoardSquareInfo square = this.getData(selectionIds[0]);
+		if(square != null && selectionIndex <= 0) {
+			square.deactivate();
+			selectionIndex = -1;
+
+			return false;
+		}
+
+		boolean isKing = square.isKing;
+		for(int index=0; index<selectionIndex; index++) {
+			square = this.getData(selectionIds[index]);
+
+			square.deactivate();
+			square.state = EMPTY_STATE;
+		}
+
+		square = this.getData(selectionIds[selectionIndex]);
+
+		square.state = this.activeState;
+		square.isKing = isKing;
+		square.deactivate();
+
+		this.switchPlayer();
 		return true;
-	} // end handleOnTouch
+	} // end updateGameBoard
 	
 	protected void determineWinner() {
 		int player1=0, player2=0;
@@ -145,8 +166,7 @@ public class CheckersEngine  {
 	
 	public void newGame() {
 		this.activeState = PLAYER1_STATE;
-		this.activeSquare = null;
-		this.selectionIds = null;
+		this.selectionIds = new int[10];
 		this.selectionIndex = -1;
 
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
@@ -170,6 +190,8 @@ public class CheckersEngine  {
 		if(selectionIndex == -1 /* then initialize selection list first. */) {
 		   	if(this.activeState != square.state || square.state == EMPTY_STATE) return false;
 			
+			square.activate();
+
 			selectionIndex = 0;
 			selectionIds = new int[10];
 			selectionIds[selectionIndex++] = square.id;
@@ -196,6 +218,7 @@ public class CheckersEngine  {
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
 
+		square.activate();
 		return true; // selection square id saved.
 	}
 
@@ -223,29 +246,6 @@ public class CheckersEngine  {
 		return true; // Wrong.
 	}
 
-	public boolean verifySelectionList() {
-		if(selectionIndex < 1) return false;
-
-		BoardSquareInfo square = this.getData(selectionIds[selectionIndex]); // target
-		
-		if(/*target*/ selectionIndex == 1 && /*target*/ square.state == EMPTY_STATE) return true;
-		if(/*target*/ square.state != EMPTY_STATE) return false;
-
-		square = this.getData(selectionIds[0]); // start
-		if(/*start*/ square.state != this.activeState /*player*/) return false;
-
-		if(/*player start*/ square.isKing /*then direction not important*/) {
-		}
-
-		if(this.activeState == PLAYER2_STATE /*forward only*/) {
-		}
-
-		if(this.activeState == PLAYER1_STATE /*backward only*/){
-		}
-
-		return false;
-	}
-	
 	/**
 	 * Is the square empty at this coordinates on the board
 	 * 
@@ -308,11 +308,9 @@ public class CheckersEngine  {
 	 * Allows the other player to take turn
 	 */
 	public void switchPlayer() {
-		if (activeSquare != null) {
-			activeSquare.deactivate();
-		}
+		selectionIndex = -1;
+		selectionIds = new int[10];
 
-		activeSquare = null;
 		activeState = (activeState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 	} // end switchPlayer
 
