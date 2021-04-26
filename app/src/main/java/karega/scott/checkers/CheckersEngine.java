@@ -184,23 +184,57 @@ public class CheckersEngine  {
 			selectionIndex = 0;
 			selectionIds = new int[10];
 			selectionIds[selectionIndex++] = square.id;
-			return true;
+
+			return true; // selection square id saved
 		}
 
-		BoardSquareInfo ppSquare = this.getData(selectionIds[selectionIndex-1]);
+		// Previous select square
+		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
 		if(ppSquare == null) return false;
 
 		// Never allow active player capture own board item
 		if(square.state == this.activeState) return false;
 
 		// Never allow two or more of the same type of square
-	   	if(ppSquare.state == square.state) return false;
+	   	if(psSquare.state == square.state) return false;
 
 		// Never allow empty space then opposite player capture item
-		if(ppSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
+		if(psSquare.state == EMPTY_STATE && square.state != this.activeState) return false;
 
+		// Never allow capture item in different heading
+		if(selectionDirectionWrong(id)) return false;
+
+		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
-		return true;
+
+		return true; // selection square id saved.
+	}
+
+	public boolean selectionDirectionWrong(int id) {
+		BoardSquareInfo square = this.getData(id);
+		if(square == null || square.id != id || square.state == LOCKED_STATE) return true;
+
+		if(selectionIndex == -1 /* then initialize selection list first. */) {
+             if(this.activeState != square.state || square.state == EMPTY_STATE) return true;
+ 
+             selectionIndex = 0;
+             selectionIds = new int[10];
+             selectionIds[selectionIndex++] = square.id;
+
+             return false; // selection direction not wrong.
+         }
+
+		BoardSquareInfo start = this.getData(selectionIds[0]);
+		if(start.isKing /* back and forth are valid*/) return false;
+
+		// Engine pace is one row per select square
+		int rowDiscriminator = (this.activeState == PLAYER1_STATE)? +1: -1;
+		
+		// Previous select square
+		BoardSqaureInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
+		if(psSquare.row+rowDiscriminator != /*not*/  square.row) return true;
+
+		return false; // selection direction not wrong.
 	}
 
 	public boolean verifySelectionList() {
