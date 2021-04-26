@@ -2,7 +2,7 @@ package karega.scott.checkers.test;
 
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
-import karega.scott.checkers.BoardSquareInfo.Siblings;
+import karega.scott.checkers.BoardSquareSiblings;
 
 import java.lang.Integer;
 import java.util.ArrayList;

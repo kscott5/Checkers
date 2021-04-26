@@ -225,16 +225,23 @@ public class CheckersEngine  {
          }
 
 		BoardSquareInfo start = this.getData(selectionIds[0]);
-		if(start.isKing /* back and forth are valid*/) return false;
 
-		// Engine pace is one row per select square
-		int rowDiscriminator = (this.activeState == PLAYER1_STATE)? +1: -1;
-		
 		// Previous select square
 		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
-		if(psSquare.row+rowDiscriminator != /*not*/  square.row) return true;
 
-		return false; // selection direction not wrong.
+		// Determine the valid available
+		if(this.activeState == PLAYER1_STATE || start.isKing) { 
+			if(psSquare.backwardSiblings.leftId == square.id || 
+					psSquare.backwardSiblings.rightId == square.id) return false; // Not wrong
+		}
+
+		// Determine the valid available
+		if(this.activeState == PLAYER2_STATE || start.isKing) { 
+			if(psSquare.forwardSiblings.leftId == square.id || 
+					psSquare.forwardSiblings.rightId == square.id) return false; // Not wrong.
+		}
+
+		return true; // Wrong.
 	}
 
 	public boolean verifySelectionList() {
