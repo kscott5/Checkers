@@ -178,7 +178,7 @@ public class CheckersEngine  {
 		this.selectionIds = new int[10];
 		this.selectionIndex = -1;
 
-		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIds = new int[10][2];
 		this.deviceSelectionIndex = -1;
 
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
@@ -324,7 +324,7 @@ public class CheckersEngine  {
 		this.selectionIds = new int[10];
 
 		this.deviceSelectionIndex = -1;
-		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIds = new int[10][2];
 
 		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 		this.activePlayerIsKing = false;
@@ -416,8 +416,12 @@ public class CheckersEngine  {
 		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
 	}
 
-	private int[] deviceSelectionIds;
+	private final int DEVICE_ID_COLUMN = 0;
+	private final int DEVICE_COUNT_COLUMN = 1;
+
+	private int[][] deviceSelectionIds;
 	private int deviceSelectionIndex;
+	
 	public int getDeviceSelectionSize() {
 		return this.deviceSelectionIndex;
 	}
@@ -429,7 +433,7 @@ public class CheckersEngine  {
 	public boolean locateDeviceMovableSquareIds() {
 		if(/*not*/ !this.vsDevice) return false;
 
-		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIds = new int[10][2];
 		this.deviceSelectionIndex = 0;
 
 		// Start loop backwards from square 63 bottom-right side of board.
@@ -442,11 +446,11 @@ public class CheckersEngine  {
 			if(this.saveSelection(square.id)) { 
 				// Keep it simple today, and look at forward sibling squares only.
 				if(this.saveSelection(square.forwardSiblings.leftId)) {
-					this.deviceSelectionIds[this.deviceSelectionIndex++] = square.id; // save id
+					this.deviceSelectionIds[this.deviceSelectionIndex++][DEVICE_ID_COLUMN] = square.id; // save id
 					continue;
 				}
 				if(this.saveSelection(square.forwardSiblings.rightId)) {
-					this.deviceSelectionIds[this.deviceSelectionIndex++] = square.id; // save id
+					this.deviceSelectionIds[this.deviceSelectionIndex++][DEVICE_ID_COLUMN] = square.id; // save id
 					continue;
 				}
 			} // end if this.saveSelection
