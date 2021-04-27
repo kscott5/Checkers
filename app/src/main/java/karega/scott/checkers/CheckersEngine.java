@@ -109,6 +109,13 @@ public class CheckersEngine  {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
 
+	public boolean updateGameBoard(int id, boolean hasMore) {
+		if(!this.saveSelection(id) /*was bad*/) return false;
+		if(hasMore /* save selection*/) return true;
+
+		return updateGameBoard();
+	}
+
 	/**
 	 * Updates the game board with active player selection and switch player 
 	 * @param square
