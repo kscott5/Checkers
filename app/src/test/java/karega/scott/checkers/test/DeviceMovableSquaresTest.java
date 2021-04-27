@@ -28,7 +28,21 @@ public class DeviceMovableSquaresTest {
 		Assert.assertTrue(engine.isDevice());
 	}
 
+	@Test public void getDeviceSelectionSize() {
+		Assert.assertEquals(engine.getDeviceSelectionSize(), -1);
+	}
+
 	@Test public void locateDeviceMoveSquareIds() {
-		Assert.assertEquals(engine.getDeviceSelectionSize(),-1);
+		Assert.assertTrue(engine.locateDeviceMovableSquareIds());
+		Assert.assertEquals(engine.getDeviceSelectionSize(),4);
+	}
+
+	@Test public void simpleDummyBoard() {
+		engine.setBoardSquaresEmpty();
+
+		Assert.assertTrue(engine.updateSquareState(12,CheckersEngine.PLAYER2_STATE));
+		Assert.assertTrue(engine.updateSquareState(19,CheckersEngine.PLAYER2_STATE));
+		Assert.assertTrue(engine.updateSquareState(26,CheckersEngine.PLAYER2_STATE));
+		Assert.assertTrue(engine.updateSquareState(28,CheckersEngine.PLAYER2_STATE));
 	}
 }
