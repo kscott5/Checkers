@@ -114,13 +114,6 @@ public class CheckersEngine  {
 	 * @param square
 	 */
 	public boolean updateGameBoard() {
-		// Update the engine squares with selection id list
-		for(int index=0; index<selectionIndex; index++) {
-			this.updateSquareState(selectionIds[index], EMPTY_STATE);
-		}
-
-		// The last item in selection ids with active player chip
-		// 
 		// NOTE: 
 		//
 		// An built generic list is not in use with this application. This
@@ -128,6 +121,18 @@ public class CheckersEngine  {
 		// the application must maintain the correct values where simple arrays of
 		// built-in data types are in use. int, char, float, double and more.
 		//
+		// selectionIndex is zero base
+		if(this.selectionIndex <=1) {
+			this.selectionIndex = -1;
+			return false;
+		}
+
+		// Update the engine squares with selection id list
+		for(int index=0; index<selectionIndex; index++) {
+			this.updateSquareState(selectionIds[index], EMPTY_STATE);
+		}
+
+		// The last item in selection ids with active player chip
 		// selectionIndex is zero base
 		this.updateSquareState(selectionIds[selectionIndex-1], this.activePlayerState);
 		this.switchPlayer();
