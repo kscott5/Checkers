@@ -408,6 +408,45 @@ public class CheckersEngine  {
 		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
 	}
 
+	private int[] deviceSquareIds;
+	private int deviceSquareIndex;
+
+	/*
+	 * Locate and create a list of squares the device
+	 * should use with initial play.
+	 */
+	public boolean locateDeviceMovableSquareIds() {
+		if(/*not*/ !this.vsDevice) return false;
+
+		this.deviceSquareIds = new int[10];
+		this.deviceSquareIndex = 0;
+
+		// Start loop backwards from square 63 bottom-right side of board.
+		for(int id=this.getSize()-1; id>0; id--) {
+			BoardSquareInfo square = this.getData(id);
+
+			if(square.state != /*not*/ this.activePlayerState) continue; // for loop at id--
+	
+			this.selectionIndex = -1; // prepare for save selection
+			if(this.saveSelection(square.id)) { 
+				// Keep it simple today, and look at forward sibling squares only.
+				if(this.saveSelection(square.forwardSiblings.leftId)) {
+					this.deviceSquareIds[this.deviceSquareIndex++] = square.id; // save id
+					continue;
+				}
+				if(this.saveSelection(square.forwardSiblings.rightId)) {
+					this.deviceSquareIds[this.deviceSquareIndex++] = square.id; // save id
+					continue;
+				}
+			} // end if this.saveSelection
+		} // end for loop
+
+		return (this.deviceSquareIndex > 0); // true else false.
+	} // end locationDeviceMovableSquareIds
+
+	/*
+	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
+	 */
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
@@ -422,6 +461,7 @@ public class CheckersEngine  {
            }
         }
 
+		// Defines relationship between empty and player squares only, not locked squares.
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				BoardSquareInfo parent = this.engineSquares[row][col];
