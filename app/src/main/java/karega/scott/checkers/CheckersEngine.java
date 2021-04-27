@@ -313,15 +313,18 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public boolean isDevice() {
-		return (isPlayer2() && vsDevice);
+		return (this.isPlayer2() && vsDevice);
 	} // end isDevice
 	
 	/*
 	 * Allows the other player to take turn
 	 */
 	public void switchPlayer() {
-		selectionIndex = -1;
-		selectionIds = new int[10];
+		this.selectionIndex = -1;
+		this.selectionIds = new int[10];
+
+		this.deviceSelectionIndex = -1;
+		this.deviceSelectionIds = new int[10];
 
 		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 		this.activePlayerIsKing = false;
