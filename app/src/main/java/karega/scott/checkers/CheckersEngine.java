@@ -79,6 +79,7 @@ public class CheckersEngine  {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
 	 
+		int col = id-(row*divisor);
 		return this.engineSquares[row][col];	
 	} // end getData
 
@@ -357,6 +358,8 @@ public class CheckersEngine  {
 		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
 
+		square.isKing = (/*if*/ this.activePlayerState == newState /*and*/ && /* pawn found the */ (/*top*/ square.row == 0 /*or*/ || /*bottom*/ square.row == 7);
+		square.isKing = (square.isKing == false && this.activePlayerState == newState && this.activePlayerIsKing == true);
 		square.deactivate();
 
 		return true;
