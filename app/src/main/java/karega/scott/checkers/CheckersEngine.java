@@ -358,7 +358,7 @@ public class CheckersEngine  {
 		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
 
-		square.isKing = (/*if*/ this.activePlayerState == newState /*and*/ && /* pawn found the */ (/*top*/ square.row == 0 /*or*/ || /*bottom*/ square.row == 7);
+		square.isKing = (/*if*/ this.activePlayerState == newState /*and*/ && /* pawn found the */ (/*top*/ square.row == 0 /*or*/ || /*bottom*/ square.row == 7));
 		square.isKing = (square.isKing == false && this.activePlayerState == newState && this.activePlayerIsKing == true);
 		square.deactivate();
 
