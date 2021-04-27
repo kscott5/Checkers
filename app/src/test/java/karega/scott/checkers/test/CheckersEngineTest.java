@@ -177,6 +177,7 @@ public class CheckersEngineTest {
 	} // end testSwitchPlayers
 	
 	@Test public void getSize() {
+		// NOTE: All [] arrays, lists and collections use a zero start index.
 		Assert.assertEquals(64,engine.getSize());
 	}
 	

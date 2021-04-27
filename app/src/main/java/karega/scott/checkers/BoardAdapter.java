@@ -46,19 +46,15 @@ public class BoardAdapter extends BaseAdapter {
 
 				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
-						return engine.verifyInitialSelection(square.info);
-
             		case MotionEvent.ACTION_MOVE:
-						return engine.verifySelection(square.info);
+						return engine.saveSelection(square.info.id);
 
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
-						return engine.verifyFinalSelection(square.info);
+					default:						
+						return engine.updateGameBoard();
         		}
-
-				return engine.handleOnTouch(square);
 			}
-			
 		});
 		
 		return (View)view;

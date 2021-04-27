@@ -227,34 +227,44 @@ public abstract class BoardGameEngine {
 		activeState = PLAYER1_STATE;
 	} // end newGame
 	
-	private boolean verifyInitialSurroundings(BoardSquareInfo start) {
-		BoardSquareInfo target = this.getData(start.row+1, start.column-1);
+	public boolean verifyInitialSelection(BoardSquareInfo square) {		
+		if(square == null) return false;
+		
+		boolean selectionValid = false;
+		BoardSquareInfo left, right;
+		
+		if(this.activeState == square.state || square.isKing) {
+			left = this.getData(square.backwardSiblings.leftId);
+			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER2_STATE) {
+				selectionValid = true;
+			}
 
-
-		this.getData(start.row+1, start.column+1);
-
-		this.getData(start.row-1, start.column-1);
-		this.getData(start.row-1, start.column+1);
-
-		return false;
-	}
-
-	public boolean verifyInitialSelection(BoardSquareInfo square) {
-		if(this.isPlayer1() && square.state == PLAYER1_STATE) {
-			return true;
+			right = this.getData(square.backwardSiblings.rightId);
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER2_STATE) {
+				selectionValid = true;
+			}
 		}
 
-		if((this.isPlayer2() || this.isDevice()) && 
-				square.state == PLAYER2_STATE) {
-			return true;
+		if(this.activeState == square.state || square.isKing || this.vsDevice) {
+			left = this.getData(square.forwardSiblings.leftId);
+			if(left != null && left.state == EMPTY_STATE || left.state == PLAYER1_STATE) {
+				selectionValid = true;
+			}
+
+			right = this.getData(square.forwardSiblings.rightId);
+			if(right != null && right.state == EMPTY_STATE || right.state == PLAYER1_STATE) {
+				selectionValid = true;
+			}
 		}
 
-		return false;
-	}
+		if(selectionValid) ; // save the square
+		return selectionValid;
+	} // end verifyInitialSelection
 
 	public boolean verifySelection(BoardSquareInfo square) {
 		return false;
 	}
+
 
 	public boolean verifyFinalSelection(BoardSquareInfo square) {
 		if(this.isPlayer1() && square.state == EMPTY_STATE) {

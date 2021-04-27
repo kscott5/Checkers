@@ -3,13 +3,16 @@ package karega.scott.checkers.test;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
-import java.util.ArrayList;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
+// 
+// NOTE: This engine expects consecutive selections of squares in a row. 
+// Its not a touch rather a swipe through a serious of individual squares.
+//
+// equation: id = (row*8)+col
 public class VerifySelectionTest {
 	CheckersEngine engine;
 
@@ -21,26 +24,48 @@ public class VerifySelectionTest {
 	@After public void after() {
 	}
 
-	@Test public void initialStartSquarePlayer1() {
+	@Test public void simplePlayer1Valid() {
 		Assert.assertTrue(engine.isPlayer1());
 
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(7,1)));
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(7,2)));
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(7,3)));
+		Assert.assertTrue(engine.saveSelection(46));
+		Assert.assertTrue(engine.saveSelection(39));
+		Assert.assertTrue(engine.updateGameBoard());
 
-		Assert.assertTrue(engine.verifyInitialSelection(engine.getData(5,4)));
+		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertEquals(engine.getData(46).state, CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(engine.getData(39).state, CheckersEngine.PLAYER1_STATE);
 	}
 
-	@Test public void initialStartSquarePlayer2() {
+	@Test public void simplePlayer1NotValid() {
+		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertFalse(engine.saveSelection(57));
+		Assert.assertTrue(engine.saveSelection(58)); // Why? second selection of a square not available yet.
+		Assert.assertFalse(engine.saveSelection(59));
+	}
+
+	@Test public void simplePlayer2Valid() {
 		engine.switchPlayer();
 
 		Assert.assertTrue(engine.isPlayer2());
 
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,0)));
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,1)));
-		Assert.assertFalse(engine.verifyInitialSelection(engine.getData(0,3)));
+		Assert.assertTrue(engine.saveSelection(17));
+		Assert.assertTrue(engine.saveSelection(26));
+		Assert.assertTrue(engine.updateGameBoard());
 
-		Assert.assertTrue(engine.verifyInitialSelection(engine.getData(2,3)));
+		Assert.assertTrue(engine.isPlayer1());
+
+		Assert.assertEquals(engine.getData(17).state, CheckersEngine.EMPTY_STATE);
+		Assert.assertEquals(engine.getData(26).state, CheckersEngine.PLAYER2_STATE);
+	}
+
+	@Test public void simplePlayer2NotValid() {
+		engine.switchPlayer();
+		Assert.assertTrue(engine.isPlayer2());
+
+		Assert.assertTrue(engine.saveSelection(1));
+		Assert.assertFalse(engine.saveSelection(8));
 	}
 }
 
