@@ -79,7 +79,6 @@ public class CheckersEngine  {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return null;	
 	 
-		int col = id-(row*divisor);
 		return this.engineSquares[row][col];	
 	} // end getData
 
