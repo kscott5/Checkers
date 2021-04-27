@@ -20,9 +20,15 @@ public class DeviceMovableSquaresTest {
 	@After public void after() {
 	}
 
-	@Test public void locateDeviceMoveSquareIds() {
+	@Test public void isPlayer2() {
 		Assert.assertTrue(engine.isPlayer2());
+	}
 
+	@Test public void isDevice() {
+		Assert.assertTrue(engine.isDevice());
+	}
+
+	@Test public void locateDeviceMoveSquareIds() {
 		Assert.assertEquals(engine.getDeviceSelectionSize(),-1);
 	}
 }
