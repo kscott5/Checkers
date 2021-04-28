@@ -54,13 +54,11 @@ public class CheckerBoardSquare extends View {
 	 *
 	 */
 	public final class OnBoardSquareChangeListener implements OnChangeListener {		
-		private CheckerBoardSquare square;
-		public OnBoardSquareChangeListener(CheckerBoardSquare square) {
-			this.square = square;
+		public OnBoardSquareChangeListener() {
 		}
 		
 		public void OnSquareInformationChange() {
-			BoardGameEngine.handleSquareChanged(square);
+			BoardGameEngine.handleSquareChanged(CheckerBoardSquare.this.info);
 		}		
 	} // end OnSquarInfoChangeListener
 
@@ -92,8 +90,8 @@ public class CheckerBoardSquare extends View {
 		canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), borderPaint);
 
 		switch(this.info.state) {
-			case BoardGameEngine.PLAYER1_STATE:
-			case BoardGameEngine.PLAYER2_STATE:
+			case CheckersEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
@@ -103,8 +101,8 @@ public class CheckerBoardSquare extends View {
 				
 				break;
 				
-			case BoardGameEngine.LOCKED_STATE:
-			case BoardGameEngine.EMPTY_STATE:
+			case CheckersEngine.LOCKED_STATE:
+			case CheckersEngine.EMPTY_STATE:
 			default:
 				break;
 		}
@@ -135,7 +133,7 @@ public class CheckerBoardSquare extends View {
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
 		this.activePlayerPaint.setColor(this.info.activeColor);
-		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);
 		
 		super.invalidate();
@@ -147,8 +145,8 @@ public class CheckerBoardSquare extends View {
 	 */
 	public void drawBoardSquarePiece(Canvas canvas){
 		switch(this.info.state) {
-			case BoardGameEngine.PLAYER1_STATE:
-			case BoardGameEngine.PLAYER2_STATE:
+			case CheckersEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
@@ -158,8 +156,8 @@ public class CheckerBoardSquare extends View {
 				
 				break;
 				
-			case BoardGameEngine.LOCKED_STATE:
-			case BoardGameEngine.EMPTY_STATE:
+			case CheckersEngine.LOCKED_STATE:
+			case CheckersEngine.EMPTY_STATE:
 			default:
 				break;
 		}
