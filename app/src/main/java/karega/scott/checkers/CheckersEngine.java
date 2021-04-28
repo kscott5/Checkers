@@ -431,16 +431,22 @@ public class CheckersEngine  {
 	 * function uses 'recursion', a process where the method calls
 	 * the same method within.
 	 */
-	public boolean locateBestPossiblePath(BoardSquareInfo start) {
+	public boolean locateBestPossiblePath(BoardSquareInfo start, boolean forward) {
 		// Keep it simple today, and look at forward sibling squares only.
 
-		BoardSquareInfo lSquare = this.getData(start.forwardSiblings.leftId);
-		if(this.saveSelection(start.id) && this.locateBestPossiblePath(lSquare)) {
+		BoardSquareInfo lSquare = (forward)? 
+			this.getData(start.forwardSiblings.leftId) : /*forward is true*/
+			this.getData(start.backwardSiblings.leftId); /*forward is false*/
+
+		if(this.saveSelection(start.id) && this.locateBestPossiblePath(lSquare,forward)) {
 			return true;
 		}
 
-		BoardSquareInfo rSquare = this.getData(start.forwardSiblings.rightId);
-		if(this.saveSelection(start.id) && this.locateBestPossiblePath(rSquare)) {
+		BoardSquareInfo rSquare = (forward)? 
+			this.getData(start.forwardSiblings.rightId) : /*forward is true*/
+			this.getData(start.backwardSiblings.rightId); /*forward is false*/
+
+		if(this.saveSelection(start.id) && this.locateBestPossiblePath(rSquare,forward)) {
 			return true;
 		}
 
@@ -466,7 +472,7 @@ public class CheckersEngine  {
 			this.selectionIndex = -1; // prepare for save selection
 			this.selectionIds = new int[10];
 
-			if(this.locateBestPossiblePath(square)) {
+			if(this.locateBestPossiblePath(square, /*forward*/ true)) {
 				if(this.selectionIndex >= this.deviceSelectionIndex) {
 					// save the selection index size
 					this.deviceSelectionIndex = this.selectionIndex;
