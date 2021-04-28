@@ -204,7 +204,8 @@ public class CheckersEngine  {
 			
 			this.activePlayerIsKing = square.isKing;
 
-			square.activate();
+			if(!this.isDevice()/*its not*/)
+				square.activate();
 
 			selectionIndex = 0;
 			selectionIds = new int[10];
@@ -232,7 +233,9 @@ public class CheckersEngine  {
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
 
-		square.activate();
+		if(!this.isDevice()/*its not*/)
+			square.activate();
+
 		return true; // selection square id saved.
 	}
 
@@ -461,6 +464,8 @@ public class CheckersEngine  {
 			if(square.state != /*not*/ this.activePlayerState) continue; // for loop at id++. (id=id+1)
 	
 			this.selectionIndex = -1; // prepare for save selection
+			this.selectionIds = new int[10];
+
 			if(this.locateBestPossiblePath(square)) {
 				if(this.selectionIndex >= this.deviceSelectionIndex) {
 					// save the selection index size
