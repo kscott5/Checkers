@@ -36,8 +36,8 @@ public class CheckerBoardSquare extends View {
 		
 		this.engine = engine;
 		
-		// TODO: Are parameters by references
-		info.setOnChangeListener( new OnBoardSquareChangeListener(this));
+		// Inner classes use {Class}.this notation. CheckerBoardSquare.this
+		info.setOnChangeListener( new OnBoardSquareChangeListener());
 		this.info = info;
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -65,7 +65,6 @@ public class CheckerBoardSquare extends View {
 	/**
 	 * Creates the CheckerBoardSquare
 	 * @param context
-	 * @param engineType @link BoardGameEngineType 
 	 * @return @CheckerBoardSquare
 	 */
 	public static CheckerBoardSquare instance(Context context, CheckersEngine engine, ViewGroup parent, BoardSquareInfo square) {
@@ -168,7 +167,7 @@ public class CheckerBoardSquare extends View {
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
 		this.activePlayerPaint.setColor(this.info.activeColor);
-		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
 	} // updateViewForRedraw
 }
