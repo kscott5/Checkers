@@ -421,7 +421,7 @@ public class CheckersEngine  {
 
 	private int[] deviceSelectionIds;
 	private int deviceSelectionIndex;
-	
+   	
 	public int getDeviceSelectionSize() {
 		return this.deviceSelectionIndex;
 	}
@@ -431,14 +431,14 @@ public class CheckersEngine  {
 	 * function uses 'recursion', a process where the method calls
 	 * the same method within.
 	 */
-	public boolean locateBestPossiblePath(BoardSquareInfo start, boolean forward) {
+	public boolean locateDeviceBestPossiblePath(BoardSquareInfo start, boolean forward) {
 		// Keep it simple today, and look at forward sibling squares only.
 
 		BoardSquareInfo lSquare = (forward)? 
 			this.getData(start.forwardSiblings.leftId) : /*forward is true*/
 			this.getData(start.backwardSiblings.leftId); /*forward is false*/
 
-		if(this.saveSelection(start.id) && this.locateBestPossiblePath(lSquare,forward)) {
+		if(this.saveSelection(start.id) && this.locateDeviceBestPossiblePath(lSquare,forward)) {
 			return true;
 		}
 
@@ -446,7 +446,7 @@ public class CheckersEngine  {
 			this.getData(start.forwardSiblings.rightId) : /*forward is true*/
 			this.getData(start.backwardSiblings.rightId); /*forward is false*/
 
-		if(this.saveSelection(start.id) && this.locateBestPossiblePath(rSquare,forward)) {
+		if(this.saveSelection(start.id) && this.locateDeviceBestPossiblePath(rSquare,forward)) {
 			return true;
 		}
 
@@ -471,17 +471,22 @@ public class CheckersEngine  {
 	
 			this.selectionIndex = -1; // prepare for save selection
 			this.selectionIds = new int[10];
+			boolean forward = true;
+			
+			do { // First locate best possible path where forward is true.
+				if(this.locateDeviceBestPossiblePath(square,  forward)) {
+					if(this.selectionIndex >= this.deviceSelectionIndex) {
+						// save the selection index size
+						this.deviceSelectionIndex = this.selectionIndex;
 
-			if(this.locateBestPossiblePath(square, /*forward*/ true)) {
-				if(this.selectionIndex >= this.deviceSelectionIndex) {
-					// save the selection index size
-					this.deviceSelectionIndex = this.selectionIndex;
+						// save the selection ids to device selections
+						this.deviceSelectionIds = 
+							java.util.Arrays.copyOf(this.selectionIds, this.selectionIndex);
+					}
+				} // end if locate best possible path
 
-					// save the selection ids to device selections
-					this.deviceSelectionIds = 
-						java.util.Arrays.copyOf(this.selectionIds, this.selectionIndex);
-				}
-			} // end if locate best possible path
+				forward = !forward; // toggle forward between true and false
+			} /*do*/ while /*loop*/(/*if*/ square.isKing /*true*/ && /*and*/ !forward /* is false now. Loop once again backwards.*/);
 		} // end for id++
 
 		return (this.deviceSelectionIndex > 0); // true else false.
