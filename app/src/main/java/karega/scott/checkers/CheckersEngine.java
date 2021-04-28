@@ -178,7 +178,7 @@ public class CheckersEngine  {
 		this.selectionIds = new int[10];
 		this.selectionIndex = -1;
 
-		this.deviceSelectionIds = new int[10][2];
+		this.deviceSelectionIds = new int[10];
 		this.deviceSelectionIndex = -1;
 
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
@@ -324,7 +324,7 @@ public class CheckersEngine  {
 		this.selectionIds = new int[10];
 
 		this.deviceSelectionIndex = -1;
-		this.deviceSelectionIds = new int[10][2];
+		this.deviceSelectionIds = new int[10];
 
 		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 		this.activePlayerIsKing = false;
@@ -416,15 +416,33 @@ public class CheckersEngine  {
 		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
 	}
 
-	private final int DEVICE_ID_COLUMN = 0;
-	private final int DEVICE_COUNT_COLUMN = 1;
-
-	private int[][] deviceSelectionIds;
+	private int[] deviceSelectionIds;
 	private int deviceSelectionIndex;
 	
 	public int getDeviceSelectionSize() {
 		return this.deviceSelectionIndex;
 	}
+
+	/*
+	 * Locate best possible device movable path on the board. This
+	 * function uses 'recursion', a process where the method calls
+	 * the same method within.
+	 */
+	public boolean locateBestPossiblePath(BoardSquareInfo start) {
+		// Keep it simple today, and look at forward sibling squares only.
+
+		BoardSquareInfo lSquare = this.getData(start.forwardSiblings.leftId);
+		if(this.saveSelection(start.id) && this.locateBestPossiblePath(lSquare)) {
+			return true;
+		}
+
+		BoardSquareInfo rSquare = this.getData(start.forwardSiblings.rightId);
+		if(this.saveSelection(start.id) && this.locateBestPossiblePath(rSquare)) {
+			return true;
+		}
+
+		return false;
+	} // end locate best possible path
 
 	/*
 	 * Locate and create a list of squares the device
@@ -433,28 +451,27 @@ public class CheckersEngine  {
 	public boolean locateDeviceMovableSquareIds() {
 		if(/*not*/ !this.vsDevice) return false;
 
-		this.deviceSelectionIds = new int[10][2];
-		this.deviceSelectionIndex = 0;
+		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIndex = -1;
 
-		// Start loop backwards from square 63 bottom-right side of board.
-		for(int id=this.getSize()-1; id>0; id--) {
+		// Start loop backwards from square 0 top-left side of board.
+		for(int id=0; id<this.getSize()-1; id++) {
 			BoardSquareInfo square = this.getData(id);
 
-			if(square.state != /*not*/ this.activePlayerState) continue; // for loop at id--
+			if(square.state != /*not*/ this.activePlayerState) continue; // for loop at id++. (id=id+1)
 	
 			this.selectionIndex = -1; // prepare for save selection
-			if(this.saveSelection(square.id)) { 
-				// Keep it simple today, and look at forward sibling squares only.
-				if(this.saveSelection(square.forwardSiblings.leftId)) {
-					this.deviceSelectionIds[this.deviceSelectionIndex++][DEVICE_ID_COLUMN] = square.id; // save id
-					continue;
+			if(this.locateBestPossiblePath(square)) {
+				if(this.selectionIndex >= this.deviceSelectionIndex) {
+					// save the selection index size
+					this.deviceSelectionIndex = this.selectionIndex;
+
+					// save the selection ids to device selections
+					this.deviceSelectionIds = 
+						java.util.Arrays.copyOf(this.selectionIds, this.selectionIndex);
 				}
-				if(this.saveSelection(square.forwardSiblings.rightId)) {
-					this.deviceSelectionIds[this.deviceSelectionIndex++][DEVICE_ID_COLUMN] = square.id; // save id
-					continue;
-				}
-			} // end if this.saveSelection
-		} // end for loop
+			} // end if locate best possible path
+		} // end for id++
 
 		return (this.deviceSelectionIndex > 0); // true else false.
 	} // end locationDeviceMovableSquareIds
