@@ -75,9 +75,6 @@ public class BoardSquareInfo {
 	 * Returns the {@link BoardSquareInfo} to its initial state
 	 */
 	public void reset() {
-		// NOTE: back and forth siblings are final and never get reset.
-		// The BoardSquareInfo id and siblings are the same.
-		
 		this.chip = this.initialChip;
 		this.state = this.initialState;
 		this.borderColor = -16777216; // android.graphics.Color.BLACK
@@ -113,6 +110,52 @@ public class BoardSquareInfo {
 		invokeOnChangeListener();
 	} //end reset
 	
+	/**
+	 * Swaps this square with an empty square
+	 * @param value
+	 */
+	public boolean swap(BoardSquareInfo value) {
+		//Log.d(LOG_TAG, "Swapping square information");
+
+		if(value.state != CheckersEngine.EMPTY_STATE) {
+			//Log.d(LOG_TAG, "Swap requires an empty square");
+			return false;
+		}
+		
+		value.chip = this.chip;
+		value.fillColor = this.fillColor;
+		value.borderColor = this.borderColor;
+		value.inactiveColor = this.inactiveColor;
+		value.state = this.state;
+		value.activeColor = this.inactiveColor;
+		value.isActive = this.isActive;
+		value.isKing = (this.isKing || value.row == CheckersEngine.TOP_ROW || value.row == CheckersEngine.BOTTOM_ROW);
+		value.deactivate();
+		
+		this.makeEmpty();
+		return true;
+	} // end swapInformation
+	
+	/**
+	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
+	 */
+	public void makeEmpty() {
+		//Log.d(LOG_TAG, "Making this square empty");
+		
+		if(this.initialState == CheckersEngine.LOCKED_STATE) 
+			return;
+		
+		this.chip = CheckersEngine.EMPTY_CHIP;
+		this.state = CheckersEngine.EMPTY_STATE;
+		this.fillColor = -12303292; // android.graphics.Color.DKGRAY
+		this.borderColor = -16777216; // android.graphics.Color.BLACK
+		this.inactiveColor = 0; // android.graphics.Color.TRANSPARENT
+		this.activeColor = 0; // android.graphics.Color.TRANSPARENT
+		this.isKing = false;
+		this.isActive = false;
+		this.deactivate();	
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -132,6 +175,27 @@ public class BoardSquareInfo {
 		builder.append(String.format("active player color=%s", this.activeColor));
 		builder.append("}");
 		return builder.toString();
+	}
+	
+	@Override
+	public boolean equals(Object value) {
+		if(!(value instanceof BoardSquareInfo)) 
+			return false;
+		
+		BoardSquareInfo info = (BoardSquareInfo)value;		
+		return (this.id == info.id && 
+				this.row == info.row &&
+				this.column == info.column &&
+				this.state == info.state &&
+				this.chip == info.chip &&
+				
+				this.isActive == info.isActive &&
+				this.isKing == info.isKing &&
+				
+				this.inactiveColor == info.inactiveColor &&
+				this.activeColor == info.activeColor &&
+				this.fillColor == info.fillColor &&
+				this.borderColor == info.borderColor);
 	}
 } // end BoardSquareInfo
 
