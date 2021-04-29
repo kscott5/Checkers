@@ -1,6 +1,7 @@
 package karega.scott.checkers.ui;
 
-import karega.scott.checkers.Checkers;
+import karega.scott.checkers.CheckersEngine;
+import karega.scott.checkers.BoardSquareInfo;
 
 import android.content.Context;
 import android.view.MotionEvent;

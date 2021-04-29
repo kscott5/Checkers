@@ -1,4 +1,4 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
 
 import android.os.Handler.Callback;
 import android.os.Message;
