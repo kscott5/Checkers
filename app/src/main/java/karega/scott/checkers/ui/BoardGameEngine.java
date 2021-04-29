@@ -1,5 +1,6 @@
 package karega.scott.checkers.ui;
 
+import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.DeviceTask;
 
 import java.util.Random;
