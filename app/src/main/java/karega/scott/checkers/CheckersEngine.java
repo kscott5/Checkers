@@ -113,11 +113,6 @@ public class CheckersEngine  {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
 
-	public boolean deviceMove() {
-		if(this.isDevice()) return updateGameBoard();
-		return false;
-	}
-
 	public boolean updateGameBoard(int id, boolean hasMore) {
 		if(!this.saveSelection(id) /*was bad*/) return false;
 		if(hasMore /*save selections*/) return true;
