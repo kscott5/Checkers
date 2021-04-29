@@ -49,13 +49,12 @@ public class BoardAdapter extends BaseAdapter {
 				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
             		case MotionEvent.ACTION_MOVE:
-						return BoardAdapter.this.engine.updateGameBoard(square.info.id, true);
+						return BoardAdapter.this.engine.updateGameBoard(square.info.id, /*hasMore continue*/ true);
 					
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
 					default:						
-						return BoardAdapter.this.engine.updateGameBoard(square.info.id, false);
-						
+						return BoardAdapter.this.engine.updateGameBoard(square.info.id,/*hasMore continue*/ false);
         		}
 			}
 		});
