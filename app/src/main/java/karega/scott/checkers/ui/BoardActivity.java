@@ -63,7 +63,7 @@ public class BoardActivity extends Activity implements Callback {
 		// When the looper is not available, changes are
 		// applied on a secondary thread. This thread updates
 		// device play on the UI.
-		if(Looper.myLooper() == null)
+		if(Looper.getMainLooper() == null)
 			handleMessage(CheckersEngine.INVALIDATE_VIEW_MESSAGE_HANDLER, view);
 		else
 			view.invalidate();
@@ -89,7 +89,7 @@ public class BoardActivity extends Activity implements Callback {
 		gameEngine.newGame();
 		
 		if(vsDevice) {
-			handler = new Handler(new HandlerCallback());
+			handler = new Handler(Looper.getMainLooper(), this);
 
 			this.deviceTimer = new Timer();
 			this.deviceTimer.schedule(new DeviceTask(gameEngine), 100, 1000);
