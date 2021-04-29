@@ -6,7 +6,6 @@ import java.util.Timer;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 /**
  * Base game engine
@@ -24,13 +23,13 @@ public abstract class BoardGameEngine {
 	
 	protected boolean vsDevice;	
 
-	protected BoardGameEngine(boolean vsDevice) {		
+	protected BoardGameEngine(DeviceTask task, boolean vsDevice) {		
 		this.vsDevice = vsDevice;
 		
 		if(this.vsDevice) {
 			initializeHandler();
 
-			DeviceTask task = new DeviceTask(this);
+//			DeviceTask task = new DeviceTask(/*this references CheckersEngine*/);
 			this.deviceTimer = new Timer();
 			this.deviceTimer.schedule(task, 100, 1000);
 		}
@@ -87,7 +86,6 @@ public abstract class BoardGameEngine {
 		try {
 			Thread.sleep(seconds*1000);
 		} catch(Exception e) {
-			Log.e(LOG_TAG, String.format("Move square for device sleep error: %s", e.getMessage()));
 		}
 	} // end pause
 } // end BoardGameEngine
