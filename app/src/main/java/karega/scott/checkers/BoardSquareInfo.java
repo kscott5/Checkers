@@ -75,6 +75,8 @@ public class BoardSquareInfo {
 	 * Returns the {@link BoardSquareInfo} to its initial state
 	 */
 	public void reset() {
+		// NOTE: id, backwardSiblings and forwardSiblings never reset,
+		// and there values are fixed or predetermined.
 		this.chip = this.initialChip;
 		this.state = this.initialState;
 		this.borderColor = -16777216; // android.graphics.Color.BLACK
@@ -115,10 +117,7 @@ public class BoardSquareInfo {
 	 * @param value
 	 */
 	public boolean swap(BoardSquareInfo value) {
-		//Log.d(LOG_TAG, "Swapping square information");
-
 		if(value.state != CheckersEngine.EMPTY_STATE) {
-			//Log.d(LOG_TAG, "Swap requires an empty square");
 			return false;
 		}
 		
@@ -140,8 +139,6 @@ public class BoardSquareInfo {
 	 * Change the current {@link BoardSquareInfo} to {@link BoardSquareStateType}.EMPTY
 	 */
 	public void makeEmpty() {
-		//Log.d(LOG_TAG, "Making this square empty");
-		
 		if(this.initialState == CheckersEngine.LOCKED_STATE) 
 			return;
 		
