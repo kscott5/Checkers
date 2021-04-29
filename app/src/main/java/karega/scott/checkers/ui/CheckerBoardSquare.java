@@ -61,7 +61,7 @@ public class CheckerBoardSquare extends View {
 		}
 		
 		public void OnSquareInformationChange() {
-			BoardGameEngine.handleSquareChanged(CheckerBoardSquare.this);
+// Not sure yet!			CheckersEngine.handleSquareChanged(CheckerBoardSquare.this);
 		}		
 	} // end OnSquarInfoChangeListener
 
