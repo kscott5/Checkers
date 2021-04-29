@@ -43,7 +43,7 @@ public class BoardSquareInfo {
 	 *
 	 */
 	public interface OnChangeListener {
-		public void OnSquareInformationChange();
+		public void onSquareInformationChange();
 	}
 	
 	private OnChangeListener changeListener;
@@ -55,7 +55,7 @@ public class BoardSquareInfo {
 	
 	private void invokeOnChangeListener() {
 		if(changeListener != null) {
-			changeListener.OnSquareInformationChange();
+			changeListener.onSquareInformationChange();
 		}
 	}
 	

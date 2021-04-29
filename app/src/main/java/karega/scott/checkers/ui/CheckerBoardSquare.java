@@ -40,7 +40,16 @@ public class CheckerBoardSquare extends View {
 		this.engine = engine;
 		
 		// Inner classes use {Class}.this notation. CheckerBoardSquare.this
-		info.setOnChangeListener( new OnBoardSquareChangeListener());
+		info.setOnChangeListener( new OnChangeListener() {
+			@Override
+			public void onSquareInformationChange() {
+				// Swipe between square tiles on touch
+				// screen causes the a refresh with 
+				// different details.
+				CheckerBoardSquare.this.invalidate();
+			}
+		});
+
 		this.info = info;
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -50,20 +59,6 @@ public class CheckerBoardSquare extends View {
 
 		this.invalidate();
 	}
-
-	/**
-	 * Listener used when this view's {@link BoardSquareInfo} has changed
-	 * @author Administrator
-	 *
-	 */
-	public final class OnBoardSquareChangeListener implements OnChangeListener {		
-		public OnBoardSquareChangeListener() {
-		}
-		
-		public void OnSquareInformationChange() {
-// Not sure yet!			CheckersEngine.handleSquareChanged(CheckerBoardSquare.this);
-		}		
-	} // end OnSquarInfoChangeListener
 
 	/**
 	 * Creates the CheckerBoardSquare
