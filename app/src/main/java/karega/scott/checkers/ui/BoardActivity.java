@@ -2,8 +2,15 @@ package karega.scott.checkers.ui;
 
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.DeviceTask;
-
 import karega.scott.checkers.R;
+
+import java.util.Timer;
+
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Looper;
+import android.os.Message;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,11 +24,51 @@ import android.widget.GridView;
 /*
  * The activity used to display the checker board.
  */
-public class BoardActivity extends Activity {
+public class BoardActivity extends Activity implements Callback {
 	private static final String LOG_TAG = "BoardActivity";
 	
 	private CheckersEngine gameEngine;
+
+	private Handler handler;
+	private Timer deviceTimer;
+
+	@Override
+	protected void finalize() {
+		if(this.deviceTimer != null) {
+			deviceTimer.cancel();
+			deviceTimer = null;
+		}
+	}
 	
+	@Override
+	public boolean handleMessage(Message message) {
+		if(message.what != CheckersEngine.INVALIDATE_VIEW_MESSAGE_HANDLER)
+			return false;
+
+		if(!(message.obj /*not*/ instanceof View))
+			return false;
+
+		((View)message.obj).invalidate();
+		return true;
+	}
+
+	protected void handleMessage(int what, Object object) {
+		if(object == null) return;
+
+		Message message = Message.obtain(handler, what, object);
+		message.sendToTarget();
+	}
+
+	public void handleViewChanges(CheckerBoardSquare view) {
+		// When the looper is not available, changes are
+		// applied on a secondary thread. This thread updates
+		// device play on the UI.
+		if(Looper.myLooper() == null)
+			handleMessage(CheckersEngine.INVALIDATE_VIEW_MESSAGE_HANDLER, view);
+		else
+			view.invalidate();
+	}
+
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
@@ -36,11 +83,19 @@ public class BoardActivity extends Activity {
 		this.setTitle(R.string.app_name);
 		
 		Intent intent = this.getIntent();
-		boolean vsComputer = intent.getBooleanExtra(CheckersEngine.VS_DEVICE, true);
-		
-		gameEngine = new CheckersEngine(vsComputer);
+		boolean vsDevice = intent.getBooleanExtra(CheckersEngine.VS_DEVICE, true);
+	
+		gameEngine = new CheckersEngine(vsDevice);
 		gameEngine.newGame();
 		
+		if(vsDevice) {
+			handler = new Handler(new HandlerCallback());
+
+			this.deviceTimer = new Timer();
+			this.deviceTimer.schedule(new DeviceTask(gameEngine), 100, 1000);
+		}
+
+
 		gameBoard = (GridView) this.findViewById(R.id.boardGame);		
 		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext(), gameEngine));		
 
