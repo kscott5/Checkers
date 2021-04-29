@@ -456,6 +456,13 @@ public class CheckersEngine  {
 		return false;
 	} // end locate best possible path
 
+	public void deviceMove() {
+		if(!this.isDevice()/*false*/) return;
+
+		this.locateDeviceMovableSquareIds();
+		this.updateGameBoard();
+	}
+
 	/*
 	 * Locate and create a list of squares the device
 	 * should use with initial play.
