@@ -1,8 +1,9 @@
 package karega.scott.checkers.ui;
 
+import karega.scott.checkers.CheckersEngine;
+
 import android.os.Handler.Callback;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -12,15 +13,11 @@ import android.view.View;
  * @author Karega Scott
  *
  */
-public class BoardGameCallback implements Callback {
-	private static final String LOG_TAG = "BoardGrameCallback";
-	
+public class HandlerCallback implements Callback {
 	@Override
 	public boolean handleMessage(Message msg) {
-		Log.d(LOG_TAG, "Handling message");
-		
 		switch(msg.what) {
-			case BoardGameEngine.INVALIDATE_VIEW_MESSAGE_HANDLER:
+			case CheckersEngine.INVALIDATE_VIEW_MESSAGE_HANDLER:
 				return InvalidateView(msg.obj);
 			default:
 				return false;
@@ -28,8 +25,6 @@ public class BoardGameCallback implements Callback {
 	} // end handleMessage
 
 	private boolean InvalidateView(Object object) {
-		Log.d(LOG_TAG, "Invalidating view");
-		
 		if( !(object instanceof View)) 
 			return false;
 		
@@ -37,4 +32,4 @@ public class BoardGameCallback implements Callback {
 		
 		return true;
 	}
-} // end BoardGameCallback
+} // end HandlerCallback

@@ -47,7 +47,7 @@ public abstract class BoardGameEngine {
 	
 	private static void initializeHandler() {
 		if(handler == null) {
-			handler = new Handler(new BoardGameCallback());
+			handler = new Handler(new HandlerCallback());
 		}
 	} // end initializeHandler
 	
@@ -74,7 +74,7 @@ public abstract class BoardGameEngine {
 		// secondary thread used to active and move 
 		// square for this device play
 		if(Looper.myLooper() == null) {
-			handleMessage(BoardGameEngine.INVALIDATE_VIEW_MESSAGE_HANDLER, square);
+			handleMessage(CheckersEngine.INVALIDATE_VIEW_MESSAGE_HANDLER, square);
 		} else {
 			square.invalidate();
 		}

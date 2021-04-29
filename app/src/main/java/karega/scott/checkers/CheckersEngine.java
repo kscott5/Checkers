@@ -16,6 +16,9 @@ import java.util.Timer;
  * You should strictly avoid using enums on Android.
  */
 public class CheckersEngine  {
+	// Value in use with android.os.Handler, android.os.Message
+	public static final int INVALIDATE_VIEW_MESSAGE_HANDLER = 1;
+	
 	private static final String LOG_TAG = "CheckersEngine";
 	public static final String VS_DEVICE = "you vs computer";
 	
