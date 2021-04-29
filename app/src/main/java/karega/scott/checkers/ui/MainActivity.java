@@ -1,4 +1,4 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
 
 import karega.scott.checkers.R;
 

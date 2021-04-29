@@ -1,4 +1,7 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
+
+import karega.scott.checkers.CheckersEngine;
+import karega.scott.checkers.DeviceTask;
 
 import karega.scott.checkers.R;
 import android.os.Bundle;

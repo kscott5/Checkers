@@ -1,6 +1,8 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
 
+import karega.scott.checkers.Checkers;
 import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
+
 import android.annotation.SuppressLint;
 
 import android.content.Context;
