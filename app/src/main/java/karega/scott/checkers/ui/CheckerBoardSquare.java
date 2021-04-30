@@ -1,6 +1,9 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
 
+import karega.scott.checkers.CheckersEngine;
+import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.BoardSquareInfo.OnChangeListener;
+
 import android.annotation.SuppressLint;
 
 import android.content.Context;
@@ -36,8 +39,17 @@ public class CheckerBoardSquare extends View {
 		
 		this.engine = engine;
 		
-		// TODO: Are parameters by references
-		info.setOnChangeListener( new OnBoardSquareChangeListener(this));
+		// Inner classes use {Class}.this notation. CheckerBoardSquare.this
+		info.setOnChangeListener( new OnChangeListener() {
+			@Override
+			public void onSquareInformationChange() {
+				// Swipe between square tiles on touch
+				// screen causes the a refresh with 
+				// different details.
+				CheckerBoardSquare.this.invalidate();
+			}
+		});
+
 		this.info = info;
 		this.kingPaint = new Paint();
 		this.kingPaint.setColor(Color.WHITE);
@@ -49,25 +61,8 @@ public class CheckerBoardSquare extends View {
 	}
 
 	/**
-	 * Listener used when this view's {@link BoardSquareInfo} has changed
-	 * @author Administrator
-	 *
-	 */
-	public final class OnBoardSquareChangeListener implements OnChangeListener {		
-		private CheckerBoardSquare square;
-		public OnBoardSquareChangeListener(CheckerBoardSquare square) {
-			this.square = square;
-		}
-		
-		public void OnSquareInformationChange() {
-			BoardGameEngine.handleSquareChanged(square);
-		}		
-	} // end OnSquarInfoChangeListener
-
-	/**
 	 * Creates the CheckerBoardSquare
 	 * @param context
-	 * @param engineType @link BoardGameEngineType 
 	 * @return @CheckerBoardSquare
 	 */
 	public static CheckerBoardSquare instance(Context context, CheckersEngine engine, ViewGroup parent, BoardSquareInfo square) {
@@ -92,8 +87,8 @@ public class CheckerBoardSquare extends View {
 		canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), borderPaint);
 
 		switch(this.info.state) {
-			case BoardGameEngine.PLAYER1_STATE:
-			case BoardGameEngine.PLAYER2_STATE:
+			case CheckersEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
@@ -103,8 +98,8 @@ public class CheckerBoardSquare extends View {
 				
 				break;
 				
-			case BoardGameEngine.LOCKED_STATE:
-			case BoardGameEngine.EMPTY_STATE:
+			case CheckersEngine.LOCKED_STATE:
+			case CheckersEngine.EMPTY_STATE:
 			default:
 				break;
 		}
@@ -135,7 +130,7 @@ public class CheckerBoardSquare extends View {
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
 		this.activePlayerPaint.setColor(this.info.activeColor);
-		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);
 		
 		super.invalidate();
@@ -147,8 +142,8 @@ public class CheckerBoardSquare extends View {
 	 */
 	public void drawBoardSquarePiece(Canvas canvas){
 		switch(this.info.state) {
-			case BoardGameEngine.PLAYER1_STATE:
-			case BoardGameEngine.PLAYER2_STATE:
+			case CheckersEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER2_STATE:
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
@@ -158,8 +153,8 @@ public class CheckerBoardSquare extends View {
 				
 				break;
 				
-			case BoardGameEngine.LOCKED_STATE:
-			case BoardGameEngine.EMPTY_STATE:
+			case CheckersEngine.LOCKED_STATE:
+			case CheckersEngine.EMPTY_STATE:
 			default:
 				break;
 		}
@@ -170,7 +165,7 @@ public class CheckerBoardSquare extends View {
 		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
 
 		this.activePlayerPaint.setColor(this.info.activeColor);
-		this.activePlayerPaint.setStrokeWidth(BoardGameEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
 		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
 	} // updateViewForRedraw
 }

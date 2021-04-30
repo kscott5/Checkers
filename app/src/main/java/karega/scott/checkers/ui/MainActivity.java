@@ -1,5 +1,6 @@
-package karega.scott.checkers;
+package karega.scott.checkers.ui;
 
+import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.R;
 
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class MainActivity extends ComponentActivity {
 
     public void startBoardActivity(boolean vsDevice) {   	
     	Intent boardActivityIntent = new Intent(this, BoardActivity.class);
-    	boardActivityIntent.putExtra(BoardGameEngine.VS_DEVICE, vsDevice);
+    	boardActivityIntent.putExtra(CheckersEngine.VS_DEVICE, vsDevice);
     	this.startActivity(boardActivityIntent);
     }
 

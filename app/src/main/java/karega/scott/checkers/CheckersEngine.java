@@ -16,6 +16,9 @@ import java.util.Timer;
  * You should strictly avoid using enums on Android.
  */
 public class CheckersEngine  {
+	// Value in use with android.os.Handler, android.os.Message
+	public static final int INVALIDATE_VIEW_MESSAGE_HANDLER = 1;
+	
 	private static final String LOG_TAG = "CheckersEngine";
 	public static final String VS_DEVICE = "you vs computer";
 	
@@ -65,6 +68,7 @@ public class CheckersEngine  {
 		this.activePlayerIsKing = false;
 
 		this.selectionIndex = -1;
+		this.deviceSelectionIndex = -1;
 		this.initialBoardSquares();
 	}
 
@@ -108,6 +112,13 @@ public class CheckersEngine  {
 	public int getSize() {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
+
+	public boolean updateGameBoard(int id, boolean hasMore) {
+		if(!this.saveSelection(id) /*was bad*/) return false;
+		if(hasMore /*save selections*/) return true;
+
+		return updateGameBoard();
+	}
 
 	/**
 	 * Updates the game board with active player selection and switch player 
@@ -166,8 +177,12 @@ public class CheckersEngine  {
 	public void newGame() {
 		this.activePlayerState = PLAYER1_STATE;
 		this.activePlayerIsKing = false;
+		
 		this.selectionIds = new int[10];
 		this.selectionIndex = -1;
+
+		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIndex = -1;
 
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
@@ -192,7 +207,8 @@ public class CheckersEngine  {
 			
 			this.activePlayerIsKing = square.isKing;
 
-			square.activate();
+			if(!this.isDevice()/*its not*/)
+				square.activate();
 
 			selectionIndex = 0;
 			selectionIds = new int[10];
@@ -220,7 +236,9 @@ public class CheckersEngine  {
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
 
-		square.activate();
+		if(!this.isDevice()/*its not*/)
+			square.activate();
+
 		return true; // selection square id saved.
 	}
 
@@ -301,15 +319,18 @@ public class CheckersEngine  {
 	 * @return
 	 */
 	public boolean isDevice() {
-		return (isPlayer2() && vsDevice);
+		return (this.isPlayer2() && vsDevice);
 	} // end isDevice
 	
 	/*
 	 * Allows the other player to take turn
 	 */
 	public void switchPlayer() {
-		selectionIndex = -1;
-		selectionIds = new int[10];
+		this.selectionIndex = -1;
+		this.selectionIds = new int[10];
+
+		this.deviceSelectionIndex = -1;
+		this.deviceSelectionIds = new int[10];
 
 		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
 		this.activePlayerIsKing = false;
@@ -401,6 +422,89 @@ public class CheckersEngine  {
 		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
 	}
 
+	private int[] deviceSelectionIds;
+	private int deviceSelectionIndex;
+   	
+	public int getDeviceSelectionSize() {
+		return this.deviceSelectionIndex;
+	}
+
+	/*
+	 * Locate best possible device movable path on the board. This
+	 * function uses 'recursion', a process where the method calls
+	 * the same method within.
+	 */
+	public boolean locateDeviceBestPossiblePath(BoardSquareInfo start, boolean forward) {
+		// Keep it simple today, and look at forward sibling squares only.
+
+		BoardSquareInfo lSquare = (forward)? 
+			this.getData(start.forwardSiblings.leftId) : /*forward is true*/
+			this.getData(start.backwardSiblings.leftId); /*forward is false*/
+
+		if(this.saveSelection(start.id) && this.locateDeviceBestPossiblePath(lSquare,forward)) {
+			return true;
+		}
+
+		BoardSquareInfo rSquare = (forward)? 
+			this.getData(start.forwardSiblings.rightId) : /*forward is true*/
+			this.getData(start.backwardSiblings.rightId); /*forward is false*/
+
+		if(this.saveSelection(start.id) && this.locateDeviceBestPossiblePath(rSquare,forward)) {
+			return true;
+		}
+
+		return false;
+	} // end locate best possible path
+
+	public void deviceMove() {
+		if(!this.isDevice()/*false*/) return;
+
+		this.locateDeviceMovableSquareIds();
+		this.updateGameBoard();
+	}
+
+	/*
+	 * Locate and create a list of squares the device
+	 * should use with initial play.
+	 */
+	public boolean locateDeviceMovableSquareIds() {
+		if(/*not*/ !this.vsDevice) return false;
+
+		this.deviceSelectionIds = new int[10];
+		this.deviceSelectionIndex = -1;
+
+		// Start loop backwards from square 0 top-left side of board.
+		for(int id=0; id<this.getSize()-1; id++) {
+			BoardSquareInfo square = this.getData(id);
+
+			if(square.state != /*not*/ this.activePlayerState) continue; // for loop at id++. (id=id+1)
+	
+			this.selectionIndex = -1; // prepare for save selection
+			this.selectionIds = new int[10];
+			boolean forward = true;
+			
+			do { // First locate best possible path where forward is true.
+				if(this.locateDeviceBestPossiblePath(square,  forward)) {
+					if(this.selectionIndex >= this.deviceSelectionIndex) {
+						// save the selection index size
+						this.deviceSelectionIndex = this.selectionIndex;
+
+						// save the selection ids to device selections
+						this.deviceSelectionIds = 
+							java.util.Arrays.copyOf(this.selectionIds, this.selectionIndex);
+					}
+				} // end if locate best possible path
+
+				forward = !forward; // toggle forward between true and false
+			} /*do*/ while /*loop*/(/*if*/ square.isKing /*true*/ && /*and*/ !forward /* is false now. Loop once again backwards.*/);
+		} // end for id++
+
+		return (this.deviceSelectionIndex > 0); // true else false.
+	} // end locationDeviceMovableSquareIds
+
+	/*
+	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
+	 */
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
 
@@ -415,6 +519,7 @@ public class CheckersEngine  {
            }
         }
 
+		// Defines relationship between empty and player squares only, not locked squares.
 		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
 			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
 				BoardSquareInfo parent = this.engineSquares[row][col];
