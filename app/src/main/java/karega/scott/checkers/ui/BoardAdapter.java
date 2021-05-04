@@ -3,6 +3,8 @@ package karega.scott.checkers.ui;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
+import android.util.Log;
+
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.BaseAdapter;
  * Adapter used to provide data to the BoardActivity.boardGame
  */
 public class BoardAdapter extends BaseAdapter {
+	public static final String LOG_TAG = "BoardAdapter";
+
 	private CheckersEngine engine; 
 	private Context context;
 
@@ -46,14 +50,17 @@ public class BoardAdapter extends BaseAdapter {
 			public boolean onTouch(View view, MotionEvent event) {
 				CheckerBoardSquare square = (CheckerBoardSquare)view;
 
+			
 				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
             		case MotionEvent.ACTION_MOVE:
+						Log.d(LOG_TAG, "Down/Move Square.Id->" + square.info.id);
 						return BoardAdapter.this.engine.updateGameBoard(square.info.id, /*hasMore continue*/ true);
 					
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
 					default:						
+						Log.d(LOG_TAG, "Up/Cancel Square.Id->" + square.info.id);
 						return BoardAdapter.this.engine.updateGameBoard(square.info.id,/*hasMore continue*/ false);
         		}
 			}

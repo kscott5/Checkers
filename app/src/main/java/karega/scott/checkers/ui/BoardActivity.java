@@ -72,7 +72,7 @@ public class BoardActivity extends Activity implements Callback {
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
-	private GridView gameBoard;
+	private BoardGridView gameBoard;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class BoardActivity extends Activity implements Callback {
 		}
 
 
-		gameBoard = (GridView) this.findViewById(R.id.boardGame);		
+		gameBoard = (BoardGridView) this.findViewById(R.id.boardGame);		
 		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext(), gameEngine));		
 
 		// TODO: Get width of parent to resize buttons or configure .xml file
