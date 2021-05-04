@@ -4,17 +4,18 @@
     android:layout_height="match_parent"
     tools:context=".BoardActivity" >
 
-    <GridView
+    <karega.scott.checkers.ui.BoardGridView
         android:id="@+id/boardGame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:choiceMode="singleChoice"
+		android:choiceMode="singleChoice"
+		android:splitMotionEvents="true"
         android:gravity="center"
         android:numColumns="8"
         android:scrollbars="none"
         android:visibility="visible" >
         
-    </GridView>
+    </karega.scott.checkers.ui.BoardGridView>
 
     <Button
         android:id="@+id/newGame"
