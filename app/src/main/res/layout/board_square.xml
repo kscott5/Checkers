@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-	<BoardSquare
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/squareView" />
-    
-
