@@ -12,7 +12,7 @@ public class DeviceMovableSquaresTest {
 	CheckersEngine engine;
 
 	@Before public void before() {
-		CheckersEngine engine = new CheckersEngine(/*vsDevice*/ true);
+		engine = new CheckersEngine(/*vsDevice*/ true);
 		engine.newGame();
 		engine.switchPlayer();
 	}
@@ -33,8 +33,6 @@ public class DeviceMovableSquaresTest {
 	}
 
 	@Test public void locateDeviceMoveSquareIds() {
-		Assert.assertTrue(engine.locateDeviceMovableSquareIds());
-		Assert.assertEquals(engine.getDeviceSelectionSize(),4);
 	}
 
 	@Test public void simpleDummyBoard() {
