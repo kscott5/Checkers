@@ -35,6 +35,7 @@ public class BoardGridView extends GridView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
+		int index = event.getActionIndex();		
 		switch(event.getActionMasked()) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:

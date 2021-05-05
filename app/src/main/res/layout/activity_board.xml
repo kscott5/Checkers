@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".BoardActivity" >
 
-    <karega.scott.checkers.ui.BoardGridView
+	<karega.scott.checkers.ui.BoardGridView
         android:id="@+id/boardGame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
