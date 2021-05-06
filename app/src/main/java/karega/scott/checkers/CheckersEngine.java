@@ -53,7 +53,7 @@ public class CheckersEngine  {
 	public static final int EMPTY_CHIP = 1;
 	public static final int PAWN_CHIP = 2;
 		
-	protected final boolean vsDevice;
+	protected boolean vsDevice;
 	
 	protected BoardSquareInfo[][] engineSquares;
 	protected int activePlayerState;
