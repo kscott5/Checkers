@@ -2,6 +2,7 @@ package karega.scott.checkers;
 
 import java.util.Random;
 import java.util.Timer;
+import java.lang.Math;
 
 /**
  * Game engine for checkers
