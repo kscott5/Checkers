@@ -3,6 +3,9 @@ package karega.scott.checkers;
 import java.util.Random;
 import java.util.Timer;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Game engine for checkers
  * 
@@ -15,6 +18,7 @@ import java.util.Timer;
  * Enums often require more than twice as much memory as static constants. 
  * You should strictly avoid using enums on Android.
  */
+@Singleton
 public class CheckersEngine  {
 	// Value in use with android.os.Handler, android.os.Message
 	public static final int INVALIDATE_VIEW_MESSAGE_HANDLER = 1;
@@ -62,6 +66,7 @@ public class CheckersEngine  {
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
 
+	@Inject
 	public CheckersEngine() {
 		this.vsDevice = true;
 		this.activePlayerState = PLAYER1_STATE;
