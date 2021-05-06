@@ -23,6 +23,7 @@ public class CheckersEngineTest {
 		Assert.assertFalse(engine.isDevice());
 
 		engine.setDevicePlay(/*vsDevice*/ true);
+		engine.switchPlayer();
 
 		Assert.assertTrue(engine.isDevice());
 	}
