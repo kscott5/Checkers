@@ -18,27 +18,26 @@ import android.widget.BaseAdapter;
 public class BoardAdapter extends BaseAdapter {
 	public static final String LOG_TAG = "BoardAdapter";
 
-	private CheckersEngine engine; 
 	private Context context;
 
-	public BoardAdapter(Context context, CheckersEngine engine) {
+	public BoardAdapter(Context context) {
 		this.context = context;
-		this.engine = engine;
 	}
 	
 	@Override
 	public int getCount() {
-		return this.engine.getSize();
+		return BoardActivity.gameEngine.getSize();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return this.engine.getData(position);
+		return BoardActivity.gameEngine.getData(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		Log.d(LOG_TAG, "get item id with position-> "+ position);
+		return BoardActivity.gameEngine.getData(position).id;
 	}
 
 	@Override
@@ -50,33 +49,20 @@ public class BoardAdapter extends BaseAdapter {
 			public boolean onTouch(View view, MotionEvent event) {
 				CheckerBoardSquare square = (CheckerBoardSquare)view;
 
-		int id = event.getPointerId(0);
-		int action = event.getActionMasked();
-		int index = event.getActionIndex();
-		int size = event.getHistorySize();
-		float x = event.getX(id), y = event.getY(id);
+				int id = event.getPointerId(0);
+				int action = event.getActionMasked();
+				int index = event.getActionIndex();
+				int size = event.getHistorySize();
+				float x = event.getX(id), y = event.getY(id);
 
-		Log.d(LOG_TAG, "on Touch:          Id->" + id);
-		Log.d(LOG_TAG, "on Touch:       Index->" + index);
-		Log.d(LOG_TAG, "on Touch: HistorySize->" + size);
-		Log.d(LOG_TAG, "on Touch:           X->" + x);
-		Log.d(LOG_TAG, "on Touch:           Y->" + y);
-	
-		
-				switch(event.getActionMasked()) {
-            		case MotionEvent.ACTION_DOWN:
-            		case MotionEvent.ACTION_MOVE:
-						Log.d(LOG_TAG, "Down/Move Square.Id->" + square.info.id);
-						 BoardAdapter.this.engine.updateGameBoard(square.info.id, /*hasMore continue*/ true);
-						 break;
-					
-            		case MotionEvent.ACTION_UP:
-            		case MotionEvent.ACTION_CANCEL:
-					default:						
-//						Log.d(LOG_TAG, "Up/Cancel Square.Id->" + square.info.id);
-//						BoardAdapter.this.engine.updateGameBoard(square.info.id,/*hasMore continue*/ false);
-						break;
-        		}
+				Log.d(LOG_TAG, "on Touch:          Id->" + id);
+				Log.d(LOG_TAG, "on Touch:       Index->" + index);
+				Log.d(LOG_TAG, "on Touch: HistorySize->" + size);
+				Log.d(LOG_TAG, "on Touch:           X->" + x);
+				Log.d(LOG_TAG, "on Touch:           Y->" + y);
+				Log.d(LOG_TAG, "On Touch:      height->" + view.getWidth());	
+				Log.d(LOG_TAG, "On Touch:       width->" + view.getWidth());	
+				Log.d(LOG_TAG, "On Touch:       action->" + event.actionToString(action));	
 
 				return true;
 			}
@@ -87,9 +73,9 @@ public class BoardAdapter extends BaseAdapter {
 
 	public CheckerBoardSquare getViewFromConvertView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null || !(convertView instanceof CheckerBoardSquare)) {
-			BoardSquareInfo info = (BoardSquareInfo)this.engine.getData(position);
+			BoardSquareInfo info = (BoardSquareInfo)BoardActivity.gameEngine.getData(position);
 
-			return CheckerBoardSquare.instance(this.context, this.engine, parent, info);
+			return CheckerBoardSquare.instance(this.context, parent, info);
 		}
 		
 		return (CheckerBoardSquare) convertView;	

@@ -27,7 +27,8 @@ import android.widget.GridView;
 public class BoardActivity extends Activity implements Callback {
 	private static final String LOG_TAG = "BoardActivity";
 	
-	private CheckersEngine gameEngine;
+	// @Inject and singleton are the same.
+	public static CheckersEngine gameEngine = new CheckersEngine();
 
 	private Handler handler;
 	private Timer deviceTimer;
@@ -85,7 +86,6 @@ public class BoardActivity extends Activity implements Callback {
 		Intent intent = this.getIntent();
 		boolean vsDevice = intent.getBooleanExtra(CheckersEngine.VS_DEVICE, true);
 	
-		gameEngine = new CheckersEngine(vsDevice);
 		gameEngine.newGame();
 		
 		if(vsDevice) {
@@ -97,7 +97,7 @@ public class BoardActivity extends Activity implements Callback {
 
 
 		gameBoard = (BoardGridView) this.findViewById(R.id.boardGame);		
-		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext(), gameEngine));		
+		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext()));		
 
 		// TODO: Get width of parent to resize buttons or configure .xml file
 		int width = gameBoard.getWidth();

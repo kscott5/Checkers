@@ -32,7 +32,6 @@ public class BoardGridView extends GridView {
 		super(context,attrs,defStyleAttr,defStyleRes);
 	}
 
-/*
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
 		int id = event.getPointerId(0);
@@ -46,23 +45,35 @@ public class BoardGridView extends GridView {
 		Log.d(LOG_TAG, "on Intercept Touch: HistorySize->" + size);
 		Log.d(LOG_TAG, "on Intercept Touch:           X->" + x);
 		Log.d(LOG_TAG, "on Intercept Touch:           Y->" + y);
+		Log.d(LOG_TAG, "On Intercept Touch:      height->" + this.getWidth());	
+		Log.d(LOG_TAG, "On Intercept Touch:       width->" + this.getWidth());	
+		Log.d(LOG_TAG, "On Intercept Touch:      action->" + event.actionToString(action));	
+
+
 	
+		BoardAdapter adapter = (BoardAdapter)this.getAdapter();
 
 		switch(action) {
 			case MotionEvent.ACTION_DOWN:
-			case MotionEvent.ACTION_MOVE:
-				Log.d(LOG_TAG, "Down/Move");
-				event.setAction(MotionEvent.ACTION_MOVE);
+				Log.d(LOG_TAG, "Down");
 				break;
+
+			case MotionEvent.ACTION_MOVE:
+				Log.d(LOG_TAG, "Move");
+				break;
+
 			case MotionEvent.ACTION_UP:
+				Log.d(LOG_TAG, "Up");
+				break;
+
 			case MotionEvent.ACTION_CANCEL:
 			default:
-				Log.d(LOG_TAG, "Up/Cancel");
-				event.setAction(MotionEvent.ACTION_UP);
+				Log.d(LOG_TAG, "Cancel");
+				break;
 		}
 
+		event.setAction(MotionEvent.ACTION_OUTSIDE);
 		return super.onInterceptTouchEvent(event);
 	}
-	*/
 }
 
