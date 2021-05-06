@@ -62,6 +62,8 @@ public class SaveSelectionIdTest {
 		
 		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
+		
+		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 	}
 
@@ -76,6 +78,8 @@ public class SaveSelectionIdTest {
 		
 		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
+		
+		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 		Assert.assertFalse(engine.saveSelection(19)); // Wrong. Previous EMPTY_STATE
 	}
@@ -93,6 +97,8 @@ public class SaveSelectionIdTest {
 		
 		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
+		
+		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 		Assert.assertFalse(engine.saveSelection(21)); // Wrong. Capture PLAYER2_STATE
 	}
@@ -116,6 +122,8 @@ public class SaveSelectionIdTest {
 		Assert.assertFalse(engine.saveSelection(36)); // Wrong. Capture LOCKED_STATE
 		Assert.assertFalse(engine.saveSelection(43)); // Wrong. Capture LOCKED_STATE
 		Assert.assertFalse(engine.saveSelection(44)); // Wrong. Direction EMPTY_STATE
+		
+		Assert.assertTrue(engine.saveSelection(35)); // First.
 		Assert.assertTrue(engine.saveSelection(28)); // Good.
 	}
 
@@ -132,6 +140,8 @@ public class SaveSelectionIdTest {
 		
 		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertFalse(engine.saveSelection(26)); // Wrong. Capture PLAYER1_STATE
+
+		Assert.assertTrue(engine.saveSelection(35));  // First.
 		Assert.assertTrue(engine.saveSelection(28));  // Good. Capture EMPTY_STATE
 		Assert.assertFalse(engine.saveSelection(21)); // Wrong. Capture PLAYER2_STATE
 		Assert.assertFalse(engine.saveSelection(14)); // Wrong. Capture EMPTY_STATE
