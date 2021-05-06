@@ -240,6 +240,18 @@ public class CheckersEngine  {
 		this.activePlayerIsKing = false;
 	} // end switchPlayer
 
+	/**
+	 * Gets the square with this data
+	 * @param x axis float point value
+	 * @param y axis float point value
+	 * @param width system generated value of @link BoardSquareInfo
+	 */
+	public BoardSquareInfo getData(float x, float y, float width) {
+		int row = Math.floor(x/width);
+		int col = Math.floor(y/width);
+
+		return this.getData(row,col);
+	}
 
 	/**
 	 * Gets the square at these coordinates.
