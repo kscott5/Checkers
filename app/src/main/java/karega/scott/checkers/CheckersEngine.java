@@ -62,8 +62,8 @@ public class CheckersEngine  {
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
 
-	public CheckersEngine(boolean vsDevice) {
-		this.vsDevice = vsDevice;
+	public CheckersEngine() {
+		this.vsDevice = true;
 		this.activePlayerState = PLAYER1_STATE;
 		this.activePlayerIsKing = false;
 
@@ -71,6 +71,175 @@ public class CheckersEngine  {
 		this.deviceSelectionIndex = -1;
 		this.initialBoardSquares();
 	}
+
+	public CheckersEngine(boolean vsDevice) {
+		this();
+		this.vsDevice = vsDevice;
+	}
+
+	/*
+	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
+	 */
+	public void initialBoardSquares() {
+		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
+
+        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
+            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+				int id = this.generateSquareId(row,col);				
+	
+				int state = this.generateSquareState(row,col);
+				int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
+						
+           	   	this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
+           }
+        }
+
+		// Defines relationship between empty and player squares only, not locked squares.
+		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
+			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+				BoardSquareInfo parent = this.engineSquares[row][col];
+
+				parent.backwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ false);
+				parent.forwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ true);
+			}
+		}
+	
+	} // end initialBoardSquares
+
+	public void setBoardSquaresEmpty() {
+        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
+            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
+				BoardSquareInfo square = this.getData(row,col);
+
+				if(square.state != LOCKED_STATE) {
+					square.chip = EMPTY_CHIP;
+					square.state = EMPTY_STATE;
+				}
+            }
+        }
+	} // setBoardSquaresEmpty
+
+	public int generateSquareId(int row, int col) {
+		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
+		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
+
+		final int multiplier = 8;
+		return ((multiplier*row)+col);
+	}
+
+	public int generateSquareState(int row, int col) {
+	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
+        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
+
+		// 32 squares or 50% with square state of
+		if((row%2 == 0 && col%2 == 0) || 
+			(row%2 != 0 && col%2 != 0)) return LOCKED_STATE;
+
+		// 12 squares with square state of
+		if((row>=0 && row <=2) && (
+			(row%2 == 0 && col%2 != 0) ||
+			(row%2 != 0 && col%2 == 0))) return PLAYER2_STATE;
+
+		// 12 squares with square state of
+		if((row >=5 && row <=7) && (
+			(row%2 == 0 && col%2 != 0) ||
+			(row%2 != 0 && col%2 == 0))) return PLAYER1_STATE;
+
+		// 8 squares with square state of
+		return EMPTY_STATE;
+	}
+
+	public BoardSquareSiblings generateSquareSiblings(int id, boolean forward) {
+		BoardSquareInfo parent = this.getData(id);
+		if(parent.id != id) return new BoardSquareSiblings(-1,-1);
+
+		final int multiplier = (forward)? +1:-1;
+		
+		int[] siblingIds = new int[2];
+		siblingIds[0] = 7; siblingIds[1] = 9;
+
+		for(int index=0; index<2; index++) {
+			BoardSquareInfo sibling = this.getData( parent.id + (multiplier * siblingIds[index]) );
+
+			// Update or change the array value with correct information
+			siblingIds[index] = (sibling == null || sibling.row == parent.row || sibling.row == parent.row+2)? -1 : sibling.id;
+		}
+
+		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
+	}
+
+	/**
+	 * Is the square empty at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isEmpty(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == EMPTY_STATE) return true;
+
+		return false;
+	} // end isEmpty
+
+	/**
+	 * Is the square locked at this coordinates on the board
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public boolean isLocked(int row, int col) {
+		if(row < 0 || row >= ROWS) return false;
+		if(col < 0 || col >= COLUMNS) return false;
+
+		BoardSquareInfo info = this.engineSquares[row][col];
+		if (info.state == LOCKED_STATE) return true;
+
+		return false;
+	}
+
+	/**
+	 * Is player 1 moving square
+	 * @return
+	 */
+	public boolean isPlayer1() {
+		return (this.activePlayerState == PLAYER1_STATE);
+	} // end isPlayer1
+
+	/**
+	 * Is player 2 moving square
+	 * @return
+	 */
+	public boolean isPlayer2() {
+		return (this.activePlayerState == PLAYER2_STATE);
+	} // end isPlayer2
+	
+	/**
+	 * Returns true if the device is move square
+	 * @return
+	 */
+	public boolean isDevice() {
+		return (this.isPlayer2() && vsDevice);
+	} // end isDevice
+	
+	/*
+	 * Allows the other player to take turn
+	 */
+	public void switchPlayer() {
+		this.selectionIndex = -1;
+		this.selectionIds = new int[10];
+
+		this.deviceSelectionIndex = -1;
+		this.deviceSelectionIds = new int[10];
+
+		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
+		this.activePlayerIsKing = false;
+	} // end switchPlayer
+
 
 	/**
 	 * Gets the square at these coordinates.
@@ -113,11 +282,18 @@ public class CheckersEngine  {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
 
+	/*
+	 * Updates the engine device play mode
+	 */
+	public void setDevicePlay(boolean vsDevice) {
+		this.vsDevice = vsDevice;
+	}
+
 	public boolean updateGameBoard(int id, boolean hasMore) {
 		if(!this.saveSelection(id) /*was bad*/) return false;
 		if(hasMore /*save selections*/) return true;
 
-		return updateGameBoard();
+		return this.updateGameBoard();
 	}
 
 	/**
@@ -219,19 +395,19 @@ public class CheckersEngine  {
 
 		// Previous select square
 		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
-		if(psSquare == null) return false;
+		if(psSquare == null) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// Never allow active player capture own board item
-		if(square.state == this.activePlayerState) return false;
+		if(square.state == this.activePlayerState) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// Never allow two or more of the same type of square
-	   	if(psSquare.state == square.state) return false;
+	   	if(psSquare.state == square.state) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// Never allow empty space then opposite player capture item
-		if(psSquare.state == EMPTY_STATE && square.state != this.activePlayerState) return false;
+		if(psSquare.state == EMPTY_STATE && square.state != this.activePlayerState) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// Never allow capture item in different heading
-		if(selectionDirectionWrong(id)) return false;
+		if(this.selectionDirectionWrong(id)) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// save the selection square id only
 		selectionIds[selectionIndex++] = square.id;
@@ -240,6 +416,16 @@ public class CheckersEngine  {
 			square.activate();
 
 		return true; // selection square id saved.
+	}
+
+	public void saveSelectionReset() {
+		for(int index=0; index<this.selectionIndex; index++) {
+			BoardSquareInfo square = this.getData(this.selectionIds[index]);
+			square.deactivate();
+		}
+
+		this.selectionIndex = -1;
+		this.selectionIds = new int[10];
 	}
 
 	public boolean selectionDirectionWrong(int id) {
@@ -264,108 +450,6 @@ public class CheckersEngine  {
 		return true; // Wrong.
 	}
 
-	/**
-	 * Is the square empty at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public boolean isEmpty(int row, int col) {
-		if(row < 0 || row >= ROWS) return false;
-		if(col < 0 || col >= COLUMNS) return false;
-
-		BoardSquareInfo info = this.engineSquares[row][col];
-		if (info.state == EMPTY_STATE) return true;
-
-		return false;
-	} // end isEmpty
-
-	/**
-	 * Is the square locked at this coordinates on the board
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public boolean isLocked(int row, int col) {
-		if(row < 0 || row >= ROWS) return false;
-		if(col < 0 || col >= COLUMNS) return false;
-
-		BoardSquareInfo info = this.engineSquares[row][col];
-		if (info.state == LOCKED_STATE) return true;
-
-		return false;
-	}
-
-	/**
-	 * Is player 1 moving square
-	 * @return
-	 */
-	public boolean isPlayer1() {
-		return (this.activePlayerState == PLAYER1_STATE);
-	} // end isPlayer1
-
-	/**
-	 * Is player 2 moving square
-	 * @return
-	 */
-	public boolean isPlayer2() {
-		return (this.activePlayerState == PLAYER2_STATE);
-	} // end isPlayer2
-	
-	/**
-	 * Returns true if the device is move square
-	 * @return
-	 */
-	public boolean isDevice() {
-		return (this.isPlayer2() && vsDevice);
-	} // end isDevice
-	
-	/*
-	 * Allows the other player to take turn
-	 */
-	public void switchPlayer() {
-		this.selectionIndex = -1;
-		this.selectionIds = new int[10];
-
-		this.deviceSelectionIndex = -1;
-		this.deviceSelectionIds = new int[10];
-
-		this.activePlayerState = (this.activePlayerState == PLAYER2_STATE) ? PLAYER1_STATE : PLAYER2_STATE;		
-		this.activePlayerIsKing = false;
-	} // end switchPlayer
-
-	public int generateSquareId(int row, int col) {
-		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
-		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
-
-		final int multiplier = 8;
-		return ((multiplier*row)+col);
-	}
-
-	public int generateSquareState(int row, int col) {
-	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
-        if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
-
-		// 32 squares or 50% with square state of
-		if((row%2 == 0 && col%2 == 0) || 
-			(row%2 != 0 && col%2 != 0)) return LOCKED_STATE;
-
-		// 12 squares with square state of
-		if((row>=0 && row <=2) && (
-			(row%2 == 0 && col%2 != 0) ||
-			(row%2 != 0 && col%2 == 0))) return PLAYER2_STATE;
-
-		// 12 squares with square state of
-		if((row >=5 && row <=7) && (
-			(row%2 == 0 && col%2 != 0) ||
-			(row%2 != 0 && col%2 == 0))) return PLAYER1_STATE;
-
-		// 8 squares with square state of
-		return EMPTY_STATE;
-	}
-
 	public boolean updateSquareState(int id, int newState) {
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.state == LOCKED_STATE) return false;
@@ -388,38 +472,6 @@ public class CheckersEngine  {
 		square.deactivate();
 
 		return true;
-	}
-
-	public void setBoardSquaresEmpty() {
-        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
-            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
-				BoardSquareInfo square = this.getData(row,col);
-
-				if(square.state != LOCKED_STATE) {
-					square.chip = EMPTY_CHIP;
-					square.state = EMPTY_STATE;
-				}
-            }
-        }
-	} // setBoardSquaresEmpty
-
-	public BoardSquareSiblings generateSquareSiblings(int id, boolean forward) {
-		BoardSquareInfo parent = this.getData(id);
-		if(parent.id != id) return new BoardSquareSiblings(-1,-1);
-
-		final int multiplier = (forward)? +1:-1;
-		
-		int[] siblingIds = new int[2];
-		siblingIds[0] = 7; siblingIds[1] = 9;
-
-		for(int index=0; index<2; index++) {
-			BoardSquareInfo sibling = this.getData( parent.id + (multiplier * siblingIds[index]) );
-
-			// Update or change the array value with correct information
-			siblingIds[index] = (sibling == null || sibling.row == parent.row || sibling.row == parent.row+2)? -1 : sibling.id;
-		}
-
-		return new BoardSquareSiblings(/*left*/ siblingIds[0], /*right*/ siblingIds[1]);
 	}
 
 	private int[] deviceSelectionIds;
@@ -501,33 +553,4 @@ public class CheckersEngine  {
 
 		return (this.deviceSelectionIndex > 0); // true else false.
 	} // end locationDeviceMovableSquareIds
-
-	/*
-	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
-	 */
-	public void initialBoardSquares() {
-		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
-
-        for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
-            for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
-				int id = this.generateSquareId(row,col);				
-	
-				int state = this.generateSquareState(row,col);
-				int chip = (state == PLAYER1_STATE || state == PLAYER2_STATE)? PAWN_CHIP: EMPTY_CHIP;
-						
-           	   	this.engineSquares[row][col] = new BoardSquareInfo(id,row,col,state,chip);
-           }
-        }
-
-		// Defines relationship between empty and player squares only, not locked squares.
-		for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {
-			for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
-				BoardSquareInfo parent = this.engineSquares[row][col];
-
-				parent.backwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ false);
-				parent.forwardSiblings = this.generateSquareSiblings(parent.id, /*forward*/ true);
-			}
-		}
-	
-	} // end initialBoardSquares
 } // end CheckersEngine
