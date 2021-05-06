@@ -35,10 +35,10 @@ public class BoardGridView extends GridView {
 		super(context,attrs,defStyleAttr,defStyleRes);
 	}
 
-	int row = -1, column = -1, viewWidth = 38;
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
 		int action = event.getActionMasked();
+		int id = event.getPointerId(0);
 		float x = event.getX(id), y = event.getY(id);
 
 		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,this.getColumnWidth());
