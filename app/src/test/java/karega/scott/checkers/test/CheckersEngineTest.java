@@ -19,6 +19,14 @@ public class CheckersEngineTest {
 	@After public void after() {
 	}
 
+	@Test public void setDevicePlay() {
+		Assert.assertFalse(engine.isDevice());
+
+		engine.setDevicePlay(/*vsDevice*/ true);
+
+		Assert.assertTrue(engine.isDevice());
+	}
+
 	@Test public void isLocked() {
 		Assert.assertTrue(engine.isLocked(0,0));
 		Assert.assertFalse(engine.isLocked(3,0));
