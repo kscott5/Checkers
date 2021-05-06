@@ -37,21 +37,29 @@ public class BoardGridView extends GridView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
+		int historySize = event.getHistorySize();
+
 		int action = event.getActionMasked();
 		int id = event.getPointerId(0);
 		float x = event.getX(id), y = event.getY(id);
-
-		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,this.getColumnWidth());
-		Log.d(LOG_TAG, "On Intercept Touch [" + event.actionToString(action) + "] square->" + square);
+		int width = this.getColumnWidth();
+		boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+	
+		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,width);
+		Log.d(LOG_TAG, "On Intercept Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
 		
 		if(action == MotionEvent.ACTION_CANCEL) {
 			BoardActivity.gameEngine.saveSelectionReset();
-		} else {
-			boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+		} else { 
 			BoardActivity.gameEngine.updateGameBoard(square.id, hasMore);
 		}
 
 		return super.onInterceptTouchEvent(event);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		return true;
 	}
 }
 
