@@ -43,31 +43,6 @@ public class BoardAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {				
 		CheckerBoardSquare view = getViewFromConvertView(position, convertView, parent);
-		view.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
-				CheckerBoardSquare square = (CheckerBoardSquare)view;
-
-				int id = event.getPointerId(0);
-				int action = event.getActionMasked();
-				int index = event.getActionIndex();
-				int size = event.getHistorySize();
-				float x = event.getX(id), y = event.getY(id);
-
-				Log.d(LOG_TAG, "on Touch:          Id->" + id);
-				Log.d(LOG_TAG, "on Touch:       Index->" + index);
-				Log.d(LOG_TAG, "on Touch: HistorySize->" + size);
-				Log.d(LOG_TAG, "on Touch:           X->" + x);
-				Log.d(LOG_TAG, "on Touch:           Y->" + y);
-				Log.d(LOG_TAG, "On Touch:      height->" + view.getWidth());	
-				Log.d(LOG_TAG, "On Touch:       width->" + view.getWidth());	
-				Log.d(LOG_TAG, "On Touch:       action->" + event.actionToString(action));	
-
-				return true;
-			}
-		});
-		
 		return (View)view;
 	}
 
