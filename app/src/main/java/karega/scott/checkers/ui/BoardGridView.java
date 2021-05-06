@@ -37,6 +37,11 @@ public class BoardGridView extends GridView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
+		return true;
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
 		int historySize = event.getHistorySize();
 
 		int action = event.getActionMasked();
@@ -54,12 +59,7 @@ public class BoardGridView extends GridView {
 			BoardActivity.gameEngine.updateGameBoard(square.id, hasMore);
 		}
 
-		return super.onInterceptTouchEvent(event);
-	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		return true;
+		return false;
 	}
 }
 
