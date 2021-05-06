@@ -3,6 +3,8 @@ package karega.scott.checkers.ui;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.R;
 
+import java.lang.Math;
+
 import android.util.Log;
 import android.util.AttributeSet;
 
@@ -32,6 +34,7 @@ public class BoardGridView extends GridView {
 		super(context,attrs,defStyleAttr,defStyleRes);
 	}
 
+	int row = -1, column = -1, viewWidth = 38;
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
 		int id = event.getPointerId(0);
@@ -49,21 +52,34 @@ public class BoardGridView extends GridView {
 		Log.d(LOG_TAG, "On Intercept Touch:       width->" + this.getWidth());	
 		Log.d(LOG_TAG, "On Intercept Touch:      action->" + event.actionToString(action));	
 
-
-	
+		int viewWidth = 38; // Must use width from CheckerBoardSquare View
+		int tmpx = (int)Math.floor(y/viewWidth); // Sequence, order, of events
+		int tmpy = (int)Math.floor(x/viewWidth); // are important
+			
 		BoardAdapter adapter = (BoardAdapter)this.getAdapter();
 
 		switch(action) {
 			case MotionEvent.ACTION_DOWN:
-				Log.d(LOG_TAG, "Down");
+				if(row == -1 && column == -1) {
+					row = tmpx; column = tmpy;
+					Log.d(LOG_TAG, "Down->" + BoardActivity.gameEngine.getData(row,column));
+				}
 				break;
 
 			case MotionEvent.ACTION_MOVE:
-				Log.d(LOG_TAG, "Move");
+				if(tmpx != row && tmpy != column) {
+					row = tmpx; column = tmpy;
+					Log.d(LOG_TAG, "Move->"+ BoardActivity.gameEngine.getData(row,column));
+				}
 				break;
 
 			case MotionEvent.ACTION_UP:
-				Log.d(LOG_TAG, "Up");
+				if(tmpx != row && tmpy != column) {
+					row = tmpx; column = tmpy;
+					Log.d(LOG_TAG, "Up->" +  BoardActivity.gameEngine.getData(row,column));
+				}
+
+				row = -1; column = -1;
 				break;
 
 			case MotionEvent.ACTION_CANCEL:
