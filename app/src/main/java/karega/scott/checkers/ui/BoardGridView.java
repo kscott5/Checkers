@@ -1,6 +1,7 @@
 package karega.scott.checkers.ui;
 
 import karega.scott.checkers.CheckersEngine;
+import karega.scott.checkers.BoardSquareInfo;
 import karega.scott.checkers.R;
 
 import java.lang.Math;
@@ -62,21 +63,27 @@ public class BoardGridView extends GridView {
 			case MotionEvent.ACTION_DOWN:
 				if(row == -1 && column == -1) {
 					row = tmpx; column = tmpy;
-					Log.d(LOG_TAG, "Down->" + BoardActivity.gameEngine.getData(row,column));
+					BoardSquareInfo square = BoardActivity.gameEngine.getData(row,column);
+					Log.d(LOG_TAG, "Down->" + square);
+					BoardActivity.gameEngine.updateGameBoard(square.id, /*hasMore*/ true);
 				}
 				break;
 
 			case MotionEvent.ACTION_MOVE:
 				if(tmpx != row && tmpy != column) {
 					row = tmpx; column = tmpy;
-					Log.d(LOG_TAG, "Move->"+ BoardActivity.gameEngine.getData(row,column));
+					BoardSquareInfo square = BoardActivity.gameEngine.getData(row,column);
+					Log.d(LOG_TAG, "Move->" + square);
+					BoardActivity.gameEngine.updateGameBoard(square.id, /*hasMore*/ true);
 				}
 				break;
 
 			case MotionEvent.ACTION_UP:
 				if(tmpx != row && tmpy != column) {
 					row = tmpx; column = tmpy;
-					Log.d(LOG_TAG, "Up->" +  BoardActivity.gameEngine.getData(row,column));
+					BoardSquareInfo square = BoardActivity.gameEngine.getData(row,column);
+					Log.d(LOG_TAG, "Up->" + square);
+					BoardActivity.gameEngine.updateGameBoard(square.id, /*hasMore*/ false);
 				}
 
 				row = -1; column = -1;
@@ -84,6 +91,7 @@ public class BoardGridView extends GridView {
 
 			case MotionEvent.ACTION_CANCEL:
 			default:
+				row = -1; column = -1;
 				Log.d(LOG_TAG, "Cancel");
 				break;
 		}
