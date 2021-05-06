@@ -378,7 +378,7 @@ public class CheckersEngine  {
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return false;
 
-		if(selectionIndex == -1 /* then initialize selection list first. */) {
+		if(selectionIndex <= 0 /* then initialize selection list first. */) {
 		   	if(this.activePlayerState != square.state || square.state == EMPTY_STATE) return false;
 			
 			this.activePlayerIsKing = square.isKing;
@@ -386,15 +386,21 @@ public class CheckersEngine  {
 			if(!this.isDevice()/*its not*/)
 				square.activate();
 
-			selectionIndex = 0;
-			selectionIds = new int[10];
-			selectionIds[selectionIndex++] = square.id;
+			// Clear the previous first selection preview
+			if(this.selectionIndex == 0) { 
+				BoardSquareInfo preview = this.getData(this.selectionIds[this.selectionIndex]);
+				preview.deactivate();
+			}
+
+			this.selectionIndex = 0;
+			this.selectionIds = new int[10];
+			this.selectionIds[this.selectionIndex++] = square.id;
 
 			return true; // selection square id saved
 		}
 
 		// Previous select square
-		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
+		BoardSquareInfo psSquare = this.getData(this.selectionIds[this.selectionIndex-1]);
 		if(psSquare == null) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// Never allow active player capture own board item
@@ -410,7 +416,7 @@ public class CheckersEngine  {
 		if(this.selectionDirectionWrong(id)) { /*then*/ this.saveSelectionReset(); /*and*/ return false; }
 
 		// save the selection square id only
-		selectionIds[selectionIndex++] = square.id;
+		this.selectionIds[this.selectionIndex++] = square.id;
 
 		if(!this.isDevice()/*its not*/)
 			square.activate();
@@ -477,8 +483,11 @@ public class CheckersEngine  {
 	private int[] deviceSelectionIds;
 	private int deviceSelectionIndex;
    	
-	public int getDeviceSelectionSize() {
-		return this.deviceSelectionIndex;
+	/*
+	 * Gets the path size of the active player selections
+	 */
+	public int getSelectionSize() {
+		return this.selectionIndex; // selection index will always hold the best path of this.activePlayerState
 	}
 
 	/*

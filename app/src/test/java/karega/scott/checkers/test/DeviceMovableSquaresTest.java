@@ -29,7 +29,8 @@ public class DeviceMovableSquaresTest {
 	}
 
 	@Test public void getDeviceSelectionSize() {
-		Assert.assertEquals(engine.getDeviceSelectionSize(), -1);
+		Assert.assertTrue(engine.isDevice());
+		Assert.assertEquals(engine.getSelectionSize(), -1);
 	}
 
 	@Test public void locateDeviceMoveSquareIds() {

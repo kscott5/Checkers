@@ -32,11 +32,23 @@ public class BoardGridView extends GridView {
 		super(context,attrs,defStyleAttr,defStyleRes);
 	}
 
-
+/*
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
-		int index = event.getActionIndex();		
-		switch(event.getActionMasked()) {
+		int id = event.getPointerId(0);
+		int action = event.getActionMasked();
+		int index = event.getActionIndex();
+		int size = event.getHistorySize();
+		float x = event.getX(id), y = event.getY(id);
+
+		Log.d(LOG_TAG, "on Intercept Touch:          Id->" + id);
+		Log.d(LOG_TAG, "on Intercept Touch:       Index->" + index);
+		Log.d(LOG_TAG, "on Intercept Touch: HistorySize->" + size);
+		Log.d(LOG_TAG, "on Intercept Touch:           X->" + x);
+		Log.d(LOG_TAG, "on Intercept Touch:           Y->" + y);
+	
+
+		switch(action) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 				Log.d(LOG_TAG, "Down/Move");
@@ -51,5 +63,6 @@ public class BoardGridView extends GridView {
 
 		return super.onInterceptTouchEvent(event);
 	}
+	*/
 }
 

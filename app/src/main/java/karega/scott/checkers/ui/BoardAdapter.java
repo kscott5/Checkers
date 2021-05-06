@@ -50,19 +50,35 @@ public class BoardAdapter extends BaseAdapter {
 			public boolean onTouch(View view, MotionEvent event) {
 				CheckerBoardSquare square = (CheckerBoardSquare)view;
 
-			
+		int id = event.getPointerId(0);
+		int action = event.getActionMasked();
+		int index = event.getActionIndex();
+		int size = event.getHistorySize();
+		float x = event.getX(id), y = event.getY(id);
+
+		Log.d(LOG_TAG, "on Touch:          Id->" + id);
+		Log.d(LOG_TAG, "on Touch:       Index->" + index);
+		Log.d(LOG_TAG, "on Touch: HistorySize->" + size);
+		Log.d(LOG_TAG, "on Touch:           X->" + x);
+		Log.d(LOG_TAG, "on Touch:           Y->" + y);
+	
+		
 				switch(event.getActionMasked()) {
             		case MotionEvent.ACTION_DOWN:
             		case MotionEvent.ACTION_MOVE:
 						Log.d(LOG_TAG, "Down/Move Square.Id->" + square.info.id);
-						return BoardAdapter.this.engine.updateGameBoard(square.info.id, /*hasMore continue*/ true);
+						 BoardAdapter.this.engine.updateGameBoard(square.info.id, /*hasMore continue*/ true);
+						 break;
 					
             		case MotionEvent.ACTION_UP:
             		case MotionEvent.ACTION_CANCEL:
 					default:						
-						Log.d(LOG_TAG, "Up/Cancel Square.Id->" + square.info.id);
-						return BoardAdapter.this.engine.updateGameBoard(square.info.id,/*hasMore continue*/ false);
+//						Log.d(LOG_TAG, "Up/Cancel Square.Id->" + square.info.id);
+//						BoardAdapter.this.engine.updateGameBoard(square.info.id,/*hasMore continue*/ false);
+						break;
         		}
+
+				return true;
 			}
 		});
 		
