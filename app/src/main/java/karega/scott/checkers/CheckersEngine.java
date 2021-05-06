@@ -248,8 +248,8 @@ public class CheckersEngine  {
 	 * @param width system generated value of @link BoardSquareInfo
 	 */
 	public BoardSquareInfo getData(float x, float y, float width) {
-		int row = Math.floor(x/width);
-		int col = Math.floor(y/width);
+		int row = (int)Math.floor(x/width);
+		int col = (int)Math.floor(y/width);
 
 		return this.getData(row,col);
 	}
