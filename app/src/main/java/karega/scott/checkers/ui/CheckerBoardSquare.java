@@ -15,11 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import android.util.Log;
+
 /*
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
 @SuppressLint("NewApi")
 public class CheckerBoardSquare extends View {	
+	public static final String LOG_TAG = "CheckerBoardSquare";
 	public BoardSquareInfo info;
 
 	private Paint playerPaint;
@@ -29,20 +32,17 @@ public class CheckerBoardSquare extends View {
 	private Paint fillPaint;
 	private Paint borderPaint;
 	
-	 public final CheckersEngine engine;
-	
-	public CheckerBoardSquare(Context context, CheckersEngine engine, BoardSquareInfo info) {
+	public CheckerBoardSquare(Context context, BoardSquareInfo info) {
 		super(context);
 
 		this.fillPaint = new Paint();
 		this.borderPaint = new Paint();
 		
-		this.engine = engine;
-		
 		// Inner classes use {Class}.this notation. CheckerBoardSquare.this
 		info.setOnChangeListener( new OnChangeListener() {
 			@Override
 			public void onSquareInformationChange() {
+				Log.d(LOG_TAG, "onSquareInfortionChange" + CheckerBoardSquare.this.info);
 				// Swipe between square tiles on touch
 				// screen causes the a refresh with 
 				// different details.
@@ -65,14 +65,14 @@ public class CheckerBoardSquare extends View {
 	 * @param context
 	 * @return @CheckerBoardSquare
 	 */
-	public static CheckerBoardSquare instance(Context context, CheckersEngine engine, ViewGroup parent, BoardSquareInfo square) {
+	public static CheckerBoardSquare instance(Context context,  ViewGroup parent, BoardSquareInfo square) {
 		if( !(parent instanceof GridView))
 			return null;
 		
 		GridView grid = (GridView)parent;
 		int width= grid.getColumnWidth(); // Added Lint.xml to resolve NewApi issue. Should remove
 
-		CheckerBoardSquare view = new CheckerBoardSquare(context, engine, square);
+		CheckerBoardSquare view = new CheckerBoardSquare(context, square);
 		view.setLayoutParams( new GridView.LayoutParams(width, width));
 
 		return view;
