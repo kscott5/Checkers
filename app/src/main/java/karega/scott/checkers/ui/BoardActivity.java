@@ -28,14 +28,12 @@ import android.widget.GridView;
 public class BoardActivity extends Activity implements Callback {
 	private static final String LOG_TAG = "BoardActivity";
 	
-	public class EngineLog implements Logger {
+	// @Inject and singleton are the same.
+	public static CheckersEngine gameEngine = new CheckersEngine(new Logger() {
 		public void it(int type, String tag, String message) {
 			Log.d(tag,message);
 		}
-	}
-
-	// @Inject and singleton are the same.
-	public static CheckersEngine gameEngine = new CheckersEngine();
+	});
 
 	private Handler handler;
 	private Timer deviceTimer;
@@ -93,7 +91,6 @@ public class BoardActivity extends Activity implements Callback {
 		Intent intent = this.getIntent();
 		boolean vsDevice = intent.getBooleanExtra(CheckersEngine.VS_DEVICE, true);
 	
-		gameEngine.Log = new EngineLog();
 		gameEngine.newGame();
 		
 		if(vsDevice) {
