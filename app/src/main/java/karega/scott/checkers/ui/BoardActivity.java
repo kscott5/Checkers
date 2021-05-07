@@ -1,5 +1,6 @@
 package karega.scott.checkers.ui;
 
+import karega.scott.checkers.Logger;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.DeviceTask;
 import karega.scott.checkers.R;
@@ -27,6 +28,12 @@ import android.widget.GridView;
 public class BoardActivity extends Activity implements Callback {
 	private static final String LOG_TAG = "BoardActivity";
 	
+	public class EngineLog implements Logger {
+		public void it(int type, String tag, String message) {
+			Log.d(tag,message);
+		}
+	}
+
 	// @Inject and singleton are the same.
 	public static CheckersEngine gameEngine = new CheckersEngine();
 
@@ -86,6 +93,7 @@ public class BoardActivity extends Activity implements Callback {
 		Intent intent = this.getIntent();
 		boolean vsDevice = intent.getBooleanExtra(CheckersEngine.VS_DEVICE, true);
 	
+		gameEngine.Log = new EngineLog();
 		gameEngine.newGame();
 		
 		if(vsDevice) {

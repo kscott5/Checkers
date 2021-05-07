@@ -55,13 +55,19 @@ public class CheckersEngine  {
 	public static final int PAWN_CHIP = 2;
 		
 	protected boolean vsDevice;
-	
+	public Logger Log;
+
 	protected BoardSquareInfo[][] engineSquares;
 	protected int activePlayerState;
 	protected boolean activePlayerIsKing;
 
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
+
+	public class Log implements Logger {
+		public void it(int type, String tag, String message){
+		}
+	}
 
 	public CheckersEngine() {
 		this.vsDevice = true;
@@ -71,6 +77,7 @@ public class CheckersEngine  {
 		this.selectionIndex = -1;
 		this.deviceSelectionIndex = -1;
 		this.initialBoardSquares();
+		this.Log = new Log();
 	}
 
 	public CheckersEngine(boolean vsDevice) {
@@ -303,6 +310,8 @@ public class CheckersEngine  {
 	}
 
 	public boolean updateGameBoard(int id, boolean hasMore) {
+		this.Log.it(0,LOG_TAG, "Update game board. Square.id-> " + id + " has more: " + hasMore);
+
 		if(!this.saveSelection(id) /*was bad*/) return false;
 		if(hasMore /*save selections*/) return true;
 
