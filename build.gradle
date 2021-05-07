@@ -2,10 +2,9 @@
 buildscript {
     repositories {
         google()
-	mavenCentral()
+		mavenCentral()
     }
     dependencies {
-		classpath 'com.google.dagger:hilt-android-gradle-plugin:2.35.1'
         classpath 'com.android.tools.build:gradle:4.1.0'
     }
 }
@@ -13,6 +12,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-	mavenCentral()
+		mavenCentral()
     }
 }
