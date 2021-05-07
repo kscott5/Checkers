@@ -64,11 +64,6 @@ public class CheckersEngine  {
 	private final int CHECKERS_ENGINE_ROWS = 8;
 	private final int CHECKERS_ENGINE_COLUMNS = 8;
 
-	public class Log implements Logger {
-		public void it(int type, String tag, String message){
-		}
-	}
-
 	public CheckersEngine() {
 		this.vsDevice = true;
 		this.activePlayerState = PLAYER1_STATE;
@@ -77,7 +72,11 @@ public class CheckersEngine  {
 		this.selectionIndex = -1;
 		this.deviceSelectionIndex = -1;
 		this.initialBoardSquares();
-		this.log = new Log();
+
+		this.log = new Logger() {
+			public void it(int type, String tag, String message){
+			}
+		};
 	}
 
 	public CheckersEngine(boolean vsDevice) {
