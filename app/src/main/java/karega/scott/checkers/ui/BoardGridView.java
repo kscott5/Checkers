@@ -37,6 +37,26 @@ public class BoardGridView extends GridView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
+		int historySize = event.getHistorySize();
+
+		int action = event.getActionMasked();
+		int id = event.getPointerId(0);
+		float x = event.getX(id), y = event.getY(id);
+		int width = this.getColumnWidth();
+		boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+	
+		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,width);
+		Log.d(LOG_TAG, "On Intercept Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
+
+		// If onInterceptTouchEvent() returns true, the MotionEvent is intercepted, 
+		// meaning it is not passed on to the child, but rather to the 
+		// onTouchEvent() method of the parent...
+
+		// onInterceptTouchEvent() can also return false and simply spy on events 
+		// as they travel down the view hierarchy to their usual targets, which 
+		// will handle the events with their own onTouchEvent()....
+		//
+		// https://bit.ly/3b9TIt6
 		return true;
 	}
 
@@ -51,7 +71,7 @@ public class BoardGridView extends GridView {
 		boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
 	
 		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,width);
-		Log.d(LOG_TAG, "On Intercept Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
+		Log.d(LOG_TAG, "On Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
 		
 		if(action == MotionEvent.ACTION_CANCEL) {
 			BoardActivity.gameEngine.saveSelectionReset();
@@ -59,7 +79,7 @@ public class BoardGridView extends GridView {
 			BoardActivity.gameEngine.updateGameBoard(square.id, hasMore);
 		}
 
-		return false;
+		return true;
 	}
 }
 

@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import android.view.View;
+import android.view.MotionEvent;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
@@ -21,7 +23,7 @@ import android.util.Log;
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
 @SuppressLint("NewApi")
-public class CheckerBoardSquare extends View {	
+public class CheckerBoardSquare extends View implements OnTouchListener {	
 	public static final String LOG_TAG = "CheckerBoardSquare";
 	public BoardSquareInfo info;
 
@@ -42,7 +44,7 @@ public class CheckerBoardSquare extends View {
 		info.setOnChangeListener( new OnChangeListener() {
 			@Override
 			public void onSquareInformationChange() {
-				Log.d(LOG_TAG, "onSquareInfortionChange" + CheckerBoardSquare.this.info);
+				Log.d(LOG_TAG, "Square changed" + CheckerBoardSquare.this.info);
 				// Swipe between square tiles on touch
 				// screen causes the a refresh with 
 				// different details.
@@ -58,6 +60,21 @@ public class CheckerBoardSquare extends View {
 		this.activePlayerPaint = new Paint();
 
 		this.invalidate();
+	}
+
+	public boolean onTouch(View view, MotionEvent event) {
+		int historySize = event.getHistorySize();
+
+		int action = event.getActionMasked();
+		int id = event.getPointerId(0);
+		float x = event.getX(id), y = event.getY(id);
+		int width = this.getWidth();
+		boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+	
+		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,width);
+		Log.d(LOG_TAG, "On Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
+
+		return false;
 	}
 
 	/**
