@@ -80,16 +80,21 @@ public class CheckersEngine  {
 		this.log = new Log();
 	}
 
-	public CheckersEngine(Logger log) {
-		this();
-		this.log = log;
-	}
-
 	public CheckersEngine(boolean vsDevice) {
 		this();
 		this.vsDevice = vsDevice;
 	}
 
+	public CheckersEngine(Logger log) {
+		this();
+		this.log = log;
+	}
+	
+	public CheckersEngine(boolean vsDevice, Logger log) {			
+		this(vsDevice);
+		this.log = log;
+	}
+	
 	/*
 	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
 	 */

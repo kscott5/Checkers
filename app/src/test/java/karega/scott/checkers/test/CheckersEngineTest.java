@@ -1,5 +1,6 @@
 package karega.scott.checkers.test;
 
+import karega.scott.checkers.Logger;
 import karega.scott.checkers.CheckersEngine;
 import karega.scott.checkers.BoardSquareInfo;
 
@@ -10,10 +11,18 @@ import org.junit.Before;
 import org.junit.After;
 
 public class CheckersEngineTest {
+	String LOG_TAG = "CheckersEngine";
+
 	CheckersEngine engine;
 
 	@Before public void before() {
-		engine = new CheckersEngine(/*vsDevice*/ false);
+		engine = new CheckersEngine(/*vsDevice*/ false, new Logger() {
+			public void it(int type, String tag, String message) {
+				Assert.assertEquals(0,type);
+				Assert.assertEquals(LOG_TAG,tag);
+				Assert.assertNotNull(message);
+			}
+		});
 	}
 
 	@After public void after() {
