@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'dagger.hilt.android.plugin'
 
 project.ext.set("emulatorName", "androidDevice4.2")
 
@@ -45,9 +44,6 @@ android {
 }
 
 dependencies {
-	implementation 'com.google.dagger:hilt-android:2.35.1'
-	annotationProcessor 'com.google.dagger:hilt-compiler:2.35.1'
-
     implementation 'androidx.activity:activity:1.2.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.9.0'
