@@ -589,16 +589,19 @@ public class CheckersEngine  {
 		BoardSquareInfo square = this.getData(row,col);
 		if(square.state == LOCKED_STATE) return false;
 
-		switch(square.state) { // verify state is good integer value
-			case EMPTY_CHIP, PAWN_CHIP, PLAYER2_STATE, PLAYER1_STATE:
-				break; // and continue next line with good state value
+		switch(square.state) { // verify the value of state is
+			case EMPTY_CHIP:     // good integer
+			case PAWN_CHIP:      // good integer
+			case PLAYER2_STATE:  // good integer
+			case PLAYER1_STATE:  // good integer
+				break; // and continue next line with good new state value
 
 			default:
 				this.log.it(LOG_TYPE_ERROR, LOG_TAG, newState + " not valid with updateSquareState.");
 				return false;
 		}
 
-		// and continue next line with good state value
+		// and continue next line with good new state value
 		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
 
