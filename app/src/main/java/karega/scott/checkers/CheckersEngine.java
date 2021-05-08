@@ -57,7 +57,7 @@ public class CheckersEngine  {
 	protected boolean vsDevice;
 
 	public static final int LOG_TYPE_DEBUG = 0;
-	public static final int LOG_TYPE_EROR = 1;
+	public static final int LOG_TYPE_ERROR = 1;
 	public static final int LOG_TYPE_INFO = 2;
 	public static final int LOG_TYPE_VERBOSE = 4;
 
@@ -366,7 +366,7 @@ public class CheckersEngine  {
 	 * @return the success flag from changes made on the game board engine.
 	 */
 	public boolean updateGameBoard(int id, boolean hasMore) {
-		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "Update game board. Square.id-> " + id + " has more: " + hasMore);
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "Update game board. Square.id-> " + /*append*/ id + /*append*/ " has more: " + /*append*/ hasMore/* to this string.*/) ;
 
 		if(!this.saveSelection(id) /*was bad*/) return false;
 		if(hasMore /*save selections*/) return true;
@@ -587,21 +587,19 @@ public class CheckersEngine  {
 		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
 
 		BoardSquareInfo square = this.getData(row,col);
-		if(square.state == LOCKED_STATE) return false;
-
 		switch(square.state) { // verify the value of state is
-			case EMPTY_CHIP:     // good integer
-			case PAWN_CHIP:      // good integer
-			case PLAYER2_STATE:  // good integer
 			case PLAYER1_STATE:  // good integer
-				break; // and continue next line with good new state value
+			case PLAYER2_STATE:  // good integer
+			case EMPTY_STATE:    // good integer
+				break; // and continue next line with new state value
 
+			case LOCKED_STATE:
 			default:
-				this.log.it(LOG_TYPE_ERROR, LOG_TAG, newState + " not valid with updateSquareState.");
+				this.log.it(LOG_TYPE_ERROR, LOG_TAG, "square.id->" + square.id + " state[" + square.state + "] not valid with updateSquareState.");
 				return false;
 		}
 
-		// and continue next line with good new state value
+		// and continue next line with new state value
 		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
 
