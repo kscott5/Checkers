@@ -55,7 +55,13 @@ public class CheckersEngine  {
 	public static final int PAWN_CHIP = 2;
 		
 	protected boolean vsDevice;
-	protected Logger log;
+
+	public static final int LOG_TYPE_DEBUG = 0;
+	public static final int LOG_TYPE_EROR = 1;
+	public static final int LOG_TYPE_INFO = 2;
+	public static final int LOG_TYPE_VERBOSE = 4;
+
+	public Logger log;
 
 	protected BoardSquareInfo[][] engineSquares;
 	protected int activePlayerState;
@@ -94,8 +100,8 @@ public class CheckersEngine  {
 		this.log = log;
 	}
 	
-	/*
-	 * Creates the checkers board layout with locked and available squares [empty, player1, player2]
+	/**
+	 * Creates the checkers board layout with LOCKED_STATE, EMPTY_STATE, PLAYER1_STATE and PLAYER2_STATE squares.
 	 */
 	public void initialBoardSquares() {
 		this.engineSquares = new BoardSquareInfo[CHECKERS_ENGINE_ROWS][CHECKERS_ENGINE_COLUMNS];
@@ -123,6 +129,10 @@ public class CheckersEngine  {
 	
 	} // end initialBoardSquares
 
+	/**
+	 * Changes or converts all PLAYER1_STATE and PLAYER2_STATE squares are EMPTY_STATE.
+	 * This helps with verification of checkers board rules.
+	 */
 	public void setBoardSquaresEmpty() {
         for(int row=0; row<CHECKERS_ENGINE_ROWS; row++) {	
             for(int col=0; col<CHECKERS_ENGINE_COLUMNS; col++) {
@@ -136,6 +146,14 @@ public class CheckersEngine  {
         }
 	} // setBoardSquaresEmpty
 
+	/**
+	 * Creates a unique and prepared square identifier or number.
+	 * 
+	 * @param row of square location on game board.
+	 * @param col column of square location on game board.
+	 *
+	 * @return the square numeric identifier
+	 */
 	public int generateSquareId(int row, int col) {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
 		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
@@ -144,6 +162,14 @@ public class CheckersEngine  {
 		return ((multiplier*row)+col);
 	}
 
+	/**
+	 * Creates or sets the square start skin color or type.
+	 * 
+	 * @param row of square location on game board.
+	 * @param col column of square location on game board.
+	 *
+	 * @return a value of LOCKED_STATE, PLAYER2_STATE, PLAYER1_STATE or EMPTY_STATE
+	 */
 	public int generateSquareState(int row, int col) {
 	 	if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return -1;
         if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return -1;
@@ -166,6 +192,14 @@ public class CheckersEngine  {
 		return EMPTY_STATE;
 	}
 
+	/**
+	 * Creates or sets the relationships between a square possible siblings.
+	 * 
+	 * @param id of the square that needs possible sibling squares.
+	 * @param forward direction of possible sibling square locations
+	 *
+	 * @return possible sibling board squares
+	 */
 	public BoardSquareSiblings generateSquareSiblings(int id, boolean forward) {
 		BoardSquareInfo parent = this.getData(id);
 		if(parent.id != id) return new BoardSquareSiblings(-1,-1);
@@ -188,9 +222,10 @@ public class CheckersEngine  {
 	/**
 	 * Is the square empty at this coordinates on the board
 	 * 
-	 * @param row
-	 * @param col
-	 * @return
+	 * @param row of square location on game board.
+	 * @param col column of square location on game board.
+	 *
+	 * @return true if empty else false.
 	 */
 	public boolean isEmpty(int row, int col) {
 		if(row < 0 || row >= ROWS) return false;
@@ -205,9 +240,10 @@ public class CheckersEngine  {
 	/**
 	 * Is the square locked at this coordinates on the board
 	 * 
-	 * @param row
-	 * @param col
-	 * @return
+	 * @param row of square location on game board.
+	 * @param col column of square location on game board.
+	 *
+	 * @return true if a lock is on this square else false.
 	 */
 	public boolean isLocked(int row, int col) {
 		if(row < 0 || row >= ROWS) return false;
@@ -220,30 +256,30 @@ public class CheckersEngine  {
 	}
 
 	/**
-	 * Is player 1 moving square
-	 * @return
+	 * Is active player 1 the holder of this device?
+ 	 * @returns true if active player1 else false.
 	 */
 	public boolean isPlayer1() {
 		return (this.activePlayerState == PLAYER1_STATE);
 	} // end isPlayer1
 
 	/**
-	 * Is player 2 moving square
-	 * @return
+	 * Is active player 2 the holder or remote device?
+ 	 * @returns true if active player2  else false.
 	 */
 	public boolean isPlayer2() {
 		return (this.activePlayerState == PLAYER2_STATE);
 	} // end isPlayer2
 	
 	/**
-	 * Returns true if the device is move square
-	 * @return
+	 * Is active player this device?
+	 * @returns true if active player is this device, else false.
 	 */
 	public boolean isDevice() {
 		return (this.isPlayer2() && vsDevice);
 	} // end isDevice
 	
-	/*
+	/**
 	 * Allows the other player to take turn
 	 */
 	public void switchPlayer() {
@@ -262,6 +298,8 @@ public class CheckersEngine  {
 	 * @param x axis float point value
 	 * @param y axis float point value
 	 * @param width system generated value of @link BoardSquareInfo
+	 *
+	 * @return square information or null if not found.
 	 */
 	public BoardSquareInfo getData(float x, float y, float width) {
 		int row = (int)Math.floor(x/width);
@@ -273,9 +311,10 @@ public class CheckersEngine  {
 	/**
 	 * Gets the square at these coordinates.
 	 * 
-	 * @param row
-	 * @param col
-	 * @return Square information or null for LOCKED_STATE
+	 * @param row of square location on game board.
+	 * @param col column of square location on game board.
+	 *
+	 * @return Square information or null if not found.
 	 */
 	public BoardSquareInfo getData(int row, int col) {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return null;
@@ -304,22 +343,30 @@ public class CheckersEngine  {
 	} // end getData
 
 	/**
-	 * Returns the size of the game engine board. Must call newGame() to load board first.
-	 * @return
+	 * The size of the game engine board. Must call newGame() to load board first.
+	 *
+	 * @return the total size of game engine board.
 	 */
 	public int getSize() {
 		return this.engineSquares.length*this.engineSquares[0].length;
 	} // end getSize
 
-	/*
-	 * Updates the engine device play mode
+	/**
+	 * Updates or changes the engine device play mode.
+	 *
+	 * @param vsDevice flag
 	 */
 	public void setDevicePlay(boolean vsDevice) {
 		this.vsDevice = vsDevice;
 	}
 
+	/**
+	 * Updates the game board with active player selection and switch player.
+	 *
+	 * @return the success flag from changes made on the game board engine.
+	 */
 	public boolean updateGameBoard(int id, boolean hasMore) {
-		this.log.it(0,LOG_TAG, "Update game board. Square.id-> " + id + " has more: " + hasMore);
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "Update game board. Square.id-> " + id + " has more: " + hasMore);
 
 		if(!this.saveSelection(id) /*was bad*/) return false;
 		if(hasMore /*save selections*/) return true;
@@ -328,8 +375,9 @@ public class CheckersEngine  {
 	}
 
 	/**
-	 * Updates the game board with active player selection and switch player 
-	 * @param square
+	 * Updates the game board with active player selection and switch player.
+	 *
+	 * @return the success flag from changes made on the game board engine.
 	 */
 	public boolean updateGameBoard() {
 		// NOTE: 
@@ -381,6 +429,9 @@ public class CheckersEngine  {
 	public void exitGame() {
 	} // end exitGame
 	
+	/**
+	 * Begins or starts a new game of play
+	 */
 	public void newGame() {
 		this.activePlayerState = PLAYER1_STATE;
 		this.activePlayerIsKing = false;
@@ -401,11 +452,15 @@ public class CheckersEngine  {
 	private int[] selectionIds;
 	private int selectionIndex;
 
-	/*
-	 * Save the id of the @link BoardSquareInfo
+	/**
+	 * Save the id of the active player selection path on the game engine board.
 	 *
+	 * @param id used that identifies the square on the game engine board.
+	 * @return the success flag from changes made on the game board engine.
 	 */
 	public boolean saveSelection(int id) {
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "save selection id->" + id);
+
 		BoardSquareInfo square = this.getData(id);
 		if(square == null || square.id != id || square.state == LOCKED_STATE) return false;
 
@@ -427,6 +482,7 @@ public class CheckersEngine  {
 			this.selectionIds = new int[10];
 			this.selectionIds[this.selectionIndex++] = square.id;
 
+			this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "save selection firs id->"+id);
 			return true; // selection square id saved
 		}
 
@@ -452,10 +508,15 @@ public class CheckersEngine  {
 		if(!this.isDevice()/*its not*/)
 			square.activate();
 
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "save selection " + this.selectionIndex + " id->"+id);
 		return true; // selection square id saved.
 	}
 
+	/**
+	 * Clears or resets the active players selection path
+	 */
 	public void saveSelectionReset() {
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "save selection reset. Path with " + this.selectionIndex + " ids gone.");
 		for(int index=0; index<this.selectionIndex; index++) {
 			BoardSquareInfo square = this.getData(this.selectionIds[index]);
 			square.deactivate();
@@ -465,9 +526,18 @@ public class CheckersEngine  {
 		this.selectionIds = new int[10];
 	}
 
+	/**
+	 * Determines if the active player selection square is part of a good path.
+	 *
+	 * @param id a square unique engine board identifier or number.
+	 * @return the success flag of path.
+	 */
 	public boolean selectionDirectionWrong(int id) {
 		BoardSquareInfo square = this.getData(id);
-		if(square == null || square.id != id || square.state == LOCKED_STATE) return true;
+		if(square == null || square.id != id || square.state == LOCKED_STATE) {
+		   this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "selection direction id->"+ id + " wrong.");
+		   return true;
+		}
 
 		// Previous select square
 		BoardSquareInfo psSquare = this.getData(selectionIds[selectionIndex-1]);
@@ -483,23 +553,44 @@ public class CheckersEngine  {
 			if(psSquare.forwardSiblings.leftId == square.id || 
 					psSquare.forwardSiblings.rightId == square.id) return false; // Not wrong.
 		}
-
+	   	
+		this.log.it(LOG_TYPE_DEBUG, LOG_TAG, "selection direction id->"+ id + " wrong.");
 		return true; // Wrong.
 	}
 
+	/**
+	 * Gives the square a different visible skin color and type.
+	 *
+	 * @param id square unique badge identifier.
+	 * @param newState color or skin type seen on the board.
+	 *
+	 * @return success of square updates or chagnes.
+	 */
 	public boolean updateSquareState(int id, int newState) {
 		BoardSquareInfo square = this.getData(id);
-		if(square == null || square.state == LOCKED_STATE) return false;
+		if(square == null || /*or*/ square.state == LOCKED_STATE) return false;
 
 		return this.updateSquareState(square.row,square.column,newState);
 	}
 
+	/**
+	 * Gives the square a different visible skin color and type.
+	 *
+	 * @param row identifier of square on this engine board.
+	 * @param col column identifier of square on this engine board.
+	 * @param newState color or skin type seen on the board.
+	 *
+	 * @return success of square updates or changes.
+	 */
 	public boolean updateSquareState(int row, int col, int newState) {
 		if(row < 0 || row >= CHECKERS_ENGINE_ROWS) return false;
 		if(col < 0 || col >= CHECKERS_ENGINE_COLUMNS) return false;
 
 		BoardSquareInfo square = this.getData(row,col);
 		if(square.state == LOCKED_STATE) return false;
+
+		// Not available square states
+		if(square.state != /*not*/ EMPTY_CHIP ||/*or*/ square.state != PAWN_CHIP) return false;
 
 		square.chip = (newState == EMPTY_STATE)? EMPTY_CHIP: PAWN_CHIP;
 		square.state = newState;
@@ -514,17 +605,21 @@ public class CheckersEngine  {
 	private int[] deviceSelectionIds;
 	private int deviceSelectionIndex;
    	
-	/*
-	 * Gets the path size of the active player selections
+	/**
+	 * Gets the path size of the active player selections.
+	 *
+	 * @returns the total number of squares found on selection path.
 	 */
 	public int getSelectionSize() {
 		return this.selectionIndex; // selection index will always hold the best path of this.activePlayerState
 	}
 
-	/*
+	/**
 	 * Locate best possible device movable path on the board. This
 	 * function uses 'recursion', a process where the method calls
 	 * the same method within.
+	 *
+	 * @return success of best possible device selection path.
 	 */
 	public boolean locateDeviceBestPossiblePath(BoardSquareInfo start, boolean forward) {
 		// Keep it simple today, and look at forward sibling squares only.
@@ -555,9 +650,11 @@ public class CheckersEngine  {
 		this.updateGameBoard();
 	}
 
-	/*
+	/**
 	 * Locate and create a list of squares the device
 	 * should use with initial play.
+	 *
+	 * @return success of finding a device selection path.
 	 */
 	public boolean locateDeviceMovableSquareIds() {
 		if(/*not*/ !this.vsDevice) return false;
