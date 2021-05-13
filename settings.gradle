@@ -1,2 +1,2 @@
 rootProject.name = 'Checkers'
-include ':app', ':lib'
+include ':app', ':engine'

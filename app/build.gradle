@@ -6,11 +6,6 @@ android {
     compileSdkVersion 29
     buildToolsVersion "30.0.2"
 
-	compileOptions {
-    	sourceCompatibility JavaVersion.VERSION_1_8
-    	targetCompatibility JavaVersion.VERSION_1_8
-  	}
-
     defaultConfig {
         applicationId "karega.scott.checkers"
         minSdkVersion 25
@@ -44,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation project(':engine')
+
     implementation 'androidx.activity:activity:1.2.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.9.0'
