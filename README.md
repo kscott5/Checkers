@@ -2,6 +2,13 @@ Checkers [![Build Status](https://travis-ci.org/kscott5/Checkers.svg?branch=mast
 ========
 
 First Mobile appl written using Android and Eclipse.
+The app has undergone many changes. More specifically, seperation of UI, Egnine and Unit Test. There are
+additional changes I that could be made. For instance, The engine creates a multiple diminsional array with
+64 BoardSquareInfo object. The BoardGridView creates a data adapter with 64 CheckerBoardSquare View. The primary
+purpose of the CheckerBoardSquare is drawing the data from the BoardSquareInfo. This is a good area of the 
+application for an additional changes where the BoarGridView extends ViewGroup not GridView, and @overrides
+the onDraw methods found in CheckersBoardSquare. What this allows is is reduction in the total number of object
+instaniated and managed within the JVM. The one concern with approach is rendering and refresh rate on the UI.
 
 -Activity Management (App Lifecycle)  
 -Device Resolution  
