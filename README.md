@@ -10,6 +10,13 @@ application for an additional changes where the BoarGridView extends ViewGroup n
 the onDraw methods found in CheckersBoardSquare. What this allows is is reduction in the total number of object
 instaniated and managed within the JVM. The one concern with approach is rendering and refresh rate on the UI.
 
+Note: A mobile app and desktop application are similar. Each function on a physical device not container or browser
+tab. This is an important distiction because a mobile app is one-to-one relationship between the device and the 
+person holding the device where a web application is design with a one-to-many relationship between a service 
+provider and consumers who use the website.
+
+This distinction does not exclude security and performance optimization if and where its needed.
+
 -Activity Management (App Lifecycle)  
 -Device Resolution  
 -MultiThreading UI (process on different/seperate thread)  
