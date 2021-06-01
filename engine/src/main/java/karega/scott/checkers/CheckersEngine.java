@@ -29,8 +29,8 @@ public class CheckersEngine  {
 	
 	public static final int TOP_ROW = 0;
 	public static final int BOTTOM_ROW = 7;
-	protected static final int ROWS = 8;
-	protected static final int COLUMNS = 8;
+	public static final int ROWS = 8;
+	public static final int COLUMNS = 8;
 	
 	public static final int SQUARE_HEIGHT = 30;
 	public static final int SQUARE_WIDTH = 30;
