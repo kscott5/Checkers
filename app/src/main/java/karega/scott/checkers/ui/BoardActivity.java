@@ -99,7 +99,7 @@ public class BoardActivity extends Activity implements Callback {
 		}
 
 		// TODO: Get width of parent to resize buttons or configure .xml file
-		int width = this.getWidth();
+		int width = 300; //this.getWidth();
 		
 		exitGame = (Button) this.findViewById(R.id.exitGame);
 		exitGame.setWidth(width/2);
