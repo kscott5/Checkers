@@ -66,24 +66,24 @@ public class CheckerBoardView extends View implements OnTouchListener {
 		int startX = 0;
 		int startY = 0;
 
-		final float width = this.getWidth()/BoardActivity.gameEngine.ROWS;
-		final float height = this.getHeight()/BoardActivity.gameEngine.COLUMNS;
+		final float minWidth = this.getWidth()/BoardActivity.gameEngine.ROWS;
+		final float minHeight = this.getHeight()/BoardActivity.gameEngine.COLUMNS;
 
 		for(int row=0; row<CheckersEngine.ROWS; row++) {
 			for(int col=0; col<CheckersEngine.COLUMNS; col++) {
 				BoardSquareInfo info = BoardActivity.gameEngine.getData(row,col);
 
-				canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), fillPaint);
-				canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), borderPaint);
+				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, fillPaint);
+				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, borderPaint);
 
 				switch(info.state) {
 					case CheckersEngine.PLAYER1_STATE:
 					case CheckersEngine.PLAYER2_STATE:
-						canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
-						canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
+						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, playerPaint);
+						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, activePlayerPaint);	// Highlight
 				
 						if(info.isKing) {
-							canvas.drawText("K",this.getWidth()/2, this.getHeight()/2, kingPaint);
+							canvas.drawText("K",minWidth/2, minHeight/2, kingPaint);
 						}
 				
 						break;
