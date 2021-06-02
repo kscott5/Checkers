@@ -69,20 +69,31 @@ public class CheckerBoardView extends View implements OnTouchListener {
 		final float minWidth = this.getWidth()/BoardActivity.gameEngine.ROWS;
 		final float minHeight = this.getHeight()/BoardActivity.gameEngine.COLUMNS;
 
+		this.fillPaint = new Paint();
+		this.borderPaint = new Paint();
+
+		this.kingPaint = new Paint();
+		this.kingPaint.setColor(Color.WHITE);
+
+		this.playerPaint = new Paint();
+		this.activePlayerPaint = new Paint();
+
 		for(int row=0; row<CheckersEngine.ROWS; row++) {
 			for(int col=0; col<CheckersEngine.COLUMNS; col++) {
-				BoardSquareInfo info = BoardActivity.gameEngine.getData(row,col);
+				BoardSquareInfo square = BoardActivity.gameEngine.getData(row,col);
 
-				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, fillPaint);
-				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, borderPaint);
+				this.updateCanvasDrawingTools(square);
 
-				switch(info.state) {
+				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, this.fillPaint);
+				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, this.borderPaint);
+
+				switch(square.state) {
 					case CheckersEngine.PLAYER1_STATE:
 					case CheckersEngine.PLAYER2_STATE:
-						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, playerPaint);
-						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, activePlayerPaint);	// Highlight
+						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, this.playerPaint);
+						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, this.activePlayerPaint);	// Highlight
 				
-						if(info.isKing) {
+						if(square.isKing) {
 							canvas.drawText("K",minWidth/2, minHeight/2, kingPaint);
 						}
 				
@@ -96,5 +107,55 @@ public class CheckerBoardView extends View implements OnTouchListener {
 			}
 		}
 	} // end onDraw
+
+	public void updateCanvasDrawingTools(BoardSquareInfo square) {
+		// TODO: Do this once. Remove these values from BoardSquareInfo
+		this.fillPaint.setColor(square.fillColor);
+		this.fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+		this.borderPaint.setColor(square.borderColor);
+		this.borderPaint.setStyle(Paint.Style.STROKE);			
+
+		this.playerPaint.setColor(square.inactiveColor);
+		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
+
+		this.activePlayerPaint.setColor(square.activeColor);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStyle(Paint.Style.STROKE);
+		
+	} // end updateCanvas
 	
+	/**
+	 * Draws this @link BoardSquare @link BoardSquarePieceType
+	 * @param canvas
+	 */
+	public void drawBoardSquarePiece(Canvas canvas, BoardSquareInfo square){
+		switch(square.state) {
+			case CheckersEngine.PLAYER1_STATE:
+			case CheckersEngine.PLAYER2_STATE:
+				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, this.playerPaint);
+				canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, this.activePlayerPaint);	// Highlight
+				
+				if(square.isKing) {
+					canvas.drawText("K",this.getWidth()/2, this.getHeight()/2, kingPaint);
+				}
+				
+				break;
+				
+			case CheckersEngine.LOCKED_STATE:
+			case CheckersEngine.EMPTY_STATE:
+			default:
+				break;
+		}
+	} // end drawBoardSquare
+	
+	protected void updateViewForRedraw(BoardSquareInfo square) {	
+		this.playerPaint.setColor(square.inactiveColor);
+		this.playerPaint.setStyle(Paint.Style.FILL_AND_STROKE);			
+
+		this.activePlayerPaint.setColor(square.activeColor);
+		this.activePlayerPaint.setStrokeWidth(CheckersEngine.SQUARE_CHIP_STROKE_WIDTH);
+		this.activePlayerPaint.setStyle(Paint.Style.STROKE);			
+	} // updateViewForRedraw
+
 }
