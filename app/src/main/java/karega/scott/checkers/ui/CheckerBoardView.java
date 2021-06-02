@@ -44,6 +44,21 @@ public class CheckerBoardView extends View implements OnTouchListener {
 		super(context,attrs,defStyleAttr,defStyleRes);
 	}
 
+	public boolean onTouch(View view, MotionEvent event) {
+		int historySize = event.getHistorySize();
+
+		int action = event.getActionMasked();
+		int id = event.getPointerId(0);
+		float x = event.getX(id), y = event.getY(id);
+		int width = this.getWidth();
+		boolean hasMore = (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE);
+	
+		BoardSquareInfo square = BoardActivity.gameEngine.getData(y,x,width);
+		Log.d(LOG_TAG, "On Touch [" + event.actionToString(action) + ":" + ((hasMore)? "hasmore" : "done") + "] width: "+ width +" square->" + square);
+
+		return false;
+	}
+
 	@Override
 	public final void onDraw(Canvas canvas){
 		super.onDraw(canvas);
