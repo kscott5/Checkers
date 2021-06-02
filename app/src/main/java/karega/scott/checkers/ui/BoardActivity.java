@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.GridView;
 
 /*
  * The activity used to display the checker board.
@@ -78,7 +77,6 @@ public class BoardActivity extends Activity implements Callback {
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
-	private BoardGridView gameBoard;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +97,6 @@ public class BoardActivity extends Activity implements Callback {
 			this.deviceTimer = new Timer();
 			this.deviceTimer.schedule(new DeviceTask(gameEngine), 100, 1000);
 		}
-
-
-		gameBoard = (BoardGridView) this.findViewById(R.id.boardGame);		
-		gameBoard.setAdapter(new BoardAdapter(gameBoard.getContext()));		
 
 		// TODO: Get width of parent to resize buttons or configure .xml file
 		int width = gameBoard.getWidth();
