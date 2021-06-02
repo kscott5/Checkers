@@ -55,19 +55,19 @@ public class CheckerBoardView extends View implements OnTouchListener {
 		final float height = this.getHeight()/BoardActivity.gameEngine.COLUMNS;
 
 		for(int row=0; row<CheckersEngine.ROWS; row++) {
-			for(int col=0; col<CheckersEngine.COLUMN; col++) {
+			for(int col=0; col<CheckersEngine.COLUMNS; col++) {
 				BoardSquareInfo info = BoardActivity.gameEngine.getData(row,col);
 
 				canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), fillPaint);
 				canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), borderPaint);
 
-				switch(this.info.state) {
+				switch(info.state) {
 					case CheckersEngine.PLAYER1_STATE:
 					case CheckersEngine.PLAYER2_STATE:
 						canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, playerPaint);
 						canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, (this.getWidth()/2)-2, activePlayerPaint);	// Highlight
 				
-						if(this.info.isKing) {
+						if(info.isKing) {
 							canvas.drawText("K",this.getWidth()/2, this.getHeight()/2, kingPaint);
 						}
 				
