@@ -19,6 +19,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.graphics.Rect;
 
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -103,8 +106,13 @@ public class BoardActivity extends Activity implements Callback {
 		}
 
 		boardView = (CheckerBoardView) this.findViewById(R.id.boardView);
-		int width = boardView.getWidth();
 	
+		DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+		int width = metrics.widthPixels;
+		int height = metrics.heightPixels;
+
+		Log.d(LOG_TAG, "Checker board view width: " + width + ", height: " + height);
+
 		exitGame = (Button) this.findViewById(R.id.exitGame);
 		exitGame.setWidth(width/2);
 		exitGame.setOnClickListener(new BoardActivity.InternalClickListener(this));
