@@ -21,12 +21,12 @@ import android.view.View.OnTouchListener;
 public class CheckerBoardView extends View implements OnTouchListener {
 	public static final String LOG_TAG = "CheckerBoardView";
 
-	private Paint playerPaint;
-	private Paint activePlayerPaint;
-	private Paint kingPaint;
-	
-	private Paint fillPaint;
-	private Paint borderPaint;
+	private Paint activePlayerPaint = new Paint();
+	private Paint playerPaint = new Paint();
+	private Paint kingPaint = new Paint();
+
+	private Paint fillPaint = new Paint();
+	private Paint borderPaint = new Paint();
 	
 	public CheckerBoardView(Context context) {
 		super(context);
@@ -61,40 +61,32 @@ public class CheckerBoardView extends View implements OnTouchListener {
 
 	@Override
 	public final void onDraw(Canvas canvas){
-		super.onDraw(canvas);
+		super.onDraw(canvas);		
+
+		kingPaint.setColor(Color.WHITE);		
 		
-		int startX = 0;
-		int startY = 0;
+		final float size = 0; //this.getRatioSize();
 
-		final float minWidth = this.getWidth()/BoardActivity.gameEngine.ROWS;
-		final float minHeight = this.getHeight()/BoardActivity.gameEngine.COLUMNS;
-
-		this.fillPaint = new Paint();
-		this.borderPaint = new Paint();
-
-		this.kingPaint = new Paint();
-		this.kingPaint.setColor(Color.WHITE);
-
-		this.playerPaint = new Paint();
-		this.activePlayerPaint = new Paint();
+		// First coordinates 
+		float left=0, top=0, right=left+size, bottom=top+size, centerx=right/2, centery=bottom/2, radius=(right/2)-2 ;
 
 		for(int row=0; row<CheckersEngine.ROWS; row++) {
 			for(int col=0; col<CheckersEngine.COLUMNS; col++) {
 				BoardSquareInfo square = BoardActivity.gameEngine.getData(row,col);
 
-				this.updateCanvasDrawingTools(square);
+//				this.updateCanvasDrawingTools(square);
 
-				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, this.fillPaint);
-				canvas.drawRect(/*left*/ 0, /*top*/ 0, /*right*/ minWidth, /*bottom*/ minHeight, this.borderPaint);
+//				canvas.drawRect(/*xAxis*/ left, /*yAxis*/ top, /*xAxis*/ right, /*yAxis*/ bottom, this.fillPaint);
+//				canvas.drawRect(/*xAxis*/ left, /*yAxis*/ top, /*xAxis*/ right, /*yAxis*/ bottom, this.borderPaint);
 
 				switch(square.state) {
 					case CheckersEngine.PLAYER1_STATE:
 					case CheckersEngine.PLAYER2_STATE:
-						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, this.playerPaint);
-						canvas.drawCircle(minWidth/2, minHeight/2, (minWidth/2)-2, this.activePlayerPaint);	// Highlight
+//						canvas.drawCircle(/*axis*/ centerx, /*axis*/ centery, radius, this.playerPaint);
+//						canvas.drawCircle(/*axis*/ centerx, /*axis*/ centery, radius, this.activePlayerPaint);	// Highlight
 				
 						if(square.isKing) {
-							canvas.drawText("K",minWidth/2, minHeight/2, kingPaint);
+							canvas.drawText("K", centerx, centery, kingPaint);
 						}
 				
 						break;
@@ -103,9 +95,12 @@ public class CheckerBoardView extends View implements OnTouchListener {
 					case CheckersEngine.EMPTY_STATE:
 						default:
 						break;
-				}
-			}
-		}
+				} //end switch
+
+				 left=row*size; top=col*size; right=left+size; bottom=top+size; centerx=right/2; centery=bottom/2; radius=(right/2)-2 ;
+
+			} // end for col
+		} // end for row
 	} // end onDraw
 
 	public void updateCanvasDrawingTools(BoardSquareInfo square) {

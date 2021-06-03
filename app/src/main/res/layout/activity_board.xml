@@ -11,7 +11,7 @@
 		android:minWidth="300px"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
-        android:visibility="gone" >
+        android:visibility="visible" >
         
     </karega.scott.checkers.ui.CheckerBoardView>
 
