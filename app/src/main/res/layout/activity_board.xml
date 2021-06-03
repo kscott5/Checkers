@@ -9,7 +9,8 @@
         android:id="@+id/boardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:minWidth="300px"
+		android:minWidth="300dp"
+		android:minHeight="300dp"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
         android:visibility="visible" >

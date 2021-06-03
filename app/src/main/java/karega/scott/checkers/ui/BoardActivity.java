@@ -21,6 +21,8 @@ import android.graphics.Rect;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import android.util.AttributeSet;
+import android.content.Context;
 
 import android.view.WindowInsets;
 import android.widget.RelativeLayout;
@@ -116,12 +118,16 @@ public class BoardActivity extends Activity implements Callback {
 
 		Log.d(LOG_TAG, "Checker board view display mertics width: " + width + ", height: " + height);
 
+		try {
 		RelativeLayout boardLayout = this.findViewById(R.id.boardLayout);
 		WindowInsets windowInsets = boardLayout.getRootWindowInsets();
 
 		Log.d(LOG_TAG, "Checker board view window stable inset left: " + windowInsets.getStableInsetLeft()  + ", top: " + windowInsets.getStableInsetTop());
 		Log.d(LOG_TAG, "Checker board view system window inset left: " + windowInsets.getSystemWindowInsetLeft()  + ", top: " + windowInsets.getSystemWindowInsetTop());
-
+} catch(Exception e) {
+	Log.e(LOG_TAG, e.getMessage());
+}
+		width = boardView.getWidth();
 		exitGame = (Button) this.findViewById(R.id.exitGame);
 		exitGame.setWidth(width/2);
 		exitGame.setOnClickListener(new BoardActivity.InternalClickListener(this));
