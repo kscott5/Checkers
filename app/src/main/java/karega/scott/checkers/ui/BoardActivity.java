@@ -15,7 +15,10 @@ import android.os.Message;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+
 import android.util.Log;
+import android.graphics.Rect;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -77,7 +80,8 @@ public class BoardActivity extends Activity implements Callback {
 	// TODO: Do I really need these instance variables
 	private Button exitGame;
 	private Button newGame;
-		
+	private CheckerBoardView boardView;
+ 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(LOG_TAG, "On create called");
@@ -98,9 +102,9 @@ public class BoardActivity extends Activity implements Callback {
 			this.deviceTimer.schedule(new DeviceTask(gameEngine), 100, 1000);
 		}
 
-		// TODO: Get width of parent to resize buttons or configure .xml file
-		int width = 300; //this.getWidth();
-		
+		boardView = (CheckerBoardView) this.findViewById(R.id.boardView);
+		int width = boardView.getWidth();
+	
 		exitGame = (Button) this.findViewById(R.id.exitGame);
 		exitGame.setWidth(width/2);
 		exitGame.setOnClickListener(new BoardActivity.InternalClickListener(this));
