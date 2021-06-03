@@ -5,12 +5,13 @@
     tools:context=".BoardActivity" >
 
 	<karega.scott.checkers.ui.CheckerBoardView
-        android:id="@+id/boardGame"
-        android:layout_width="fill_parent"
+        android:id="@+id/boardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+		android:minWidth="300px"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
-        android:visibility="visible" >
+        android:visibility="gone" >
         
     </karega.scott.checkers.ui.CheckerBoardView>
 
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/boardGame"
+        android:layout_below="@+id/boardView"
         android:text="@string/new_game" />
 
     <Button
@@ -29,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/boardGame"
+        android:layout_below="@+id/boardView"
         android:text="@string/exit_game" />
 
 </RelativeLayout>
