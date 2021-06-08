@@ -21,7 +21,8 @@ android {
         }
         debug {
             applicationIdSuffix ".debug"
-        }
+			debuggable true
+		}
     }
 
     // https://developer.android.com/training/testing/set-up-project
