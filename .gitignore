@@ -39,6 +39,7 @@ proguard/
 # Android Studio captures folder
 captures/
 
+debug/
 
 # http://stackoverflow.com/questions/26336709/android-studio-should-the-entire-idea-directory-be-in-git-ignore
 # http://www.jetbrains.com/idea/help/project.html
