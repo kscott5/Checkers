@@ -3,13 +3,14 @@ apply plugin: 'com.android.application'
 project.ext.set("emulatorName", "androidDevice4.2")
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.2"
+    namespace = "karega.scott.checkers"
+    compileSdkVersion 33
+    buildToolsVersion "35.0.0"
 
     defaultConfig {
         applicationId "karega.scott.checkers"
         minSdkVersion 25
-        targetSdkVersion 29
+        targetSdkVersion 33
         testApplicationId "karega.scott.checkers.test"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
