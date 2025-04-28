@@ -1,5 +1,5 @@
 # Archieved
-Checkers [![Build Status](https://travis-ci.org/kscott5/Checkers.svg?branch=master)](https://travis-ci.org/kscott5/Checkers)
+Checkers [![Build Status](https://travis-ci.org/kscott5/Checkers.svg?branch=main)](https://travis-ci.org/kscott5/Checkers)
 ========
 
 First Mobile appl written using Android and Eclipse.
