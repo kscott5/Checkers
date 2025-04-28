@@ -4,7 +4,7 @@ project.ext.set("emulatorName", "androidDevice4.2")
 
 android {
     namespace = "karega.scott.checkers"
-    compileSdkVersion 33
+    compileSdkVersion 35
     buildToolsVersion "35.0.0"
 
     defaultConfig {
@@ -43,19 +43,19 @@ android {
 dependencies {
     implementation project(':engine')
 
-    implementation 'androidx.activity:activity:1.2.1'
+    implementation 'androidx.activity:activity:1.10.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.9.0'
-    testImplementation 'androidx.test:core:1.3.0'
+    testImplementation 'androidx.test:core:1.6.1'
 
     // List all androidx.*  -> https://bit.ly/2Qn519C
     // List androidx.test.* -> https://bit.ly/3uMRasb
-	androidTestImplementation 'androidx.test:core:1.3.0'
-	androidTestImplementation 'androidx.test:runner:1.3.0'
+	androidTestImplementation 'androidx.test:core:1.6.1'
+	androidTestImplementation 'androidx.test:runner:1.6.2'
 
-  	androidTestImplementation 'androidx.test:rules:1.3.0'
-	androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+  	androidTestImplementation 'androidx.test:rules:1.6.1'
+	androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 
-	androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-	androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+	androidTestImplementation 'androidx.test.espresso:espresso-intents:3.6.1'
 }
