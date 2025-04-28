@@ -19,7 +19,7 @@ import android.widget.GridView;
 
 import android.util.Log;
 
-/*
+/**
  * A view used to create squares or checkered look on {@link BoardActivity}. 
  */
 @SuppressLint("NewApi")
