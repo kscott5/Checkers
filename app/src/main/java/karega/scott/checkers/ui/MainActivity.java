@@ -53,17 +53,14 @@ public class MainActivity extends ComponentActivity {
     	
     	@Override
     	public void onClick(View v) {
-    		switch(v.getId()) {
-    			case R.id.startPlayNPass:
-    				startBoardActivity(/*vs device */ false);
-    				break;
-    			case R.id.startPhonePlay:
-    				startBoardActivity(/*vs device */ true);
-    				break;
-    			case R.id.exitGame:
-    				activity.finish();
-    				break;
-    		} //end switch    		
+            int viewId = v.getId();
+    		if(viewId == this.activity.findViewById(R.id.startPlayNPass).getId()) {
+    			startBoardActivity(/*vs device */ false);
+            } else if(viewId == this.activity.findViewById(R.id.startPhonePlay).getId()) {
+    			startBoardActivity(/*vs device */ true);
+            } else if(viewId == this.activity.findViewById(R.id.exitGame).getId()) {
+    			activity.finish();
+    		} //end if-else
     	} //end onClick
     } // end InternalClickListener
 

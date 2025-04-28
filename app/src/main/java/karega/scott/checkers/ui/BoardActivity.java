@@ -163,17 +163,14 @@ public class BoardActivity extends Activity implements Callback {
 		@Override
 		public void onClick(View view) {
 			Log.d(LOG_TAG, "On click");
-			switch(view.getId())
-			{
-				case R.id.newGame:					
-					gameEngine.newGame();
-					break;
-					
-				case R.id.exitGame:
-					gameEngine.exitGame();
-					activity.finish();
-					break;
-			} //end switch
+
+			int viewId = view.getId();
+			if (viewId == this.activity.findViewById(R.id.newGame).getId()) {
+				gameEngine.newGame();
+			} else if(viewId == this.activity.findViewById(R.id.exitGame).getId()) {
+				gameEngine.exitGame();
+				activity.finish();
+			} //end if-else
 		} // end onClick		
 	} // end InternalClickListener
 } // end BoardActivity
