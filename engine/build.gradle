@@ -4,8 +4,12 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(24))
     }
+}
+
+compileJava {
+    options.release = 17
 }
 
 version = '1.2.1'
