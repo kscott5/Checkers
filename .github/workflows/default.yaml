@@ -13,6 +13,7 @@ jobs:
         with:
           java-version: 24
           distribution: 'oracle'
+      - run: env
       - run: mkdir $HOME/android_sdk
       - run: mkdir $HOME/android_sdk/cmdline-tools
       - run: export ANDROID_SDK=$HOME/android_sdk
