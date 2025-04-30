@@ -5,10 +5,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir ./android_sdk && cd ./android_sdk
       - run: wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
       - run: unzip commandlinetools-linux-13114758_latest.zip -d cmdline-tools
-      - run: mv ./cmdline-tools/cmdline-tools ./cmdline-tools/latest && cd ..
-      #- run: echo yes | ./android_sdk/cmdline-tools/latest/bin/sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
-      - run: ls -l
+      - run: rm commandlinetools-linux-13114758_latest.zip
+      - run: echo yes | ./cmdline-tools/latest/bin/sdkmanager --sdk_root=./ 'build-tools;35.0.0' 'platforms;android-35'
+      - run: git clone https://github.com/kscott5/checkers.git 
+      - run: cd ./checkers
       - run: ./gradlew clean build
