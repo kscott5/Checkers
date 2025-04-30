@@ -1,0 +1,25 @@
+name: 'Android: Checkers'
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Java SDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 24
+      - run: mkdir $HOME/android_sdk
+      - run: mkdir $HOME/android_sdk/cmdline-tools
+      - run: export ANDROID_SDK=$HOME/android_sdk
+      - run: export PATH=$PATH:$ANDROID_SDK/cmdline-tools/latest/bin:.
+      - run: wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+      - run: unzip commandlinetools-linux-13114758_latest.zip
+      - run: rm commandlinetools-linux-13114758_latest.zip -rf
+      - run: mv ./commandline-tools ./latest
+      - run: mv ./latest $ANDROID_HOME/cmdline-tools
+      - run: sdkmanager --yes 'build-tools-35.0.0' 'platform;android-33'
+      - run: ./gradlew clean build
