@@ -12,6 +12,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 24
+          distribution: 'oracle'
       - run: mkdir $HOME/android_sdk
       - run: mkdir $HOME/android_sdk/cmdline-tools
       - run: export ANDROID_SDK=$HOME/android_sdk
