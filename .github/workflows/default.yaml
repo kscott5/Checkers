@@ -13,5 +13,5 @@ jobs:
         with:
           java-version: 24
           distribution: 'oracle'
-      - run: sdkmanager --yes 'build-tools-35.0.0' 'platform;android-33'
+      - run: /usr/local/lib/android/sdk/cmdline-tools/latest/sdkmanager --yes 'build-tools-35.0.0' 'platform;android-33'
       - run: ./gradlew clean build
