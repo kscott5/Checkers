@@ -3,15 +3,11 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Java SDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 24
-          distribution: 'oracle'
-      - run: /usr/local/lib/android/sdk/cmdline-tools/latest/sdkmanager --yes 'build-tools-35.0.0' 'platform;android-33'
+      - run: mkdir ./android_sdk && cd ./android_sdk
+      - run: wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
+      - run: unzip commandlinetools-linux-13114758_latest.zip -d cmdline-tools
+      - run: mv ./cmdline-tools/cmdline-tools ./cmdline-tools/latest && cd ..
+      - run: echo yes | ./android_sdk/cmdline-tools/latest/bin/sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
       - run: ./gradlew clean build
