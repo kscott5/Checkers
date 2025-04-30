@@ -9,5 +9,6 @@ jobs:
       - run: wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
       - run: unzip commandlinetools-linux-13114758_latest.zip -d cmdline-tools
       - run: mv ./cmdline-tools/cmdline-tools ./cmdline-tools/latest && cd ..
-      - run: echo yes | ./android_sdk/cmdline-tools/latest/bin/sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
+      #- run: echo yes | ./android_sdk/cmdline-tools/latest/bin/sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
+      - run: ls -l
       - run: ./gradlew clean build
