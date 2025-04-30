@@ -9,5 +9,5 @@ jobs:
       - run: wget https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip
       - run: unzip commandlinetools-linux-13114758_latest.zip
       - run: rm commandlinetools-linux-13114758_latest.zip
-      - run: export ANDROID_HOME=$(pwd) && echo yes | ./cmdline-tools/bin/sdkmanager 'build-tools;35.0.0' 'platforms;android-35'
-      - run: ./gradlew clean build
+      - run: export ANDROID_HOME=$(pwd) && echo yes | ./cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME 'build-tools;35.0.0' 'platforms;android-35'
+      - run: export ANDROID_HOME=$(pwd) && ./gradlew clean build
